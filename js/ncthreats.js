@@ -1,30 +1,39 @@
+/*global google:false  Ext:false GeoExt:false OpenLayers:false*/
+
 var map;
-Ext.onReady(function() {
-	var map_extent = new OpenLayers.Bounds(-9462455, 3963396, -8324634, 4405547);
-	//var map_extent = new OpenLayers.Bounds(-76.652, 36.289, -75.7, 37.08);
-	var proj_4326 = new OpenLayers.Projection('EPSG:4326');
-	var proj_900913 = new OpenLayers.Projection('EPSG:900913');
-	//map_extent = new OpenLayers.Bounds(85, 33, 75, 36);
+var map_extent = new OpenLayers.Bounds(-9462455, 3963396, -8324634, 4405547);
+var proj_4326 = new OpenLayers.Projection('EPSG:4326');
+var proj_900913 = new OpenLayers.Projection('EPSG:900913');
+
+Ext.onReady(function() {"use strict";
 	map = new OpenLayers.Map({
-		//maxExtent: map_extent,
+		displayProjection : new OpenLayers.Projection("EPSG:4326"),
+		maxExtent : map_extent,
 		projection : new OpenLayers.Projection("EPSG:900913"),
-		displayProjection : new OpenLayers.Projection("EPSG:4326")
+		controls : [new OpenLayers.Control.Navigation({
+			zoomWheel : true,
+			mouseWheelOptions : {
+				interval : 100
+			},
+			zoomBoxEnabled : true
+		}), new OpenLayers.Control.PanZoomBar({})]
 	});
-	var ncelev = new OpenLayers.Layer.WMS("NC Elevation", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "NC_Hill_3857_to",
-		format : 'image/png'
-	}, {
-		isBaseLayer : true
-	});
+	//var ncelev = new OpenLayers.Layer.WMS("NC Elevation", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	//layers : "NC_Hill_3857_to",
+	//	format : 'image/png'
+	//}, {
+	//	isBaseLayer : true
+	//});
 
 	var gphy = new OpenLayers.Layer.Google("Google Physical", {
-		type : google.maps.MapTypeId.TERRAIN
-	}, {
-		isBaseLayer : true
+		type : google.maps.MapTypeId.TERRAIN,
+		MAX_ZOOM_LEVEL : 13,
+		MIN_ZOOM_LEVEL : 6,
+		displayInLayerSwitcher : false
 	});
 
 	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc12nc_2",
+		layers : "huc12nc",
 		format : 'image/png',
 		transparent : true
 	}, {
@@ -50,10 +59,50 @@ Ext.onReady(function() {
 		visibility : false
 	});
 
-	var counties = new OpenLayers.Layer.WMS("NC Counties", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "counties",
+	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc2nc",
 		format : 'image/png',
 		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc6nc",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc10nc",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var counties = new OpenLayers.Layer.WMS("NC Counties", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+		layers : "counties",
+		format : 'image/png',
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	}, {
+		isBaseLayer : false,
+		visibility : false,
+		displayInLayerSwitcher : false
+	});
+
+	var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+		layers : "counties_lbl",
+		format : 'image/png',
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -63,6 +112,62 @@ Ext.onReady(function() {
 		layers : "nc_bcr",
 		format : 'image/png',
 		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false,
+		displayInLayerSwitcher : true
+	});
+
+	var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc2nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc4nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc6nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc8nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc10nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc12_lbl = new OpenLayers.Layer.WMS("NC HUC 12 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+		layers : "huc12nc_lbl",
+		format : 'image/png',
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -82,7 +187,7 @@ Ext.onReady(function() {
 		styleMap : styleMap
 	});
 
-	map.addLayers([nchuc4, nchuc8, nchuc12, counties, ncbcr, gphy, highlightLayer]);
+	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer]);
 
 	map.addControl(new OpenLayers.Control.MousePosition());
 
@@ -109,11 +214,11 @@ Ext.onReady(function() {
 			for (var i = 0; i < evt.features.length; i++) {
 
 				//if selected feature is on then remove it
-				if (selected_hucs[evt.features[i].data.huc_12] == 'on') {
+				if (selected_hucs[evt.features[i].data.huc_12] === 'on') {
 					selected_hucs[evt.features[i].data.huc_12] = 'off';
 					var selected_features_drawn = map.getLayersByName("Highlighted Features")[0].features;
 					for (var j = 0; j < selected_features_drawn.length; j++) {
-						if (selected_features_drawn[j].data.huc_12 == evt.features[i].data.huc_12) {
+						if (selected_features_drawn[j].data.huc_12 === evt.features[i].data.huc_12) {
 							map.getLayersByName("Highlighted Features")[0].removeFeatures(selected_features_drawn[j]);
 						}
 					}
@@ -149,7 +254,7 @@ Ext.onReady(function() {
 		tooltip : "previous in history",
 		iconCls : "prev_action"
 	});
-	actions["previous"] = action;
+	actions.previous = action;
 	toolbarItems.push(action);
 
 	action = new GeoExt.Action({
@@ -159,7 +264,7 @@ Ext.onReady(function() {
 		tooltip : "next in history",
 		iconCls : "next_action"
 	});
-	actions["next"] = action;
+	actions.next = action;
 	toolbarItems.push(action);
 
 	var mapPanel = new GeoExt.MapPanel({
@@ -172,17 +277,102 @@ Ext.onReady(function() {
 
 	var layerList = new GeoExt.tree.LayerContainer({
 		layerStore : mapPanel.layers,
-		text : 'layers',
+		text : 'HUC 2',
 		leaf : false,
 		expanded : true,
-		rootVisible : false
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC HUC 2") !== -1
+			}
+		}
+	});
+	var layerList2 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'HUC 4',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC HUC 4") !== -1
+			}
+		}
+	});
+	var layerList3 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'HUC 6',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC HUC 6") !== -1
+			}
+		}
+	});
+	var layerList4 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'HUC 8',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC HUC 8") !== -1
+			}
+		}
+	});
+	var layerList5 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'HUC 10',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC HUC 10") !== -1
+			}
+		}
+	});
+	var layerList6 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'HUC 12',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC HUC 12") !== -1
+			}
+		}
+	});
+	var layerList7 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'NC Counties',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC Counties") !== -1
+			}
+		}
+	});
+	var layerList8 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'NC BCR',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("NC BCR") !== -1
+			}
+		}
 	});
 
 	var tree = new Ext.tree.TreePanel({
 		region : 'west',
 		width : 300,
-		root : layerList,
-		title : "NC layers"
+		root : {
+			nodeType : "async",
+			children : [layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
+		},
+		title : "NC layers",
+		rootVisible : false
 	});
 
 	new Ext.Viewport({
@@ -191,6 +381,6 @@ Ext.onReady(function() {
 		defaults : {
 			split : true
 		}
-	})
+	});
 
 });
