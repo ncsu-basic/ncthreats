@@ -32,7 +32,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : false
 	});
 
-	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc12nc",
 		format : 'image/png',
 		transparent : true
@@ -41,7 +41,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc8nc",
 		format : 'image/png',
 		transparent : true
@@ -50,7 +50,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc4nc",
 		format : 'image/png',
 		transparent : true
@@ -59,7 +59,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc2nc",
 		format : 'image/png',
 		transparent : true
@@ -68,7 +68,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc6nc",
 		format : 'image/png',
 		transparent : true
@@ -77,7 +77,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc10nc",
 		format : 'image/png',
 		transparent : true
@@ -118,7 +118,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : true
 	});
 
-	var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc2nc_lbl",
 		format : 'image/png',
 		transparent : true
@@ -127,7 +127,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc4nc_lbl",
 		format : 'image/png',
 		transparent : true
@@ -136,7 +136,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc6nc_lbl",
 		format : 'image/png',
 		transparent : true
@@ -145,7 +145,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc8nc_lbl",
 		format : 'image/png',
 		transparent : true
@@ -154,7 +154,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+	var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc10nc_lbl",
 		format : 'image/png',
 		transparent : true
