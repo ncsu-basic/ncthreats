@@ -1,11 +1,35 @@
-/*global google:false  Ext:false GeoExt:false OpenLayers:false*/
+/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false*/
 
 var map;
-var map_extent = new OpenLayers.Bounds(-9462455, 3963396, -8324634, 4405547);
-var proj_4326 = new OpenLayers.Projection('EPSG:4326');
-var proj_900913 = new OpenLayers.Projection('EPSG:900913');
+
+OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+	defaultHandlerOptions : {
+		'single' : true,
+		'double' : false,
+		'pixelTolerance' : 0,
+		'stopSingle' : false,
+		'stopDouble' : false
+	},
+
+	initialize : function(options) {
+		this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
+		OpenLayers.Control.prototype.initialize.apply(this, arguments);
+		this.handler = new OpenLayers.Handler.Click(this, {
+			'click' : this.trigger
+		}, this.handlerOptions);
+	},
+
+	trigger : function(e) {
+		var lonlat = map.getLonLatFromViewPortPx(e.xy);
+		console.log("You clicked near " + lonlat.lat + " N, "  + lonlat.lon + " E");
+	}
+});
 
 Ext.onReady(function() {"use strict";
+	var map_extent = new OpenLayers.Bounds(-9462455, 3963396, -8324634, 4405547);
+	var proj_4326 = new OpenLayers.Projection('EPSG:4326');
+	var proj_900913 = new OpenLayers.Projection('EPSG:900913');
+
 	map = new OpenLayers.Map({
 		displayProjection : new OpenLayers.Projection("EPSG:4326"),
 		maxExtent : map_extent,
@@ -18,6 +42,11 @@ Ext.onReady(function() {"use strict";
 			zoomBoxEnabled : true
 		}), new OpenLayers.Control.PanZoomBar({})]
 	});
+
+	var nav = map.getControlsByClass("OpenLayers.Control.Navigation")[0];
+	nav.handlers.wheel.cumulative = false;
+
+	//var vlayer = new OpenLayers.Layer.Vector("Editable");
 	//var ncelev = new OpenLayers.Layer.WMS("NC Elevation", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 	//layers : "NC_Hill_3857_to",
 	//	format : 'image/png'
@@ -32,7 +61,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : false
 	});
 
-	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc12nc",
 		format : 'image/png',
 		transparent : true
@@ -200,7 +229,7 @@ Ext.onReady(function() {"use strict";
 		url : 'http://tecumseh.zo.ncsu.edu/geoserver/wms',
 		title : 'Identify features by clicking',
 		layers : [nchuc12],
-		queryVisible : true,
+		queryVisible : false,
 		infoFormat : "application/vnd.ogc.gml",
 		format : featureinfo_format
 	});
@@ -233,6 +262,9 @@ Ext.onReady(function() {"use strict";
 		}
 	}
 
+	var click = new OpenLayers.Control.Click();
+	map.addControl(click);
+	click.activate();
 
 	query_ctl.activate();
 
@@ -282,7 +314,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC HUC 2") !== -1
+				return record.get("layer").name.indexOf("NC HUC 2") !== -1;
 			}
 		}
 	});
@@ -293,7 +325,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC HUC 4") !== -1
+				return record.get("layer").name.indexOf("NC HUC 4") !== -1;
 			}
 		}
 	});
@@ -304,7 +336,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC HUC 6") !== -1
+				return record.get("layer").name.indexOf("NC HUC 6") !== -1;
 			}
 		}
 	});
@@ -315,7 +347,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC HUC 8") !== -1
+				return record.get("layer").name.indexOf("NC HUC 8") !== -1;
 			}
 		}
 	});
@@ -326,7 +358,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC HUC 10") !== -1
+				return record.get("layer").name.indexOf("NC HUC 10") !== -1;
 			}
 		}
 	});
@@ -337,7 +369,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC HUC 12") !== -1
+				return record.get("layer").name.indexOf("NC HUC 12") !== -1;
 			}
 		}
 	});
@@ -348,7 +380,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC Counties") !== -1
+				return record.get("layer").name.indexOf("NC Counties") !== -1;
 			}
 		}
 	});
@@ -359,7 +391,7 @@ Ext.onReady(function() {"use strict";
 		expanded : true,
 		loader : {
 			filter : function(record) {
-				return record.get("layer").name.indexOf("NC BCR") !== -1
+				return record.get("layer").name.indexOf("NC BCR") !== -1;
 			}
 		}
 	});
