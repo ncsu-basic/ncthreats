@@ -2,6 +2,7 @@
 
 var map;
 
+
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	defaultHandlerOptions : {
 		'single' : true,
@@ -21,11 +22,15 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 	trigger : function(e) {
 		var lonlat = map.getLonLatFromViewPortPx(e.xy);
-		console.log("You clicked near " + lonlat.lat + " N, "  + lonlat.lon + " E");
+		console.log("You clicked near " + lonlat.lat + " N, " + lonlat.lon + " E");
 	}
 });
 
 Ext.onReady(function() {"use strict";
+
+	////////////////////////////////////////////
+	//initialize map
+	///////////////////////////////////////////////////
 	var map_extent = new OpenLayers.Bounds(-9462455, 3963396, -8324634, 4405547);
 	var proj_4326 = new OpenLayers.Projection('EPSG:4326');
 	var proj_900913 = new OpenLayers.Projection('EPSG:900913');
@@ -40,20 +45,15 @@ Ext.onReady(function() {"use strict";
 				interval : 100
 			},
 			zoomBoxEnabled : true
-		}), new OpenLayers.Control.PanZoomBar({})]
+		}), new OpenLayers.Control.PanZoomBar({}), new OpenLayers.Control.MousePosition()]
 	});
 
 	var nav = map.getControlsByClass("OpenLayers.Control.Navigation")[0];
 	nav.handlers.wheel.cumulative = false;
 
-	//var vlayer = new OpenLayers.Layer.Vector("Editable");
-	//var ncelev = new OpenLayers.Layer.WMS("NC Elevation", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-	//layers : "NC_Hill_3857_to",
-	//	format : 'image/png'
-	//}, {
-	//	isBaseLayer : true
-	//});
-
+	///////////////////////////////////////////////////////////////////////////
+	//define and add layers
+	////////////////////////////////////////////////////////////////////////////
 	var gphy = new OpenLayers.Layer.Google("Google Physical", {
 		type : google.maps.MapTypeId.TERRAIN,
 		MAX_ZOOM_LEVEL : 13,
@@ -106,7 +106,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc10nc",
 		format : 'image/png',
 		transparent : true
@@ -218,7 +218,9 @@ Ext.onReady(function() {"use strict";
 
 	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer]);
 
-	map.addControl(new OpenLayers.Control.MousePosition());
+	//////////////////////////////////////////////////////////////////////////
+	// add controls
+	//////////////////////////////////////////////////////////////////////////
 
 	var featureinfo_format = new OpenLayers.Format.WMSGetFeatureInfo({
 		externalProjection : proj_4326,
@@ -228,17 +230,20 @@ Ext.onReady(function() {"use strict";
 	var query_ctl = new OpenLayers.Control.WMSGetFeatureInfo({
 		url : 'http://tecumseh.zo.ncsu.edu/geoserver/wms',
 		title : 'Identify features by clicking',
-		layers : [nchuc12],
+		//layers : [nchuc12],
 		queryVisible : false,
 		infoFormat : "application/vnd.ogc.gml",
 		format : featureinfo_format
 	});
+
+	query_ctl.layers = [nchuc10];
 
 	query_ctl.events.register("getfeatureinfo", this, showInfo);
 	map.addControl(query_ctl);
 
 	var selected_hucs = {};
 	function showInfo(evt) {
+		console.log(query_ctl.layers[0].name);
 		if (evt.features && evt.features.length) {
 			for (var i = 0; i < evt.features.length; i++) {
 
@@ -251,7 +256,6 @@ Ext.onReady(function() {"use strict";
 							map.getLayersByName("Highlighted Features")[0].removeFeatures(selected_features_drawn[j]);
 						}
 					}
-
 					// else add feature
 				} else {
 					selected_hucs[evt.features[i].data.huc_12] = 'on';
@@ -268,6 +272,9 @@ Ext.onReady(function() {"use strict";
 
 	query_ctl.activate();
 
+	$("#area_select").change(function() {
+		console.log("select changes");
+	})
 	/////////////////////////////////////////
 	// start GeoExt config
 	///////////////////////////////////////////////
@@ -407,9 +414,33 @@ Ext.onReady(function() {"use strict";
 		rootVisible : false
 	});
 
+	var process_tab = new Ext.Panel({
+		title : 'Processing',
+		html : "some content",
+		cls : 'help',
+		autoScroll : true
+	});
+
+	var area_tab = new Ext.Panel({
+		title : 'Area',
+		autoLoad : {
+			url : "/pages/area.html",
+			scripts : true
+		},
+		cls : 'pages',
+		autoScroll : true
+	});
+
+	var left = new Ext.TabPanel({
+		region : 'west',
+		width : 300,
+		activeTab : 1,
+		items : [tree, area_tab, process_tab]
+	});
+
 	new Ext.Viewport({
 		layout : "border",
-		items : [mapPanel, tree],
+		items : [mapPanel, left],
 		defaults : {
 			split : true
 		}
