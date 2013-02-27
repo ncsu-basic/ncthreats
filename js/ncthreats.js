@@ -19,11 +19,23 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 		}, this.handlerOptions);
 	},
 
-	trigger : function(e) {
-		var lonlat = map.getLonLatFromViewPortPx(e.xy);
-		console.log("You clicked near " + lonlat.lat + " N, " + lonlat.lon + " E");
-	}
+	trigger : add_point
 });
+var pts = [], highlightLayer;
+function add_point(e) {
+
+	var lonlat = map.getLonLatFromViewPortPx(e.xy);
+	//console.log("You clicked near " + lonlat.lat + " N, " + lonlat.lon + " E");
+	var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
+	pts.push(pt);
+	//console.log(pts);
+	var linearRing = new OpenLayers.Geometry.LinearRing(pts);
+	//console.log(geom_ring);
+	highlightLayer.destroyFeatures();
+	var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
+	highlightLayer.addFeatures([polygonFeature]);
+	highlightLayer.redraw();
+}
 
 Ext.onReady(function() {"use strict";
 
@@ -208,7 +220,7 @@ Ext.onReady(function() {"use strict";
 		fillOpacity : 0.2
 	});
 
-	var highlightLayer = new OpenLayers.Layer.Vector("Highlighted Features", {
+	highlightLayer = new OpenLayers.Layer.Vector("Highlighted Features", {
 		displayInLayerSwitcher : false,
 		isBaseLayer : false,
 		projection : proj_4326,
@@ -235,13 +247,13 @@ Ext.onReady(function() {"use strict";
 		format : featureinfo_format
 	});
 
-	query_ctl.layers = [nchuc12];
+	query_ctl.layers = [];
 
 	query_ctl.events.register("getfeatureinfo", this, showInfo);
 	map.addControl(query_ctl);
 
 	var selected_hucs = {};
-	var col_name = "huc_12";
+	var col_name;
 	function showInfo(evt) {
 		console.log(query_ctl.layers[0].name);
 		if (evt.features && evt.features.length) {
@@ -268,13 +280,9 @@ Ext.onReady(function() {"use strict";
 
 	var click = new OpenLayers.Control.Click();
 	map.addControl(click);
-	click.activate();
 
 	query_ctl.activate();
 
-	$("#area_select").change(function() {
-		console.log("select changes");
-	})
 	/////////////////////////////////////////
 	// start GeoExt config
 	///////////////////////////////////////////////
@@ -485,7 +493,20 @@ Ext.onReady(function() {"use strict";
 					col_name = "bcr";
 					break;
 			}
-			//console.log(query_ctl.layers[0].name)
+		});
+		$("#input_div input").on("click", function() {
+			var mode = $("#input_div input:checked").val();
+			if (mode.indexOf("custom") !== -1) {
+				click.activate();
+				query_ctl.deactivate();
+				highlightLayer.destroyFeatures();
+				pts = []
+			} else if (mode.indexOf("predefined") !== -1) {
+				click.deactivate();
+				query_ctl.activate();
+				highlightLayer.destroyFeatures();
+			}
+			;
 		});
 	};
 
