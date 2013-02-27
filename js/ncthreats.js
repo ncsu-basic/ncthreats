@@ -2,8 +2,6 @@
 
 var map;
 
-var layers_val;
-
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	defaultHandlerOptions : {
 		'single' : true,
@@ -57,7 +55,7 @@ Ext.onReady(function() {"use strict";
 	////////////////////////////////////////////////////////////////////////////
 	var gphy = new OpenLayers.Layer.Google("Google Physical", {
 		type : google.maps.MapTypeId.TERRAIN,
-		MAX_ZOOM_LEVEL : 13,
+		MAX_ZOOM_LEVEL : 12,
 		MIN_ZOOM_LEVEL : 6,
 		displayInLayerSwitcher : false
 	});
@@ -71,7 +69,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc8nc",
 		format : 'image/png',
 		transparent : true
@@ -80,7 +78,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc4nc",
 		format : 'image/png',
 		transparent : true
@@ -89,7 +87,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc2nc",
 		format : 'image/png',
 		transparent : true
@@ -98,7 +96,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc6nc",
 		format : 'image/png',
 		transparent : true
@@ -116,7 +114,7 @@ Ext.onReady(function() {"use strict";
 		visibility : false
 	});
 
-	var counties = new OpenLayers.Layer.WMS("NC Counties", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+	var counties = new OpenLayers.Layer.WMS("NC Counties", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "counties",
 		format : 'image/png',
 		transparent : true,
@@ -237,29 +235,30 @@ Ext.onReady(function() {"use strict";
 		format : featureinfo_format
 	});
 
-	query_ctl.layers = [nchuc10];
+	query_ctl.layers = [nchuc12];
 
 	query_ctl.events.register("getfeatureinfo", this, showInfo);
 	map.addControl(query_ctl);
 
 	var selected_hucs = {};
+	var col_name = "huc_12";
 	function showInfo(evt) {
 		console.log(query_ctl.layers[0].name);
 		if (evt.features && evt.features.length) {
 			for (var i = 0; i < evt.features.length; i++) {
 
 				//if selected feature is on then remove it
-				if (selected_hucs[evt.features[i].data.huc_12] === 'on') {
-					selected_hucs[evt.features[i].data.huc_12] = 'off';
+				if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
+					selected_hucs[evt.features[i].data[col_name]] = 'off';
 					var selected_features_drawn = map.getLayersByName("Highlighted Features")[0].features;
 					for (var j = 0; j < selected_features_drawn.length; j++) {
-						if (selected_features_drawn[j].data.huc_12 === evt.features[i].data.huc_12) {
+						if (selected_features_drawn[j].data[col_name] === evt.features[i].data[col_name]) {
 							map.getLayersByName("Highlighted Features")[0].removeFeatures(selected_features_drawn[j]);
 						}
 					}
 					// else add feature
 				} else {
-					selected_hucs[evt.features[i].data.huc_12] = 'on';
+					selected_hucs[evt.features[i].data[col_name]] = 'on';
 					highlightLayer.addFeatures(evt.features[i]);
 				}
 			}
@@ -424,11 +423,6 @@ Ext.onReady(function() {"use strict";
 
 	var area_tab = new Ext.Panel({
 		title : 'Area',
-		//autoLoad : {
-		//	url : "/pages/area.html",
-		//	scripts : true,
-
-		//},
 		cls : 'pages',
 		autoScroll : true,
 		id : "area_tab_id"
@@ -439,7 +433,7 @@ Ext.onReady(function() {"use strict";
 		width : 300,
 		activeTab : 0,
 		items : [tree, area_tab, process_tab],
-		deferredRender: false
+		deferredRender : false
 	});
 
 	new Ext.Viewport({
@@ -450,15 +444,48 @@ Ext.onReady(function() {"use strict";
 		}
 	});
 
-////////////////////////////////////////////////////////////////////////
-//start scripting for panel pages
-///////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////
+	//start scripting for panel pages
+	///////////////////////////////////////////////////////////////////////
 	var page_script = function() {
-		console.log("fuck");
 		$("#area_select").change(function() {
 			var text = $("#area_select option:selected").attr("value");
-			console.log(text);
-			layers_val = text;
+			//console.log(text);
+			switch(text) {
+				case 'nchuc2':
+					query_ctl.layers = [nchuc2];
+					col_name = "huc2";
+					break;
+				case 'nchuc4':
+					query_ctl.layers = [nchuc4];
+					col_name = "huc4";
+					break;
+				case 'nchuc6':
+					query_ctl.layers = [nchuc6];
+					col_name = "huc6";
+					break;
+				case 'nchuc8':
+					query_ctl.layers = [nchuc8];
+					col_name = "huc8";
+					break;
+				case 'nchuc10':
+					query_ctl.layers = [nchuc10];
+					col_name = "huc10";
+					break;
+				case 'nchuc12':
+					query_ctl.layers = [nchuc12];
+					col_name = "huc_12";
+					break;
+				case 'counties':
+					query_ctl.layers = [counties];
+					col_name = "co_num";
+					break;
+				case 'ncbcr':
+					query_ctl.layers = [ncbcr];
+					col_name = "bcr";
+					break;
+			}
+			//console.log(query_ctl.layers[0].name)
 		});
 	};
 
