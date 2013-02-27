@@ -1,0 +1,33 @@
+<h3>Create an area of interest</h3>
+
+<div id="input_div">
+	<label for="custom">custom</label>
+	<input type="radio" name="aoitype" id="custom" value="custom" />
+	<br />
+	<label for="predefined">predefined</label>
+	<input type="radio" name="aoitype" id="predefined" value="predefined" checked="checked" />
+	<br />
+	<select id="area_select">
+		<option value=""  selected="selected">no selection</option>
+		<option value="huc2" >Huc 2</option>
+		<option value="huc4" >Huc 4</option>
+		<option value="huc6">Huc 6</option>
+		<option value="huc8" >Huc 8</option>
+		<option value="huc10" >Huc 10</option>
+		<option value="huc12" >Huc 12</option>
+		<option value="county" >County</option>
+		<option value="bcr" >Bird Cons. Reg.</option>
+
+	</select>
+</div>
+
+<script type="text/javascript">
+/*
+	$("#input_div").ready(function() {
+		$("#area_select").change(function() {
+			var text = $("#area_select option:selected").attr("value");
+			console.log(text);
+			layers_val = text;
+		});
+	}); */
+</script>
