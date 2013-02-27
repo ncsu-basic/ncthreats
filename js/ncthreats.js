@@ -2,6 +2,7 @@
 
 var map;
 
+var layers_val;
 
 OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 	defaultHandlerOptions : {
@@ -423,19 +424,22 @@ Ext.onReady(function() {"use strict";
 
 	var area_tab = new Ext.Panel({
 		title : 'Area',
-		autoLoad : {
-			url : "/pages/area.html",
-			scripts : true
-		},
+		//autoLoad : {
+		//	url : "/pages/area.html",
+		//	scripts : true,
+
+		//},
 		cls : 'pages',
-		autoScroll : true
+		autoScroll : true,
+		id : "area_tab_id"
 	});
 
 	var left = new Ext.TabPanel({
 		region : 'west',
 		width : 300,
-		activeTab : 1,
-		items : [tree, area_tab, process_tab]
+		activeTab : 0,
+		items : [tree, area_tab, process_tab],
+		deferredRender: false
 	});
 
 	new Ext.Viewport({
@@ -445,5 +449,24 @@ Ext.onReady(function() {"use strict";
 			split : true
 		}
 	});
+
+////////////////////////////////////////////////////////////////////////
+//start scripting for panel pages
+///////////////////////////////////////////////////////////////////////
+	var page_script = function() {
+		console.log("fuck");
+		$("#area_select").change(function() {
+			var text = $("#area_select option:selected").attr("value");
+			console.log(text);
+			layers_val = text;
+		});
+	};
+
+	var el = Ext.getCmp("area_tab_id");
+	var mgr = el.getUpdater();
+	mgr.update({
+		url : "/pages/area.html"
+	});
+	mgr.on("update", page_script);
 
 });
