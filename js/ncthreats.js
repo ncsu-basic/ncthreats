@@ -35,6 +35,7 @@ function add_point(e) {
 	var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
 	highlightLayer.addFeatures([polygonFeature]);
 	highlightLayer.redraw();
+	console.log(highlightLayer.toString());
 }
 
 Ext.onReady(function() {"use strict";
@@ -258,7 +259,6 @@ Ext.onReady(function() {"use strict";
 		console.log(query_ctl.layers[0].name);
 		if (evt.features && evt.features.length) {
 			for (var i = 0; i < evt.features.length; i++) {
-
 				//if selected feature is on then remove it
 				if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
 					selected_hucs[evt.features[i].data[col_name]] = 'off';
@@ -282,6 +282,18 @@ Ext.onReady(function() {"use strict";
 	map.addControl(click);
 
 	query_ctl.activate();
+
+	var draw_action = function() {
+		console.log("draw");
+	};
+
+	var nav_action = function() {
+		console.log("nav");
+	};
+
+	var remove_action = function() {
+		console.log("remove");
+	};
 
 	/////////////////////////////////////////
 	// start GeoExt config
@@ -312,6 +324,33 @@ Ext.onReady(function() {"use strict";
 		iconCls : "next_action"
 	});
 	actions.next = action;
+	toolbarItems.push(action);
+
+	toolbarItems.push("-");
+
+	action = new Ext.Action({
+		toggleGroup : "edit",
+		handler : draw_action,
+		iconCls : "draw_action",
+		tooltip : "enable drawing or selecting AOI"
+	});
+	toolbarItems.push(action);
+
+	action = new Ext.Action({
+		toggleGroup : "edit",
+		handler : nav_action,
+		iconCls : "nav_action",
+		pressed : true,
+		tooltip : "disable drawing or selecting AOI"
+	});
+	toolbarItems.push(action);
+	toolbarItems.push("-");
+
+	action = new Ext.Action({
+		handler : remove_action,
+		iconCls : "remove_action",
+		tooltip : "remove all drawn or selected AOI"
+	});
 	toolbarItems.push(action);
 
 	var mapPanel = new GeoExt.MapPanel({
