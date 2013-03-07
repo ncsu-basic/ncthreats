@@ -21,7 +21,10 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 
 	trigger : add_point
 });
-var pts = [], highlightLayer;
+var pts = [], highlightLayer, gml_template;
+
+gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
+
 function add_point(e) {
 
 	var lonlat = map.getLonLatFromViewPortPx(e.xy);
@@ -35,7 +38,16 @@ function add_point(e) {
 	var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
 	highlightLayer.addFeatures([polygonFeature]);
 	highlightLayer.redraw();
-	console.log(highlightLayer.toString());
+	console.log(highlightLayer.features[0].geometry.toString());
+	
+	var gml_writer = new OpenLayers.Format.GML.v3({
+		featureType : 'MultiPolygon',
+		featureNS : 'http://jimserver.net/',
+		geometryName : 'aoi'
+	});
+	var gml = gml_writer.write(highlightLayer.features);
+	//var gml_final = 
+	console.log(gml);
 }
 
 Ext.onReady(function() {"use strict";
@@ -292,7 +304,7 @@ Ext.onReady(function() {"use strict";
 	};
 
 	var remove_action = function() {
-		console.log("remove");
+		console.log("remove... tell me more");
 	};
 
 	/////////////////////////////////////////
@@ -349,7 +361,8 @@ Ext.onReady(function() {"use strict";
 	action = new Ext.Action({
 		handler : remove_action,
 		iconCls : "remove_action",
-		tooltip : "remove all drawn or selected AOI"
+		tooltip : "remove all drawn or selected AOI",
+		allowDepress : true
 	});
 	toolbarItems.push(action);
 
@@ -502,34 +515,49 @@ Ext.onReady(function() {"use strict";
 				case 'nchuc2':
 					query_ctl.layers = [nchuc2];
 					col_name = "huc2";
+					nchuc2.setVisibility(true);
+					nchuc2_lbl.setVisibility(true);
 					break;
 				case 'nchuc4':
 					query_ctl.layers = [nchuc4];
 					col_name = "huc4";
+					nchuc4.setVisibility(true);
+					nchuc4_lbl.setVisibility(true);
 					break;
 				case 'nchuc6':
 					query_ctl.layers = [nchuc6];
 					col_name = "huc6";
+					nchuc6.setVisibility(true);
+					nchuc6_lbl.setVisibility(true);
 					break;
 				case 'nchuc8':
 					query_ctl.layers = [nchuc8];
 					col_name = "huc8";
+					nchuc8.setVisibility(true);
+					nchuc8_lbl.setVisibility(true);
 					break;
 				case 'nchuc10':
 					query_ctl.layers = [nchuc10];
 					col_name = "huc10";
+					nchuc10.setVisibility(true);
+					nchuc10_lbl.setVisibility(true);
 					break;
 				case 'nchuc12':
 					query_ctl.layers = [nchuc12];
 					col_name = "huc_12";
+					nchuc12.setVisibility(true);
+					nchuc12_lbl.setVisibility(true);
 					break;
 				case 'counties':
 					query_ctl.layers = [counties];
 					col_name = "co_num";
+					counties.setVisibility(true);
+					counties_lbl.setVisibility(true);
 					break;
 				case 'ncbcr':
 					query_ctl.layers = [ncbcr];
 					col_name = "bcr";
+					ncbcr.setVisibility(true);
 					break;
 			}
 		});
