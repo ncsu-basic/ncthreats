@@ -18,6 +18,10 @@
 	background-image: url('../OpenLayers-2.12/theme/default/img/remove_point_off.png');
 }
 
+.save_action {
+	background-image: url('../OpenLayers-2.12/theme/default/img/save_features_off.png');
+}
+
 div.olControlMousePosition {
 	right: 100px !important;
 }

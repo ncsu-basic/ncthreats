@@ -528,12 +528,12 @@ OpenLayers.WPS = OpenLayers.Class({
 		if (cmplxData.length > 0) {
 			// default format first
 			var formatsNode = cmplxData[0].getElementsByTagName("Default")[0].getElementsByTagName("Format")[0];
-			var frmts = formatsNode.getElementsByTagName("MimeType")[0].firstChild.nodeValue;
+			var frmts = formatsNode.getElementsByTagName("ows:MimeType")[0].firstChild.nodeValue;
 			formats.push(frmts);
 			// all otheres afterwards
 			var supportedFormats = cmplxData[0].getElementsByTagName("Supported")[0].getElementsByTagName("Format");
 			for (var i = 0; i < supportedFormats.length; i++) {
-				var format = supportedFormats[i].getElementsByTagName("MimeType")[0].firstChild.nodeValue;
+				var format = supportedFormats[i].getElementsByTagName("ows:MimeType")[0].firstChild.nodeValue;
 				if (OpenLayers.WPS.Utils.isIn(formats, format) == false) {
 					formats.push(format);
 				}

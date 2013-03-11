@@ -23,8 +23,6 @@ OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
 });
 var pts = [], highlightLayer, gml_template;
 
-gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
-
 function add_point(e) {
 
 	var lonlat = map.getLonLatFromViewPortPx(e.xy);
@@ -38,16 +36,8 @@ function add_point(e) {
 	var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
 	highlightLayer.addFeatures([polygonFeature]);
 	highlightLayer.redraw();
-	console.log(highlightLayer.features[0].geometry.toString());
-	
-	var gml_writer = new OpenLayers.Format.GML.v3({
-		featureType : 'MultiPolygon',
-		featureNS : 'http://jimserver.net/',
-		geometryName : 'aoi'
-	});
-	var gml = gml_writer.write(highlightLayer.features);
-	//var gml_final = 
-	console.log(gml);
+	//console.log(highlightLayer.features[0].geometry.toString());
+
 }
 
 Ext.onReady(function() {"use strict";
@@ -307,6 +297,20 @@ Ext.onReady(function() {"use strict";
 		console.log("remove... tell me more");
 	};
 
+	gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
+
+	var save_action = function() {
+		//console.log("remove... tell me more");
+		var gml_writer = new OpenLayers.Format.GML.v3({
+			featureType : 'MultiPolygon',
+			featureNS : 'http://jimserver.net/',
+			geometryName : 'aoi'
+		});
+		var gml = gml_writer.write(highlightLayer.features);
+		var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
+		console.log(gml_final);
+	};
+
 	/////////////////////////////////////////
 	// start GeoExt config
 	///////////////////////////////////////////////
@@ -362,6 +366,14 @@ Ext.onReady(function() {"use strict";
 		handler : remove_action,
 		iconCls : "remove_action",
 		tooltip : "remove all drawn or selected AOI",
+		allowDepress : true
+	});
+	toolbarItems.push(action);
+
+	action = new Ext.Action({
+		handler : save_action,
+		iconCls : "save_action",
+		tooltip : "save AOI",
 		allowDepress : true
 	});
 	toolbarItems.push(action);
