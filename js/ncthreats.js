@@ -1,44 +1,6 @@
 /*global google:false,  Ext:false, GeoExt:false, OpenLayers:false*/
 
-var map;
-
-OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-	defaultHandlerOptions : {
-		'single' : true,
-		'double' : false,
-		'pixelTolerance' : 0,
-		'stopSingle' : false,
-		'stopDouble' : false
-	},
-
-	initialize : function(options) {
-		this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
-		OpenLayers.Control.prototype.initialize.apply(this, arguments);
-		this.handler = new OpenLayers.Handler.Click(this, {
-			'click' : this.trigger
-		}, this.handlerOptions);
-	},
-
-	trigger : add_point
-});
-var pts = [], highlightLayer, gml_template;
-
-function add_point(e) {
-
-	var lonlat = map.getLonLatFromViewPortPx(e.xy);
-	//console.log("You clicked near " + lonlat.lat + " N, " + lonlat.lon + " E");
-	var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
-	pts.push(pt);
-	//console.log(pts);
-	var linearRing = new OpenLayers.Geometry.LinearRing(pts);
-	//console.log(geom_ring);
-	highlightLayer.destroyFeatures();
-	var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
-	highlightLayer.addFeatures([polygonFeature]);
-	highlightLayer.redraw();
-	//console.log(highlightLayer.features[0].geometry.toString());
-
-}
+var map, wps;
 
 Ext.onReady(function() {"use strict";
 
@@ -236,6 +198,39 @@ Ext.onReady(function() {"use strict";
 	// add controls
 	//////////////////////////////////////////////////////////////////////////
 
+	OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+		defaultHandlerOptions : {
+			'single' : true,
+			'double' : false,
+			'pixelTolerance' : 0,
+			'stopSingle' : false,
+			'stopDouble' : false
+		},
+
+		initialize : function(options) {
+			this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
+			OpenLayers.Control.prototype.initialize.apply(this, arguments);
+			this.handler = new OpenLayers.Handler.Click(this, {
+				'click' : this.trigger
+			}, this.handlerOptions);
+		},
+
+		trigger : add_point
+	});
+	var pts = [], highlightLayer, gml_template;
+
+	function add_point(e) {
+		var lonlat = map.getLonLatFromViewPortPx(e.xy);
+		var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
+		pts.push(pt);
+		var linearRing = new OpenLayers.Geometry.LinearRing(pts);
+		highlightLayer.destroyFeatures();
+		var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
+		highlightLayer.addFeatures([polygonFeature]);
+		highlightLayer.redraw();
+
+	}
+
 	var featureinfo_format = new OpenLayers.Format.WMSGetFeatureInfo({
 		externalProjection : proj_4326,
 		internalProjection : proj_900913
@@ -308,7 +303,36 @@ Ext.onReady(function() {"use strict";
 		});
 		var gml = gml_writer.write(highlightLayer.features);
 		var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
-		console.log(gml_final);
+		//console.log(gml_final);
+
+		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
+		// init the client
+		wps = new OpenLayers.WPS(url, {
+			onSucceeded : onExecuted
+		});
+		// define inputs of the 'dummyprocess'
+		var input1 = new OpenLayers.WPS.ComplexPut({
+			identifier : "input1",
+			value : gml
+
+		});
+		var output1 = new OpenLayers.WPS.LiteralPut({
+			identifier : "output1"
+		});
+
+		var myprocess = new OpenLayers.WPS.Process({
+			identifier : "nchuc12",
+			inputs : [input1],
+			outputs : [output1]
+		});
+
+		wps.addProcess(myprocess);
+		// run Execute
+		wps.execute("nchuc12");
+
+		function onExecuted(process) {
+			console.log("process executed")
+		};
 	};
 
 	/////////////////////////////////////////
