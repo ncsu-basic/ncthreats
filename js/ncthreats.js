@@ -299,11 +299,26 @@ Ext.onReady(function() {"use strict";
 		var gml_writer = new OpenLayers.Format.GML.v3({
 			featureType : 'MultiPolygon',
 			featureNS : 'http://jimserver.net/',
-			geometryName : 'aoi'
+			geometryName : 'aoi',
+			'internalProjection' : new OpenLayers.Projection("EPSG:900913"),
+			'externalProjection' : new OpenLayers.Projection("EPSG:4326")
 		});
+		/*
+		var i, feature_clone, geometry, feature;
+		var myfeatures = [];
+		for ( i = 0; i < highlightLayer.features.length; i++) {
+			feature = highlightLayer.features[i];
+			geometry = feature.geometry.clone();
+			geometry.transform(proj_900913, proj_4326);
+			feature = new OpenLayers.Feature.Vector({
+				geometry : geometry
+			});
+			myfeatures.push(feature);
+		}*/
+		//var gml = gml_writer.write(myfeatures);
 		var gml = gml_writer.write(highlightLayer.features);
+		//console.log(gml);
 		var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
-		//console.log(gml_final);
 
 		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
 		// init the client
@@ -332,6 +347,7 @@ Ext.onReady(function() {"use strict";
 
 		function onExecuted(process) {
 			console.log("process executed")
+			console.log(process.outputs[0].getValue())
 		};
 	};
 
