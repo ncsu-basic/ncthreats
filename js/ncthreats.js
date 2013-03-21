@@ -332,13 +332,21 @@ Ext.onReady(function() {"use strict";
 
 		});
 		var output1 = new OpenLayers.WPS.LiteralPut({
-			identifier : "output1"
+			identifier : "output1",
+			asReference: true
+		});
+		
+		var output2 = new OpenLayers.WPS.ComplexPut({
+			identifier : "output2",
+			value : gml,
+			asReference: true
+
 		});
 
 		var myprocess = new OpenLayers.WPS.Process({
 			identifier : "nchuc12",
 			inputs : [input1],
-			outputs : [output1]
+			outputs : [output1, output2]
 		});
 
 		wps.addProcess(myprocess);
