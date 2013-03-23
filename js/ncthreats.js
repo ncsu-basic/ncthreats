@@ -185,14 +185,24 @@ Ext.onReady(function() {"use strict";
 		fillOpacity : 0.2
 	});
 
-	highlightLayer = new OpenLayers.Layer.Vector("Highlighted Features", {
+	var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
 		displayInLayerSwitcher : false,
 		isBaseLayer : false,
 		projection : proj_4326,
 		styleMap : styleMap
 	});
 
-	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer]);
+	var results = new OpenLayers.Layer.WMS("AOI Results", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "results",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false,
+		displayInLayerSwitcher : true
+	});
+
+	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer, results]);
 
 	//////////////////////////////////////////////////////////////////////////
 	// add controls
@@ -217,8 +227,7 @@ Ext.onReady(function() {"use strict";
 
 		trigger : add_point
 	});
-	var pts = [], highlightLayer, gml_template;
-
+	var pts = [];
 	function add_point(e) {
 		var lonlat = map.getLonLatFromViewPortPx(e.xy);
 		var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
@@ -292,7 +301,7 @@ Ext.onReady(function() {"use strict";
 		console.log("remove... tell me more");
 	};
 
-	gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
+	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
 
 	var save_action = function() {
 		//console.log("remove... tell me more");
@@ -307,18 +316,18 @@ Ext.onReady(function() {"use strict";
 		var i, feature_clone, geometry, feature;
 		var myfeatures = [];
 		for ( i = 0; i < highlightLayer.features.length; i++) {
-			feature = highlightLayer.features[i];
-			geometry = feature.geometry.clone();
-			geometry.transform(proj_900913, proj_4326);
-			feature = new OpenLayers.Feature.Vector({
-				geometry : geometry
-			});
-			myfeatures.push(feature);
+		feature = highlightLayer.features[i];
+		geometry = feature.geometry.clone();
+		geometry.transform(proj_900913, proj_4326);
+		feature = new OpenLayers.Feature.Vector({
+		geometry : geometry
+		});
+		myfeatures.push(feature);
 		}*/
 		//var gml = gml_writer.write(myfeatures);
 		var gml = gml_writer.write(highlightLayer.features);
 		//console.log(gml);
-		var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
+		//var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
 
 		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
 		// init the client
@@ -333,30 +342,38 @@ Ext.onReady(function() {"use strict";
 		});
 		var output1 = new OpenLayers.WPS.LiteralPut({
 			identifier : "output1",
-			asReference: true
+			asReference : true
 		});
-		
+
 		var output2 = new OpenLayers.WPS.ComplexPut({
 			identifier : "output2",
 			value : gml,
-			asReference: true
+			asReference : true
 
 		});
 
 		var myprocess = new OpenLayers.WPS.Process({
 			identifier : "nchuc12",
 			inputs : [input1],
-			outputs : [output1, output2]
+			outputs : [output1]
 		});
 
 		wps.addProcess(myprocess);
 		// run Execute
 		wps.execute("nchuc12");
+		
+		var format = new OpenLayers.Format.CQL();
+		
 
 		function onExecuted(process) {
-			console.log("process executed")
-			console.log(process.outputs[0].getValue())
-		};
+			//console.log("process executed")
+			var aoi = process.outputs[0].getValue();
+			var cql = "identifier = '" + aoi + "'";
+			console.log(cql);
+			delete results.params.CQL_FILTER;
+			results.mergeNewParams({'CQL_FILTER': cql});
+		}
+
 	};
 
 	/////////////////////////////////////////
@@ -375,7 +392,8 @@ Ext.onReady(function() {"use strict";
 		control : ctrl.previous,
 		disabled : true,
 		tooltip : "previous in history",
-		iconCls : "prev_action"
+		iconCls : "prev_action",
+		allowDepress : true
 	});
 	actions.previous = action;
 	toolbarItems.push(action);
@@ -385,7 +403,8 @@ Ext.onReady(function() {"use strict";
 		control : ctrl.next,
 		disabled : true,
 		tooltip : "next in history",
-		iconCls : "next_action"
+		iconCls : "next_action",
+		allowDepress : true
 	});
 	actions.next = action;
 	toolbarItems.push(action);
@@ -522,13 +541,25 @@ Ext.onReady(function() {"use strict";
 			}
 		}
 	});
+	
+	var layerList9 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'Analysis',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("AOI") !== -1;
+			}
+		}
+	});
 
 	var tree = new Ext.tree.TreePanel({
 		region : 'west',
 		width : 300,
 		root : {
 			nodeType : "async",
-			children : [layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
+			children : [layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8 ]
 		},
 		title : "NC layers",
 		rootVisible : false
@@ -627,13 +658,13 @@ Ext.onReady(function() {"use strict";
 				click.activate();
 				query_ctl.deactivate();
 				highlightLayer.destroyFeatures();
-				pts = []
+				pts = [];
 			} else if (mode.indexOf("predefined") !== -1) {
 				click.deactivate();
 				query_ctl.activate();
 				highlightLayer.destroyFeatures();
 			}
-			;
+
 		});
 	};
 
