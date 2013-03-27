@@ -1,53 +1,43 @@
 .next_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/view_next_on.png');
+	background-image:url('../OpenLayers-2.12/theme/default/img/view_next_on.png');
 }
-
 .prev_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/view_previous_on.png');
+	background-image:url('../OpenLayers-2.12/theme/default/img/view_previous_on.png');
 }
-
 .nav_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/pan_off.png');
+	background-image:url('../OpenLayers-2.12/theme/default/img/pan_off.png');
 }
-
 .draw_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/draw_polygon_off.png');
+	background-image:url('../OpenLayers-2.12/theme/default/img/draw_polygon_off.png');
 }
-
 .remove_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/remove_point_off.png');
+	background-image:url('../OpenLayers-2.12/theme/default/img/remove_point_off.png');
 }
-
 .save_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/save_features_off.png');
+	background-image:url('../OpenLayers-2.12/theme/default/img/save_features_off.png');
 }
-
+.print_action {
+	background-image:url('Human-gnome-dev-printer.png');
+}
 div.olControlMousePosition {
-	right: 100px !important;
+	right:100px !important;
 }
-
 .pages {
-	padding: 10px;
+	padding:10px;
 }
-
 #input_div input {
-	float: right;
-	clear: right;
+	float:right;
+	clear:right;
 }
-
 #input_div label {
-	float: left;
-	clear: left;
+	float:left;
+	clear:left;
 }
-
 #input_div select {
-	clear: both;
-	margin-top: 20px;
+	clear:both;
+	margin-top:20px;
 }
-
 #input_div {
-	width: 150px;
-	margin: 20px;
-	
+	width:150px;
+	margin:20px;
 }
-

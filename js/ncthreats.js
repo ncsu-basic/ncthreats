@@ -268,10 +268,10 @@ Ext.onReady(function() {"use strict";
 				//if selected feature is on then remove it
 				if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
 					selected_hucs[evt.features[i].data[col_name]] = 'off';
-					var selected_features_drawn = map.getLayersByName("Highlighted Features")[0].features;
+					var selected_features_drawn = map.getLayersByName("AOI Selection")[0].features;
 					for (var j = 0; j < selected_features_drawn.length; j++) {
 						if (selected_features_drawn[j].data[col_name] === evt.features[i].data[col_name]) {
-							map.getLayersByName("Highlighted Features")[0].removeFeatures(selected_features_drawn[j]);
+							map.getLayersByName("AOI Selection")[0].removeFeatures(selected_features_drawn[j]);
 						}
 					}
 					// else add feature
@@ -297,8 +297,52 @@ Ext.onReady(function() {"use strict";
 		console.log("nav");
 	};
 
+	var new_selection = function() {
+		var mode = $("#input_div input:checked").val();
+		if (mode.indexOf("custom") !== -1) {
+			click.activate();
+			query_ctl.deactivate();
+			highlightLayer.destroyFeatures();
+			pts = [];
+			results.setVisibility(false);
+		} else if (mode.indexOf("predefined") !== -1) {
+			click.deactivate();
+			query_ctl.activate();
+			highlightLayer.destroyFeatures();
+			selected_hucs = {};
+			results.setVisibility(false);
+		}
+
+	};
+
 	var remove_action = function() {
 		console.log("remove... tell me more");
+		new_selection();
+	};
+
+	var printProvider = new GeoExt.data.PrintProvider({
+		method : "GET", // "POST" recommended for production use
+		capabilities : printCapabilities, // from the info.json script in the html
+		customParams : {
+			mapTitle : "Printing Demo",
+			comment : "This is a simple map printed from GeoExt."
+		}
+	});
+	var printPage = new GeoExt.data.PrintPage({
+		printProvider : printProvider
+	});
+
+	var print_action = function() {
+		console.log(printCapabilities);
+		console.log("print");
+		printCapabilities.createURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/create.json";
+		printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf"
+		highlightLayer.setVisibility(false);
+
+		printPage.fit(mapPanel, true);
+		// print the page, optionally including the legend
+		printProvider.print(mapPanel, printPage);
+
 	};
 
 	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
@@ -312,19 +356,7 @@ Ext.onReady(function() {"use strict";
 			'internalProjection' : new OpenLayers.Projection("EPSG:900913"),
 			'externalProjection' : new OpenLayers.Projection("EPSG:4326")
 		});
-		/*
-		var i, feature_clone, geometry, feature;
-		var myfeatures = [];
-		for ( i = 0; i < highlightLayer.features.length; i++) {
-		feature = highlightLayer.features[i];
-		geometry = feature.geometry.clone();
-		geometry.transform(proj_900913, proj_4326);
-		feature = new OpenLayers.Feature.Vector({
-		geometry : geometry
-		});
-		myfeatures.push(feature);
-		}*/
-		//var gml = gml_writer.write(myfeatures);
+
 		var gml = gml_writer.write(highlightLayer.features);
 		//console.log(gml);
 		//var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
@@ -361,9 +393,8 @@ Ext.onReady(function() {"use strict";
 		wps.addProcess(myprocess);
 		// run Execute
 		wps.execute("nchuc12");
-		
+
 		var format = new OpenLayers.Format.CQL();
-		
 
 		function onExecuted(process) {
 			//console.log("process executed")
@@ -371,7 +402,10 @@ Ext.onReady(function() {"use strict";
 			var cql = "identifier = '" + aoi + "'";
 			console.log(cql);
 			delete results.params.CQL_FILTER;
-			results.mergeNewParams({'CQL_FILTER': cql});
+			results.mergeNewParams({
+				'CQL_FILTER' : cql
+			});
+			results.setVisibility(true);
 		}
 
 	};
@@ -417,7 +451,7 @@ Ext.onReady(function() {"use strict";
 		iconCls : "draw_action",
 		tooltip : "enable drawing or selecting AOI"
 	});
-	toolbarItems.push(action);
+	//toolbarItems.push(action);
 
 	action = new Ext.Action({
 		toggleGroup : "edit",
@@ -426,8 +460,8 @@ Ext.onReady(function() {"use strict";
 		pressed : true,
 		tooltip : "disable drawing or selecting AOI"
 	});
-	toolbarItems.push(action);
-	toolbarItems.push("-");
+	//toolbarItems.push(action);
+	//toolbarItems.push("-");
 
 	action = new Ext.Action({
 		handler : remove_action,
@@ -441,6 +475,14 @@ Ext.onReady(function() {"use strict";
 		handler : save_action,
 		iconCls : "save_action",
 		tooltip : "save AOI",
+		allowDepress : true
+	});
+	toolbarItems.push(action);
+	toolbarItems.push("-");
+	action = new Ext.Action({
+		handler : print_action,
+		iconCls : "print_action",
+		tooltip : "print map",
 		allowDepress : true
 	});
 	toolbarItems.push(action);
@@ -541,7 +583,7 @@ Ext.onReady(function() {"use strict";
 			}
 		}
 	});
-	
+
 	var layerList9 = new GeoExt.tree.LayerContainer({
 		layerStore : mapPanel.layers,
 		text : 'Analysis',
@@ -559,7 +601,7 @@ Ext.onReady(function() {"use strict";
 		width : 300,
 		root : {
 			nodeType : "async",
-			children : [layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8 ]
+			children : [layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
 		},
 		title : "NC layers",
 		rootVisible : false
@@ -652,20 +694,7 @@ Ext.onReady(function() {"use strict";
 					break;
 			}
 		});
-		$("#input_div input").on("click", function() {
-			var mode = $("#input_div input:checked").val();
-			if (mode.indexOf("custom") !== -1) {
-				click.activate();
-				query_ctl.deactivate();
-				highlightLayer.destroyFeatures();
-				pts = [];
-			} else if (mode.indexOf("predefined") !== -1) {
-				click.deactivate();
-				query_ctl.activate();
-				highlightLayer.destroyFeatures();
-			}
-
-		});
+		$("#input_div input").on("click", new_selection);
 	};
 
 	var el = Ext.getCmp("area_tab_id");
