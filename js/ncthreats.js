@@ -15,6 +15,9 @@ Ext.onReady(function() {"use strict";
 		displayProjection : new OpenLayers.Projection("EPSG:4326"),
 		maxExtent : map_extent,
 		projection : new OpenLayers.Projection("EPSG:900913"),
+		//numZoomLevels: 7,
+		//maxResolution: 2445.984,
+		//minResolution: 4.777,
 		controls : [new OpenLayers.Control.Navigation({
 			zoomWheel : true,
 			mouseWheelOptions : {
@@ -30,12 +33,16 @@ Ext.onReady(function() {"use strict";
 	///////////////////////////////////////////////////////////////////////////
 	//define and add layers
 	////////////////////////////////////////////////////////////////////////////
-	var gphy = new OpenLayers.Layer.Google("Google Physical", {
+	var gphy = new OpenLayers.Layer.Google("Base Google Physical", {
 		type : google.maps.MapTypeId.TERRAIN,
 		MAX_ZOOM_LEVEL : 12,
 		MIN_ZOOM_LEVEL : 6,
-		displayInLayerSwitcher : false
+		displayInLayerSwitcher : false,
+		visibility: false
 	});
+
+	var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)" );
+	//osm.setVisibility(false);
 
 	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc12nc",
@@ -202,7 +209,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : true
 	});
 
-	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer, results]);
+	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy,  osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer, results]);
 
 	//////////////////////////////////////////////////////////////////////////
 	// add controls
@@ -595,13 +602,25 @@ Ext.onReady(function() {"use strict";
 			}
 		}
 	});
+	
+		var layerList10 = new GeoExt.tree.LayerContainer({
+		layerStore : mapPanel.layers,
+		text : 'Base layer',
+		leaf : false,
+		expanded : true,
+		loader : {
+			filter : function(record) {
+				return record.get("layer").name.indexOf("Base") !== -1;
+			}
+		}
+	});
 
 	var tree = new Ext.tree.TreePanel({
 		region : 'west',
 		width : 300,
 		root : {
 			nodeType : "async",
-			children : [layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
+			children : [layerList10, layerList9,  layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8 ]
 		},
 		title : "NC layers",
 		rootVisible : false
