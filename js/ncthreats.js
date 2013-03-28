@@ -33,17 +33,19 @@ Ext.onReady(function() {"use strict";
 	///////////////////////////////////////////////////////////////////////////
 	//define and add layers
 	////////////////////////////////////////////////////////////////////////////
+
+	//////Base Layers
 	var gphy = new OpenLayers.Layer.Google("Base Google Physical", {
 		type : google.maps.MapTypeId.TERRAIN,
 		MAX_ZOOM_LEVEL : 12,
 		MIN_ZOOM_LEVEL : 6,
 		displayInLayerSwitcher : false,
-		visibility: false
+		visibility : false
 	});
 
-	var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)" );
-	//osm.setVisibility(false);
+	var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)");
 
+	//////////WMS layers
 	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "huc12nc",
 		format : 'image/png',
@@ -101,23 +103,11 @@ Ext.onReady(function() {"use strict";
 	var counties = new OpenLayers.Layer.WMS("NC Counties", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
 		layers : "counties",
 		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+		transparent : true
 	}, {
 		isBaseLayer : false,
 		visibility : false,
 		displayInLayerSwitcher : false
-	});
-
-	var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "counties_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
-
-	}, {
-		isBaseLayer : false,
-		visibility : false
 	});
 
 	var ncbcr = new OpenLayers.Layer.WMS("NC BCR", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
@@ -130,10 +120,23 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : true
 	});
 
+	//////////cached layers
+	var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
+		layers : "counties_lbl",
+		format : 'image/png',
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
 	var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc2nc_lbl",
 		format : 'image/png',
-		transparent : true
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -142,7 +145,8 @@ Ext.onReady(function() {"use strict";
 	var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc4nc_lbl",
 		format : 'image/png',
-		transparent : true
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -151,7 +155,8 @@ Ext.onReady(function() {"use strict";
 	var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc6nc_lbl",
 		format : 'image/png',
-		transparent : true
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -160,7 +165,8 @@ Ext.onReady(function() {"use strict";
 	var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc8nc_lbl",
 		format : 'image/png',
-		transparent : true
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -169,7 +175,8 @@ Ext.onReady(function() {"use strict";
 	var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "huc10nc_lbl",
 		format : 'image/png',
-		transparent : true
+		transparent : true,
+		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
 		isBaseLayer : false,
 		visibility : false
@@ -192,6 +199,7 @@ Ext.onReady(function() {"use strict";
 		fillOpacity : 0.2
 	});
 
+	////////////analysis layers
 	var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
 		displayInLayerSwitcher : false,
 		isBaseLayer : false,
@@ -209,7 +217,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : true
 	});
 
-	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy,  osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer, results]);
+	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer, results]);
 
 	//////////////////////////////////////////////////////////////////////////
 	// add controls
@@ -331,10 +339,11 @@ Ext.onReady(function() {"use strict";
 		method : "GET", // "POST" recommended for production use
 		capabilities : printCapabilities, // from the info.json script in the html
 		customParams : {
-			mapTitle : "Printing Demo",
-			comment : "This is a simple map printed from GeoExt."
+			mapTitle : "Printing Demo"
+			//comment : "This is a simple map printed from GeoExt."
 		}
 	});
+
 	var printPage = new GeoExt.data.PrintPage({
 		printProvider : printProvider
 	});
@@ -343,7 +352,7 @@ Ext.onReady(function() {"use strict";
 		console.log(printCapabilities);
 		console.log("print");
 		printCapabilities.createURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/create.json";
-		printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf"
+		printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf";
 		highlightLayer.setVisibility(false);
 
 		printPage.fit(mapPanel, true);
@@ -351,6 +360,90 @@ Ext.onReady(function() {"use strict";
 		printProvider.print(mapPanel, printPage);
 
 	};
+	// The form with fields controlling the print output
+	var formPanel = new Ext.form.FormPanel({
+		title : "Print",
+		width : 150,
+		height: 400,
+		bodyStyle : "padding:15px",
+		labelAlign : "top",
+		defaults : {
+			anchor : "100%"
+		},
+		items : [{
+			xtype : "textarea",
+			name : "comment",
+			value : "",
+			fieldLabel : "Comment",
+			plugins : new GeoExt.plugins.PrintPageField({
+				printPage : printPage
+			})
+		}, {
+			xtype : "combo",
+			store : printProvider.layouts,
+			displayField : "name",
+			fieldLabel : "Layout",
+			typeAhead : true,
+			mode : "local",
+			triggerAction : "all",
+			plugins : new GeoExt.plugins.PrintProviderField({
+				printProvider : printProvider
+			})
+		}, {
+			xtype : "combo",
+			store : printProvider.dpis,
+			displayField : "name",
+			fieldLabel : "Resolution",
+			tpl : '<tpl for="."><div class="x-combo-list-item">{name} dpi</div></tpl>',
+			typeAhead : true,
+			mode : "local",
+			triggerAction : "all",
+			plugins : new GeoExt.plugins.PrintProviderField({
+				printProvider : printProvider
+			}),
+			// the plugin will work even if we modify a combo value
+			setValue : function(v) {
+				v = parseInt(v) + " dpi";
+				Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
+			}
+		}
+		/*
+		 , {
+		 xtype : "combo",
+		 store : printProvider.scales,
+		 displayField : "name",
+		 fieldLabel : "Scale",
+		 typeAhead : true,
+		 mode : "local",
+		 triggerAction : "all",
+		 plugins : new GeoExt.plugins.PrintPageField({
+		 printPage : printPage
+		 })
+		 }, {
+		 xtype : "textfield",
+		 name : "rotation",
+		 fieldLabel : "Rotation",
+		 plugins : new GeoExt.plugins.PrintPageField({
+		 printPage : printPage
+		 })
+		 }*/
+		],
+		buttons : [{
+			text : "Create PDF",
+			handler : function() {
+				//printProvider.print(mapPanel, printPage);
+				console.log(printCapabilities);
+				console.log("print");
+				printCapabilities.createURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/create.json";
+				printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf";
+				highlightLayer.setVisibility(false);
+
+				printPage.fit(mapPanel, true);
+				// print the page, optionally including the legend
+				printProvider.print(mapPanel, printPage);
+			}
+		}]
+	});
 
 	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
 
@@ -492,7 +585,7 @@ Ext.onReady(function() {"use strict";
 		tooltip : "print map",
 		allowDepress : true
 	});
-	toolbarItems.push(action);
+	//toolbarItems.push(action);
 
 	var mapPanel = new GeoExt.MapPanel({
 		region : "center",
@@ -602,8 +695,8 @@ Ext.onReady(function() {"use strict";
 			}
 		}
 	});
-	
-		var layerList10 = new GeoExt.tree.LayerContainer({
+
+	var layerList10 = new GeoExt.tree.LayerContainer({
 		layerStore : mapPanel.layers,
 		text : 'Base layer',
 		leaf : false,
@@ -620,7 +713,7 @@ Ext.onReady(function() {"use strict";
 		width : 300,
 		root : {
 			nodeType : "async",
-			children : [layerList10, layerList9,  layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8 ]
+			children : [layerList10, layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
 		},
 		title : "NC layers",
 		rootVisible : false
@@ -644,7 +737,7 @@ Ext.onReady(function() {"use strict";
 		region : 'west',
 		width : 300,
 		activeTab : 0,
-		items : [tree, area_tab, process_tab],
+		items : [tree, area_tab, process_tab, formPanel],
 		deferredRender : false
 	});
 
