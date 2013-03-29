@@ -1,4 +1,4 @@
-/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false*/
+/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false, printCapabilities:false*/
 
 var map, wps;
 
@@ -232,7 +232,7 @@ Ext.onReady(function() {"use strict";
 			'stopDouble' : false
 		},
 
-		initialize : function(options) {
+		initialize : function() {
 			this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
 			OpenLayers.Control.prototype.initialize.apply(this, arguments);
 			this.handler = new OpenLayers.Handler.Click(this, {
@@ -362,10 +362,10 @@ Ext.onReady(function() {"use strict";
 	};
 	// The form with fields controlling the print output
 	var formPanel = new Ext.form.FormPanel({
-		title : "Print",
-		width : 150,
-		height: 400,
-		bodyStyle : "padding:15px",
+		title : "Print config",
+		width : 275,
+		height : 300,
+		bodyStyle : "padding:15px;",
 		labelAlign : "top",
 		defaults : {
 			anchor : "100%"
@@ -403,33 +403,13 @@ Ext.onReady(function() {"use strict";
 			}),
 			// the plugin will work even if we modify a combo value
 			setValue : function(v) {
-				v = parseInt(v) + " dpi";
+				v = parseInt(v, 10) + " dpi";
 				Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
 			}
-		}
-		/*
-		 , {
-		 xtype : "combo",
-		 store : printProvider.scales,
-		 displayField : "name",
-		 fieldLabel : "Scale",
-		 typeAhead : true,
-		 mode : "local",
-		 triggerAction : "all",
-		 plugins : new GeoExt.plugins.PrintPageField({
-		 printPage : printPage
-		 })
-		 }, {
-		 xtype : "textfield",
-		 name : "rotation",
-		 fieldLabel : "Rotation",
-		 plugins : new GeoExt.plugins.PrintPageField({
-		 printPage : printPage
-		 })
-		 }*/
-		],
+		}],
 		buttons : [{
 			text : "Create PDF",
+			//cls : "pr_btn",
 			handler : function() {
 				//printProvider.print(mapPanel, printPage);
 				console.log(printCapabilities);
@@ -477,13 +457,6 @@ Ext.onReady(function() {"use strict";
 			asReference : true
 		});
 
-		var output2 = new OpenLayers.WPS.ComplexPut({
-			identifier : "output2",
-			value : gml,
-			asReference : true
-
-		});
-
 		var myprocess = new OpenLayers.WPS.Process({
 			identifier : "nchuc12",
 			inputs : [input1],
@@ -494,7 +467,7 @@ Ext.onReady(function() {"use strict";
 		// run Execute
 		wps.execute("nchuc12");
 
-		var format = new OpenLayers.Format.CQL();
+		//var format = new OpenLayers.Format.CQL();
 
 		function onExecuted(process) {
 			//console.log("process executed")
@@ -733,11 +706,19 @@ Ext.onReady(function() {"use strict";
 		id : "area_tab_id"
 	});
 
+	var print_tab = new Ext.Panel({
+		title : 'print',
+		cls : 'pages',
+		autoScroll : true,
+		id : "print_tab_id",
+		items : [formPanel]
+	});
+
 	var left = new Ext.TabPanel({
 		region : 'west',
 		width : 300,
 		activeTab : 0,
-		items : [tree, area_tab, process_tab, formPanel],
+		items : [tree, area_tab, process_tab, print_tab],
 		deferredRender : false
 	});
 
