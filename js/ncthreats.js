@@ -313,7 +313,8 @@ Ext.onReady(function() {"use strict";
 	};
 
 	var new_selection = function() {
-		var mode = $("#input_div input:checked").val();
+		//var mode = $("#input_div input:checked").val();
+		var mode = formPanel2.getComponent('rg1').getValue().inputValue;
 		if (mode.indexOf("custom") !== -1) {
 			click.activate();
 			query_ctl.deactivate();
@@ -400,12 +401,12 @@ Ext.onReady(function() {"use strict";
 			triggerAction : "all",
 			plugins : new GeoExt.plugins.PrintProviderField({
 				printProvider : printProvider
-			}),
+			})
 			// the plugin will work even if we modify a combo value
-			setValue : function(v) {
-				v = parseInt(v, 10) + " dpi";
-				Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
-			}
+			//setValue : function(v) {
+			//	v = parseInt(v, 10) + " dpi";
+			//	Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
+			//}
 		}],
 		buttons : [{
 			text : "Create PDF",
@@ -421,6 +422,125 @@ Ext.onReady(function() {"use strict";
 				printPage.fit(mapPanel, true);
 				// print the page, optionally including the legend
 				printProvider.print(mapPanel, printPage);
+			}
+		}]
+	});
+
+	var comboStore = new Ext.data.ArrayStore({
+		fields : ['layerName', 'layerId']
+	});
+	var comboData = [["NC HUC 2", 'nchuc2'], ["NC HUC 4", 'nchuc4'], ["NC HUC 6", 'nchuc6'], ["NC HUC 8", 'nchuc8'], ["NC HUC 10", 'nchuc10'], ["NC HUC 12", 'nchuc8'], ["NC Counties", 'counties'], ["NC BCR", 'ncbcr']];
+	comboStore.loadData(comboData);
+
+	var form2_chng = function() {
+		//console.log(records.data.layerId);
+		//var selected_type = formPanel2.getComponent('rg1').getValue().inputValue;
+		var predef_idx, selected_predef;
+		try {
+			predef_idx = formPanel2.getComponent('cmb1').selectedIndex;
+			selected_predef = comboStore.getAt(predef_idx).json["1"];
+		} catch(e) {
+			selected_predef = 'none';
+		}
+
+		switch(selected_predef) {
+			case 'nchuc2':
+				query_ctl.layers = [nchuc2];
+				col_name = "huc2";
+				nchuc2.setVisibility(true);
+				nchuc2_lbl.setVisibility(true);
+				break;
+			case 'nchuc4':
+				query_ctl.layers = [nchuc4];
+				col_name = "huc4";
+				nchuc4.setVisibility(true);
+				nchuc4_lbl.setVisibility(true);
+				break;
+			case 'nchuc6':
+				query_ctl.layers = [nchuc6];
+				col_name = "huc6";
+				nchuc6.setVisibility(true);
+				nchuc6_lbl.setVisibility(true);
+				break;
+			case 'nchuc8':
+				query_ctl.layers = [nchuc8];
+				col_name = "huc8";
+				nchuc8.setVisibility(true);
+				nchuc8_lbl.setVisibility(true);
+				break;
+			case 'nchuc10':
+				query_ctl.layers = [nchuc10];
+				col_name = "huc10";
+				nchuc10.setVisibility(true);
+				nchuc10_lbl.setVisibility(true);
+				break;
+			case 'nchuc12':
+				query_ctl.layers = [nchuc12];
+				col_name = "huc_12";
+				nchuc12.setVisibility(true);
+				nchuc12_lbl.setVisibility(true);
+				break;
+			case 'counties':
+				query_ctl.layers = [counties];
+				col_name = "co_num";
+				counties.setVisibility(true);
+				counties_lbl.setVisibility(true);
+				break;
+			case 'ncbcr':
+				query_ctl.layers = [ncbcr];
+				col_name = "bcr";
+				ncbcr.setVisibility(true);
+				break;
+		}
+		new_selection();
+	};
+
+	//var radio_chng = function(radiogroup) {
+	//console.info(radiogroup.name);
+	//console.info(radio.inputValue);
+	//console.log(radiogroup.getValue());
+	//};
+
+	var formPanel2 = new Ext.form.FormPanel({
+		title : "AOI creation",
+		width : 275,
+		height : 300,
+		bodyStyle : "padding:15px;",
+		labelAlign : "top",
+		defaults : {
+			anchor : "100%"
+		},
+		items : [{
+			xtype : "combo",
+			itemId : "cmb1",
+			store : comboStore,
+			fieldLabel : "Predefined selections",
+			typeAhead : true,
+			mode : "local",
+			triggerAction : "all",
+			valueField : 'layerId',
+			displayField : 'layerName',
+			listeners : {
+				'select' : form2_chng
+			}
+		}, {
+			xtype : 'radiogroup',
+			fieldLabel : 'AOI type',
+			name : 'aoiType',
+			columns : 1,
+			itemId : "rg1",
+			items : [{
+				boxLabel : 'predefined',
+				name : 'aoi_type',
+				inputValue : 'predefined',
+				checked : true
+			}, {
+				boxLabel : 'custom',
+				name : 'aoi_type',
+				inputValue : 'custom'
+			}],
+			listeners : {
+				change : form2_chng
 			}
 		}]
 	});
@@ -706,8 +826,15 @@ Ext.onReady(function() {"use strict";
 		id : "area_tab_id"
 	});
 
+	area_tab = new Ext.Panel({
+		title : 'Area',
+		cls : 'pages',
+		autoScroll : true,
+		items : [formPanel2]
+	});
+
 	var print_tab = new Ext.Panel({
-		title : 'print',
+		title : 'Print',
 		cls : 'pages',
 		autoScroll : true,
 		id : "print_tab_id",
@@ -729,72 +856,5 @@ Ext.onReady(function() {"use strict";
 			split : true
 		}
 	});
-
-	////////////////////////////////////////////////////////////////////////
-	//start scripting for panel pages
-	///////////////////////////////////////////////////////////////////////
-	var page_script = function() {
-		$("#area_select").change(function() {
-			var text = $("#area_select option:selected").attr("value");
-			//console.log(text);
-			switch(text) {
-				case 'nchuc2':
-					query_ctl.layers = [nchuc2];
-					col_name = "huc2";
-					nchuc2.setVisibility(true);
-					nchuc2_lbl.setVisibility(true);
-					break;
-				case 'nchuc4':
-					query_ctl.layers = [nchuc4];
-					col_name = "huc4";
-					nchuc4.setVisibility(true);
-					nchuc4_lbl.setVisibility(true);
-					break;
-				case 'nchuc6':
-					query_ctl.layers = [nchuc6];
-					col_name = "huc6";
-					nchuc6.setVisibility(true);
-					nchuc6_lbl.setVisibility(true);
-					break;
-				case 'nchuc8':
-					query_ctl.layers = [nchuc8];
-					col_name = "huc8";
-					nchuc8.setVisibility(true);
-					nchuc8_lbl.setVisibility(true);
-					break;
-				case 'nchuc10':
-					query_ctl.layers = [nchuc10];
-					col_name = "huc10";
-					nchuc10.setVisibility(true);
-					nchuc10_lbl.setVisibility(true);
-					break;
-				case 'nchuc12':
-					query_ctl.layers = [nchuc12];
-					col_name = "huc_12";
-					nchuc12.setVisibility(true);
-					nchuc12_lbl.setVisibility(true);
-					break;
-				case 'counties':
-					query_ctl.layers = [counties];
-					col_name = "co_num";
-					counties.setVisibility(true);
-					counties_lbl.setVisibility(true);
-					break;
-				case 'ncbcr':
-					query_ctl.layers = [ncbcr];
-					col_name = "bcr";
-					ncbcr.setVisibility(true);
-					break;
-			}
-		});
-		$("#input_div input").on("click", new_selection);
-	};
-
-	var el = Ext.getCmp("area_tab_id");
-	var mgr = el.getUpdater();
-	mgr.update({
-		url : "/pages/area.html"
-	});
-	mgr.on("update", page_script);
 
 });
