@@ -118,6 +118,7 @@ OpenLayers.WPS = OpenLayers.Class({
 	 * {String}
 	 */
 	wpsNS : "http://www.opengis.net/wps/",
+	//wpsNS : "http://www.opengis.net/wps/1.0.0",
 
 	/**
 	 * Property:  wpsPref
@@ -528,12 +529,12 @@ OpenLayers.WPS = OpenLayers.Class({
 		if (cmplxData.length > 0) {
 			// default format first
 			var formatsNode = cmplxData[0].getElementsByTagName("Default")[0].getElementsByTagName("Format")[0];
-			var frmts = formatsNode.getElementsByTagName("ows:MimeType")[0].firstChild.nodeValue;
+			var frmts = formatsNode.getElementsByTagName("ows:MimeType")[0].firstChild.nodeValue;//JBW 
 			formats.push(frmts);
 			// all otheres afterwards
 			var supportedFormats = cmplxData[0].getElementsByTagName("Supported")[0].getElementsByTagName("Format");
 			for (var i = 0; i < supportedFormats.length; i++) {
-				var format = supportedFormats[i].getElementsByTagName("ows:MimeType")[0].firstChild.nodeValue;
+				var format = supportedFormats[i].getElementsByTagName("ows:MimeType")[0].firstChild.nodeValue;//JBW
 				if (OpenLayers.WPS.Utils.isIn(formats, format) == false) {
 					formats.push(format);
 				}
@@ -845,7 +846,7 @@ OpenLayers.WPS = OpenLayers.Class({
 		var reference = OpenLayers.Format.XML.prototype.getElementsByTagNameNS(dom, this.wpsNS, "Reference");
 
 		if (reference.length > 0) {
-			output.setValue(OpenLayers.Format.XML.prototype.getAttributeNS(reference[0], "", "href"));
+			output.setValue(OpenLayers.Format.XML.prototype.getAttributeNS(reference[0], this.xlinkNS, "href"));//JBW 4/4/2013
 		} else if (literalData.length > 0) {
 			output.setValue(literalData[0].firstChild.nodeValue);
 		} else if (complexData.length > 0) {

@@ -1,6 +1,6 @@
 /*global google:false,  Ext:false, GeoExt:false, OpenLayers:false, printCapabilities:false*/
 
-var map, wps;
+var map, wps, save_link, saveaoi_form;
 
 Ext.onReady(function() {"use strict";
 
@@ -429,7 +429,7 @@ Ext.onReady(function() {"use strict";
 	var comboStore = new Ext.data.ArrayStore({
 		fields : ['layerName', 'layerId']
 	});
-	var comboData = [["NC HUC 2", 'nchuc2'], ["NC HUC 4", 'nchuc4'], ["NC HUC 6", 'nchuc6'], ["NC HUC 8", 'nchuc8'], ["NC HUC 10", 'nchuc10'], ["NC HUC 12", 'nchuc8'], ["NC Counties", 'counties'], ["NC BCR", 'ncbcr']];
+	var comboData = [["NC HUC 2", 'nchuc2'], ["NC HUC 4", 'nchuc4'], ["NC HUC 6", 'nchuc6'], ["NC HUC 8", 'nchuc8'], ["NC HUC 10", 'nchuc10'], ["NC HUC 12", 'nchuc12'], ["NC Counties", 'counties'], ["NC BCR", 'ncbcr']];
 	comboStore.loadData(comboData);
 
 	var form2_chng = function() {
@@ -495,16 +495,114 @@ Ext.onReady(function() {"use strict";
 		new_selection();
 	};
 
-	//var radio_chng = function(radiogroup) {
-	//console.info(radiogroup.name);
-	//console.info(radio.inputValue);
-	//console.log(radiogroup.getValue());
-	//};
+	var save_action = function() {
+		//console.log("remove... tell me more");
+		var text = formPanel2.getComponent('desc_txt').getValue();
+		if (text.length === 0) {
+			text = "no description provided";
+		}
+		console.log(text);
+		var gml_writer = new OpenLayers.Format.GML.v3({
+			featureType : 'MultiPolygon',
+			featureNS : 'http://jimserver.net/',
+			geometryName : 'aoi',
+			'internalProjection' : new OpenLayers.Projection("EPSG:900913"),
+			'externalProjection' : new OpenLayers.Projection("EPSG:4326")
+		});
 
+		var gml = gml_writer.write(highlightLayer.features);
+		//console.log(gml);
+		//var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
+
+		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
+		// init the client
+		wps = new OpenLayers.WPS(url, {
+			onSucceeded : onExecuted
+		});
+
+		var input1 = new OpenLayers.WPS.ComplexPut({
+			identifier : "input1",
+			value : gml
+		});
+		var input2 = new OpenLayers.WPS.LiteralPut({
+			identifier : "input2",
+			value : text
+		});
+
+		var output1 = new OpenLayers.WPS.LiteralPut({
+			identifier : "output1"
+		});
+		var output2 = new OpenLayers.WPS.ComplexPut({
+			identifier : "output2",
+			asReference : true
+		});
+
+		var myprocess = new OpenLayers.WPS.Process({
+			identifier : "nchuc12",
+			inputs : [input1, input2],
+			outputs : [output1, output2]
+		});
+
+		wps.addProcess(myprocess);
+		// run Execute
+		wps.execute("nchuc12");
+
+		//var format = new OpenLayers.Format.CQL();
+
+		function onExecuted(process) {
+			//console.log("process executed")
+			var aoi = process.outputs[0].getValue();
+			var cql = "identifier = '" + aoi + "'";
+
+			save_link = process.outputs[1].getValue();
+			//console.log(save_link);
+			//var respDOM = wps.responseDOM;
+			//var wpsns = "http://www.opengis.net/wps/1.0.0";
+			//var xlinkns = "http://www.w3.org/1999/xlink";
+			//var test = OpenLayers.Format.XML.prototype.getElementsByTagNameNS(respDOM, wpsns, "Reference")[0];
+			//var link = OpenLayers.Format.XML.prototype.getAttributeNS(test, wpsns, "encoding");
+			//var link = OpenLayers.Format.XML.prototype.getAttributeNS(test, "", "href");
+			//var xmlreader = new OpenLayers.Format.XML();
+			//var link = xmlreader.getAttributeNS(test, "http://www.w3.org/1999/xlink", "href");
+			//console.log(test.attributes);
+			//console.log(link);
+			delete results.params.CQL_FILTER;
+			results.mergeNewParams({
+				'CQL_FILTER' : cql
+			});
+			results.setVisibility(true);
+		}
+
+		//create domelements for download of saved aoi to iframe
+		var body = Ext.getBody();
+		body.createChild({
+			tag : 'iframe',
+			cls : 'x-hidden',
+			id : 'iframe',
+			name : 'iframe'
+		});
+		saveaoi_form = body.createChild({
+			tag : 'form',
+			cls : 'x-hidden',
+			id : 'form',
+			target : 'iframe'
+		});
+
+	};
+	
+	//downoad of save aoi, add to httpd.conf
+	//<Files *.nctml>
+	//Header set Content-Disposition attachment
+	//</Files>
+
+	var aoi_to_file = function() {
+		saveaoi_form.dom.action = save_link;
+		saveaoi_form.dom.submit();
+	};
 	var formPanel2 = new Ext.form.FormPanel({
 		title : "AOI creation",
 		width : 275,
-		height : 300,
+		height : 350,
 		bodyStyle : "padding:15px;",
 		labelAlign : "top",
 		defaults : {
@@ -542,66 +640,25 @@ Ext.onReady(function() {"use strict";
 			listeners : {
 				change : form2_chng
 			}
+		}, {
+			xtype : "textarea",
+			value : "",
+			fieldLabel : "Description - optional",
+			itemId : "desc_txt"
+		}],
+		buttons : [{
+			text : "Save AOI",
+			handler : aoi_to_file
+		}, {
+			text : "Remove AOI",
+			handler : remove_action
+		}, {
+			text : "Create AOI",
+			handler : save_action
 		}]
 	});
 
 	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
-
-	var save_action = function() {
-		//console.log("remove... tell me more");
-		var gml_writer = new OpenLayers.Format.GML.v3({
-			featureType : 'MultiPolygon',
-			featureNS : 'http://jimserver.net/',
-			geometryName : 'aoi',
-			'internalProjection' : new OpenLayers.Projection("EPSG:900913"),
-			'externalProjection' : new OpenLayers.Projection("EPSG:4326")
-		});
-
-		var gml = gml_writer.write(highlightLayer.features);
-		//console.log(gml);
-		//var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
-
-		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
-		// init the client
-		wps = new OpenLayers.WPS(url, {
-			onSucceeded : onExecuted
-		});
-		// define inputs of the 'dummyprocess'
-		var input1 = new OpenLayers.WPS.ComplexPut({
-			identifier : "input1",
-			value : gml
-
-		});
-		var output1 = new OpenLayers.WPS.LiteralPut({
-			identifier : "output1",
-			asReference : true
-		});
-
-		var myprocess = new OpenLayers.WPS.Process({
-			identifier : "nchuc12",
-			inputs : [input1],
-			outputs : [output1]
-		});
-
-		wps.addProcess(myprocess);
-		// run Execute
-		wps.execute("nchuc12");
-
-		//var format = new OpenLayers.Format.CQL();
-
-		function onExecuted(process) {
-			//console.log("process executed")
-			var aoi = process.outputs[0].getValue();
-			var cql = "identifier = '" + aoi + "'";
-			console.log(cql);
-			delete results.params.CQL_FILTER;
-			results.mergeNewParams({
-				'CQL_FILTER' : cql
-			});
-			results.setVisibility(true);
-		}
-
-	};
 
 	/////////////////////////////////////////
 	// start GeoExt config
@@ -662,7 +719,7 @@ Ext.onReady(function() {"use strict";
 		tooltip : "remove all drawn or selected AOI",
 		allowDepress : true
 	});
-	toolbarItems.push(action);
+	//toolbarItems.push(action);
 
 	action = new Ext.Action({
 		handler : save_action,
@@ -670,8 +727,8 @@ Ext.onReady(function() {"use strict";
 		tooltip : "save AOI",
 		allowDepress : true
 	});
-	toolbarItems.push(action);
-	toolbarItems.push("-");
+	//toolbarItems.push(action);
+	//toolbarItems.push("-");
 	action = new Ext.Action({
 		handler : print_action,
 		iconCls : "print_action",
