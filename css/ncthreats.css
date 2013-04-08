@@ -22,8 +22,12 @@
 div.olControlMousePosition {
 	right:100px !important;
 }
-.pages {
-	padding:10px;
+.pages input, .pages button, .pages p{
+	margin: 5px;
+}
+.pages h3 {
+	margin: 10px ;
+	text-align: center;
 }
 #input_div input {
 	float:right;
@@ -45,3 +49,27 @@ div.olControlMousePosition {
 .olImageLoadError {
 	display:none !important;
 }
+/**/
+.filereader #yep {
+	display: block;
+}
+.no-filereader #yep {
+	display: none;
+}
+.filereader #nope {
+	display: none;
+}
+.no-filereader #nope {
+	display: block;
+}
+#nope textarea {
+	height: 150px;
+	width: 250px;
+	margin: 10px;
+}
+
+
+
+
+
+

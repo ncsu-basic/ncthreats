@@ -1,4 +1,4 @@
-/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false, printCapabilities:false*/
+/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false, printCapabilities:false, ActiveXObject:false*/
 
 var map, wps, save_link, saveaoi_form;
 
@@ -589,7 +589,7 @@ Ext.onReady(function() {"use strict";
 		});
 
 	};
-	
+
 	//downoad of save aoi, add to httpd.conf
 	//<Files *.nctml>
 	//Header set Content-Disposition attachment
@@ -601,9 +601,9 @@ Ext.onReady(function() {"use strict";
 	};
 	var formPanel2 = new Ext.form.FormPanel({
 		title : "AOI creation",
-		width : 275,
+		width : 296,
 		height : 350,
-		bodyStyle : "padding:15px;",
+		bodyStyle : "padding:20px; ",
 		labelAlign : "top",
 		defaults : {
 			anchor : "100%"
@@ -657,6 +657,7 @@ Ext.onReady(function() {"use strict";
 			handler : save_action
 		}]
 	});
+
 
 	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
 
@@ -877,17 +878,27 @@ Ext.onReady(function() {"use strict";
 	});
 
 	var area_tab = new Ext.Panel({
-		title : 'Area',
+		title : 'AOI Upload',
 		cls : 'pages',
 		autoScroll : true,
-		id : "area_tab_id"
+		id : "aoi_upload_id"
 	});
 
-	area_tab = new Ext.Panel({
-		title : 'Area',
-		cls : 'pages',
+	var area_tab2 = new Ext.Panel({
+		title : 'New AOI',
+		//cls : 'pages',
 		autoScroll : true,
 		items : [formPanel2]
+	});
+
+	var accordion = new Ext.Panel({
+		title : 'Area',
+		layout : 'accordion',
+		defaults : {
+			// applied to each contained panel
+			//bodyStyle : 'padding:15px'
+		},
+		items : [area_tab2, area_tab]
 	});
 
 	var print_tab = new Ext.Panel({
@@ -902,7 +913,7 @@ Ext.onReady(function() {"use strict";
 		region : 'west',
 		width : 300,
 		activeTab : 0,
-		items : [tree, area_tab, process_tab, print_tab],
+		items : [tree, accordion, process_tab, print_tab],
 		deferredRender : false
 	});
 
@@ -913,5 +924,65 @@ Ext.onReady(function() {"use strict";
 			split : true
 		}
 	});
+
+	////////////////////////////////////////////////////////////////////////
+	//start scripting for panel pages
+	///////////////////////////////////////////////////////////////////////
+
+	//don't know why I am torturing myself by not using jQuery
+	var submit_saved = function(txt) {
+		//console.log(txt);
+		var parser, xmlDoc;
+		if (window.DOMParser) {
+			parser = new DOMParser();
+			xmlDoc = parser.parseFromString(txt, "text/xml");
+		} else// Internet Explorer
+		{
+			xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+			xmlDoc.async = false;
+			xmlDoc.loadXML(txt);
+		}
+		var res = xmlDoc.getElementsByTagName("aoiName")[0].childNodes[0].nodeValue;
+		console.log(res);
+	};
+	var page_script = function() {
+		//var aoi_name;
+		var el = document.getElementById('aoi_btn');
+		var el2 = document.getElementById('aoi_btn_copy');
+		var func = function() {
+			var file = document.getElementById('file').files[0];
+			if (file) {
+				//var url = window.URL || window.webkitURL;
+				//var blobURLref = url.createObjectURL(file);
+				var fileReader = new FileReader();
+				//fileReader.readAsBinaryString(file);
+				fileReader.readAsText(file);
+				fileReader.onload = function(oFREvent) {
+					//console.log(oFREvent.target.result);
+					submit_saved(oFREvent.target.result);
+				};
+			}
+		};
+		var func2 = function() {
+			var text = document.getElementById("aoi_copy").value.trim();
+			//console.log(text);
+			submit_saved(text);
+		};
+		if (el.addEventListener) {
+			//el.addEventListener('click', modifyText, false);
+			el.addEventListener("click", func, false);
+			el2.addEventListener("click", func2, false);
+		} else if (el.attachEvent) {
+			el.attachEvent('onclick', func);
+			el2.attachEvent('onclick', func2);
+		}
+
+	};
+	var el = Ext.getCmp("aoi_upload_id");
+	var mgr = el.getUpdater();
+	mgr.update({
+		url : "/pages/upload.html"
+	});
+	mgr.on("update", page_script);
 
 });
