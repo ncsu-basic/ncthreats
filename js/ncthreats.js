@@ -658,7 +658,6 @@ Ext.onReady(function() {"use strict";
 		}]
 	});
 
-
 	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
 
 	/////////////////////////////////////////
@@ -926,12 +925,11 @@ Ext.onReady(function() {"use strict";
 	});
 
 	////////////////////////////////////////////////////////////////////////
-	//start scripting for panel pages
+	//start scripting for panel html pages
 	///////////////////////////////////////////////////////////////////////
 
 	//don't know why I am torturing myself by not using jQuery
 	var submit_saved = function(txt) {
-		//console.log(txt);
 		var parser, xmlDoc;
 		if (window.DOMParser) {
 			parser = new DOMParser();
@@ -942,39 +940,136 @@ Ext.onReady(function() {"use strict";
 			xmlDoc.async = false;
 			xmlDoc.loadXML(txt);
 		}
+		//res is aoiname
 		var res = xmlDoc.getElementsByTagName("aoiName")[0].childNodes[0].nodeValue;
 		console.log(res);
 	};
+
+	var onExecuted2 = function(process) {
+		console.log("process run");
+	};
+
 	var page_script = function() {
-		//var aoi_name;
+		//button for saved aoi upload, compliant browsers
 		var el = document.getElementById('aoi_btn');
+		// button for create saved aoi for non compliant browsers
 		var el2 = document.getElementById('aoi_btn_copy');
+		//button for shapefile upload
+		var el3 = document.getElementById('shp_btn');
+
+		//this function gets saved aoi xml sting for file upload method
 		var func = function() {
 			var file = document.getElementById('file').files[0];
 			if (file) {
+				var blob = file.slice();
+				console.log(blob.size);
 				//var url = window.URL || window.webkitURL;
 				//var blobURLref = url.createObjectURL(file);
 				var fileReader = new FileReader();
-				//fileReader.readAsBinaryString(file);
 				fileReader.readAsText(file);
 				fileReader.onload = function(oFREvent) {
-					//console.log(oFREvent.target.result);
 					submit_saved(oFREvent.target.result);
 				};
 			}
 		};
+		//this function gets saved aoi xml string for paste into textarea
 		var func2 = function() {
 			var text = document.getElementById("aoi_copy").value.trim();
-			//console.log(text);
 			submit_saved(text);
 		};
+
+		//this function processes shapefile upload
+		var func3 = function() {
+			var files = document.getElementById('file2').files;
+			var fileReader = new Array();
+			var shp, prj, shx, blob, parse_filename, result;
+			//console.log(file);
+			if (files) {
+				for (var i = 0; i < files.length; i++) {
+					//blob = files[i].slice();
+					//console.log(blob.size);
+					//console.log(files[i].name);
+
+					//fileReader.readAsDataURL(blobURLref);
+					fileReader[i] = new FileReader();
+					fileReader[i].readAsDataURL(files[i]);
+					fileReader[i].onload = function(oFREvent) {
+						//console.log(oFREvent.target.result);
+						blob = oFREvent.target.result;
+						console.log(blob.length);
+					
+					};
+					parse_filename = /\.(shp|shx|prj)/;
+					result = parse_filename.exec(files[i].name);
+					if (!result) {
+						//console.log("error, file not used " + files[i].name);
+					} else {
+						//console.log(result[1]);
+						switch(result[1]) {
+							case 'shp':
+								shp = blob;
+								console.log("shp.....");
+								break;
+							case 'shx':
+								console.log("shx.....");
+								shx = blob;
+								break;
+							case 'prj':
+								console.log("prj.....");
+								prj = blob;
+								console.log(blob);
+								break;
+						}
+					}
+				}
+				if (!prj || !shx || !shp) {
+					console.log("file shp, prj, or shx missing");
+				} else {
+					var oMyForm = new FormData();
+					//oMyForm.append('shp', shp);
+					// oMyForm.append('shx', shx);
+					oMyForm.append('prj', prj);
+					var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
+					// init the client
+					wps = new OpenLayers.WPS(url, {
+						onSucceeded : onExecuted2
+					});
+
+					var input_shp = new OpenLayers.WPS.ComplexPut({
+						identifier : "input_shp",
+						value : shp
+					});
+					var input_shx = new OpenLayers.WPS.ComplexPut({
+						identifier : "input_shx",
+						value : shx
+					});
+					var input_prj = new OpenLayers.WPS.ComplexPut({
+						identifier : "input_prj",
+						value : oMyForm
+					});
+
+					var myprocess2 = new OpenLayers.WPS.Process({
+						identifier : "shpTonchuc12",
+						inputs : [input_shp, input_shx, input_prj],
+						outputs : []
+					});
+
+					wps.addProcess(myprocess2);
+					// run Execute
+					wps.execute("shpTonchuc12");
+
+				}
+			}
+		}
+		//event listeners for buttons on html page
 		if (el.addEventListener) {
-			//el.addEventListener('click', modifyText, false);
 			el.addEventListener("click", func, false);
 			el2.addEventListener("click", func2, false);
+			el3.addEventListener("click", func3, false);
 		} else if (el.attachEvent) {
 			el.attachEvent('onclick', func);
 			el2.attachEvent('onclick', func2);
+			el3.attachEvent('onclick', func3);
 		}
 
 	};
