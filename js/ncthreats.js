@@ -978,27 +978,57 @@ Ext.onReady(function() {"use strict";
 			submit_saved(text);
 		};
 
+		var shp, prj, shx;
+		var shpTonchuc12 = function() {
+			console.log("all done");
+			console.log(prj.length);
+			console.log(shp.length);
+			console.log(shx.length);
+			var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
+			// init the client
+			wps = new OpenLayers.WPS(url, {
+				onSucceeded : onExecuted2
+			});
+
+			var input_shp = new OpenLayers.WPS.ComplexPut({
+				identifier : "input_shp",
+				value : shp
+			});
+			var input_shx = new OpenLayers.WPS.ComplexPut({
+				identifier : "input_shx",
+				value : shx
+			});
+			var input_prj = new OpenLayers.WPS.ComplexPut({
+				identifier : "input_prj",
+				value : prj
+			});
+
+			var myprocess2 = new OpenLayers.WPS.Process({
+				identifier : "shpTonchuc12",
+				inputs : [ input_shx, input_shp, input_prj ],
+				outputs : []
+			});
+
+			wps.addProcess(myprocess2);
+			// run Execute
+			wps.execute("shpTonchuc12");
+		};
+
 		//this function processes shapefile upload
 		var func3 = function() {
 			var files = document.getElementById('file2').files;
 			var fileReader = new Array();
-			var shp, prj, shx, blob, parse_filename, result;
+			var blob, parse_filename, result;
+			shp = shx = prj = null;
 			//console.log(file);
 			if (files) {
 				for (var i = 0; i < files.length; i++) {
 					//blob = files[i].slice();
 					//console.log(blob.size);
 					//console.log(files[i].name);
-
 					//fileReader.readAsDataURL(blobURLref);
 					fileReader[i] = new FileReader();
 					fileReader[i].readAsDataURL(files[i]);
-					fileReader[i].onload = function(oFREvent) {
-						//console.log(oFREvent.target.result);
-						blob = oFREvent.target.result;
-						console.log(blob.length);
-					
-					};
 					parse_filename = /\.(shp|shx|prj)/;
 					result = parse_filename.exec(files[i].name);
 					if (!result) {
@@ -1007,17 +1037,34 @@ Ext.onReady(function() {"use strict";
 						//console.log(result[1]);
 						switch(result[1]) {
 							case 'shp':
-								shp = blob;
 								console.log("shp.....");
+								fileReader[i].onload = function(oFREvent) {
+									//console.log(oFREvent.target.result);
+									shp = oFREvent.target.result;
+									if (shx && prj) {
+										shpTonchuc12();
+									}
+								};
 								break;
 							case 'shx':
 								console.log("shx.....");
-								shx = blob;
+								fileReader[i].onload = function(oFREvent) {
+									//console.log(oFREvent.target.result);
+									shx = oFREvent.target.result;
+									if (shp && prj) {
+										shpTonchuc12();
+									}
+								};
 								break;
 							case 'prj':
 								console.log("prj.....");
-								prj = blob;
-								console.log(blob);
+								fileReader[i].onload = function(oFREvent) {
+									//console.log(oFREvent.target.result);
+									prj = oFREvent.target.result;
+									if (shx && shp) {
+										shpTonchuc12();
+									}
+								};
 								break;
 						}
 					}
@@ -1025,38 +1072,10 @@ Ext.onReady(function() {"use strict";
 				if (!prj || !shx || !shp) {
 					console.log("file shp, prj, or shx missing");
 				} else {
-					var oMyForm = new FormData();
+					//var oMyForm = new FormData();
 					//oMyForm.append('shp', shp);
 					// oMyForm.append('shx', shx);
-					oMyForm.append('prj', prj);
-					var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
-					// init the client
-					wps = new OpenLayers.WPS(url, {
-						onSucceeded : onExecuted2
-					});
-
-					var input_shp = new OpenLayers.WPS.ComplexPut({
-						identifier : "input_shp",
-						value : shp
-					});
-					var input_shx = new OpenLayers.WPS.ComplexPut({
-						identifier : "input_shx",
-						value : shx
-					});
-					var input_prj = new OpenLayers.WPS.ComplexPut({
-						identifier : "input_prj",
-						value : oMyForm
-					});
-
-					var myprocess2 = new OpenLayers.WPS.Process({
-						identifier : "shpTonchuc12",
-						inputs : [input_shp, input_shx, input_prj],
-						outputs : []
-					});
-
-					wps.addProcess(myprocess2);
-					// run Execute
-					wps.execute("shpTonchuc12");
+					//oMyForm.append('prj', prj);
 
 				}
 			}
