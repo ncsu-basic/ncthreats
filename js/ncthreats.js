@@ -278,6 +278,7 @@ Ext.onReady(function() {"use strict";
 	var col_name;
 	function showInfo(evt) {
 		console.log(query_ctl.layers[0].name);
+		console.log(evt);
 		if (evt.features && evt.features.length) {
 			for (var i = 0; i < evt.features.length; i++) {
 				//if selected feature is on then remove it
@@ -950,6 +951,7 @@ Ext.onReady(function() {"use strict";
 	};
 
 	var page_script = function() {
+
 		//button for saved aoi upload, compliant browsers
 		var el = document.getElementById('aoi_btn');
 		// button for create saved aoi for non compliant browsers
@@ -978,40 +980,34 @@ Ext.onReady(function() {"use strict";
 			submit_saved(text);
 		};
 
-		var shp, prj, shx;
-		var shpTonchuc12 = function() {
-			console.log("all done");
+		var shpTonchuc12 = function(shp, prj, shx) {
 			console.log(prj.length);
 			console.log(shp.length);
 			console.log(shx.length);
-			var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
-			// init the client
-			wps = new OpenLayers.WPS(url, {
-				onSucceeded : onExecuted2
+			var gml_str, features;
+
+			$.ajax({
+				type : "POST",
+				url : "pages/shptogml.php",
+				data : {
+					shp : shp,
+					shx : shx,
+					prj : prj
+				},
+				dataType : "json",
+				success : function(data) {
+					//console.log(data.prjlen);
+					//console.log(data.shplen);
+					//console.log(data.shxlen);
+					
+					//console.log(data.json);
+					var geojson_format = new OpenLayers.Format.GeoJSON();
+					var shpfeatures = geojson_format.read(data.json);
+					highlightLayer.addFeatures(shpfeatures);
+					//console.log(test2);
+				}
 			});
 
-			var input_shp = new OpenLayers.WPS.ComplexPut({
-				identifier : "input_shp",
-				value : shp
-			});
-			var input_shx = new OpenLayers.WPS.ComplexPut({
-				identifier : "input_shx",
-				value : shx
-			});
-			var input_prj = new OpenLayers.WPS.ComplexPut({
-				identifier : "input_prj",
-				value : prj
-			});
-
-			var myprocess2 = new OpenLayers.WPS.Process({
-				identifier : "shpTonchuc12",
-				inputs : [ input_shx, input_shp, input_prj ],
-				outputs : []
-			});
-
-			wps.addProcess(myprocess2);
-			// run Execute
-			wps.execute("shpTonchuc12");
 		};
 
 		//this function processes shapefile upload
@@ -1019,7 +1015,8 @@ Ext.onReady(function() {"use strict";
 			var files = document.getElementById('file2').files;
 			var fileReader = new Array();
 			var blob, parse_filename, result;
-			shp = shx = prj = null;
+			var shp, prj, shx, prjfile, shxfile, shpfile;
+			//shp = shx = prj = null;
 			//console.log(file);
 			if (files) {
 				for (var i = 0; i < files.length; i++) {
@@ -1037,45 +1034,46 @@ Ext.onReady(function() {"use strict";
 						//console.log(result[1]);
 						switch(result[1]) {
 							case 'shp':
-								console.log("shp.....");
+								//console.log("shp.....");
+								shpfile = true;
 								fileReader[i].onload = function(oFREvent) {
 									//console.log(oFREvent.target.result);
 									shp = oFREvent.target.result;
 									if (shx && prj) {
-										shpTonchuc12();
+										shpTonchuc12(shp, prj, shx);
 									}
 								};
 								break;
 							case 'shx':
-								console.log("shx.....");
+								//console.log("shx.....");
+								shxfile = true;
 								fileReader[i].onload = function(oFREvent) {
 									//console.log(oFREvent.target.result);
 									shx = oFREvent.target.result;
 									if (shp && prj) {
-										shpTonchuc12();
+										shpTonchuc12(shp, prj, shx);
 									}
 								};
 								break;
 							case 'prj':
-								console.log("prj.....");
+								//console.log("prj.....");
+								prjfile = true;
 								fileReader[i].onload = function(oFREvent) {
 									//console.log(oFREvent.target.result);
 									prj = oFREvent.target.result;
 									if (shx && shp) {
-										shpTonchuc12();
+										shpTonchuc12(shp, prj, shx);
 									}
 								};
 								break;
 						}
 					}
 				}
-				if (!prj || !shx || !shp) {
-					console.log("file shp, prj, or shx missing");
+				if (!(prjfile && shxfile && shpfile)) {
+					//console.log("file shp, prj, or shx missing");
+					$("#upload_msg").html("file shp, prj, or shx missing");
 				} else {
-					//var oMyForm = new FormData();
-					//oMyForm.append('shp', shp);
-					// oMyForm.append('shx', shx);
-					//oMyForm.append('prj', prj);
+					$("#upload_msg").html("");
 
 				}
 			}

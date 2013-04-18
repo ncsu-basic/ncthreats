@@ -67,6 +67,13 @@ div.olControlMousePosition {
 	width: 250px;
 	margin: 10px;
 }
+#upload_msg {
+	width: 75%;
+	height: 20px;
+	border: solid black 1px;
+	margin: 5px auto 5px;
+	font-size: 12px;
+}
 
 
 
