@@ -365,9 +365,9 @@ Ext.onReady(function() {"use strict";
 	// The form with fields controlling the print output
 	var formPanel = new Ext.form.FormPanel({
 		title : "Print config",
-		width : 275,
-		height : 300,
-		bodyStyle : "padding:15px;",
+		width : 296,
+		height : 350,
+		bodyStyle : "padding:20px; ",
 		labelAlign : "top",
 		defaults : {
 			anchor : "100%"
@@ -388,6 +388,7 @@ Ext.onReady(function() {"use strict";
 			typeAhead : true,
 			mode : "local",
 			triggerAction : "all",
+			itemId : "printcmb1",
 			plugins : new GeoExt.plugins.PrintProviderField({
 				printProvider : printProvider
 			})
@@ -400,6 +401,7 @@ Ext.onReady(function() {"use strict";
 			typeAhead : true,
 			mode : "local",
 			triggerAction : "all",
+			itemId : "printcmb2",
 			plugins : new GeoExt.plugins.PrintProviderField({
 				printProvider : printProvider
 			})
@@ -426,7 +428,7 @@ Ext.onReady(function() {"use strict";
 			}
 		}]
 	});
-
+	//formPanel.getComponent('printcmb1').setWidth(200);
 	var comboStore = new Ext.data.ArrayStore({
 		fields : ['layerName', 'layerId']
 	});
@@ -556,17 +558,7 @@ Ext.onReady(function() {"use strict";
 			var cql = "identifier = '" + aoi + "'";
 
 			save_link = process.outputs[1].getValue();
-			//console.log(save_link);
-			//var respDOM = wps.responseDOM;
-			//var wpsns = "http://www.opengis.net/wps/1.0.0";
-			//var xlinkns = "http://www.w3.org/1999/xlink";
-			//var test = OpenLayers.Format.XML.prototype.getElementsByTagNameNS(respDOM, wpsns, "Reference")[0];
-			//var link = OpenLayers.Format.XML.prototype.getAttributeNS(test, wpsns, "encoding");
-			//var link = OpenLayers.Format.XML.prototype.getAttributeNS(test, "", "href");
-			//var xmlreader = new OpenLayers.Format.XML();
-			//var link = xmlreader.getAttributeNS(test, "http://www.w3.org/1999/xlink", "href");
-			//console.log(test.attributes);
-			//console.log(link);
+
 			delete results.params.CQL_FILTER;
 			results.mergeNewParams({
 				'CQL_FILTER' : cql
@@ -654,7 +646,7 @@ Ext.onReady(function() {"use strict";
 			text : "Remove AOI",
 			handler : remove_action
 		}, {
-			text : "Create AOI",
+			text : "Get HUC12s",
 			handler : save_action
 		}]
 	});
@@ -886,9 +878,9 @@ Ext.onReady(function() {"use strict";
 
 	var area_tab2 = new Ext.Panel({
 		title : 'New AOI',
-		//cls : 'pages',
 		autoScroll : true,
-		items : [formPanel2]
+		items : [formPanel2],
+		id : "aoi_create_id"
 	});
 
 	var accordion = new Ext.Panel({
@@ -903,7 +895,6 @@ Ext.onReady(function() {"use strict";
 
 	var print_tab = new Ext.Panel({
 		title : 'Print',
-		cls : 'pages',
 		autoScroll : true,
 		id : "print_tab_id",
 		items : [formPanel]
@@ -999,12 +990,14 @@ Ext.onReady(function() {"use strict";
 					//console.log(data.prjlen);
 					//console.log(data.shplen);
 					//console.log(data.shxlen);
-					
-					//console.log(data.json);
+					console.log("hello world");
+					console.log(data.json);
 					var geojson_format = new OpenLayers.Format.GeoJSON();
 					var shpfeatures = geojson_format.read(data.json);
 					highlightLayer.addFeatures(shpfeatures);
-					//console.log(test2);
+					console.log(shpfeatures);
+					Ext.getCmp('aoi_upload_id').collapse();
+					Ext.getCmp('aoi_create_id').expand();
 				}
 			});
 

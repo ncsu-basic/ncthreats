@@ -8,16 +8,24 @@ $shp = $_POST['shp'];
 $shx = $_POST['shx'];
 $prj = $_POST['prj'];
 
-$fluff = "data:application/octet-stream;base64,";
+$fluff = "data:application/octet-stream;base64,";//for firefox
+$fluff2 = "data:;base64,";//for chrome
+$fluff3 = urlencode($fluff2);//for ie
 
-$prj_noheaders = str_replace($fluff, '', $prj);
-$prj_str = base64_decode($prj_noheaders);
+$prj = str_replace($fluff, '', $prj);
+$prj = str_replace($fluff2, '', $prj);
+$prj = str_replace($fluff3, '', $prj);
+$prj_str = base64_decode($prj);
 
-$shp_noheaders = str_replace($fluff, '', $shp);
-$shp_data = base64_decode($shp_noheaders);
+$shp = str_replace($fluff, '', $shp);
+$shp = str_replace($fluff2, '', $shp);
+$shp = str_replace($fluff3, '', $shp);
+$shp_data = base64_decode($shp);
 
-$shx_noheaders = str_replace($fluff, '', $shx);
-$shx_data = base64_decode($shx_noheaders);
+$shx = str_replace($fluff, '', $shx);
+$shx = str_replace($fluff2, '', $shx);
+$shx = str_replace($fluff3, '', $shx);
+$shx_data = base64_decode($shx);
 
 $base_file = "upload".rand(1000000, 9999999);
 
@@ -37,8 +45,7 @@ $cmd = "/usr/bin/ogr2ogr -f GeoJSON -t_srs EPSG:900913  /tmp/{$base_file}.json /
 exec($cmd);
 
 $json = file_get_contents("/tmp/{$base_file}.json");
-//$gml_header = "data:application/xml;base64,";
-//$gml_data = $gml_header.base64_encode($gml);
+
 
 echo json_encode(array("json"=>$json));
 

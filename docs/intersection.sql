@@ -1,3 +1,6 @@
+--intersection.sql
+
+
 CREATE or replace FUNCTION aoitohuc(aoi_ident text) RETURNS  text AS $$
 << outerblock >>
 DECLARE
@@ -21,7 +24,14 @@ BEGIN
 			if aoiarea > 100 then
 				--select into huc12_geom ST_AsText(wkb_geometry) from huc12nc where huc_12 = huc12s;
 				select into results_geom wkb_geometry from huc12nc where huc_12 = huc12s;
-				insert into results (huc12, identifier,  the_geom) values (huc12s, aoi_ident, results_geom);
+				BEGIN
+  					insert into results (huc12, identifier,  the_geom, date_added) values (huc12s, aoi_ident, results_geom, now());
+				EXCEPTION
+    					WHEN unique_violation THEN
+        				--do nothing, this prevents duplicate hucs in same aoi using table constraint
+        				
+				END;
+				
 				--return next huc12s;
 				--return next huc12_geom;
 			end if;
