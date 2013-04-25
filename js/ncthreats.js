@@ -558,7 +558,6 @@ Ext.onReady(function() {"use strict";
 			var cql = "identifier = '" + aoi + "'";
 
 			save_link = process.outputs[1].getValue();
-
 			delete results.params.CQL_FILTER;
 			results.mergeNewParams({
 				'CQL_FILTER' : cql
@@ -934,23 +933,29 @@ Ext.onReady(function() {"use strict";
 		}
 		//res is aoiname
 		var res = xmlDoc.getElementsByTagName("aoiName")[0].childNodes[0].nodeValue;
-		console.log(res);
+		//console.log(res);
+		var cql = "identifier = '" + res + "'";
+		delete results.params.CQL_FILTER;
+		results.mergeNewParams({
+			'CQL_FILTER' : cql
+		});
+		results.setVisibility(true);
 	};
 
-	var onExecuted2 = function(process) {
-		console.log("process run");
-	};
+	//var onExecuted2 = function(process) {
+	//	console.log("process run");
+	//};
 
 	var page_script = function() {
 
 		//button for saved aoi upload, compliant browsers
 		var el = document.getElementById('aoi_btn');
 		// button for create saved aoi for non compliant browsers
-		var el2 = document.getElementById('aoi_btn_copy');
+		//var el2 = document.getElementById('aoi_btn_copy');
 		//button for shapefile upload
 		var el3 = document.getElementById('shp_btn');
 
-		//this function gets saved aoi xml sting for file upload method
+		//this function gets saved aoi xml string for file upload method
 		var func = function() {
 			var file = document.getElementById('file').files[0];
 			if (file) {
@@ -966,16 +971,12 @@ Ext.onReady(function() {"use strict";
 			}
 		};
 		//this function gets saved aoi xml string for paste into textarea
-		var func2 = function() {
-			var text = document.getElementById("aoi_copy").value.trim();
-			submit_saved(text);
-		};
+		//var func2 = function() {
+		//	var text = document.getElementById("aoi_copy").value.trim();
+		//	submit_saved(text);
+		//};
 
 		var shpTonchuc12 = function(shp, prj, shx) {
-			console.log(prj.length);
-			console.log(shp.length);
-			console.log(shx.length);
-			var gml_str, features;
 
 			$.ajax({
 				type : "POST",
@@ -987,15 +988,11 @@ Ext.onReady(function() {"use strict";
 				},
 				dataType : "json",
 				success : function(data) {
-					//console.log(data.prjlen);
-					//console.log(data.shplen);
-					//console.log(data.shxlen);
-					console.log("hello world");
-					console.log(data.json);
+
 					var geojson_format = new OpenLayers.Format.GeoJSON();
 					var shpfeatures = geojson_format.read(data.json);
 					highlightLayer.addFeatures(shpfeatures);
-					console.log(shpfeatures);
+					//console.log(shpfeatures);
 					Ext.getCmp('aoi_upload_id').collapse();
 					Ext.getCmp('aoi_create_id').expand();
 				}
@@ -1006,58 +1003,62 @@ Ext.onReady(function() {"use strict";
 		//this function processes shapefile upload
 		var func3 = function() {
 			var files = document.getElementById('file2').files;
-			var fileReader = new Array();
-			var blob, parse_filename, result;
+			var fileReader = [];
+			var parse_filename, result;
 			var shp, prj, shx, prjfile, shxfile, shpfile;
-			//shp = shx = prj = null;
-			//console.log(file);
+
+			//try to use closure to create handler, for jshint?
+			var create_handler = function(file) {
+				var handler;
+				switch(file) {
+					case 'shp':
+						handler = function(oFREvent) {
+							shp = oFREvent.target.result;
+							if (shx && prj) {
+								shpTonchuc12(shp, prj, shx);
+							}
+						};
+						break;
+					case 'shx':
+						handler = function(oFREvent) {
+							shx = oFREvent.target.result;
+							if (shp && prj) {
+								shpTonchuc12(shp, prj, shx);
+							}
+						};
+						break;
+					case 'prj':
+						handler = function(oFREvent) {
+							prj = oFREvent.target.result;
+							if (shx && shp) {
+								shpTonchuc12(shp, prj, shx);
+							}
+						};
+						break;
+				}
+				return handler;
+			};
+
 			if (files) {
 				for (var i = 0; i < files.length; i++) {
-					//blob = files[i].slice();
-					//console.log(blob.size);
-					//console.log(files[i].name);
-					//fileReader.readAsDataURL(blobURLref);
+
 					fileReader[i] = new FileReader();
 					fileReader[i].readAsDataURL(files[i]);
 					parse_filename = /\.(shp|shx|prj)/;
 					result = parse_filename.exec(files[i].name);
-					if (!result) {
-						//console.log("error, file not used " + files[i].name);
-					} else {
-						//console.log(result[1]);
+					if (result) {
 						switch(result[1]) {
 							case 'shp':
-								//console.log("shp.....");
 								shpfile = true;
-								fileReader[i].onload = function(oFREvent) {
-									//console.log(oFREvent.target.result);
-									shp = oFREvent.target.result;
-									if (shx && prj) {
-										shpTonchuc12(shp, prj, shx);
-									}
-								};
+								fileReader[i].onload = create_handler('shp');
 								break;
 							case 'shx':
-								//console.log("shx.....");
 								shxfile = true;
-								fileReader[i].onload = function(oFREvent) {
-									//console.log(oFREvent.target.result);
-									shx = oFREvent.target.result;
-									if (shp && prj) {
-										shpTonchuc12(shp, prj, shx);
-									}
-								};
+								fileReader[i].onload = create_handler('shx');
 								break;
 							case 'prj':
-								//console.log("prj.....");
 								prjfile = true;
-								fileReader[i].onload = function(oFREvent) {
-									//console.log(oFREvent.target.result);
-									prj = oFREvent.target.result;
-									if (shx && shp) {
-										shpTonchuc12(shp, prj, shx);
-									}
-								};
+								fileReader[i].onload = create_handler('prj');
 								break;
 						}
 					}
@@ -1070,15 +1071,15 @@ Ext.onReady(function() {"use strict";
 
 				}
 			}
-		}
+		};
 		//event listeners for buttons on html page
 		if (el.addEventListener) {
 			el.addEventListener("click", func, false);
-			el2.addEventListener("click", func2, false);
+			//el2.addEventListener("click", func2, false);
 			el3.addEventListener("click", func3, false);
 		} else if (el.attachEvent) {
 			el.attachEvent('onclick', func);
-			el2.attachEvent('onclick', func2);
+			//el2.attachEvent('onclick', func2);
 			el3.attachEvent('onclick', func3);
 		}
 
