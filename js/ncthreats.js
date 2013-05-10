@@ -120,7 +120,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : true
 	});
 
-	//////////cached layers
+	//////////label layers for web from tilecache
 	var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
 		layers : "counties_lbl",
 		format : 'image/png',
@@ -199,6 +199,72 @@ Ext.onReady(function() {"use strict";
 		fillOpacity : 0.2
 	});
 
+	///////////////////// label layers from geoserver for pdf
+	var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "counties_lbl",
+		format : 'image/png',
+		transparent : true
+		//tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc2_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h2", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc2nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc4_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h4", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc4nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc6_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h6", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc6nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc8_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h8", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc8nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc10_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h10", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc10nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
+	var nchuc12_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
+		layers : "huc12nc_lbl",
+		format : 'image/png',
+		transparent : true
+	}, {
+		isBaseLayer : false,
+		visibility : false
+	});
+
 	////////////analysis layers
 	var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
 		displayInLayerSwitcher : false,
@@ -217,7 +283,7 @@ Ext.onReady(function() {"use strict";
 		displayInLayerSwitcher : true
 	});
 
-	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer, results]);
+	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, counties_lbl_gs, nchuc12_lbl_gs, nchuc10_lbl_gs, nchuc8_lbl_gs, nchuc6_lbl_gs, nchuc4_lbl_gs, nchuc2_lbl_gs, highlightLayer, results]);
 
 	//////////////////////////////////////////////////////////////////////////
 	// add controls
@@ -276,9 +342,11 @@ Ext.onReady(function() {"use strict";
 
 	var selected_hucs = {};
 	var col_name;
+
+	//function to outline selected predefined areas of interest
 	function showInfo(evt) {
-		console.log(query_ctl.layers[0].name);
-		console.log(evt);
+		//console.log(query_ctl.layers[0].name);
+		//console.log(evt);
 		if (evt.features && evt.features.length) {
 			for (var i = 0; i < evt.features.length; i++) {
 				//if selected feature is on then remove it
@@ -304,14 +372,6 @@ Ext.onReady(function() {"use strict";
 	map.addControl(click);
 
 	query_ctl.activate();
-
-	var draw_action = function() {
-		console.log("draw");
-	};
-
-	var nav_action = function() {
-		console.log("nav");
-	};
 
 	var new_selection = function() {
 		//var mode = $("#input_div input:checked").val();
@@ -350,18 +410,6 @@ Ext.onReady(function() {"use strict";
 		printProvider : printProvider
 	});
 
-	var print_action = function() {
-		console.log(printCapabilities);
-		console.log("print");
-		printCapabilities.createURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/create.json";
-		printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf";
-		highlightLayer.setVisibility(false);
-
-		printPage.fit(mapPanel, true);
-		// print the page, optionally including the legend
-		printProvider.print(mapPanel, printPage);
-
-	};
 	// The form with fields controlling the print output
 	var formPanel = new Ext.form.FormPanel({
 		title : "Print config",
@@ -405,26 +453,54 @@ Ext.onReady(function() {"use strict";
 			plugins : new GeoExt.plugins.PrintProviderField({
 				printProvider : printProvider
 			})
-			// the plugin will work even if we modify a combo value
-			//setValue : function(v) {
-			//	v = parseInt(v, 10) + " dpi";
-			//	Ext.form.ComboBox.prototype.setValue.apply(this, arguments);
-			//}
+
 		}],
 		buttons : [{
 			text : "Create PDF",
 			//cls : "pr_btn",
 			handler : function() {
 				//printProvider.print(mapPanel, printPage);
-				console.log(printCapabilities);
-				console.log("print");
+				//console.log(printCapabilities);
 				printCapabilities.createURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/create.json";
 				printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf";
+
+				//code to use label layers from geoserver for pdf and
+				//then turn tilecache back on for web map
+				var label_lyr_name, label_lyr, label_lyr_pdf;
+				var label_lyrs = {
+					"NC Counties Label" : "label for pdf, county",
+					"NC HUC 2 Label" : "label for pdf, h2",
+					"NC HUC 4 Label" : "label for pdf, h4",
+					"NC HUC 6 Label" : "label for pdf, h6",
+					"NC HUC 8 Label" : "label for pdf, h8",
+					"NC HUC 10 Label" : "label for pdf, h10",
+					"NC HUC 12 Label" : "label for pdf, h12"
+				};
+				for (label_lyr_name in label_lyrs) {
+					label_lyr = map.getLayersByName(label_lyr_name)[0];
+					label_lyr_pdf = map.getLayersByName(label_lyrs[label_lyr_name])[0];
+					if (label_lyr.getVisibility()) {
+						label_lyr.setVisibility(false);
+						label_lyr_pdf.setVisibility(true);
+					}
+				}
+				var show_highlight = highlightLayer.getVisibility();
 				highlightLayer.setVisibility(false);
 
 				printPage.fit(mapPanel, true);
 				// print the page, optionally including the legend
 				printProvider.print(mapPanel, printPage);
+				if (show_highlight) {
+					highlightLayer.setVisibility(true);
+				}
+				for (label_lyr_name in label_lyrs) {
+					label_lyr = map.getLayersByName(label_lyr_name)[0];
+					label_lyr_pdf = map.getLayersByName(label_lyrs[label_lyr_name])[0];
+					if (label_lyr_pdf.getVisibility()) {
+						label_lyr.setVisibility(true);
+						label_lyr_pdf.setVisibility(false);
+					}
+				}
 			}
 		}]
 	});
@@ -498,6 +574,7 @@ Ext.onReady(function() {"use strict";
 		new_selection();
 	};
 
+	//function to submit defined area to pywps
 	var save_action = function() {
 		//console.log("remove... tell me more");
 		var text = formPanel2.getComponent('desc_txt').getValue();
@@ -549,8 +626,6 @@ Ext.onReady(function() {"use strict";
 		wps.addProcess(myprocess);
 		// run Execute
 		wps.execute("nchuc12");
-
-		//var format = new OpenLayers.Format.CQL();
 
 		function onExecuted(process) {
 			//console.log("process executed")
@@ -635,7 +710,7 @@ Ext.onReady(function() {"use strict";
 		}, {
 			xtype : "textarea",
 			value : "",
-			fieldLabel : "Description - optional",
+			fieldLabel : "Description - optional, use when creating HUCs for a description in saved AOI",
 			itemId : "desc_txt"
 		}],
 		buttons : [{
@@ -649,8 +724,6 @@ Ext.onReady(function() {"use strict";
 			handler : save_action
 		}]
 	});
-
-	//gml_template = '<?xml version="1.0" encoding="ISO-8859-1"?><wfs:FeatureCollection xmlns:ms="http://mapserver.gis.umn.edu/mapserver" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/wfs http://schemas.opengis.net/wfs/1.0.0/WFS-basic.xsd                         http://mapserver.gis.umn.edu/mapserver http://aneto.oco/cgi-bin/worldwfs?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=DescribeFeatureType&amp;TYPENAME=multipolygon&amp;OUTPUTFORMAT=XMLSCHEMA">' + "$FEATURE_MEMBERS$" + '</wfs:FeatureCollection>';
 
 	/////////////////////////////////////////
 	// start GeoExt config
@@ -686,48 +759,6 @@ Ext.onReady(function() {"use strict";
 	toolbarItems.push(action);
 
 	toolbarItems.push("-");
-
-	action = new Ext.Action({
-		toggleGroup : "edit",
-		handler : draw_action,
-		iconCls : "draw_action",
-		tooltip : "enable drawing or selecting AOI"
-	});
-	//toolbarItems.push(action);
-
-	action = new Ext.Action({
-		toggleGroup : "edit",
-		handler : nav_action,
-		iconCls : "nav_action",
-		pressed : true,
-		tooltip : "disable drawing or selecting AOI"
-	});
-	//toolbarItems.push(action);
-	//toolbarItems.push("-");
-
-	action = new Ext.Action({
-		handler : remove_action,
-		iconCls : "remove_action",
-		tooltip : "remove all drawn or selected AOI",
-		allowDepress : true
-	});
-	//toolbarItems.push(action);
-
-	action = new Ext.Action({
-		handler : save_action,
-		iconCls : "save_action",
-		tooltip : "save AOI",
-		allowDepress : true
-	});
-	//toolbarItems.push(action);
-	//toolbarItems.push("-");
-	action = new Ext.Action({
-		handler : print_action,
-		iconCls : "print_action",
-		tooltip : "print map",
-		allowDepress : true
-	});
-	//toolbarItems.push(action);
 
 	var mapPanel = new GeoExt.MapPanel({
 		region : "center",
@@ -919,7 +950,6 @@ Ext.onReady(function() {"use strict";
 	//start scripting for panel html pages
 	///////////////////////////////////////////////////////////////////////
 
-	//don't know why I am torturing myself by not using jQuery
 	var submit_saved = function(txt) {
 		var parser, xmlDoc;
 		if (window.DOMParser) {
@@ -942,16 +972,11 @@ Ext.onReady(function() {"use strict";
 		results.setVisibility(true);
 	};
 
-	//var onExecuted2 = function(process) {
-	//	console.log("process run");
-	//};
-
 	var page_script = function() {
 
 		//button for saved aoi upload, compliant browsers
 		var el = document.getElementById('aoi_btn');
-		// button for create saved aoi for non compliant browsers
-		//var el2 = document.getElementById('aoi_btn_copy');
+
 		//button for shapefile upload
 		var el3 = document.getElementById('shp_btn');
 
