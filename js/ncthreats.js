@@ -1,8 +1,10 @@
 /*global google:false,  Ext:false, GeoExt:false, OpenLayers:false, printCapabilities:false, ActiveXObject:false*/
 
 var map, wps, save_link, saveaoi_form;
+var SERVER_URI = "http://localhost/"
 
-Ext.onReady(function() {"use strict";
+Ext.onReady(function() {
+	"use strict";
 
 	////////////////////////////////////////////
 	//initialize map
@@ -12,18 +14,18 @@ Ext.onReady(function() {"use strict";
 	var proj_900913 = new OpenLayers.Projection('EPSG:900913');
 
 	map = new OpenLayers.Map({
-		displayProjection : new OpenLayers.Projection("EPSG:4326"),
-		maxExtent : map_extent,
-		projection : new OpenLayers.Projection("EPSG:900913"),
+		displayProjection: new OpenLayers.Projection("EPSG:4326"),
+		maxExtent: map_extent,
+		projection: new OpenLayers.Projection("EPSG:900913"),
 		//numZoomLevels: 7,
 		//maxResolution: 2445.984,
 		//minResolution: 4.777,
-		controls : [new OpenLayers.Control.Navigation({
-			zoomWheel : true,
-			mouseWheelOptions : {
-				interval : 100
+		controls: [new OpenLayers.Control.Navigation({
+			zoomWheel: true,
+			mouseWheelOptions: {
+				interval: 100
 			},
-			zoomBoxEnabled : true
+			zoomBoxEnabled: true
 		}), new OpenLayers.Control.PanZoomBar({}), new OpenLayers.Control.MousePosition()]
 	});
 
@@ -36,251 +38,251 @@ Ext.onReady(function() {"use strict";
 
 	//////Base Layers
 	var gphy = new OpenLayers.Layer.Google("Base Google Physical", {
-		type : google.maps.MapTypeId.TERRAIN,
-		MAX_ZOOM_LEVEL : 12,
-		MIN_ZOOM_LEVEL : 6,
-		displayInLayerSwitcher : false,
-		visibility : false
+		type: google.maps.MapTypeId.TERRAIN,
+		MAX_ZOOM_LEVEL: 12,
+		MIN_ZOOM_LEVEL: 6,
+		displayInLayerSwitcher: false,
+		visibility: false
 	});
 
 	var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)");
 
 	//////////WMS layers
-	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc12nc",
-		format : 'image/png',
-		transparent : true
+	var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", SERVER_URI + "geoserver/wms", {
+		layers: "huc12nc",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc8nc",
-		format : 'image/png',
-		transparent : true
+	var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", SERVER_URI + "geoserver/wms", {
+		layers: "huc8nc",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc4nc",
-		format : 'image/png',
-		transparent : true
+	var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", SERVER_URI + "geoserver/wms", {
+		layers: "huc4nc",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc2nc",
-		format : 'image/png',
-		transparent : true
+	var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", SERVER_URI + "geoserver/wms", {
+		layers: "huc2nc",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc6nc",
-		format : 'image/png',
-		transparent : true
+	var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", SERVER_URI + "geoserver/wms", {
+		layers: "huc6nc",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc10nc",
-		format : 'image/png',
-		transparent : true
+	var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", SERVER_URI + "geoserver/wms", {
+		layers: "huc10nc",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var counties = new OpenLayers.Layer.WMS("NC Counties", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "counties",
-		format : 'image/png',
-		transparent : true
+	var counties = new OpenLayers.Layer.WMS("NC Counties", SERVER_URI + "geoserver/wms", {
+		layers: "counties",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false,
-		displayInLayerSwitcher : false
+		isBaseLayer: false,
+		visibility: false,
+		displayInLayerSwitcher: false
 	});
 
-	var ncbcr = new OpenLayers.Layer.WMS("NC BCR", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "nc_bcr",
-		format : 'image/png',
-		transparent : true
+	var ncbcr = new OpenLayers.Layer.WMS("NC BCR", SERVER_URI + "geoserver/wms", {
+		layers: "nc_bcr",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false,
-		displayInLayerSwitcher : true
+		isBaseLayer: false,
+		visibility: false,
+		displayInLayerSwitcher: true
 	});
 
 	//////////label layers for web from tilecache
-	var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "counties_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "counties_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "huc2nc_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "huc2nc_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "huc4nc_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "huc4nc_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "huc6nc_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "huc6nc_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "huc8nc_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "huc8nc_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "huc10nc_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "huc10nc_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc12_lbl = new OpenLayers.Layer.WMS("NC HUC 12 Label", "http://tecumseh.zo.ncsu.edu/tilecache-2.11/tilecache.cgi", {
-		layers : "huc12nc_lbl",
-		format : 'image/png',
-		transparent : true,
-		tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+	var nchuc12_lbl = new OpenLayers.Layer.WMS("NC HUC 12 Label", SERVER_URI + "tilecache-2.11/tilecache.cgi", {
+		layers: "huc12nc_lbl",
+		format: 'image/png',
+		transparent: true,
+		tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
 	var styleMap = new OpenLayers.StyleMap({
-		strokeColor : "red",
-		strokeWidth : 2,
-		strokeOpacity : 0.5,
-		fillOpacity : 0.2
+		strokeColor: "red",
+		strokeWidth: 2,
+		strokeOpacity: 0.5,
+		fillOpacity: 0.2
 	});
 
 	///////////////////// label layers from geoserver for pdf
-	var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "counties_lbl",
-		format : 'image/png',
-		transparent : true
+	var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county", SERVER_URI + "geoserver/wms", {
+		layers: "counties_lbl",
+		format: 'image/png',
+		transparent: true
 		//tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc2_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h2", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc2nc_lbl",
-		format : 'image/png',
-		transparent : true
+	var nchuc2_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h2", SERVER_URI + "geoserver/wms", {
+		layers: "huc2nc_lbl",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc4_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h4", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc4nc_lbl",
-		format : 'image/png',
-		transparent : true
+	var nchuc4_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h4", SERVER_URI + "geoserver/wms", {
+		layers: "huc4nc_lbl",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc6_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h6", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc6nc_lbl",
-		format : 'image/png',
-		transparent : true
+	var nchuc6_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h6", SERVER_URI + "geoserver/wms", {
+		layers: "huc6nc_lbl",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc8_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h8", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc8nc_lbl",
-		format : 'image/png',
-		transparent : true
+	var nchuc8_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h8", SERVER_URI + "geoserver/wms", {
+		layers: "huc8nc_lbl",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc10_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h10", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc10nc_lbl",
-		format : 'image/png',
-		transparent : true
+	var nchuc10_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h10", SERVER_URI + "geoserver/wms", {
+		layers: "huc10nc_lbl",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
-	var nchuc12_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h12", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "huc12nc_lbl",
-		format : 'image/png',
-		transparent : true
+	var nchuc12_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h12", SERVER_URI + "geoserver/wms", {
+		layers: "huc12nc_lbl",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false
+		isBaseLayer: false,
+		visibility: false
 	});
 
 	////////////analysis layers
 	var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
-		displayInLayerSwitcher : false,
-		isBaseLayer : false,
-		projection : proj_4326,
-		styleMap : styleMap
+		displayInLayerSwitcher: false,
+		isBaseLayer: false,
+		projection: proj_4326,
+		styleMap: styleMap
 	});
 
-	var results = new OpenLayers.Layer.WMS("AOI Results", "http://tecumseh.zo.ncsu.edu/geoserver/wms", {
-		layers : "results",
-		format : 'image/png',
-		transparent : true
+	var results = new OpenLayers.Layer.WMS("AOI Results", SERVER_URI + "geoserver/wms", {
+		layers: "results",
+		format: 'image/png',
+		transparent: true
 	}, {
-		isBaseLayer : false,
-		visibility : false,
-		displayInLayerSwitcher : true
+		isBaseLayer: false,
+		visibility: false,
+		displayInLayerSwitcher: true
 	});
 
 	map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12, nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl, nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, counties_lbl_gs, nchuc12_lbl_gs, nchuc10_lbl_gs, nchuc8_lbl_gs, nchuc6_lbl_gs, nchuc4_lbl_gs, nchuc2_lbl_gs, highlightLayer, results]);
@@ -290,25 +292,26 @@ Ext.onReady(function() {"use strict";
 	//////////////////////////////////////////////////////////////////////////
 
 	OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
-		defaultHandlerOptions : {
-			'single' : true,
-			'double' : false,
-			'pixelTolerance' : 0,
-			'stopSingle' : false,
-			'stopDouble' : false
+		defaultHandlerOptions: {
+			'single': true,
+			'double': false,
+			'pixelTolerance': 0,
+			'stopSingle': false,
+			'stopDouble': false
 		},
 
-		initialize : function() {
+		initialize: function() {
 			this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
 			OpenLayers.Control.prototype.initialize.apply(this, arguments);
 			this.handler = new OpenLayers.Handler.Click(this, {
-				'click' : this.trigger
+				'click': this.trigger
 			}, this.handlerOptions);
 		},
 
-		trigger : add_point
+		trigger: add_point
 	});
 	var pts = [];
+
 	function add_point(e) {
 		var lonlat = map.getLonLatFromViewPortPx(e.xy);
 		var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
@@ -322,17 +325,17 @@ Ext.onReady(function() {"use strict";
 	}
 
 	var featureinfo_format = new OpenLayers.Format.WMSGetFeatureInfo({
-		externalProjection : proj_4326,
-		internalProjection : proj_900913
+		externalProjection: proj_4326,
+		internalProjection: proj_900913
 	});
 
 	var query_ctl = new OpenLayers.Control.WMSGetFeatureInfo({
-		url : 'http://tecumseh.zo.ncsu.edu/geoserver/wms',
-		title : 'Identify features by clicking',
+		url: SERVER_URI + 'geoserver/wms',
+		title: 'Identify features by clicking',
 		//layers : [nchuc12],
-		queryVisible : false,
-		infoFormat : "application/vnd.ogc.gml",
-		format : featureinfo_format
+		queryVisible: false,
+		infoFormat: "application/vnd.ogc.gml",
+		format: featureinfo_format
 	});
 
 	query_ctl.layers = [];
@@ -344,6 +347,7 @@ Ext.onReady(function() {"use strict";
 	var col_name;
 
 	//function to outline selected predefined areas of interest
+
 	function showInfo(evt) {
 		//console.log(query_ctl.layers[0].name);
 		//console.log(evt);
@@ -398,83 +402,83 @@ Ext.onReady(function() {"use strict";
 	};
 
 	var printProvider = new GeoExt.data.PrintProvider({
-		method : "GET", // "POST" recommended for production use
-		capabilities : printCapabilities, // from the info.json script in the html
-		customParams : {
-			mapTitle : "Printing Demo"
+		method: "GET", // "POST" recommended for production use
+		capabilities: printCapabilities, // from the info.json script in the html
+		customParams: {
+			mapTitle: "Printing Demo"
 			//comment : "This is a simple map printed from GeoExt."
 		}
 	});
 
 	var printPage = new GeoExt.data.PrintPage({
-		printProvider : printProvider
+		printProvider: printProvider
 	});
 
 	// The form with fields controlling the print output
 	var formPanel = new Ext.form.FormPanel({
-		title : "Print config",
-		width : 296,
-		height : 350,
-		bodyStyle : "padding:20px; ",
-		labelAlign : "top",
-		defaults : {
-			anchor : "100%"
+		title: "Print config",
+		width: 296,
+		height: 350,
+		bodyStyle: "padding:20px; ",
+		labelAlign: "top",
+		defaults: {
+			anchor: "100%"
 		},
-		items : [{
-			xtype : "textarea",
-			name : "comment",
-			value : "",
-			fieldLabel : "Comment",
-			plugins : new GeoExt.plugins.PrintPageField({
-				printPage : printPage
+		items: [{
+			xtype: "textarea",
+			name: "comment",
+			value: "",
+			fieldLabel: "Comment",
+			plugins: new GeoExt.plugins.PrintPageField({
+				printPage: printPage
 			})
 		}, {
-			xtype : "combo",
-			store : printProvider.layouts,
-			displayField : "name",
-			fieldLabel : "Layout",
-			typeAhead : true,
-			mode : "local",
-			triggerAction : "all",
-			itemId : "printcmb1",
-			plugins : new GeoExt.plugins.PrintProviderField({
-				printProvider : printProvider
+			xtype: "combo",
+			store: printProvider.layouts,
+			displayField: "name",
+			fieldLabel: "Layout",
+			typeAhead: true,
+			mode: "local",
+			triggerAction: "all",
+			itemId: "printcmb1",
+			plugins: new GeoExt.plugins.PrintProviderField({
+				printProvider: printProvider
 			})
 		}, {
-			xtype : "combo",
-			store : printProvider.dpis,
-			displayField : "name",
-			fieldLabel : "Resolution",
-			tpl : '<tpl for="."><div class="x-combo-list-item">{name} dpi</div></tpl>',
-			typeAhead : true,
-			mode : "local",
-			triggerAction : "all",
-			itemId : "printcmb2",
-			plugins : new GeoExt.plugins.PrintProviderField({
-				printProvider : printProvider
+			xtype: "combo",
+			store: printProvider.dpis,
+			displayField: "name",
+			fieldLabel: "Resolution",
+			tpl: '<tpl for="."><div class="x-combo-list-item">{name} dpi</div></tpl>',
+			typeAhead: true,
+			mode: "local",
+			triggerAction: "all",
+			itemId: "printcmb2",
+			plugins: new GeoExt.plugins.PrintProviderField({
+				printProvider: printProvider
 			})
 
 		}],
-		buttons : [{
-			text : "Create PDF",
+		buttons: [{
+			text: "Create PDF",
 			//cls : "pr_btn",
-			handler : function() {
+			handler: function() {
 				//printProvider.print(mapPanel, printPage);
 				//console.log(printCapabilities);
-				printCapabilities.createURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/create.json";
-				printCapabilities.printURL = "http://tecumseh.zo.ncsu.edu/geoserver/pdf/print.pdf";
+				printCapabilities.createURL = SERVER_URI + "geoserver/pdf/create.json";
+				printCapabilities.printURL = SERVER_URI + "geoserver/pdf/print.pdf";
 
 				//code to use label layers from geoserver for pdf and
 				//then turn tilecache back on for web map
 				var label_lyr_name, label_lyr, label_lyr_pdf;
 				var label_lyrs = {
-					"NC Counties Label" : "label for pdf, county",
-					"NC HUC 2 Label" : "label for pdf, h2",
-					"NC HUC 4 Label" : "label for pdf, h4",
-					"NC HUC 6 Label" : "label for pdf, h6",
-					"NC HUC 8 Label" : "label for pdf, h8",
-					"NC HUC 10 Label" : "label for pdf, h10",
-					"NC HUC 12 Label" : "label for pdf, h12"
+					"NC Counties Label": "label for pdf, county",
+					"NC HUC 2 Label": "label for pdf, h2",
+					"NC HUC 4 Label": "label for pdf, h4",
+					"NC HUC 6 Label": "label for pdf, h6",
+					"NC HUC 8 Label": "label for pdf, h8",
+					"NC HUC 10 Label": "label for pdf, h10",
+					"NC HUC 12 Label": "label for pdf, h12"
 				};
 				for (label_lyr_name in label_lyrs) {
 					label_lyr = map.getLayersByName(label_lyr_name)[0];
@@ -506,9 +510,18 @@ Ext.onReady(function() {"use strict";
 	});
 	//formPanel.getComponent('printcmb1').setWidth(200);
 	var comboStore = new Ext.data.ArrayStore({
-		fields : ['layerName', 'layerId']
+		fields: ['layerName', 'layerId']
 	});
-	var comboData = [["NC HUC 2", 'nchuc2'], ["NC HUC 4", 'nchuc4'], ["NC HUC 6", 'nchuc6'], ["NC HUC 8", 'nchuc8'], ["NC HUC 10", 'nchuc10'], ["NC HUC 12", 'nchuc12'], ["NC Counties", 'counties'], ["NC BCR", 'ncbcr']];
+	var comboData = [
+		["NC HUC 2", 'nchuc2'],
+		["NC HUC 4", 'nchuc4'],
+		["NC HUC 6", 'nchuc6'],
+		["NC HUC 8", 'nchuc8'],
+		["NC HUC 10", 'nchuc10'],
+		["NC HUC 12", 'nchuc12'],
+		["NC Counties", 'counties'],
+		["NC BCR", 'ncbcr']
+	];
 	comboStore.loadData(comboData);
 
 	var form2_chng = function() {
@@ -518,11 +531,11 @@ Ext.onReady(function() {"use strict";
 		try {
 			predef_idx = formPanel2.getComponent('cmb1').selectedIndex;
 			selected_predef = comboStore.getAt(predef_idx).json["1"];
-		} catch(e) {
+		} catch (e) {
 			selected_predef = 'none';
 		}
 
-		switch(selected_predef) {
+		switch (selected_predef) {
 			case 'nchuc2':
 				query_ctl.layers = [nchuc2];
 				col_name = "huc2";
@@ -583,49 +596,56 @@ Ext.onReady(function() {"use strict";
 		}
 		console.log(text);
 		var gml_writer = new OpenLayers.Format.GML.v3({
-			featureType : 'MultiPolygon',
-			featureNS : 'http://jimserver.net/',
-			geometryName : 'aoi',
-			'internalProjection' : new OpenLayers.Projection("EPSG:900913"),
-			'externalProjection' : new OpenLayers.Projection("EPSG:4326")
+			featureType: 'MultiPolygon',
+			featureNS: 'http://jimserver.net/',
+			geometryName: 'aoi',
+			'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+			'externalProjection': new OpenLayers.Projection("EPSG:4326")
 		});
 
 		var gml = gml_writer.write(highlightLayer.features);
 		//console.log(gml);
 		//var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
-
+		/*
 		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
 		// init the client
 		wps = new OpenLayers.WPS(url, {
-			onSucceeded : onExecuted
+			onSucceeded: onExecuted
 		});
 
 		var input1 = new OpenLayers.WPS.ComplexPut({
-			identifier : "input1",
-			value : gml
+			identifier: "input1",
+			value: gml
 		});
 		var input2 = new OpenLayers.WPS.LiteralPut({
-			identifier : "input2",
-			value : text
+			identifier: "input2",
+			value: text
 		});
 
 		var output1 = new OpenLayers.WPS.LiteralPut({
-			identifier : "output1"
+			identifier: "output1"
 		});
 		var output2 = new OpenLayers.WPS.ComplexPut({
-			identifier : "output2",
-			asReference : true
+			identifier: "output2",
+			asReference: true
 		});
 
 		var myprocess = new OpenLayers.WPS.Process({
-			identifier : "nchuc12",
-			inputs : [input1, input2],
-			outputs : [output1, output2]
+			identifier: "nchuc12",
+			inputs: [input1, input2],
+			outputs: [output1, output2]
 		});
 
 		wps.addProcess(myprocess);
 		// run Execute
-		wps.execute("nchuc12");
+		wps.execute("nchuc12");*/
+
+		$.post(SERVER_URI + "wps", {
+			gml: gml,
+			text: text
+		}).done(function(data) {
+			alert("Data Loaded: " + data);
+		});
 
 		function onExecuted(process) {
 			//console.log("process executed")
@@ -635,7 +655,7 @@ Ext.onReady(function() {"use strict";
 			save_link = process.outputs[1].getValue();
 			delete results.params.CQL_FILTER;
 			results.mergeNewParams({
-				'CQL_FILTER' : cql
+				'CQL_FILTER': cql
 			});
 			results.setVisibility(true);
 		}
@@ -643,16 +663,16 @@ Ext.onReady(function() {"use strict";
 		//create domelements for download of saved aoi to iframe
 		var body = Ext.getBody();
 		body.createChild({
-			tag : 'iframe',
-			cls : 'x-hidden',
-			id : 'iframe',
-			name : 'iframe'
+			tag: 'iframe',
+			cls: 'x-hidden',
+			id: 'iframe',
+			name: 'iframe'
 		});
 		saveaoi_form = body.createChild({
-			tag : 'form',
-			cls : 'x-hidden',
-			id : 'form',
-			target : 'iframe'
+			tag: 'form',
+			cls: 'x-hidden',
+			id: 'form',
+			target: 'iframe'
 		});
 
 	};
@@ -667,61 +687,61 @@ Ext.onReady(function() {"use strict";
 		saveaoi_form.dom.submit();
 	};
 	var formPanel2 = new Ext.form.FormPanel({
-		title : "AOI creation",
-		width : 296,
-		height : 350,
-		bodyStyle : "padding:20px; ",
-		labelAlign : "top",
-		defaults : {
-			anchor : "100%"
+		title: "AOI creation",
+		width: 296,
+		height: 350,
+		bodyStyle: "padding:20px; ",
+		labelAlign: "top",
+		defaults: {
+			anchor: "100%"
 		},
-		items : [{
-			xtype : "combo",
-			itemId : "cmb1",
-			store : comboStore,
-			fieldLabel : "Predefined selections",
-			typeAhead : true,
-			mode : "local",
-			triggerAction : "all",
-			valueField : 'layerId',
-			displayField : 'layerName',
-			listeners : {
-				'select' : form2_chng
+		items: [{
+			xtype: "combo",
+			itemId: "cmb1",
+			store: comboStore,
+			fieldLabel: "Predefined selections",
+			typeAhead: true,
+			mode: "local",
+			triggerAction: "all",
+			valueField: 'layerId',
+			displayField: 'layerName',
+			listeners: {
+				'select': form2_chng
 			}
 		}, {
-			xtype : 'radiogroup',
-			fieldLabel : 'AOI type',
-			name : 'aoiType',
-			columns : 1,
-			itemId : "rg1",
-			items : [{
-				boxLabel : 'predefined',
-				name : 'aoi_type',
-				inputValue : 'predefined',
-				checked : true
+			xtype: 'radiogroup',
+			fieldLabel: 'AOI type',
+			name: 'aoiType',
+			columns: 1,
+			itemId: "rg1",
+			items: [{
+				boxLabel: 'predefined',
+				name: 'aoi_type',
+				inputValue: 'predefined',
+				checked: true
 			}, {
-				boxLabel : 'custom',
-				name : 'aoi_type',
-				inputValue : 'custom'
+				boxLabel: 'custom',
+				name: 'aoi_type',
+				inputValue: 'custom'
 			}],
-			listeners : {
-				change : form2_chng
+			listeners: {
+				change: form2_chng
 			}
 		}, {
-			xtype : "textarea",
-			value : "",
-			fieldLabel : "Description - optional, use when creating HUCs for a description in saved AOI",
-			itemId : "desc_txt"
+			xtype: "textarea",
+			value: "",
+			fieldLabel: "Description - optional, use when creating HUCs for a description in saved AOI",
+			itemId: "desc_txt"
 		}],
-		buttons : [{
-			text : "Save AOI",
-			handler : aoi_to_file
+		buttons: [{
+			text: "Save AOI",
+			handler: aoi_to_file
 		}, {
-			text : "Remove AOI",
-			handler : remove_action
+			text: "Remove AOI",
+			handler: remove_action
 		}, {
-			text : "Get HUC12s",
-			handler : save_action
+			text: "Get HUC12s",
+			handler: save_action
 		}]
 	});
 
@@ -730,7 +750,8 @@ Ext.onReady(function() {"use strict";
 	///////////////////////////////////////////////
 
 	var
-	ctrl, toolbarItems = [], action, actions = {};
+	ctrl, toolbarItems = [],
+		action, actions = {};
 	ctrl = new OpenLayers.Control.NavigationHistory();
 	map.addControl(ctrl);
 
@@ -738,22 +759,22 @@ Ext.onReady(function() {"use strict";
 
 	action = new GeoExt.Action({
 		//text : "previous",
-		control : ctrl.previous,
-		disabled : true,
-		tooltip : "previous in history",
-		iconCls : "prev_action",
-		allowDepress : true
+		control: ctrl.previous,
+		disabled: true,
+		tooltip: "previous in history",
+		iconCls: "prev_action",
+		allowDepress: true
 	});
 	actions.previous = action;
 	toolbarItems.push(action);
 
 	action = new GeoExt.Action({
 		//text : "next",
-		control : ctrl.next,
-		disabled : true,
-		tooltip : "next in history",
-		iconCls : "next_action",
-		allowDepress : true
+		control: ctrl.next,
+		disabled: true,
+		tooltip: "next in history",
+		iconCls: "next_action",
+		allowDepress: true
 	});
 	actions.next = action;
 	toolbarItems.push(action);
@@ -761,188 +782,188 @@ Ext.onReady(function() {"use strict";
 	toolbarItems.push("-");
 
 	var mapPanel = new GeoExt.MapPanel({
-		region : "center",
-		map : map,
-		title : 'NC Map',
-		extent : map_extent,
-		tbar : toolbarItems
+		region: "center",
+		map: map,
+		title: 'NC Map',
+		extent: map_extent,
+		tbar: toolbarItems
 	});
 
 	var layerList = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'HUC 2',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'HUC 2',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC HUC 2") !== -1;
 			}
 		}
 	});
 	var layerList2 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'HUC 4',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'HUC 4',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC HUC 4") !== -1;
 			}
 		}
 	});
 	var layerList3 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'HUC 6',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'HUC 6',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC HUC 6") !== -1;
 			}
 		}
 	});
 	var layerList4 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'HUC 8',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'HUC 8',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC HUC 8") !== -1;
 			}
 		}
 	});
 	var layerList5 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'HUC 10',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'HUC 10',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC HUC 10") !== -1;
 			}
 		}
 	});
 	var layerList6 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'HUC 12',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'HUC 12',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC HUC 12") !== -1;
 			}
 		}
 	});
 	var layerList7 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'NC Counties',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'NC Counties',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC Counties") !== -1;
 			}
 		}
 	});
 	var layerList8 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'NC BCR',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'NC BCR',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("NC BCR") !== -1;
 			}
 		}
 	});
 
 	var layerList9 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'Analysis',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'Analysis',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("AOI") !== -1;
 			}
 		}
 	});
 
 	var layerList10 = new GeoExt.tree.LayerContainer({
-		layerStore : mapPanel.layers,
-		text : 'Base layer',
-		leaf : false,
-		expanded : true,
-		loader : {
-			filter : function(record) {
+		layerStore: mapPanel.layers,
+		text: 'Base layer',
+		leaf: false,
+		expanded: true,
+		loader: {
+			filter: function(record) {
 				return record.get("layer").name.indexOf("Base") !== -1;
 			}
 		}
 	});
 
 	var tree = new Ext.tree.TreePanel({
-		region : 'west',
-		width : 300,
-		root : {
-			nodeType : "async",
-			children : [layerList10, layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
+		region: 'west',
+		width: 300,
+		root: {
+			nodeType: "async",
+			children: [layerList10, layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
 		},
-		title : "NC layers",
-		rootVisible : false
+		title: "NC layers",
+		rootVisible: false
 	});
 
 	var process_tab = new Ext.Panel({
-		title : 'Processing',
-		html : "some content",
-		cls : 'help',
-		autoScroll : true
+		title: 'Processing',
+		html: "some content",
+		cls: 'help',
+		autoScroll: true
 	});
 
 	var area_tab = new Ext.Panel({
-		title : 'AOI Upload',
-		cls : 'pages',
-		autoScroll : true,
-		id : "aoi_upload_id"
+		title: 'AOI Upload',
+		cls: 'pages',
+		autoScroll: true,
+		id: "aoi_upload_id"
 	});
 
 	var area_tab2 = new Ext.Panel({
-		title : 'New AOI',
-		autoScroll : true,
-		items : [formPanel2],
-		id : "aoi_create_id"
+		title: 'New AOI',
+		autoScroll: true,
+		items: [formPanel2],
+		id: "aoi_create_id"
 	});
 
 	var accordion = new Ext.Panel({
-		title : 'Area',
-		layout : 'accordion',
-		defaults : {
+		title: 'Area',
+		layout: 'accordion',
+		defaults: {
 			// applied to each contained panel
 			//bodyStyle : 'padding:15px'
 		},
-		items : [area_tab2, area_tab]
+		items: [area_tab2, area_tab]
 	});
 
 	var print_tab = new Ext.Panel({
-		title : 'Print',
-		autoScroll : true,
-		id : "print_tab_id",
-		items : [formPanel]
+		title: 'Print',
+		autoScroll: true,
+		id: "print_tab_id",
+		items: [formPanel]
 	});
 
 	var left = new Ext.TabPanel({
-		region : 'west',
-		width : 300,
-		activeTab : 0,
-		items : [tree, accordion, process_tab, print_tab],
-		deferredRender : false
+		region: 'west',
+		width: 300,
+		activeTab: 0,
+		items: [tree, accordion, process_tab, print_tab],
+		deferredRender: false
 	});
 
 	new Ext.Viewport({
-		layout : "border",
-		items : [mapPanel, left],
-		defaults : {
-			split : true
+		layout: "border",
+		items: [mapPanel, left],
+		defaults: {
+			split: true
 		}
 	});
 
@@ -955,7 +976,7 @@ Ext.onReady(function() {"use strict";
 		if (window.DOMParser) {
 			parser = new DOMParser();
 			xmlDoc = parser.parseFromString(txt, "text/xml");
-		} else// Internet Explorer
+		} else // Internet Explorer
 		{
 			xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
 			xmlDoc.async = false;
@@ -967,7 +988,7 @@ Ext.onReady(function() {"use strict";
 		var cql = "identifier = '" + res + "'";
 		delete results.params.CQL_FILTER;
 		results.mergeNewParams({
-			'CQL_FILTER' : cql
+			'CQL_FILTER': cql
 		});
 		results.setVisibility(true);
 	};
@@ -1004,15 +1025,15 @@ Ext.onReady(function() {"use strict";
 		var shpTonchuc12 = function(shp, prj, shx) {
 
 			$.ajax({
-				type : "POST",
-				url : "pages/shptogml.php",
-				data : {
-					shp : shp,
-					shx : shx,
-					prj : prj
+				type: "POST",
+				url: "pages/shptogml.php",
+				data: {
+					shp: shp,
+					shx: shx,
+					prj: prj
 				},
-				dataType : "json",
-				success : function(data) {
+				dataType: "json",
+				success: function(data) {
 
 					var geojson_format = new OpenLayers.Format.GeoJSON();
 					var shpfeatures = geojson_format.read(data.json);
@@ -1035,7 +1056,7 @@ Ext.onReady(function() {"use strict";
 			//try to use closure to create handler, for jshint?
 			var create_handler = function(file) {
 				var handler;
-				switch(file) {
+				switch (file) {
 					case 'shp':
 						handler = function(oFREvent) {
 							shp = oFREvent.target.result;
@@ -1072,7 +1093,7 @@ Ext.onReady(function() {"use strict";
 					parse_filename = /\.(shp|shx|prj)/;
 					result = parse_filename.exec(files[i].name);
 					if (result) {
-						switch(result[1]) {
+						switch (result[1]) {
 							case 'shp':
 								shpfile = true;
 								fileReader[i].onload = create_handler('shp');
@@ -1112,7 +1133,7 @@ Ext.onReady(function() {"use strict";
 	var el = Ext.getCmp("aoi_upload_id");
 	var mgr = el.getUpdater();
 	mgr.update({
-		url : "/pages/upload.html"
+		url: "/pages/upload.html"
 	});
 	mgr.on("update", page_script);
 

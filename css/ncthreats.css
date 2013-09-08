@@ -5,7 +5,8 @@
 	background-image: url('../OpenLayers-2.12/theme/default/img/view_previous_on.png');
 }
 div.olControlMousePosition {
-	right: 100px !important;
+	/*right: 100px !important;*/
+	bottom:  20px !important;
 }
 .pages input, .pages button, .pages p {
 	margin: 5px;
