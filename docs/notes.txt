@@ -1,0 +1,35 @@
+git clone
+install Openlayers and update link in index.html, restorecon if necessary
+same for extjs and geoext
+
+install printing
+http://docs.geoserver.org/latest/en/user/community/printing/index.html
+
+/usr/local/geoserver-2.1.2/data_dir/printing/config.yaml
+  - !ipMatch
+    ip: a.tile.openstreetmap.org
+
+flaskenv:
+install libevent, libevent-devel(yum)
+pip install gevent
+
+
+install pdgg postgresql
+http://www.postgresql.org/download/linux/redhat/
+update pg_hba.conf -- revisit for production?
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust
+# IPv6 local connections:
+host    all             all             ::1/128                 trust
+
+
+install psycopg2
+load database
+psql -d ncthreats -f ncthreats_9_5_13.sql
+
+upload/validate/submit geoserver styles, and create layers
+
+update httpd.conf(development only)
+ProxyPass /wps http://localhost:5000/wps
