@@ -4,8 +4,7 @@
 CREATE or replace FUNCTION aoitohuc(aoi_ident text) RETURNS  text AS $$
 << outerblock >>
 DECLARE
-    	quantity integer := 30;
-	huc12s char(12);
+	huc12s char(32);
 	aoipk integer;
 	aoiarea real;
 	

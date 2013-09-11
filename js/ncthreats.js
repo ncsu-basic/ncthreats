@@ -638,21 +638,31 @@ Ext.onReady(function() {
 
 		wps.addProcess(myprocess);
 		// run Execute
-		wps.execute("nchuc12");*/
+		wps.execute("nchuc12");
 
 		$.post(SERVER_URI + "wps", {
 			gml: gml,
 			text: text
-		}).done(function(data) {
-			alert("Data Loaded: " + data);
+		}, "json").done(function(data) {		
+			console.log(data.aoi_id);
+			console.log(data);
+		});*/
+
+		$.ajax({
+			type: "POST",
+			url: SERVER_URI + "wps",
+			data: {
+				gml: gml,
+				text: text
+			},
+			dataType: "json"
+		}).done(function(data) {		
+			//console.log(data.aoi_id);
+			onExecuted(data.aoi_id);
 		});
 
-		function onExecuted(process) {
-			//console.log("process executed")
-			var aoi = process.outputs[0].getValue();
+		function onExecuted(aoi) {
 			var cql = "identifier = '" + aoi + "'";
-
-			save_link = process.outputs[1].getValue();
 			delete results.params.CQL_FILTER;
 			results.mergeNewParams({
 				'CQL_FILTER': cql
