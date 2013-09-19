@@ -586,7 +586,7 @@ Ext.onReady(function() {
 		}
 		new_selection();
 	};
-
+	var aoi_to_file;
 	//function to submit defined area to pywps
 	var save_action = function() {
 		//console.log("remove... tell me more");
@@ -594,7 +594,7 @@ Ext.onReady(function() {
 		if (text.length === 0) {
 			text = "no description provided";
 		}
-		console.log(text);
+		//console.log(text);
 		var gml_writer = new OpenLayers.Format.GML.v3({
 			featureType: 'MultiPolygon',
 			featureNS: 'http://jimserver.net/',
@@ -656,10 +656,22 @@ Ext.onReady(function() {
 				text: text
 			},
 			dataType: "json"
-		}).done(function(data) {		
+		}).done(function(data, textStatus, jqXHR) {
 			//console.log(data.aoi_id);
+			console.log(jqXHR.statusText);
+			console.log(jqXHR.getResponseHeader('Location'));
+			aoi_to_file = getResource(jqXHR.getResponseHeader('Location'));
+			Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+			//console.log(el);
 			onExecuted(data.aoi_id);
 		});
+
+		function getResource(url) {
+			var handler = function() {
+				window.open(url);
+			}
+			return handler;
+		}
 
 		function onExecuted(aoi) {
 			var cql = "identifier = '" + aoi + "'";
@@ -671,7 +683,7 @@ Ext.onReady(function() {
 		}
 
 		//create domelements for download of saved aoi to iframe
-		var body = Ext.getBody();
+		/*var body = Ext.getBody();
 		body.createChild({
 			tag: 'iframe',
 			cls: 'x-hidden',
@@ -683,7 +695,7 @@ Ext.onReady(function() {
 			cls: 'x-hidden',
 			id: 'form',
 			target: 'iframe'
-		});
+		});*/
 
 	};
 
@@ -692,10 +704,7 @@ Ext.onReady(function() {
 	//Header set Content-Disposition attachment
 	//</Files>
 
-	var aoi_to_file = function() {
-		saveaoi_form.dom.action = save_link;
-		saveaoi_form.dom.submit();
-	};
+
 	var formPanel2 = new Ext.form.FormPanel({
 		title: "AOI creation",
 		width: 296,
@@ -744,8 +753,10 @@ Ext.onReady(function() {
 			itemId: "desc_txt"
 		}],
 		buttons: [{
-			text: "Save AOI",
-			handler: aoi_to_file
+			text: "Get Resource",
+			handler: aoi_to_file,
+			//itemId: "resource_btn",
+			id: "resource_btn"
 		}, {
 			text: "Remove AOI",
 			handler: remove_action
@@ -1143,7 +1154,8 @@ Ext.onReady(function() {
 	var el = Ext.getCmp("aoi_upload_id");
 	var mgr = el.getUpdater();
 	mgr.update({
-		url: "/pages/upload.html"
+		//update this for differing servers - JBW	
+		url: "/ncthreats/pages/upload.html"
 	});
 	mgr.on("update", page_script);
 
