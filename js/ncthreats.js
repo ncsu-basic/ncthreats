@@ -604,49 +604,7 @@ Ext.onReady(function() {
 		});
 
 		var gml = gml_writer.write(highlightLayer.features);
-		//console.log(gml);
-		//var gml_final = gml_template.replace("$FEATURE_MEMBERS$", gml);
-		/*
-		var url = "http://tecumseh.zo.ncsu.edu/cgi-bin/pywps.cgi";
-		// init the client
-		wps = new OpenLayers.WPS(url, {
-			onSucceeded: onExecuted
-		});
 
-		var input1 = new OpenLayers.WPS.ComplexPut({
-			identifier: "input1",
-			value: gml
-		});
-		var input2 = new OpenLayers.WPS.LiteralPut({
-			identifier: "input2",
-			value: text
-		});
-
-		var output1 = new OpenLayers.WPS.LiteralPut({
-			identifier: "output1"
-		});
-		var output2 = new OpenLayers.WPS.ComplexPut({
-			identifier: "output2",
-			asReference: true
-		});
-
-		var myprocess = new OpenLayers.WPS.Process({
-			identifier: "nchuc12",
-			inputs: [input1, input2],
-			outputs: [output1, output2]
-		});
-
-		wps.addProcess(myprocess);
-		// run Execute
-		wps.execute("nchuc12");
-
-		$.post(SERVER_URI + "wps", {
-			gml: gml,
-			text: text
-		}, "json").done(function(data) {		
-			console.log(data.aoi_id);
-			console.log(data);
-		});*/
 
 		$.ajax({
 			type: "POST",
@@ -657,12 +615,8 @@ Ext.onReady(function() {
 			},
 			dataType: "json"
 		}).done(function(data, textStatus, jqXHR) {
-			//console.log(data.aoi_id);
-			console.log(jqXHR.statusText);
-			console.log(jqXHR.getResponseHeader('Location'));
 			aoi_to_file = getResource(jqXHR.getResponseHeader('Location'));
 			Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-			//console.log(el);
 			onExecuted(data.aoi_id);
 		});
 
@@ -681,28 +635,7 @@ Ext.onReady(function() {
 			});
 			results.setVisibility(true);
 		}
-
-		//create domelements for download of saved aoi to iframe
-		/*var body = Ext.getBody();
-		body.createChild({
-			tag: 'iframe',
-			cls: 'x-hidden',
-			id: 'iframe',
-			name: 'iframe'
-		});
-		saveaoi_form = body.createChild({
-			tag: 'form',
-			cls: 'x-hidden',
-			id: 'form',
-			target: 'iframe'
-		});*/
-
 	};
-
-	//downoad of save aoi, add to httpd.conf
-	//<Files *.nctml>
-	//Header set Content-Disposition attachment
-	//</Files>
 
 
 	var formPanel2 = new Ext.form.FormPanel({
@@ -993,6 +926,7 @@ Ext.onReady(function() {
 	///////////////////////////////////////////////////////////////////////
 
 	var submit_saved = function(txt) {
+		/*
 		var parser, xmlDoc;
 		if (window.DOMParser) {
 			parser = new DOMParser();
@@ -1004,8 +938,26 @@ Ext.onReady(function() {
 			xmlDoc.loadXML(txt);
 		}
 		//res is aoiname
-		var res = xmlDoc.getElementsByTagName("aoiName")[0].childNodes[0].nodeValue;
-		//console.log(res);
+		//var res = xmlDoc.getElementsByTagName("aoiName")[0].childNodes[0].nodeValue;
+		var res = xmlDoc.getElementsByTagName("html")[0];
+		console.log(res);
+		console.log(txt);*/
+		var res;
+
+
+		//see for ref http://api.jquery.com/jQuery.parseHTML
+		//spent too f'n long figuring this out
+		//see also Flanagan 4th ed, p. 812
+		var test = $.parseHTML(txt);
+		$.each(test, function(i, el) {
+			//nodeNames[i] = "<li>" + el.nodeName + "</li>";
+			if (el.firstChild && el.hasAttributes()) {
+				console.log(el.firstChild.nodeValue);
+				res = el.firstChild.nodeValue;
+			}
+		});
+		console.log(res);
+
 		var cql = "identifier = '" + res + "'";
 		delete results.params.CQL_FILTER;
 		results.mergeNewParams({
@@ -1025,6 +977,7 @@ Ext.onReady(function() {
 		//this function gets saved aoi xml string for file upload method
 		var func = function() {
 			var file = document.getElementById('file').files[0];
+			//console.log(file);
 			if (file) {
 				var blob = file.slice();
 				console.log(blob.size);
@@ -1034,6 +987,7 @@ Ext.onReady(function() {
 				fileReader.readAsText(file);
 				fileReader.onload = function(oFREvent) {
 					submit_saved(oFREvent.target.result);
+					//console.log(oFREvent.target.result);
 				};
 			}
 		};
