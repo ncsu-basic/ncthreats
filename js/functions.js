@@ -17,7 +17,8 @@
 		}
 	}());
 
-//copied from deprecated.js
+//copied from deprecated.js, used for pywps
+/*
 OpenLayers.parseXMLString = function(text) {
 
 	//MS sucks, if the server is bad it dies
@@ -43,4 +44,4 @@ OpenLayers.parseXMLString = function(text) {
 	});
 
 	return ajaxResponse;
-};
+};*/

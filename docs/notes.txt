@@ -38,21 +38,35 @@ upload/validate/submit geoserver styles, and create layers
 update httpd.conf(development only)
 ProxyPass /wps http://localhost:5000/wps
 
-download mod_wsgi source 
-./configure --with-python=/usr/local/ActivePython-2.7/bin/python
-LoadModule wsgi_module modules/mod_wsgi.so
 
-http://code.google.com/p/modwsgi/wiki/VirtualEnvironments
-do this somewhere like /usr/local/pythonenvs
-/usr/local/ActivePython-2.7/bin/python virtualenv.py --no-site-packages  ncthreatsenv
-WSGIPythonHome /usr/local/pythonenvs/ncthreatsenv
-some selinux issues with this!!!
+ easy_install supervisor
+ echo_supervisord_conf  > /etc/supervisord.conf
+ edit to add process, logfile
+ move pid, logfiles to /var/run/supervisord
 
-http://code.google.com/p/modwsgi/wiki/QuickConfigurationGuide
+get init.d script
+edit https://raw.github.com/Supervisor/initscripts/master/redhat-init-mingalevme
 
-WSGIScriptAlias /myapp /var/www/wsgi/test/myapp.wsgi
+#updating huc12 coverage
+#drop huc12nc, huc12nc_lbl
+ogr2ogr -f "PostgreSQL" -t_srs EPSG:4326 -nlt MULTIPOLYGON PG:dbname=ncthreats huc12nc.shp
 
-<Directory /var/www/wsgi/test>
-Order allow,deny
-Allow from all
-</Directory>
+create table huc12nc_lbl(
+pk serial primary key,
+label varchar(100));
+
+SELECT AddGeometryColumn ('huc12nc_lbl','wkb_geometry',4326,'POINT',2);
+
+select huc_points(); # from script huc_points.sql
+
+#disable all Geoserver/Geowebcache caching
+
+Up geoserver wms memory settings to run tile seed x5
+./tilecache_seed.py huc12nc_lbl 0 7
+reduce min res to 38.218 in tilecache.cfg
+
+edit tomcat6.conf
+JAVA_OPTS="-Xmx256M -Xms48m"
+remove metatiles from tilecache for lines
+
+add tilecache to supervisord

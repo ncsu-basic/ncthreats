@@ -1,8 +1,11 @@
 .next_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/view_next_on.png');
+	background-image: url('../OpenLayers-2.13.1/theme/default/img/view_next_on.png');
 }
 .prev_action {
-	background-image: url('../OpenLayers-2.12/theme/default/img/view_previous_on.png');
+	background-image: url('../OpenLayers-2.13.1/theme/default/img/view_previous_on.png');
+}
+.nc_zoom {
+	background-image: url('../OpenLayers-2.13.1/theme/default/img/nc.png');
 }
 div.olControlMousePosition {
 	/*right: 100px !important;*/
