@@ -1,8 +1,10 @@
-/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false, printCapabilities:false, ActiveXObject:false*/
+/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false,
+printCapabilities:false  */
 
-var map, wps, save_link, saveaoi_form;
-var SERVER_URI = "http://localhost/"
-var SERVER_URI = "http://tecumseh.zo.ncsu.edu/"
+var map;
+//var , wps, save_link, saveaoi_form;
+var SERVER_URI = "http://localhost/";
+var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
 Ext.onReady(function() {
     "use strict";
@@ -22,13 +24,14 @@ Ext.onReady(function() {
         //maxResolution: 2445.984,
         //minResolution: 4.777,
         controls: [new OpenLayers.Control.Navigation({
-            zoomWheel: true,
-            mouseWheelOptions: {
-                interval: 100
-            },
-            zoomBoxEnabled: true
-        }), new OpenLayers.Control.PanZoomBar({}),
-            new OpenLayers.Control.MousePosition()]
+                zoomWheel: true,
+                mouseWheelOptions: {
+                    interval: 100
+                },
+                zoomBoxEnabled: true
+            }), new OpenLayers.Control.PanZoomBar({}),
+            new OpenLayers.Control.MousePosition()
+        ]
     });
 
     var nav = map.getControlsByClass("OpenLayers.Control.Navigation")[0];
@@ -50,153 +53,166 @@ Ext.onReady(function() {
     var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)");
 
     //////////WMS layers
-    var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12", SERVER_URI + "tilecache", {
-        layers: "huc12nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12",
+        SERVER_URI + "tilecache", {
+            layers: "huc12nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8", SERVER_URI + "tilecache", {
-        layers: "huc8nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8",
+        SERVER_URI + "tilecache", {
+            layers: "huc8nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4", SERVER_URI + "tilecache", {
-        layers: "huc4nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4",
+        SERVER_URI + "tilecache", {
+            layers: "huc4nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2", SERVER_URI + "tilecache", {
-        layers: "huc2nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2",
+        SERVER_URI + "tilecache", {
+            layers: "huc2nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6", SERVER_URI + "tilecache", {
-        layers: "huc6nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6",
+        SERVER_URI + "tilecache", {
+            layers: "huc6nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10", SERVER_URI + "tilecache", {
-        layers: "huc10nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10",
+        SERVER_URI + "tilecache", {
+            layers: "huc10nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var counties = new OpenLayers.Layer.WMS("NC Counties", SERVER_URI + "tilecache", {
-        layers: "counties",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false,
-        displayInLayerSwitcher: false
-    });
+    var counties = new OpenLayers.Layer.WMS("NC Counties",
+        SERVER_URI + "tilecache", {
+            layers: "counties",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false,
+            displayInLayerSwitcher: false
+        });
 
-    var ncbcr = new OpenLayers.Layer.WMS("NC BCR", SERVER_URI + "geoserver/wms", {
-        layers: "nc_bcr",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false,
-        displayInLayerSwitcher: true
-    });
+    var ncbcr = new OpenLayers.Layer.WMS("NC BCR",
+        SERVER_URI + "geoserver/wms", {
+            layers: "nc_bcr",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false,
+            displayInLayerSwitcher: true
+        });
 
     //////////label layers for web from tilecache
     var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label",
-     SERVER_URI + "tilecache", {
-        layers: "counties_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        SERVER_URI + "tilecache", {
+            layers: "counties_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
 
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label", SERVER_URI + "tilecache", {
-        layers: "huc2nc_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label",
+        SERVER_URI + "tilecache", {
+            layers: "huc2nc_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label", SERVER_URI + "tilecache", {
-        layers: "huc4nc_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label",
+        SERVER_URI + "tilecache", {
+            layers: "huc4nc_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label", SERVER_URI + "tilecache", {
-        layers: "huc6nc_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label",
+        SERVER_URI + "tilecache", {
+            layers: "huc6nc_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label", SERVER_URI + "tilecache", {
-        layers: "huc8nc_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label",
+        SERVER_URI + "tilecache", {
+            layers: "huc8nc_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label", SERVER_URI + "tilecache", {
-        layers: "huc10nc_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label",
+        SERVER_URI + "tilecache", {
+            layers: "huc10nc_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
     var nchuc12_lbl = new OpenLayers.Layer.WMS("NC HUC 12 Label",
         SERVER_URI + "tilecache", {
-        layers: "huc12nc_lbl",
-        format: 'image/png',
-        transparent: true,
-        tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+            layers: "huc12nc_lbl",
+            format: 'image/png',
+            transparent: true,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
     var styleMap = new OpenLayers.StyleMap({
         strokeColor: "red",
@@ -206,136 +222,150 @@ Ext.onReady(function() {
     });
 
     ///////////////////// label layers from geoserver for pdf
-    var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county", SERVER_URI + "geoserver/wms", {
-        layers: "counties_lbl",
-        format: 'image/png',
-        transparent: true
-        //tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
+    var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county",
+        SERVER_URI + "geoserver/wms", {
+            layers: "counties_lbl",
+            format: 'image/png',
+            transparent: true
+            //tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
 
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc2_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h2", SERVER_URI + "geoserver/wms", {
-        layers: "huc2nc_lbl",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc2_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h2",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc2nc_lbl",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc4_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h4", SERVER_URI + "geoserver/wms", {
-        layers: "huc4nc_lbl",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc4_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h4",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc4nc_lbl",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc6_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h6", SERVER_URI + "geoserver/wms", {
-        layers: "huc6nc_lbl",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc6_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h6",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc6nc_lbl",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc8_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h8", SERVER_URI + "geoserver/wms", {
-        layers: "huc8nc_lbl",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc8_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h8",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc8nc_lbl",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc10_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h10", SERVER_URI + "geoserver/wms", {
-        layers: "huc10nc_lbl",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc10_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h10",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc10nc_lbl",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc12_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h12", SERVER_URI + "geoserver/wms", {
-        layers: "huc12nc_lbl",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc12_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h12",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc12nc_lbl",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
     ///////vector layers for query select tool
-     //////////WMS layers
-    var nchuc12_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "huc12nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    //////////WMS layers
+    var nchuc12_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc12nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc8_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "huc8nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc8_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc8nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc4_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "huc4nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc4_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc4nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc2_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "huc2nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc2_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc2nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc6_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "huc6nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc6_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc6nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var nchuc10_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "huc10nc",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false
-    });
+    var nchuc10_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "huc10nc",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false
+        });
 
-    var counties_qry = new OpenLayers.Layer.WMS("query layer", SERVER_URI + "geoserver/wms", {
-        layers: "counties",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false,
-        displayInLayerSwitcher: false
-    });
+    var counties_qry = new OpenLayers.Layer.WMS("query layer",
+        SERVER_URI + "geoserver/wms", {
+            layers: "counties",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false,
+            displayInLayerSwitcher: false
+        });
 
     ////////////analysis layers
     var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
@@ -345,22 +375,24 @@ Ext.onReady(function() {
         styleMap: styleMap
     });
 
-    var results = new OpenLayers.Layer.WMS("AOI Results", SERVER_URI + "geoserver/wms", {
-        layers: "results",
-        format: 'image/png',
-        transparent: true
-    }, {
-        isBaseLayer: false,
-        visibility: false,
-        displayInLayerSwitcher: true
-    });
+    var results = new OpenLayers.Layer.WMS("AOI Results",
+        SERVER_URI + "geoserver/wms", {
+            layers: "results",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: false,
+            visibility: false,
+            displayInLayerSwitcher: true
+        });
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, counties_lbl_gs,
         nchuc12_lbl_gs, nchuc10_lbl_gs, nchuc8_lbl_gs, nchuc6_lbl_gs,
         nchuc4_lbl_gs, nchuc2_lbl_gs, highlightLayer, results, counties_qry,
-        nchuc2_qry, nchuc4_qry, nchuc6_qry, nchuc8_qry, nchuc10_qry, nchuc12_qry
+        nchuc2_qry, nchuc4_qry, nchuc6_qry, nchuc8_qry, nchuc10_qry,
+        nchuc12_qry
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -381,7 +413,8 @@ Ext.onReady(function() {
         },
 
         initialize: function() {
-            this.handlerOptions = OpenLayers.Util.extend({}, this.defaultHandlerOptions);
+            this.handlerOptions = OpenLayers.Util.extend({},
+                this.defaultHandlerOptions);
             OpenLayers.Control.prototype.initialize.apply(this, arguments);
             this.handler = new OpenLayers.Handler.Click(this, {
                 'click': this.trigger
@@ -398,7 +431,9 @@ Ext.onReady(function() {
         pts.push(pt);
         var linearRing = new OpenLayers.Geometry.LinearRing(pts);
         highlightLayer.destroyFeatures();
-        var polygonFeature = new OpenLayers.Feature.Vector(new OpenLayers.Geometry.Polygon([linearRing]));
+        var polygonFeature =
+            new OpenLayers.Feature.Vector(
+                new OpenLayers.Geometry.Polygon([linearRing]));
         highlightLayer.addFeatures([polygonFeature]);
         highlightLayer.redraw();
 
@@ -436,10 +471,14 @@ Ext.onReady(function() {
                 //if selected feature is on then remove it
                 if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
                     selected_hucs[evt.features[i].data[col_name]] = 'off';
-                    var selected_features_drawn = map.getLayersByName("AOI Selection")[0].features;
+                    var selected_features_drawn =
+                        map.getLayersByName("AOI Selection")[0].features;
                     for (var j = 0; j < selected_features_drawn.length; j++) {
-                        if (selected_features_drawn[j].data[col_name] === evt.features[i].data[col_name]) {
-                            map.getLayersByName("AOI Selection")[0].removeFeatures(selected_features_drawn[j]);
+                        if (selected_features_drawn[j].data[col_name] ===
+                            evt.features[i].data[col_name]) {
+                            map.getLayersByName(
+                                "AOI Selection"
+                            )[0].removeFeatures(selected_features_drawn[j]);
                         }
                     }
                     // else add feature
@@ -483,7 +522,7 @@ Ext.onReady(function() {
 
     var printProvider = new GeoExt.data.PrintProvider({
         method: "GET", // "POST" recommended for production use
-        capabilities: printCapabilities, // from the info.json script in the html
+        capabilities: printCapabilities, // from the info.json script in html
         customParams: {
             mapTitle: "Printing Demo"
             //comment : "This is a simple map printed from GeoExt."
@@ -529,7 +568,8 @@ Ext.onReady(function() {
             store: printProvider.dpis,
             displayField: "name",
             fieldLabel: "Resolution",
-            tpl: '<tpl for="."><div class="x-combo-list-item">{name} dpi</div></tpl>',
+            tpl: '<tpl for="."><div class="x-combo-list-item">{name}' +
+                ' dpi</div></tpl>',
             typeAhead: true,
             mode: "local",
             triggerAction: "all",
@@ -545,8 +585,10 @@ Ext.onReady(function() {
             handler: function() {
                 //printProvider.print(mapPanel, printPage);
                 //console.log(printCapabilities);
-                printCapabilities.createURL = SERVER_URI + "geoserver/pdf/create.json";
-                printCapabilities.printURL = SERVER_URI + "geoserver/pdf/print.pdf";
+                printCapabilities.createURL = SERVER_URI +
+                    "geoserver/pdf/create.json";
+                printCapabilities.printURL = SERVER_URI +
+                    "geoserver/pdf/print.pdf";
 
                 //code to use label layers from geoserver for pdf and
                 //then turn tilecache back on for web map
@@ -562,7 +604,8 @@ Ext.onReady(function() {
                 };
                 for (label_lyr_name in label_lyrs) {
                     label_lyr = map.getLayersByName(label_lyr_name)[0];
-                    label_lyr_pdf = map.getLayersByName(label_lyrs[label_lyr_name])[0];
+                    label_lyr_pdf = map.getLayersByName(
+                        label_lyrs[label_lyr_name])[0];
                     if (label_lyr.getVisibility()) {
                         label_lyr.setVisibility(false);
                         label_lyr_pdf.setVisibility(true);
@@ -579,7 +622,8 @@ Ext.onReady(function() {
                 }
                 for (label_lyr_name in label_lyrs) {
                     label_lyr = map.getLayersByName(label_lyr_name)[0];
-                    label_lyr_pdf = map.getLayersByName(label_lyrs[label_lyr_name])[0];
+                    label_lyr_pdf = map.getLayersByName(
+                        label_lyrs[label_lyr_name])[0];
                     if (label_lyr_pdf.getVisibility()) {
                         label_lyr.setVisibility(true);
                         label_lyr_pdf.setVisibility(false);
@@ -606,7 +650,8 @@ Ext.onReady(function() {
 
     var form2_chng = function() {
         //console.log(records.data.layerId);
-        //var selected_type = formPanel2.getComponent('rg1').getValue().inputValue;
+        //var selected_type = formPanel2.getComponent('rg1').
+        //getValue().inputValue;
         var predef_idx, selected_predef;
         try {
             predef_idx = formPanel2.getComponent('cmb1').selectedIndex;
@@ -698,14 +743,15 @@ Ext.onReady(function() {
             aoi_to_file = getResource(jqXHR.getResponseHeader('Location'));
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
             onExecuted(data.aoi_id);
-            var extent = new OpenLayers.Bounds(data.extent).transform(proj_4326, proj_900913);
+            var extent = new OpenLayers.Bounds(
+                data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
         });
 
         function getResource(url) {
             var handler = function() {
                 window.open(url);
-            }
+            };
             return handler;
         }
 
@@ -764,7 +810,8 @@ Ext.onReady(function() {
         }, {
             xtype: "textarea",
             value: "",
-            fieldLabel: "Description - optional, use when creating HUCs for a description in saved AOI",
+            fieldLabel: "Description - optional, use when creating HUCs" +
+                " for a description in saved AOI",
             itemId: "desc_txt"
         }],
         buttons: [{
@@ -778,6 +825,102 @@ Ext.onReady(function() {
         }, {
             text: "Get HUC12s",
             handler: save_action
+        }]
+    });
+
+    var comboStore2 = new Ext.data.ArrayStore({
+        fields: ['layerName', 'layerId']
+    });
+    var comboData2 = [
+        ["2010", '2010'],
+        ["2020", '2020'],
+        ["2030", '2030'],
+        ["2040", '2040'],
+        ["2050", '2050'],
+        ["2060", '2060'],
+        ["2070", '2070'],
+        ["2080", '2080'],
+        ["2090", '2090'],
+        ["2200", '2200'],
+    ];
+    comboStore2.loadData(comboData2);
+
+
+
+    var checkGroup = {
+        xtype: 'fieldset',
+        title: 'Factors in calculation',
+        autoHeight: true,
+        layout: 'form',
+        // collapsed: true, // initially collapse the group
+        //  collapsible: true,
+        items: [{
+            // Use the default, automatic layout to distribute the controls evenly
+            // across a single row
+            xtype: 'checkboxgroup',
+            fieldLabel: 'select factors to include',
+            columns: 1,
+            items: [{
+                boxLabel: 'Pollution 1',
+                name: 'cb-auto-1'
+            }, {
+                boxLabel: 'Pollution 2',
+                name: 'cb-auto-2',
+                checked: false
+            }, {
+                boxLabel: 'Disease 1',
+                name: 'cb-auto-3'
+            }, {
+                boxLabel: 'Disease 2',
+                name: 'cb-auto-4'
+            }, {
+                boxLabel: 'Sea Level Rise',
+                name: 'cb-auto-6'
+            }, {
+                boxLabel: 'Fire Probability',
+                name: 'cb-auto-7'
+            }, {
+                boxLabel: 'Fire Suppresion',
+                name: 'cb-auto-8'
+            }, {
+                boxLabel: 'Transportation Corridors',
+                name: 'cb-auto-9'
+            }, {
+                boxLabel: 'Fragmentaion Index',
+                name: 'cb-auto-10'
+            }, {
+                boxLabel: 'Urban Percentage',
+                name: 'cb-auto-11'
+            }]
+        }]
+    };
+
+    var formPanel3 = new Ext.form.FormPanel({
+        title: "Calculations",
+        width: 296,
+        height: 500,
+        bodyStyle: "padding:20px; ",
+        labelAlign: "top",
+        defaults: {
+            anchor: "100%"
+        },
+        items: [checkGroup, {
+            xtype: "combo",
+            itemId: "cmb2",
+            store: comboStore2,
+            fieldLabel: "Target year",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+        }],
+        buttons: [{
+            text: "Calculate"
+            //handler: remove_action
         }]
     });
 
@@ -952,7 +1095,10 @@ Ext.onReady(function() {
         width: 300,
         root: {
             nodeType: "async",
-            children: [layerList10, layerList9, layerList, layerList2, layerList3, layerList4, layerList5, layerList6, layerList7, layerList8]
+            children: [layerList10, layerList9, layerList, layerList2,
+                layerList3, layerList4, layerList5, layerList6,
+                layerList7, layerList8
+            ]
         },
         title: "NC layers",
         rootVisible: false
@@ -960,7 +1106,8 @@ Ext.onReady(function() {
 
     var process_tab = new Ext.Panel({
         title: 'Processing',
-        html: "some content",
+        //html: "some content",
+        items: [formPanel3],
         cls: 'help',
         autoScroll: true
     });
@@ -1029,7 +1176,8 @@ Ext.onReady(function() {
             xmlDoc.loadXML(txt);
         }
         //res is aoiname
-        //var res = xmlDoc.getElementsByTagName("aoiName")[0].childNodes[0].nodeValue;
+        //var res = xmlDoc.getElementsByTagName("aoiName")[0].
+        //childNodes[0].nodeValue;
         var res = xmlDoc.getElementsByTagName("html")[0];
         console.log(res);
         console.log(txt);*/
