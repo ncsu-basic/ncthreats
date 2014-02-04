@@ -859,41 +859,48 @@ Ext.onReady(function() {
             // across a single row
             xtype: 'checkboxgroup',
             fieldLabel: 'select factors to include',
+            id: 'cbgrp1',
             columns: 1,
             items: [{
                 boxLabel: 'Pollution 1',
-                name: 'cb-auto-1'
+                name: 'polu1'
             }, {
                 boxLabel: 'Pollution 2',
-                name: 'cb-auto-2',
+                name: 'polu2',
                 checked: false
             }, {
                 boxLabel: 'Disease 1',
-                name: 'cb-auto-3'
+                name: 'dise1'
             }, {
                 boxLabel: 'Disease 2',
-                name: 'cb-auto-4'
+                name: 'dise2'
             }, {
                 boxLabel: 'Sea Level Rise',
-                name: 'cb-auto-6'
+                name: 'slr'
             }, {
                 boxLabel: 'Fire Probability',
-                name: 'cb-auto-7'
+                name: 'firp'
             }, {
                 boxLabel: 'Fire Suppresion',
-                name: 'cb-auto-8'
+                name: 'firs'
             }, {
                 boxLabel: 'Transportation Corridors',
-                name: 'cb-auto-9'
+                name: 'tran'
             }, {
                 boxLabel: 'Fragmentaion Index',
-                name: 'cb-auto-10'
+                name: 'frag'
             }, {
                 boxLabel: 'Urban Percentage',
-                name: 'cb-auto-11'
+                name: 'urb'
             }]
         }]
     };
+
+    var make_calcs = function(){
+        console.log("hello");
+        var a = formPanel3.getForm().getValues(true);
+        console.log(a);
+    }
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
@@ -909,6 +916,7 @@ Ext.onReady(function() {
             itemId: "cmb2",
             store: comboStore2,
             fieldLabel: "Target year",
+            name: 'target_year',
             typeAhead: true,
             mode: "local",
             triggerAction: "all",
@@ -919,8 +927,8 @@ Ext.onReady(function() {
             }
         }],
         buttons: [{
-            text: "Calculate"
-            //handler: remove_action
+            text: "Calculate",
+            handler: make_calcs
         }]
     });
 
