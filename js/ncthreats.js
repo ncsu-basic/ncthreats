@@ -549,7 +549,7 @@ Ext.onReady(function() {
     };
 
     var printProvider = new GeoExt.data.PrintProvider({
-        method: "GET", // "POST" recommended for production use
+        method: "POST", // "POST" recommended for production use
         capabilities: printCapabilities, // from the info.json script in html
         customParams: {
             mapTitle: "Printing Demo"
