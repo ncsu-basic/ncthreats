@@ -70,3 +70,6 @@ JAVA_OPTS="-Xmx256M -Xms48m"
 remove metatiles from tilecache for lines
 
 add tilecache to supervisord
+
+edit tilecache service.py ln 140 to pass exception
+edit geoserver wms properties memory

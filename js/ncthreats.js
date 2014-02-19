@@ -1,13 +1,15 @@
 /*global google:false,  Ext:false, GeoExt:false, OpenLayers:false,
 printCapabilities:false  */
 
-var map;
-//var , wps, save_link, saveaoi_form;
-var SERVER_URI = "http://localhost/";
-var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
+var map;
 Ext.onReady(function() {
     "use strict";
+
+
+    //var , wps, save_link, saveaoi_form;
+    var SERVER_URI = "http://localhost/";
+    //var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -372,10 +374,18 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
+        styleMap: styleMap,
+
+    });
+
+    var results = new OpenLayers.Layer.Vector("AOI Results", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
         styleMap: styleMap
     });
 
-    var results = new OpenLayers.Layer.WMS("AOI Results",
+    /*    var results = new OpenLayers.Layer.WMS("AOI Results",
         SERVER_URI + "geoserver/wms", {
             layers: "results",
             format: 'image/png',
@@ -384,7 +394,7 @@ Ext.onReady(function() {
             isBaseLayer: false,
             visibility: false,
             displayInLayerSwitcher: true
-        });
+        });*/
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
@@ -742,7 +752,7 @@ Ext.onReady(function() {
         }).done(function(data, textStatus, jqXHR) {
             aoi_to_file = getResource(jqXHR.getResponseHeader('Location'));
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-            onExecuted(data.aoi_id);
+            onExecuted(data.geojson);
             var extent = new OpenLayers.Bounds(
                 data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
@@ -755,14 +765,28 @@ Ext.onReady(function() {
             return handler;
         }
 
+
+
         function onExecuted(aoi) {
+            console.log(aoi);
+            var geojson_format = new OpenLayers.Format.GeoJSON({
+                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                'externalProjection': new OpenLayers.Projection("EPSG:4326")
+            });
+            // var geojson_format = new OpenLayers.Format.GeoJSON();
+            // map.addLayer(vector_layer);
+            results.addFeatures(geojson_format.read(aoi));
+            results.setVisibility(true);
+        }
+
+        /*function onExecuted(aoi) {
             var cql = "identifier = '" + aoi + "'";
             delete results.params.CQL_FILTER;
             results.mergeNewParams({
                 'CQL_FILTER': cql
             });
             results.setVisibility(true);
-        }
+        }*/
     };
 
 
