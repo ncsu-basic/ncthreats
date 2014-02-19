@@ -216,12 +216,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var styleMap = new OpenLayers.StyleMap({
-        strokeColor: "red",
-        strokeWidth: 2,
-        strokeOpacity: 0.5,
-        fillOpacity: 0.2
-    });
+
 
     ///////////////////// label layers from geoserver for pdf
     var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county",
@@ -370,6 +365,29 @@ Ext.onReady(function() {
         });
 
     ////////////analysis layers
+
+    var styleMap = new OpenLayers.StyleMap({
+        strokeColor: "red",
+        strokeWidth: 2,
+        strokeOpacity: 0.5,
+        fillOpacity: 0.2
+    });
+
+    var resultsStyleMap = new OpenLayers.StyleMap({});
+
+    var symbolsLookup = {
+        2: {
+            strokeColor: "black",
+            fillColor: "green",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        }
+    };
+
+    resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
+
+
     var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
@@ -382,7 +400,7 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: styleMap
+        styleMap: resultsStyleMap
     });
 
     /*    var results = new OpenLayers.Layer.WMS("AOI Results",
@@ -765,16 +783,11 @@ Ext.onReady(function() {
             return handler;
         }
 
-
-
         function onExecuted(aoi) {
-            console.log(aoi);
             var geojson_format = new OpenLayers.Format.GeoJSON({
                 'internalProjection': new OpenLayers.Projection("EPSG:900913"),
                 'externalProjection': new OpenLayers.Projection("EPSG:4326")
             });
-            // var geojson_format = new OpenLayers.Format.GeoJSON();
-            // map.addLayer(vector_layer);
             results.addFeatures(geojson_format.read(aoi));
             results.setVisibility(true);
         }
@@ -788,7 +801,6 @@ Ext.onReady(function() {
             results.setVisibility(true);
         }*/
     };
-
 
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
