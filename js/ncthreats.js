@@ -7,6 +7,8 @@ Ext.onReady(function() {
     "use strict";
 
 
+var resource;
+
     //var , wps, save_link, saveaoi_form;
     var SERVER_URI = "http://localhost/";
     //var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
@@ -376,9 +378,37 @@ Ext.onReady(function() {
     var resultsStyleMap = new OpenLayers.StyleMap({});
 
     var symbolsLookup = {
-        2: {
+        1: {
             strokeColor: "black",
             fillColor: "green",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+         2: {
+            strokeColor: "black",
+            fillColor: "brown",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+         3: {
+            strokeColor: "black",
+            fillColor: "yellow",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+         4: {
+            strokeColor: "black",
+            fillColor: "orange",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+         5: {
+            strokeColor: "black",
+            fillColor: "red",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.3
@@ -768,7 +798,8 @@ Ext.onReady(function() {
             },
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
-            aoi_to_file = getResource(jqXHR.getResponseHeader('Location'));
+            resource = jqXHR.getResponseHeader('Location');
+            aoi_to_file = getResource(resource);
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
             onExecuted(data.geojson);
             var extent = new OpenLayers.Bounds(
@@ -788,6 +819,7 @@ Ext.onReady(function() {
                 'internalProjection': new OpenLayers.Projection("EPSG:900913"),
                 'externalProjection': new OpenLayers.Projection("EPSG:4326")
             });
+            results.removeAllFeatures();
             results.addFeatures(geojson_format.read(aoi));
             results.setVisibility(true);
         }
@@ -898,37 +930,55 @@ Ext.onReady(function() {
             columns: 1,
             items: [{
                 boxLabel: 'Pollution 1',
-                name: 'cb-auto-1'
+                name: 'polu1'
             }, {
                 boxLabel: 'Pollution 2',
-                name: 'cb-auto-2',
+                name: 'polu1',
                 checked: false
             }, {
                 boxLabel: 'Disease 1',
-                name: 'cb-auto-3'
+                name: 'dise1'
             }, {
                 boxLabel: 'Disease 2',
-                name: 'cb-auto-4'
+                name: 'dise2'
             }, {
                 boxLabel: 'Sea Level Rise',
-                name: 'cb-auto-6'
+                name: 'slr'
             }, {
                 boxLabel: 'Fire Probability',
-                name: 'cb-auto-7'
+                name: 'firp'
             }, {
                 boxLabel: 'Fire Suppresion',
-                name: 'cb-auto-8'
+                name: 'firs'
             }, {
                 boxLabel: 'Transportation Corridors',
-                name: 'cb-auto-9'
+                name: 'tran'
             }, {
                 boxLabel: 'Fragmentaion Index',
-                name: 'cb-auto-10'
+                name: 'frag'
             }, {
                 boxLabel: 'Urban Percentage',
-                name: 'cb-auto-11'
+                name: 'urb'
             }]
         }]
+    };
+
+    var threat_calcs = function() {
+        var form_vals = formPanel3.getForm().getValues(true);
+        $.ajax({
+            url: resource + '/map?' + form_vals,
+            type: 'GET',
+            dataType: 'json'
+        }).done(function(data) {
+            var len = map.getLayersByName("AOI Results")[0].features.length;
+            var huc12;
+            for(var i=0; i<len; i++){
+                huc12 = map.getLayersByName("AOI Results")[0].features[i].attributes.huc12;
+                map.getLayersByName("AOI Results")[0].features[i].attributes.threat =
+                    data.results[huc12];
+                results.redraw();
+            }
+        });
     };
 
     var formPanel3 = new Ext.form.FormPanel({
@@ -944,6 +994,7 @@ Ext.onReady(function() {
             xtype: "combo",
             itemId: "cmb2",
             store: comboStore2,
+            name: 'year',
             fieldLabel: "Target year",
             typeAhead: true,
             mode: "local",
@@ -955,8 +1006,8 @@ Ext.onReady(function() {
             }
         }],
         buttons: [{
-            text: "Calculate"
-            //handler: remove_action
+            text: "Calculate",
+            handler: threat_calcs
         }]
     });
 
