@@ -7,7 +7,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-var resource;
+    var resource;
 
     //var , wps, save_link, saveaoi_form;
     var SERVER_URI = "http://localhost/";
@@ -380,35 +380,35 @@ var resource;
     var symbolsLookup = {
         1: {
             strokeColor: "black",
-            fillColor: "green",
+            fillColor: "#008000",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.3
         },
-         2: {
+        2: {
             strokeColor: "black",
-            fillColor: "brown",
+            fillColor: "#C05600",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.3
         },
-         3: {
+        3: {
             strokeColor: "black",
-            fillColor: "yellow",
+            fillColor: "#FFFF00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.3
         },
-         4: {
+        4: {
             strokeColor: "black",
-            fillColor: "orange",
+            fillColor: "#FF8000",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.3
         },
-         5: {
+        5: {
             strokeColor: "black",
-            fillColor: "red",
+            fillColor: "#FF0000",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.3
@@ -769,7 +769,7 @@ var resource;
         }
         new_selection();
     };
-    var aoi_to_file;
+    var aoi_to_file, onExecuted;
     //function to submit defined area to pywps
     var save_action = function() {
         //console.log("remove... tell me more");
@@ -814,7 +814,7 @@ var resource;
             return handler;
         }
 
-        function onExecuted(aoi) {
+        onExecuted = function(aoi) {
             var geojson_format = new OpenLayers.Format.GeoJSON({
                 'internalProjection': new OpenLayers.Projection("EPSG:900913"),
                 'externalProjection': new OpenLayers.Projection("EPSG:4326")
@@ -822,7 +822,7 @@ var resource;
             results.removeAllFeatures();
             results.addFeatures(geojson_format.read(aoi));
             results.setVisibility(true);
-        }
+        };
 
         /*function onExecuted(aoi) {
             var cql = "identifier = '" + aoi + "'";
@@ -933,7 +933,7 @@ var resource;
                 name: 'polu1'
             }, {
                 boxLabel: 'Pollution 2',
-                name: 'polu1',
+                name: 'polu2',
                 checked: false
             }, {
                 boxLabel: 'Disease 1',
@@ -970,14 +970,15 @@ var resource;
             type: 'GET',
             dataType: 'json'
         }).done(function(data) {
-            var len = map.getLayersByName("AOI Results")[0].features.length;
+            onExecuted(data.results);
+            /*  var len = map.getLayersByName("AOI Results")[0].features.length;
             var huc12;
             for(var i=0; i<len; i++){
                 huc12 = map.getLayersByName("AOI Results")[0].features[i].attributes.huc12;
                 map.getLayersByName("AOI Results")[0].features[i].attributes.threat =
                     data.results[huc12];
                 results.redraw();
-            }
+            }*/
         });
     };
 
