@@ -1,13 +1,17 @@
 /*global google:false,  Ext:false, GeoExt:false, OpenLayers:false,
 printCapabilities:false  */
 
-var map;
-//var , wps, save_link, saveaoi_form;
-var SERVER_URI = "http://localhost/";
-var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
+var map;
 Ext.onReady(function() {
     "use strict";
+
+
+    var resource;
+
+    //var , wps, save_link, saveaoi_form;
+    var SERVER_URI = "http://localhost/";
+    //var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -214,12 +218,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var styleMap = new OpenLayers.StyleMap({
-        strokeColor: "red",
-        strokeWidth: 2,
-        strokeOpacity: 0.5,
-        fillOpacity: 0.2
-    });
+
 
     ///////////////////// label layers from geoserver for pdf
     var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county",
@@ -368,14 +367,73 @@ Ext.onReady(function() {
         });
 
     ////////////analysis layers
+
+    var styleMap = new OpenLayers.StyleMap({
+        strokeColor: "red",
+        strokeWidth: 2,
+        strokeOpacity: 0.5,
+        fillOpacity: 0.2
+    });
+
+    var resultsStyleMap = new OpenLayers.StyleMap({});
+
+    var symbolsLookup = {
+        1: {
+            strokeColor: "black",
+            fillColor: "#008000",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+        2: {
+            strokeColor: "black",
+            fillColor: "#C05600",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+        3: {
+            strokeColor: "black",
+            fillColor: "#FFFF00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+        4: {
+            strokeColor: "black",
+            fillColor: "#FF8000",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        },
+        5: {
+            strokeColor: "black",
+            fillColor: "#FF0000",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0.3
+        }
+    };
+
+    resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
+
+
     var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: styleMap
+        styleMap: styleMap,
+
     });
 
-    var results = new OpenLayers.Layer.WMS("AOI Results",
+    var results = new OpenLayers.Layer.Vector("AOI Results", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: resultsStyleMap
+    });
+
+    /*    var results = new OpenLayers.Layer.WMS("AOI Results",
         SERVER_URI + "geoserver/wms", {
             layers: "results",
             format: 'image/png',
@@ -384,7 +442,7 @@ Ext.onReady(function() {
             isBaseLayer: false,
             visibility: false,
             displayInLayerSwitcher: true
-        });
+        });*/
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
@@ -521,7 +579,7 @@ Ext.onReady(function() {
     };
 
     var printProvider = new GeoExt.data.PrintProvider({
-        method: "GET", // "POST" recommended for production use
+        method: "POST", // "POST" recommended for production use
         capabilities: printCapabilities, // from the info.json script in html
         customParams: {
             mapTitle: "Printing Demo"
@@ -711,7 +769,7 @@ Ext.onReady(function() {
         }
         new_selection();
     };
-    var aoi_to_file;
+    var aoi_to_file, onExecuted;
     //function to submit defined area to pywps
     var save_action = function() {
         //console.log("remove... tell me more");
@@ -740,9 +798,10 @@ Ext.onReady(function() {
             },
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
-            aoi_to_file = getResource(jqXHR.getResponseHeader('Location'));
+            resource = jqXHR.getResponseHeader('Location');
+            aoi_to_file = getResource(resource);
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-            onExecuted(data.aoi_id);
+            onExecuted(data.geojson);
             var extent = new OpenLayers.Bounds(
                 data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
@@ -755,16 +814,25 @@ Ext.onReady(function() {
             return handler;
         }
 
-        function onExecuted(aoi) {
+        onExecuted = function(aoi) {
+            var geojson_format = new OpenLayers.Format.GeoJSON({
+                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                'externalProjection': new OpenLayers.Projection("EPSG:4326")
+            });
+            results.removeAllFeatures();
+            results.addFeatures(geojson_format.read(aoi));
+            results.setVisibility(true);
+        };
+
+        /*function onExecuted(aoi) {
             var cql = "identifier = '" + aoi + "'";
             delete results.params.CQL_FILTER;
             results.mergeNewParams({
                 'CQL_FILTER': cql
             });
             results.setVisibility(true);
-        }
+        }*/
     };
-
 
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
@@ -841,7 +909,7 @@ Ext.onReady(function() {
         ["2070", '2070'],
         ["2080", '2080'],
         ["2090", '2090'],
-        ["2200", '2200'],
+        ["2100", '2100'],
     ];
     comboStore2.loadData(comboData2);
 
@@ -896,11 +964,25 @@ Ext.onReady(function() {
         }]
     };
 
-    var make_calcs = function(){
-        console.log("hello");
-        var a = formPanel3.getForm().getValues(true);
-        console.log(a);
-    }
+
+    var threat_calcs = function() {
+        var form_vals = formPanel3.getForm().getValues(true);
+        $.ajax({
+            url: resource + '/map?' + form_vals,
+            type: 'GET',
+            dataType: 'json'
+        }).done(function(data) {
+            onExecuted(data.results);
+            /*  var len = map.getLayersByName("AOI Results")[0].features.length;
+            var huc12;
+            for(var i=0; i<len; i++){
+                huc12 = map.getLayersByName("AOI Results")[0].features[i].attributes.huc12;
+                map.getLayersByName("AOI Results")[0].features[i].attributes.threat =
+                    data.results[huc12];
+                results.redraw();
+            }*/
+        });
+    };
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
@@ -915,6 +997,7 @@ Ext.onReady(function() {
             xtype: "combo",
             itemId: "cmb2",
             store: comboStore2,
+            name: 'year',
             fieldLabel: "Target year",
             name: 'target_year',
             typeAhead: true,
@@ -928,7 +1011,8 @@ Ext.onReady(function() {
         }],
         buttons: [{
             text: "Calculate",
-            handler: make_calcs
+
+            handler: threat_calcs
         }]
     });
 
