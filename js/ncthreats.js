@@ -293,9 +293,9 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    ///////vector layers for query select tool
+    ///////vector layers for query select tool and pdf
     //////////WMS layers
-    var nchuc12_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc12_qry = new OpenLayers.Layer.WMS("line for pdf, h12",
         SERVER_URI + "geoserver/wms", {
             layers: "huc12nc",
             format: 'image/png',
@@ -305,7 +305,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc8_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc8_qry = new OpenLayers.Layer.WMS("line for pdf, h8",
         SERVER_URI + "geoserver/wms", {
             layers: "huc8nc",
             format: 'image/png',
@@ -315,7 +315,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc4_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc4_qry = new OpenLayers.Layer.WMS("line for pdf, h4",
         SERVER_URI + "geoserver/wms", {
             layers: "huc4nc",
             format: 'image/png',
@@ -325,7 +325,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc2_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc2_qry = new OpenLayers.Layer.WMS("line for pdf, h2",
         SERVER_URI + "geoserver/wms", {
             layers: "huc2nc",
             format: 'image/png',
@@ -335,7 +335,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc6_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc6_qry = new OpenLayers.Layer.WMS("line for pdf, h6",
         SERVER_URI + "geoserver/wms", {
             layers: "huc6nc",
             format: 'image/png',
@@ -345,7 +345,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc10_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc10_qry = new OpenLayers.Layer.WMS("line for pdf, h10",
         SERVER_URI + "geoserver/wms", {
             layers: "huc10nc",
             format: 'image/png',
@@ -355,7 +355,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var counties_qry = new OpenLayers.Layer.WMS("query layer",
+    var counties_qry = new OpenLayers.Layer.WMS("line for pdf, counties",
         SERVER_URI + "geoserver/wms", {
             layers: "counties",
             format: 'image/png',
@@ -639,10 +639,8 @@ Ext.onReady(function() {
         }],
         buttons: [{
             text: "Create PDF",
-            //cls : "pr_btn",
             handler: function() {
-                //printProvider.print(mapPanel, printPage);
-                //console.log(printCapabilities);
+                //change these values returned by server
                 printCapabilities.createURL = SERVER_URI +
                     "geoserver/pdf/create.json";
                 printCapabilities.printURL = SERVER_URI +
@@ -658,7 +656,14 @@ Ext.onReady(function() {
                     "NC HUC 6 Label": "label for pdf, h6",
                     "NC HUC 8 Label": "label for pdf, h8",
                     "NC HUC 10 Label": "label for pdf, h10",
-                    "NC HUC 12 Label": "label for pdf, h12"
+                    "NC HUC 12 Label": "label for pdf, h12",
+                    "NC HUC 2": "line for pdf, h2",
+                    "NC HUC 4": "line for pdf, h4",
+                    "NC HUC 6": "line for pdf, h6",
+                    "NC HUC 8": "line for pdf, h8",
+                    "NC HUC 10": "line for pdf, h10",
+                    "NC HUC 12": "line for pdf, h12",
+                    "NC Counties": "line for pdf, counties"
                 };
                 for (label_lyr_name in label_lyrs) {
                     label_lyr = map.getLayersByName(label_lyr_name)[0];
