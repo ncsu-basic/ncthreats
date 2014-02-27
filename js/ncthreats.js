@@ -10,8 +10,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    var SERVER_URI = "http://localhost/";
-    //var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -642,7 +642,7 @@ Ext.onReady(function() {
             //cls : "pr_btn",
             handler: function() {
                 //printProvider.print(mapPanel, printPage);
-                //console.log(printCapabilities);
+                console.log(printCapabilities);
                 printCapabilities.createURL = SERVER_URI +
                     "geoserver/pdf/create.json";
                 printCapabilities.printURL = SERVER_URI +
@@ -999,7 +999,7 @@ Ext.onReady(function() {
             store: comboStore2,
             name: 'year',
             fieldLabel: "Target year",
-            name: 'target_year',
+            // name: 'target_year',
             typeAhead: true,
             mode: "local",
             triggerAction: "all",
