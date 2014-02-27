@@ -55,8 +55,8 @@ Ext.onReady(function() {
     });
 
     var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)");
-
-    //////////WMS layers
+    var tc_res = [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218];
+    //////WMS layers
     var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12",
         SERVER_URI + "tilecache", {
             layers: "huc12nc",
@@ -67,14 +67,31 @@ Ext.onReady(function() {
             visibility: false
         });
 
+    // var nchuc12 = new OpenLayers.Layer.TMS("NC HUC 12",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: 'huc12nc',
+    //         type: 'png',
+    //         visibility: false,
+    //         isBaseLayer: false,
+    //         serverResolutions: tc_res
+    //         // buffer: 0,
+    //         // displayInLayerSwitcher: true,
+    //         // minScale: 15000
+
+    //     });
+
     var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8",
         SERVER_URI + "tilecache", {
             layers: "huc8nc",
             format: 'image/png',
-            transparent: true
+            transparent: true,
+            resolutions: tc_res,
+            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
         }, {
             isBaseLayer: false,
-            visibility: false
+            visibility: false,
+            resolutions: tc_res
+
         });
 
     var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4",
@@ -293,9 +310,9 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    ///////vector layers for query select tool
+    ///////vector layers for query select tool and pdf
     //////////WMS layers
-    var nchuc12_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc12_qry = new OpenLayers.Layer.WMS("line for pdf, h12",
         SERVER_URI + "geoserver/wms", {
             layers: "huc12nc",
             format: 'image/png',
@@ -305,7 +322,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc8_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc8_qry = new OpenLayers.Layer.WMS("line for pdf, h8",
         SERVER_URI + "geoserver/wms", {
             layers: "huc8nc",
             format: 'image/png',
@@ -315,7 +332,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc4_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc4_qry = new OpenLayers.Layer.WMS("line for pdf, h4",
         SERVER_URI + "geoserver/wms", {
             layers: "huc4nc",
             format: 'image/png',
@@ -325,7 +342,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc2_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc2_qry = new OpenLayers.Layer.WMS("line for pdf, h2",
         SERVER_URI + "geoserver/wms", {
             layers: "huc2nc",
             format: 'image/png',
@@ -335,7 +352,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc6_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc6_qry = new OpenLayers.Layer.WMS("line for pdf, h6",
         SERVER_URI + "geoserver/wms", {
             layers: "huc6nc",
             format: 'image/png',
@@ -345,7 +362,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc10_qry = new OpenLayers.Layer.WMS("query layer",
+    var nchuc10_qry = new OpenLayers.Layer.WMS("line for pdf, h10",
         SERVER_URI + "geoserver/wms", {
             layers: "huc10nc",
             format: 'image/png',
@@ -355,7 +372,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var counties_qry = new OpenLayers.Layer.WMS("query layer",
+    var counties_qry = new OpenLayers.Layer.WMS("line for pdf, counties",
         SERVER_URI + "geoserver/wms", {
             layers: "counties",
             format: 'image/png',
@@ -458,6 +475,12 @@ Ext.onReady(function() {
     //////////////////////////////////////////////////////////////////////////
     function console_on_zoom() {
         console.log("resolution is", map.getResolution());
+        console.log("scale is", map.getScale());
+        // for (var i = 0; i < map.layers.length; i++) {
+        //     if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
+        //         map.layers[i].redraw(true); // Other layer
+        //     }
+        // }
     }
     map.events.register('zoomend', map, console_on_zoom);
 
@@ -639,14 +662,18 @@ Ext.onReady(function() {
         }],
         buttons: [{
             text: "Create PDF",
-            //cls : "pr_btn",
             handler: function() {
+<<<<<<< HEAD
                 //printProvider.print(mapPanel, printPage);
                 console.log(printCapabilities);
+=======
+                //change these values returned by server
+>>>>>>> b32fdbbf14897d3804f3b8cd73840e64fc7042f6
                 printCapabilities.createURL = SERVER_URI +
                     "geoserver/pdf/create.json";
                 printCapabilities.printURL = SERVER_URI +
                     "geoserver/pdf/print.pdf";
+                console.log(printCapabilities);
 
                 //code to use label layers from geoserver for pdf and
                 //then turn tilecache back on for web map
@@ -658,12 +685,20 @@ Ext.onReady(function() {
                     "NC HUC 6 Label": "label for pdf, h6",
                     "NC HUC 8 Label": "label for pdf, h8",
                     "NC HUC 10 Label": "label for pdf, h10",
-                    "NC HUC 12 Label": "label for pdf, h12"
+                    "NC HUC 12 Label": "label for pdf, h12",
+                    "NC HUC 2": "line for pdf, h2",
+                    "NC HUC 4": "line for pdf, h4",
+                    "NC HUC 6": "line for pdf, h6",
+                    "NC HUC 8": "line for pdf, h8",
+                    "NC HUC 10": "line for pdf, h10",
+                    "NC HUC 12": "line for pdf, h12",
+                    "NC Counties": "line for pdf, counties"
                 };
                 for (label_lyr_name in label_lyrs) {
                     label_lyr = map.getLayersByName(label_lyr_name)[0];
                     label_lyr_pdf = map.getLayersByName(
                         label_lyrs[label_lyr_name])[0];
+                    // map.addLayer(label_lyr_pdf);
                     if (label_lyr.getVisibility()) {
                         label_lyr.setVisibility(false);
                         label_lyr_pdf.setVisibility(true);
@@ -678,15 +713,44 @@ Ext.onReady(function() {
                 if (show_highlight) {
                     highlightLayer.setVisibility(true);
                 }
-                for (label_lyr_name in label_lyrs) {
-                    label_lyr = map.getLayersByName(label_lyr_name)[0];
-                    label_lyr_pdf = map.getLayersByName(
-                        label_lyrs[label_lyr_name])[0];
-                    if (label_lyr_pdf.getVisibility()) {
-                        label_lyr.setVisibility(true);
-                        label_lyr_pdf.setVisibility(false);
+
+
+
+                setTimeout(function() {
+                    console.log("timout");
+                    var label_lyrs = {
+                        "NC Counties Label": "label for pdf, county",
+                        "NC HUC 2 Label": "label for pdf, h2",
+                        "NC HUC 4 Label": "label for pdf, h4",
+                        "NC HUC 6 Label": "label for pdf, h6",
+                        "NC HUC 8 Label": "label for pdf, h8",
+                        "NC HUC 10 Label": "label for pdf, h10",
+                        "NC HUC 12 Label": "label for pdf, h12",
+                        "NC HUC 2": "line for pdf, h2",
+                        "NC HUC 4": "line for pdf, h4",
+                        "NC HUC 6": "line for pdf, h6",
+                        "NC HUC 8": "line for pdf, h8",
+                        "NC HUC 10": "line for pdf, h10",
+                        "NC HUC 12": "line for pdf, h12",
+                        "NC Counties": "line for pdf, counties"
+                    };
+                    for (var label_lyr_name in label_lyrs) {
+                        label_lyr = map.getLayersByName(label_lyr_name)[0];
+                        label_lyr_pdf = map.getLayersByName(
+                            label_lyrs[label_lyr_name])[0];
+                        if (label_lyr_pdf.getVisibility()) {
+                            label_lyr.setVisibility(true);
+                            label_lyr_pdf.setVisibility(false);
+                            console.log("turn off layer " + label_lyr_pdf.name);
+                        }
                     }
-                }
+                    for (var i = 0; i < map.layers.length; i++) {
+                        if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
+                            map.layers[i].redraw(true); // Other layer
+                        }
+                    }
+                }, 200);
+
             }
         }]
     });
@@ -1020,8 +1084,7 @@ Ext.onReady(function() {
     // start GeoExt config
     ///////////////////////////////////////////////
 
-    var
-    ctrl, toolbarItems = [],
+    var ctrl, toolbarItems = [],
         action, actions = {};
     ctrl = new OpenLayers.Control.NavigationHistory();
     map.addControl(ctrl);
