@@ -447,7 +447,9 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: resultsStyleMap
+        styleMap: resultsStyleMap,
+        renderers: ["SVG"]
+
     });
 
     /*    var results = new OpenLayers.Layer.WMS("AOI Results",
@@ -663,94 +665,25 @@ Ext.onReady(function() {
         buttons: [{
             text: "Create PDF",
             handler: function() {
-<<<<<<< HEAD
-                //printProvider.print(mapPanel, printPage);
-                console.log(printCapabilities);
-=======
-                //change these values returned by server
->>>>>>> b32fdbbf14897d3804f3b8cd73840e64fc7042f6
-                printCapabilities.createURL = SERVER_URI +
-                    "geoserver/pdf/create.json";
-                printCapabilities.printURL = SERVER_URI +
-                    "geoserver/pdf/print.pdf";
-                console.log(printCapabilities);
-
-                //code to use label layers from geoserver for pdf and
-                //then turn tilecache back on for web map
-                var label_lyr_name, label_lyr, label_lyr_pdf;
-                var label_lyrs = {
-                    "NC Counties Label": "label for pdf, county",
-                    "NC HUC 2 Label": "label for pdf, h2",
-                    "NC HUC 4 Label": "label for pdf, h4",
-                    "NC HUC 6 Label": "label for pdf, h6",
-                    "NC HUC 8 Label": "label for pdf, h8",
-                    "NC HUC 10 Label": "label for pdf, h10",
-                    "NC HUC 12 Label": "label for pdf, h12",
-                    "NC HUC 2": "line for pdf, h2",
-                    "NC HUC 4": "line for pdf, h4",
-                    "NC HUC 6": "line for pdf, h6",
-                    "NC HUC 8": "line for pdf, h8",
-                    "NC HUC 10": "line for pdf, h10",
-                    "NC HUC 12": "line for pdf, h12",
-                    "NC Counties": "line for pdf, counties"
-                };
-                for (label_lyr_name in label_lyrs) {
-                    label_lyr = map.getLayersByName(label_lyr_name)[0];
-                    label_lyr_pdf = map.getLayersByName(
-                        label_lyrs[label_lyr_name])[0];
-                    // map.addLayer(label_lyr_pdf);
-                    if (label_lyr.getVisibility()) {
-                        label_lyr.setVisibility(false);
-                        label_lyr_pdf.setVisibility(true);
+                console.log("new print pdf section");
+                var htmlseg = $('#ncthreatsMapPanel').html();
+                // console.log(htmlseg);
+                $.ajax({
+                    type: "POST",
+                    url: SERVER_URI + "wps/pdf",
+                    data: {
+                        htmlseg: htmlseg,
+                        text: "blah"
                     }
-                }
-                var show_highlight = highlightLayer.getVisibility();
-                highlightLayer.setVisibility(false);
+                    // dataType: "json"
+                }).done(function(data, textStatus, jqXHR) {
 
-                printPage.fit(mapPanel, true);
-                // print the page, optionally including the legend
-                printProvider.print(mapPanel, printPage);
-                if (show_highlight) {
-                    highlightLayer.setVisibility(true);
-                }
-
-
-
-                setTimeout(function() {
-                    console.log("timout");
-                    var label_lyrs = {
-                        "NC Counties Label": "label for pdf, county",
-                        "NC HUC 2 Label": "label for pdf, h2",
-                        "NC HUC 4 Label": "label for pdf, h4",
-                        "NC HUC 6 Label": "label for pdf, h6",
-                        "NC HUC 8 Label": "label for pdf, h8",
-                        "NC HUC 10 Label": "label for pdf, h10",
-                        "NC HUC 12 Label": "label for pdf, h12",
-                        "NC HUC 2": "line for pdf, h2",
-                        "NC HUC 4": "line for pdf, h4",
-                        "NC HUC 6": "line for pdf, h6",
-                        "NC HUC 8": "line for pdf, h8",
-                        "NC HUC 10": "line for pdf, h10",
-                        "NC HUC 12": "line for pdf, h12",
-                        "NC Counties": "line for pdf, counties"
-                    };
-                    for (var label_lyr_name in label_lyrs) {
-                        label_lyr = map.getLayersByName(label_lyr_name)[0];
-                        label_lyr_pdf = map.getLayersByName(
-                            label_lyrs[label_lyr_name])[0];
-                        if (label_lyr_pdf.getVisibility()) {
-                            label_lyr.setVisibility(true);
-                            label_lyr_pdf.setVisibility(false);
-                            console.log("turn off layer " + label_lyr_pdf.name);
-                        }
-                    }
-                    for (var i = 0; i < map.layers.length; i++) {
-                        if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
-                            map.layers[i].redraw(true); // Other layer
-                        }
-                    }
-                }, 200);
-
+                    var pdfresource = jqXHR.getResponseHeader('Location');
+                    console.log(pdfresource);
+                    $('#dnlds').attr('href', pdfresource);
+                    // $('#dnlds').click();
+                    document.getElementById('dnlds').click();
+                });
             }
         }]
     });
@@ -1030,6 +963,7 @@ Ext.onReady(function() {
 
 
     var threat_calcs = function() {
+        console.log("i am threat_calcs");
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
             url: resource + '/map?' + form_vals,
@@ -1129,7 +1063,8 @@ Ext.onReady(function() {
         map: map,
         title: 'NC Map',
         extent: map_extent,
-        tbar: toolbarItems
+        tbar: toolbarItems,
+        id: 'ncthreatsMapPanel'
     });
 
     var layerList = new GeoExt.tree.LayerContainer({
