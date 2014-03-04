@@ -1,5 +1,4 @@
-/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false,
-printCapabilities:false  */
+/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false  */
 
 
 var map;
@@ -603,20 +602,15 @@ Ext.onReady(function() {
         new_selection();
     };
 
-    var printProvider = new GeoExt.data.PrintProvider({
-        method: "POST", // "POST" recommended for production use
-        capabilities: printCapabilities, // from the info.json script in html
-        customParams: {
-            mapTitle: "Printing Demo"
-            //comment : "This is a simple map printed from GeoExt."
-        }
+    var comboStorepdf = new Ext.data.ArrayStore({
+        fields: ['name', 'pdftype']
     });
+    var combopdf = [
+        ["Landscape", 'Landscape'],
+        ["Portrait", "Portrait"]
+    ];
+    comboStorepdf.loadData(combopdf);
 
-    var printPage = new GeoExt.data.PrintPage({
-        printProvider: printProvider
-    });
-
-    // The form with fields controlling the print output
     var formPanel = new Ext.form.FormPanel({
         title: "Print config",
         width: 296,
@@ -630,54 +624,32 @@ Ext.onReady(function() {
             xtype: "textarea",
             name: "comment",
             value: "",
-            fieldLabel: "Comment",
-            plugins: new GeoExt.plugins.PrintPageField({
-                printPage: printPage
-            })
+            fieldLabel: "Comment"
         }, {
             xtype: "combo",
-            store: printProvider.layouts,
+            store: comboStorepdf,
             displayField: "name",
             fieldLabel: "Layout",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            itemId: "printcmb1",
-            plugins: new GeoExt.plugins.PrintProviderField({
-                printProvider: printProvider
-            })
-        }, {
-            xtype: "combo",
-            store: printProvider.dpis,
-            displayField: "name",
-            fieldLabel: "Resolution",
-            tpl: '<tpl for="."><div class="x-combo-list-item">{name}' +
-                ' dpi</div></tpl>',
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            itemId: "printcmb2",
-            plugins: new GeoExt.plugins.PrintProviderField({
-                printProvider: printProvider
-            })
+            value: "Landscape",
+            name: 'orientation'
 
         }],
         buttons: [{
             text: "Create PDF",
             handler: function() {
-                console.log("new print pdf section");
-                var htmlseg = $('#ncthreatsMapPanel').html();
+                var form_vals = formPanel.getForm().getValues();
+                console.log(form_vals);
+                var htmlseg = $('#ncthreatsMapPanel .olMap').html();
                 // console.log(htmlseg);
                 $.ajax({
                     type: "POST",
                     url: SERVER_URI + "wps/pdf",
                     data: {
                         htmlseg: htmlseg,
-                        text: "blah"
+                        text: form_vals.comment,
+                        orient: form_vals.orientation
                     }
-                    // dataType: "json"
                 }).done(function(data, textStatus, jqXHR) {
-
                     var pdfresource = jqXHR.getResponseHeader('Location');
                     console.log(pdfresource);
                     $('#dnlds').attr('href', pdfresource);
@@ -770,10 +742,10 @@ Ext.onReady(function() {
     //function to submit defined area to pywps
     var save_action = function() {
         //console.log("remove... tell me more");
-        var text = formPanel2.getComponent('desc_txt').getValue();
-        if (text.length === 0) {
-            text = "no description provided";
-        }
+        // var text = formPanel2.getComponent('desc_txt').getValue();
+        // if (text.length === 0) {
+        //     text = "no description provided";
+        // }
         //console.log(text);
         var gml_writer = new OpenLayers.Format.GML.v3({
             featureType: 'MultiPolygon',
@@ -791,7 +763,7 @@ Ext.onReady(function() {
             url: SERVER_URI + "wps",
             data: {
                 gml: gml,
-                text: text
+                text: ''
             },
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
@@ -821,14 +793,7 @@ Ext.onReady(function() {
             results.setVisibility(true);
         };
 
-        /*function onExecuted(aoi) {
-            var cql = "identifier = '" + aoi + "'";
-            delete results.params.CQL_FILTER;
-            results.mergeNewParams({
-                'CQL_FILTER': cql
-            });
-            results.setVisibility(true);
-        }*/
+
     };
 
     var formPanel2 = new Ext.form.FormPanel({
@@ -872,15 +837,9 @@ Ext.onReady(function() {
             listeners: {
                 change: form2_chng
             }
-        }, {
-            xtype: "textarea",
-            value: "",
-            fieldLabel: "Description - optional, use when creating HUCs" +
-                " for a description in saved AOI",
-            itemId: "desc_txt"
         }],
         buttons: [{
-            text: "Get Resource",
+            text: "AOI info",
             handler: aoi_to_file,
             //itemId: "resource_btn",
             id: "resource_btn"
@@ -888,7 +847,7 @@ Ext.onReady(function() {
             text: "Remove AOI",
             handler: remove_action
         }, {
-            text: "Get HUC12s",
+            text: "Submit",
             handler: save_action
         }]
     });
