@@ -9,8 +9,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    // var SERVER_URI = "http://localhost/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://localhost/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -50,7 +50,8 @@ Ext.onReady(function() {
         MAX_ZOOM_LEVEL: 12,
         MIN_ZOOM_LEVEL: 6,
         displayInLayerSwitcher: false,
-        visibility: false
+        visibility: false,
+        buffer: 0
     });
 
     var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)");
@@ -477,11 +478,6 @@ Ext.onReady(function() {
     function console_on_zoom() {
         console.log("resolution is", map.getResolution());
         console.log("scale is", map.getScale());
-        for (var i = 0; i < map.layers.length; i++) {
-            if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
-                map.layers[i].redraw(true); // Other layer
-            }
-        }
     }
     map.events.register('zoomend', map, console_on_zoom);
 
@@ -602,14 +598,29 @@ Ext.onReady(function() {
         new_selection();
     };
 
-    var comboStorepdf = new Ext.data.ArrayStore({
-        fields: ['name', 'pdftype']
-    });
+
     var combopdf = [
         ["Landscape", 'Landscape'],
         ["Portrait", "Portrait"]
     ];
-    comboStorepdf.loadData(combopdf);
+    var comboStorepdf = new Ext.data.ArrayStore({
+        fields: ['name', 'pdftype'],
+        data: combopdf
+    });
+
+    var pdfcombobox = new Ext.form.ComboBox({
+        store: comboStorepdf,
+        displayField: 'name',
+        typeAhead: true,
+        mode: 'local',
+        forceSelection: true,
+        triggerAction: 'all',
+        // emptyText: 'Select a state...',
+        selectOnFocus: true,
+        value: 'Landscape',
+        name: 'orientation'
+        // applyTo: 'local-states'
+    });
 
     var formPanel = new Ext.form.FormPanel({
         title: "Print config",
@@ -625,27 +636,27 @@ Ext.onReady(function() {
             name: "comment",
             value: "",
             fieldLabel: "Comment"
-        }, {
-            xtype: "combo",
-            store: comboStorepdf,
-            displayField: "name",
-            fieldLabel: "Layout",
-            value: "Landscape",
-            name: 'orientation'
-
-        }],
+        }, pdfcombobox],
         buttons: [{
             text: "Create PDF",
             handler: function() {
                 var form_vals = formPanel.getForm().getValues();
                 console.log(form_vals);
                 var htmlseg = $('#ncthreatsMapPanel .olMap').html();
+                var ht = $('#ncthreatsMapPanel .olMap').height();
+                var wd = $('#ncthreatsMapPanel .olMap').width();
+                var start_tag = '<div style="width: ' + wd +
+                    'px; height: ' + ht + 'px;">';
+                var end_tag = '</div>'
+                htmlseg = start_tag + htmlseg + end_tag;
+                console.log(start_tag + end_tag);
+                // htmlseg = map.getViewport();
                 // console.log(htmlseg);
                 $.ajax({
                     type: "POST",
                     url: SERVER_URI + "wps/pdf",
                     data: {
-                        htmlseg: htmlseg,
+                        htmlseg: form_vals.comment + htmlseg,
                         text: form_vals.comment,
                         orient: form_vals.orientation
                     }
@@ -844,7 +855,7 @@ Ext.onReady(function() {
             //itemId: "resource_btn",
             id: "resource_btn"
         }, {
-            text: "Remove AOI",
+            text: "Reset",
             handler: remove_action
         }, {
             text: "Submit",
