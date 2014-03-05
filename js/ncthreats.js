@@ -1,5 +1,4 @@
-/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false,
-printCapabilities:false  */
+/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false  */
 
 
 var map;
@@ -10,8 +9,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    var SERVER_URI = "http://localhost/";
-    //var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -447,7 +446,9 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: resultsStyleMap
+        styleMap: resultsStyleMap,
+        renderers: ["SVG"]
+
     });
 
     /*    var results = new OpenLayers.Layer.WMS("AOI Results",
@@ -601,20 +602,15 @@ Ext.onReady(function() {
         new_selection();
     };
 
-    var printProvider = new GeoExt.data.PrintProvider({
-        method: "POST", // "POST" recommended for production use
-        capabilities: printCapabilities, // from the info.json script in html
-        customParams: {
-            mapTitle: "Printing Demo"
-            //comment : "This is a simple map printed from GeoExt."
-        }
+    var comboStorepdf = new Ext.data.ArrayStore({
+        fields: ['name', 'pdftype']
     });
+    var combopdf = [
+        ["Landscape", 'Landscape'],
+        ["Portrait", "Portrait"]
+    ];
+    comboStorepdf.loadData(combopdf);
 
-    var printPage = new GeoExt.data.PrintPage({
-        printProvider: printProvider
-    });
-
-    // The form with fields controlling the print output
     var formPanel = new Ext.form.FormPanel({
         title: "Print config",
         width: 296,
@@ -628,124 +624,38 @@ Ext.onReady(function() {
             xtype: "textarea",
             name: "comment",
             value: "",
-            fieldLabel: "Comment",
-            plugins: new GeoExt.plugins.PrintPageField({
-                printPage: printPage
-            })
+            fieldLabel: "Comment"
         }, {
             xtype: "combo",
-            store: printProvider.layouts,
+            store: comboStorepdf,
             displayField: "name",
             fieldLabel: "Layout",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            itemId: "printcmb1",
-            plugins: new GeoExt.plugins.PrintProviderField({
-                printProvider: printProvider
-            })
-        }, {
-            xtype: "combo",
-            store: printProvider.dpis,
-            displayField: "name",
-            fieldLabel: "Resolution",
-            tpl: '<tpl for="."><div class="x-combo-list-item">{name}' +
-                ' dpi</div></tpl>',
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            itemId: "printcmb2",
-            plugins: new GeoExt.plugins.PrintProviderField({
-                printProvider: printProvider
-            })
+            value: "Landscape",
+            name: 'orientation'
 
         }],
         buttons: [{
             text: "Create PDF",
             handler: function() {
-                //change these values returned by server
-                printCapabilities.createURL = SERVER_URI +
-                    "geoserver/pdf/create.json";
-                printCapabilities.printURL = SERVER_URI +
-                    "geoserver/pdf/print.pdf";
-                console.log(printCapabilities);
-
-                //code to use label layers from geoserver for pdf and
-                //then turn tilecache back on for web map
-                var label_lyr_name, label_lyr, label_lyr_pdf;
-                var label_lyrs = {
-                    "NC Counties Label": "label for pdf, county",
-                    "NC HUC 2 Label": "label for pdf, h2",
-                    "NC HUC 4 Label": "label for pdf, h4",
-                    "NC HUC 6 Label": "label for pdf, h6",
-                    "NC HUC 8 Label": "label for pdf, h8",
-                    "NC HUC 10 Label": "label for pdf, h10",
-                    "NC HUC 12 Label": "label for pdf, h12",
-                    "NC HUC 2": "line for pdf, h2",
-                    "NC HUC 4": "line for pdf, h4",
-                    "NC HUC 6": "line for pdf, h6",
-                    "NC HUC 8": "line for pdf, h8",
-                    "NC HUC 10": "line for pdf, h10",
-                    "NC HUC 12": "line for pdf, h12",
-                    "NC Counties": "line for pdf, counties"
-                };
-                for (label_lyr_name in label_lyrs) {
-                    label_lyr = map.getLayersByName(label_lyr_name)[0];
-                    label_lyr_pdf = map.getLayersByName(
-                        label_lyrs[label_lyr_name])[0];
-                    // map.addLayer(label_lyr_pdf);
-                    if (label_lyr.getVisibility()) {
-                        label_lyr.setVisibility(false);
-                        label_lyr_pdf.setVisibility(true);
+                var form_vals = formPanel.getForm().getValues();
+                console.log(form_vals);
+                var htmlseg = $('#ncthreatsMapPanel .olMap').html();
+                // console.log(htmlseg);
+                $.ajax({
+                    type: "POST",
+                    url: SERVER_URI + "wps/pdf",
+                    data: {
+                        htmlseg: htmlseg,
+                        text: form_vals.comment,
+                        orient: form_vals.orientation
                     }
-                }
-                var show_highlight = highlightLayer.getVisibility();
-                highlightLayer.setVisibility(false);
-
-                printPage.fit(mapPanel, true);
-                // print the page, optionally including the legend
-                printProvider.print(mapPanel, printPage);
-                if (show_highlight) {
-                    highlightLayer.setVisibility(true);
-                }
-
-
-
-                setTimeout(function() {
-                    console.log("timout");
-                    var label_lyrs = {
-                        "NC Counties Label": "label for pdf, county",
-                        "NC HUC 2 Label": "label for pdf, h2",
-                        "NC HUC 4 Label": "label for pdf, h4",
-                        "NC HUC 6 Label": "label for pdf, h6",
-                        "NC HUC 8 Label": "label for pdf, h8",
-                        "NC HUC 10 Label": "label for pdf, h10",
-                        "NC HUC 12 Label": "label for pdf, h12",
-                        "NC HUC 2": "line for pdf, h2",
-                        "NC HUC 4": "line for pdf, h4",
-                        "NC HUC 6": "line for pdf, h6",
-                        "NC HUC 8": "line for pdf, h8",
-                        "NC HUC 10": "line for pdf, h10",
-                        "NC HUC 12": "line for pdf, h12",
-                        "NC Counties": "line for pdf, counties"
-                    };
-                    for (var label_lyr_name in label_lyrs) {
-                        label_lyr = map.getLayersByName(label_lyr_name)[0];
-                        label_lyr_pdf = map.getLayersByName(
-                            label_lyrs[label_lyr_name])[0];
-                        if (label_lyr_pdf.getVisibility()) {
-                            label_lyr.setVisibility(true);
-                            label_lyr_pdf.setVisibility(false);
-                            console.log("turn off layer " + label_lyr_pdf.name);
-                        }
-                    }
-                    for (var i = 0; i < map.layers.length; i++) {
-                        if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
-                            map.layers[i].redraw(true); // Other layer
-                        }
-                    }
-                }, 200);
-
+                }).done(function(data, textStatus, jqXHR) {
+                    var pdfresource = jqXHR.getResponseHeader('Location');
+                    console.log(pdfresource);
+                    $('#dnlds').attr('href', pdfresource);
+                    // $('#dnlds').click();
+                    document.getElementById('dnlds').click();
+                });
             }
         }]
     });
@@ -832,10 +742,10 @@ Ext.onReady(function() {
     //function to submit defined area to pywps
     var save_action = function() {
         //console.log("remove... tell me more");
-        var text = formPanel2.getComponent('desc_txt').getValue();
-        if (text.length === 0) {
-            text = "no description provided";
-        }
+        // var text = formPanel2.getComponent('desc_txt').getValue();
+        // if (text.length === 0) {
+        //     text = "no description provided";
+        // }
         //console.log(text);
         var gml_writer = new OpenLayers.Format.GML.v3({
             featureType: 'MultiPolygon',
@@ -853,7 +763,7 @@ Ext.onReady(function() {
             url: SERVER_URI + "wps",
             data: {
                 gml: gml,
-                text: text
+                text: ''
             },
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
@@ -883,14 +793,7 @@ Ext.onReady(function() {
             results.setVisibility(true);
         };
 
-        /*function onExecuted(aoi) {
-            var cql = "identifier = '" + aoi + "'";
-            delete results.params.CQL_FILTER;
-            results.mergeNewParams({
-                'CQL_FILTER': cql
-            });
-            results.setVisibility(true);
-        }*/
+
     };
 
     var formPanel2 = new Ext.form.FormPanel({
@@ -934,15 +837,9 @@ Ext.onReady(function() {
             listeners: {
                 change: form2_chng
             }
-        }, {
-            xtype: "textarea",
-            value: "",
-            fieldLabel: "Description - optional, use when creating HUCs" +
-                " for a description in saved AOI",
-            itemId: "desc_txt"
         }],
         buttons: [{
-            text: "Get Resource",
+            text: "AOI info",
             handler: aoi_to_file,
             //itemId: "resource_btn",
             id: "resource_btn"
@@ -950,7 +847,7 @@ Ext.onReady(function() {
             text: "Remove AOI",
             handler: remove_action
         }, {
-            text: "Get HUC12s",
+            text: "Submit",
             handler: save_action
         }]
     });
@@ -986,6 +883,7 @@ Ext.onReady(function() {
             // across a single row
             xtype: 'checkboxgroup',
             fieldLabel: 'select factors to include',
+            id: 'cbgrp1',
             columns: 1,
             items: [{
                 boxLabel: 'Pollution 1',
@@ -1022,7 +920,9 @@ Ext.onReady(function() {
         }]
     };
 
+
     var threat_calcs = function() {
+        console.log("i am threat_calcs");
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
             url: resource + '/map?' + form_vals,
@@ -1056,6 +956,7 @@ Ext.onReady(function() {
             store: comboStore2,
             name: 'year',
             fieldLabel: "Target year",
+            // name: 'target_year',
             typeAhead: true,
             mode: "local",
             triggerAction: "all",
@@ -1067,6 +968,7 @@ Ext.onReady(function() {
         }],
         buttons: [{
             text: "Calculate",
+
             handler: threat_calcs
         }]
     });
@@ -1120,7 +1022,8 @@ Ext.onReady(function() {
         map: map,
         title: 'NC Map',
         extent: map_extent,
-        tbar: toolbarItems
+        tbar: toolbarItems,
+        id: 'ncthreatsMapPanel'
     });
 
     var layerList = new GeoExt.tree.LayerContainer({
