@@ -476,11 +476,11 @@ Ext.onReady(function() {
     function console_on_zoom() {
         console.log("resolution is", map.getResolution());
         console.log("scale is", map.getScale());
-        // for (var i = 0; i < map.layers.length; i++) {
-        //     if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
-        //         map.layers[i].redraw(true); // Other layer
-        //     }
-        // }
+        for (var i = 0; i < map.layers.length; i++) {
+            if (map.layers[i].visibility && !map.layers[i].isBaseLayer && !map.layers[i].isVector) {
+                map.layers[i].redraw(true); // Other layer
+            }
+        }
     }
     map.events.register('zoomend', map, console_on_zoom);
 
