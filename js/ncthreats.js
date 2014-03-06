@@ -641,22 +641,19 @@ Ext.onReady(function() {
             text: "Create PDF",
             handler: function() {
                 var form_vals = formPanel.getForm().getValues();
-                console.log(form_vals);
                 var htmlseg = $('#ncthreatsMapPanel .olMap').html();
                 var ht = $('#ncthreatsMapPanel .olMap').height();
                 var wd = $('#ncthreatsMapPanel .olMap').width();
                 var start_tag = '<div style="width: ' + wd +
                     'px; height: ' + ht + 'px;">';
                 var end_tag = '</div>'
+                var pdf_hdr = "<h3>" + form_vals.comment + "</h3>";
                 htmlseg = start_tag + htmlseg + end_tag;
-                console.log(start_tag + end_tag);
-                // htmlseg = map.getViewport();
-                // console.log(htmlseg);
                 $.ajax({
                     type: "POST",
                     url: SERVER_URI + "wps/pdf",
                     data: {
-                        htmlseg: form_vals.comment + htmlseg,
+                        htmlseg: pdf_hdr + htmlseg,
                         text: form_vals.comment,
                         orient: form_vals.orientation
                     }
