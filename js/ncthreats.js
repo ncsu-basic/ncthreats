@@ -54,8 +54,10 @@ Ext.onReady(function() {
         buffer: 0
     });
 
-    var osm = new OpenLayers.Layer.OSM("Base OSM (for printing)");
-    var tc_res = [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218];
+    var osm = new OpenLayers.Layer.OSM("Base OSM");
+
+    // var tc_res = [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218];
+
     //////WMS layers
     var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12",
         SERVER_URI + "tilecache", {
@@ -67,30 +69,14 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    // var nchuc12 = new OpenLayers.Layer.TMS("NC HUC 12",
-    //     SERVER_URI + "tilecache/", {
-    //         layername: 'huc12nc',
-    //         type: 'png',
-    //         visibility: false,
-    //         isBaseLayer: false,
-    //         serverResolutions: tc_res
-    //         // buffer: 0,
-    //         // displayInLayerSwitcher: true,
-    //         // minScale: 15000
-
-    //     });
-
     var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8",
         SERVER_URI + "tilecache", {
             layers: "huc8nc",
             format: 'image/png',
-            transparent: true,
-            resolutions: tc_res,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
+            transparent: true
         }, {
             isBaseLayer: false,
-            visibility: false,
-            resolutions: tc_res
+            visibility: false
 
         });
 
@@ -236,83 +222,9 @@ Ext.onReady(function() {
         });
 
 
-
-    ///////////////////// label layers from geoserver for pdf
-    var counties_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, county",
-        SERVER_URI + "geoserver/wms", {
-            layers: "counties_lbl",
-            format: 'image/png',
-            transparent: true
-            //tilesorigin : [map.maxExtent.left, map.maxExtent.bottom]
-
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc2_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h2",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc2nc_lbl",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc4_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h4",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc4nc_lbl",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc6_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h6",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc6nc_lbl",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc8_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h8",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc8nc_lbl",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc10_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h10",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc10nc_lbl",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc12_lbl_gs = new OpenLayers.Layer.WMS("label for pdf, h12",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc12nc_lbl",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
     ///////vector layers for query select tool and pdf
     //////////WMS layers
-    var nchuc12_qry = new OpenLayers.Layer.WMS("line for pdf, h12",
+    var nchuc12_qry = new OpenLayers.Layer.WMS("query geoserver, h12",
         SERVER_URI + "geoserver/wms", {
             layers: "huc12nc",
             format: 'image/png',
@@ -322,7 +234,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc8_qry = new OpenLayers.Layer.WMS("line for pdf, h8",
+    var nchuc8_qry = new OpenLayers.Layer.WMS("query geoserver, h8",
         SERVER_URI + "geoserver/wms", {
             layers: "huc8nc",
             format: 'image/png',
@@ -332,7 +244,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc4_qry = new OpenLayers.Layer.WMS("line for pdf, h4",
+    var nchuc4_qry = new OpenLayers.Layer.WMS("query geoserver, h4",
         SERVER_URI + "geoserver/wms", {
             layers: "huc4nc",
             format: 'image/png',
@@ -342,7 +254,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc2_qry = new OpenLayers.Layer.WMS("line for pdf, h2",
+    var nchuc2_qry = new OpenLayers.Layer.WMS("query geoserver, h2",
         SERVER_URI + "geoserver/wms", {
             layers: "huc2nc",
             format: 'image/png',
@@ -352,7 +264,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc6_qry = new OpenLayers.Layer.WMS("line for pdf, h6",
+    var nchuc6_qry = new OpenLayers.Layer.WMS("query geoserver, h6",
         SERVER_URI + "geoserver/wms", {
             layers: "huc6nc",
             format: 'image/png',
@@ -362,7 +274,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var nchuc10_qry = new OpenLayers.Layer.WMS("line for pdf, h10",
+    var nchuc10_qry = new OpenLayers.Layer.WMS("query geoserver, h10",
         SERVER_URI + "geoserver/wms", {
             layers: "huc10nc",
             format: 'image/png',
@@ -372,7 +284,7 @@ Ext.onReady(function() {
             visibility: false
         });
 
-    var counties_qry = new OpenLayers.Layer.WMS("line for pdf, counties",
+    var counties_qry = new OpenLayers.Layer.WMS("query geoserver, counties",
         SERVER_URI + "geoserver/wms", {
             layers: "counties",
             format: 'image/png',
@@ -382,7 +294,7 @@ Ext.onReady(function() {
             visibility: false,
             displayInLayerSwitcher: false
         });
-
+    ///////////////////////////////////////////////////////////
     ////////////analysis layers
 
     var styleMap = new OpenLayers.StyleMap({
@@ -465,9 +377,8 @@ Ext.onReady(function() {
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
-        nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, counties_lbl_gs,
-        nchuc12_lbl_gs, nchuc10_lbl_gs, nchuc8_lbl_gs, nchuc6_lbl_gs,
-        nchuc4_lbl_gs, nchuc2_lbl_gs, highlightLayer, results, counties_qry,
+        nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
+        results, counties_qry,
         nchuc2_qry, nchuc4_qry, nchuc6_qry, nchuc8_qry, nchuc10_qry,
         nchuc12_qry
     ]);
@@ -594,7 +505,6 @@ Ext.onReady(function() {
     };
 
     var remove_action = function() {
-        console.log("remove... tell me more");
         new_selection();
     };
 
@@ -632,11 +542,13 @@ Ext.onReady(function() {
             anchor: "100%"
         },
         items: [{
-            xtype: "textarea",
-            name: "comment",
-            value: "",
-            fieldLabel: "Comment"
-        }, pdfcombobox],
+                xtype: "textarea",
+                name: "comment",
+                value: "North Carolina Threats analysis tool",
+                fieldLabel: "Comment"
+            },
+            pdfcombobox
+        ],
         buttons: [{
             text: "Create PDF",
             handler: function() {
@@ -646,7 +558,7 @@ Ext.onReady(function() {
                 var wd = $('#ncthreatsMapPanel .olMap').width();
                 var start_tag = '<div style="width: ' + wd +
                     'px; height: ' + ht + 'px;">';
-                var end_tag = '</div>'
+                var end_tag = '</div>';
                 var pdf_hdr = "<h3>" + form_vals.comment + "</h3>";
                 htmlseg = start_tag + htmlseg + end_tag;
                 $.ajax({
