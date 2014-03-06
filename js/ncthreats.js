@@ -56,9 +56,8 @@ Ext.onReady(function() {
 
     var osm = new OpenLayers.Layer.OSM("Base OSM");
 
-    // var tc_res = [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218];
 
-    //////WMS layers
+    //////WMS layers from tilecache
     var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12",
         SERVER_URI + "tilecache", {
             layers: "huc12nc",
@@ -142,7 +141,7 @@ Ext.onReady(function() {
             displayInLayerSwitcher: true
         });
 
-    //////////label layers for web from tilecache
+    //////////label layers  from tilecache
     var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label",
         SERVER_URI + "tilecache", {
             layers: "counties_lbl",
@@ -222,7 +221,7 @@ Ext.onReady(function() {
         });
 
 
-    ///////vector layers for query select tool and pdf
+    ///////vector layers for query select tool
     //////////WMS layers
     var nchuc12_qry = new OpenLayers.Layer.WMS("query geoserver, h12",
         SERVER_URI + "geoserver/wms", {
@@ -364,17 +363,6 @@ Ext.onReady(function() {
 
     });
 
-    /*    var results = new OpenLayers.Layer.WMS("AOI Results",
-        SERVER_URI + "geoserver/wms", {
-            layers: "results",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false,
-            displayInLayerSwitcher: true
-        });*/
-
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
@@ -386,11 +374,11 @@ Ext.onReady(function() {
     //////////////////////////////////////////////////////////////////////////
     // add controls
     //////////////////////////////////////////////////////////////////////////
-    function console_on_zoom() {
-        console.log("resolution is", map.getResolution());
-        console.log("scale is", map.getScale());
-    }
-    map.events.register('zoomend', map, console_on_zoom);
+    // function console_on_zoom() {
+    //     console.log("resolution is", map.getResolution());
+    //     console.log("scale is", map.getScale());
+    // }
+    // map.events.register('zoomend', map, console_on_zoom);
 
     OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
         defaultHandlerOptions: {
@@ -451,10 +439,7 @@ Ext.onReady(function() {
     var col_name;
 
     //function to outline selected predefined areas of interest
-
     function showInfo(evt) {
-        //console.log(query_ctl.layers[0].name);
-        //console.log(evt);
         if (evt.features && evt.features.length) {
             for (var i = 0; i < evt.features.length; i++) {
                 //if selected feature is on then remove it
@@ -486,26 +471,30 @@ Ext.onReady(function() {
     query_ctl.activate();
 
     var new_selection = function() {
-        //var mode = $("#input_div input:checked").val();
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
         if (mode.indexOf("custom") !== -1) {
             click.activate();
             query_ctl.deactivate();
             highlightLayer.destroyFeatures();
             pts = [];
-            results.setVisibility(false);
         } else if (mode.indexOf("predefined") !== -1) {
             click.deactivate();
             query_ctl.activate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
-            results.setVisibility(false);
         }
 
     };
 
     var remove_action = function() {
         new_selection();
+        var vis_lyrs = [counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+            nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
+            nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, results
+        ];
+        for (var i = 0; i < vis_lyrs.length; i++) {
+            vis_lyrs[i].setVisibility(false);
+        }
     };
 
 
@@ -528,7 +517,8 @@ Ext.onReady(function() {
         // emptyText: 'Select a state...',
         selectOnFocus: true,
         value: 'Landscape',
-        name: 'orientation'
+        name: 'orientation',
+        fieldLabel: 'Orientation'
         // applyTo: 'local-states'
     });
 
@@ -584,77 +574,71 @@ Ext.onReady(function() {
         fields: ['layerName', 'layerId']
     });
     var comboData = [
-        ["NC HUC 2", 'nchuc2'],
-        ["NC HUC 4", 'nchuc4'],
-        ["NC HUC 6", 'nchuc6'],
-        ["NC HUC 8", 'nchuc8'],
-        ["NC HUC 10", 'nchuc10'],
-        ["NC HUC 12", 'nchuc12'],
-        ["NC Counties", 'counties'],
-        ["NC BCR", 'ncbcr']
+        ["NC HUC 2", 'huc1'],
+        ["NC HUC 4", 'huc2'],
+        ["NC HUC 6", 'huc3'],
+        ["NC HUC 8", 'huc4'],
+        ["NC HUC 10", 'huc5'],
+        ["NC HUC 12", 'huc6'],
+        ["NC Counties", 'cnt7'],
+        ["NC BCR", 'bcr8']
     ];
     comboStore.loadData(comboData);
 
     var form2_chng = function() {
-        //console.log(records.data.layerId);
-        //var selected_type = formPanel2.getComponent('rg1').
-        //getValue().inputValue;
-        var predef_idx, selected_predef;
-        try {
-            predef_idx = formPanel2.getComponent('cmb1').selectedIndex;
-            selected_predef = comboStore.getAt(predef_idx).json["1"];
-        } catch (e) {
-            selected_predef = 'none';
-        }
-
-        switch (selected_predef) {
-            case 'nchuc2':
-                query_ctl.layers = [nchuc2_qry];
-                col_name = "huc2";
-                nchuc2.setVisibility(true);
-                nchuc2_lbl.setVisibility(true);
-                break;
-            case 'nchuc4':
-                query_ctl.layers = [nchuc4_qry];
-                col_name = "huc4";
-                nchuc4.setVisibility(true);
-                nchuc4_lbl.setVisibility(true);
-                break;
-            case 'nchuc6':
-                query_ctl.layers = [nchuc6_qry];
-                col_name = "huc6";
-                nchuc6.setVisibility(true);
-                nchuc6_lbl.setVisibility(true);
-                break;
-            case 'nchuc8':
-                query_ctl.layers = [nchuc8_qry];
-                col_name = "huc8";
-                nchuc8.setVisibility(true);
-                nchuc8_lbl.setVisibility(true);
-                break;
-            case 'nchuc10':
-                query_ctl.layers = [nchuc10_qry];
-                col_name = "huc10";
-                nchuc10.setVisibility(true);
-                nchuc10_lbl.setVisibility(true);
-                break;
-            case 'nchuc12':
-                query_ctl.layers = [nchuc12_qry];
-                col_name = "huc_12";
-                nchuc12.setVisibility(true);
-                nchuc12_lbl.setVisibility(true);
-                break;
-            case 'counties':
-                query_ctl.layers = [counties_qry];
-                col_name = "co_num";
-                counties.setVisibility(true);
-                counties_lbl.setVisibility(true);
-                break;
-            case 'ncbcr':
-                query_ctl.layers = [ncbcr];
-                col_name = "bcr";
-                ncbcr.setVisibility(true);
-                break;
+        remove_action();
+        var selected_predef = formPanel2.getForm().getValues().predef_selection;
+        var sel_type = formPanel2.getForm().getValues().aoi_type;
+        if (sel_type === 'predefined') {
+            switch (selected_predef) {
+                case 'NC HUC 2':
+                    query_ctl.layers = [nchuc2_qry];
+                    col_name = "huc2";
+                    nchuc2.setVisibility(true);
+                    nchuc2_lbl.setVisibility(true);
+                    break;
+                case 'NC HUC 4':
+                    query_ctl.layers = [nchuc4_qry];
+                    col_name = "huc4";
+                    nchuc4.setVisibility(true);
+                    nchuc4_lbl.setVisibility(true);
+                    break;
+                case 'NC HUC 6':
+                    query_ctl.layers = [nchuc6_qry];
+                    col_name = "huc6";
+                    nchuc6.setVisibility(true);
+                    nchuc6_lbl.setVisibility(true);
+                    break;
+                case 'NC HUC 8':
+                    query_ctl.layers = [nchuc8_qry];
+                    col_name = "huc8";
+                    nchuc8.setVisibility(true);
+                    nchuc8_lbl.setVisibility(true);
+                    break;
+                case 'NC HUC 10':
+                    query_ctl.layers = [nchuc10_qry];
+                    col_name = "huc10";
+                    nchuc10.setVisibility(true);
+                    nchuc10_lbl.setVisibility(true);
+                    break;
+                case 'NC HUC 12':
+                    query_ctl.layers = [nchuc12_qry];
+                    col_name = "huc_12";
+                    nchuc12.setVisibility(true);
+                    nchuc12_lbl.setVisibility(true);
+                    break;
+                case 'NC Counties':
+                    query_ctl.layers = [counties_qry];
+                    col_name = "co_num";
+                    counties.setVisibility(true);
+                    counties_lbl.setVisibility(true);
+                    break;
+                case 'NC BCR':
+                    query_ctl.layers = [ncbcr];
+                    col_name = "bcr";
+                    ncbcr.setVisibility(true);
+                    break;
+            }
         }
         new_selection();
     };
@@ -728,6 +712,7 @@ Ext.onReady(function() {
         items: [{
             xtype: "combo",
             itemId: "cmb1",
+            name: "predef_selection",
             store: comboStore,
             fieldLabel: "Predefined selections",
             typeAhead: true,
@@ -740,17 +725,17 @@ Ext.onReady(function() {
             }
         }, {
             xtype: 'radiogroup',
-            fieldLabel: 'AOI type',
+            fieldLabel: 'Area Of Interest (AOI) type',
             name: 'aoiType',
             columns: 1,
             itemId: "rg1",
             items: [{
-                boxLabel: 'predefined',
+                boxLabel: 'predefined<br>Click on map to select/deselect',
                 name: 'aoi_type',
                 inputValue: 'predefined',
                 checked: true
             }, {
-                boxLabel: 'custom',
+                boxLabel: 'custom<br>Click on map to create polygon',
                 name: 'aoi_type',
                 inputValue: 'custom'
             }],
@@ -842,7 +827,6 @@ Ext.onReady(function() {
 
 
     var threat_calcs = function() {
-        console.log("i am threat_calcs");
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
             url: resource + '/map?' + form_vals,
@@ -850,14 +834,6 @@ Ext.onReady(function() {
             dataType: 'json'
         }).done(function(data) {
             onExecuted(data.results);
-            /*  var len = map.getLayersByName("AOI Results")[0].features.length;
-            var huc12;
-            for(var i=0; i<len; i++){
-                huc12 = map.getLayersByName("AOI Results")[0].features[i].attributes.huc12;
-                map.getLayersByName("AOI Results")[0].features[i].attributes.threat =
-                    data.results[huc12];
-                results.redraw();
-            }*/
         });
     };
 
@@ -876,7 +852,7 @@ Ext.onReady(function() {
             store: comboStore2,
             name: 'year',
             fieldLabel: "Target year",
-            // name: 'target_year',
+            value: "2010",
             typeAhead: true,
             mode: "local",
             triggerAction: "all",
