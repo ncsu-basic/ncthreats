@@ -23,6 +23,7 @@ Ext.onReady(function() {
         displayProjection: new OpenLayers.Projection("EPSG:4326"),
         maxExtent: map_extent,
         projection: new OpenLayers.Projection("EPSG:900913"),
+        // resolutions: [2445.984,1222.99,611.496,305.748,152.874,76.437,38.218]
         //numZoomLevels: 7,
         //maxResolution: 2445.984,
         //minResolution: 4.777,
@@ -45,7 +46,7 @@ Ext.onReady(function() {
     ////////////////////////////////////////////////////////////////////////////
 
     //////Base Layers
-    var gphy = new OpenLayers.Layer.Google("Base Google Physical", {
+    var gphy = new OpenLayers.Layer.Google("Google Physical", {
         type: google.maps.MapTypeId.TERRAIN,
         MAX_ZOOM_LEVEL: 12,
         MIN_ZOOM_LEVEL: 6,
@@ -54,7 +55,25 @@ Ext.onReady(function() {
         buffer: 0
     });
 
-    var osm = new OpenLayers.Layer.OSM("Base OSM");
+    var osm = new OpenLayers.Layer.OSM("Open Street Map");
+
+     var counties_base = new OpenLayers.Layer.WMS("None",
+        SERVER_URI + "tilecache", {
+        // SERVER_URI + "geoserver/wms", {
+
+            layers: "counties",
+            format: 'image/png',
+            transparent: true
+        }, {
+            isBaseLayer: true,
+            visibility: false,
+            displayInLayerSwitcher: false,
+            resolutions: [2445.984,1222.99,611.496,305.748,152.874,76.437,38.218]
+            // tileOrigin: [map.maxExtent.left, map.maxExtent.bottom],
+            // tileOrigin: [-9462455, 3963396],
+            // projection: proj_900913,
+            // maxExtent: map_extent
+        });
 
 
     //////WMS layers from tilecache
@@ -65,7 +84,8 @@ Ext.onReady(function() {
             transparent: true
         }, {
             isBaseLayer: false,
-            visibility: false
+            visibility: false,
+            reproject: false
         });
 
     var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8",
@@ -364,21 +384,21 @@ Ext.onReady(function() {
     });
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
-        nchuc10, nchuc8, gphy, osm, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
+        nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
         results, counties_qry,
         nchuc2_qry, nchuc4_qry, nchuc6_qry, nchuc8_qry, nchuc10_qry,
-        nchuc12_qry
+        nchuc12_qry, gphy, osm, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
     // add controls
     //////////////////////////////////////////////////////////////////////////
-    // function console_on_zoom() {
-    //     console.log("resolution is", map.getResolution());
-    //     console.log("scale is", map.getScale());
-    // }
-    // map.events.register('zoomend', map, console_on_zoom);
+    function console_on_zoom() {
+        console.log("resolution is", map.getResolution());
+        console.log("scale is", map.getScale());
+    }
+    map.events.register('zoomend', map, console_on_zoom);
 
     OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
         defaultHandlerOptions: {
@@ -1025,12 +1045,12 @@ Ext.onReady(function() {
 
     var layerList10 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'Base layer',
+        text: 'Background',
         leaf: false,
         expanded: true,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("Base") !== -1;
+                return record.get("layer").isBaseLayer;
             }
         }
     });
