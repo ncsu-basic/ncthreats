@@ -23,7 +23,7 @@ Ext.onReady(function() {
         displayProjection: new OpenLayers.Projection("EPSG:4326"),
         maxExtent: map_extent,
         projection: new OpenLayers.Projection("EPSG:900913"),
-        // resolutions: [2445.984,1222.99,611.496,305.748,152.874,76.437,38.218]
+        resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
         //numZoomLevels: 7,
         //maxResolution: 2445.984,
         //minResolution: 4.777,
@@ -57,98 +57,155 @@ Ext.onReady(function() {
 
     var osm = new OpenLayers.Layer.OSM("Open Street Map");
 
-     var counties_base = new OpenLayers.Layer.WMS("None",
-        SERVER_URI + "tilecache", {
-        // SERVER_URI + "geoserver/wms", {
-
-            layers: "counties",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: true,
-            visibility: false,
-            displayInLayerSwitcher: false,
-            resolutions: [2445.984,1222.99,611.496,305.748,152.874,76.437,38.218]
-            // tileOrigin: [map.maxExtent.left, map.maxExtent.bottom],
-            // tileOrigin: [-9462455, 3963396],
-            // projection: proj_900913,
-            // maxExtent: map_extent
-        });
+    var counties_base = new OpenLayers.Layer.TMS("None",
+        SERVER_URI + "tilecache/", {
+            layername: "counties",
+            type: "png"
+        }
+    );
+    ////////////////////////////////////////////////////////////
+    /// TMS line layers
+    /////////////////////////////////////////////////////////
 
 
-    //////WMS layers from tilecache
-    var nchuc12 = new OpenLayers.Layer.WMS("NC HUC 12",
-        SERVER_URI + "tilecache", {
-            layers: "huc12nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false,
-            reproject: false
-        });
-
-    var nchuc8 = new OpenLayers.Layer.WMS("NC HUC 8",
-        SERVER_URI + "tilecache", {
-            layers: "huc8nc",
-            format: 'image/png',
-            transparent: true
-        }, {
+    var nchuc2 = new OpenLayers.Layer.TMS("NC HUC 2",
+        SERVER_URI + "tilecache/", {
+            layername: "huc2nc",
+            type: "png",
             isBaseLayer: false,
             visibility: false
 
-        });
-
-    var nchuc4 = new OpenLayers.Layer.WMS("NC HUC 4",
-        SERVER_URI + "tilecache", {
-            layers: "huc4nc",
-            format: 'image/png',
-            transparent: true
-        }, {
+        }
+    );
+    var nchuc4 = new OpenLayers.Layer.TMS("NC HUC 4",
+        SERVER_URI + "tilecache/", {
+            layername: "huc4nc",
+            type: "png",
             isBaseLayer: false,
             visibility: false
-        });
 
-    var nchuc2 = new OpenLayers.Layer.WMS("NC HUC 2",
-        SERVER_URI + "tilecache", {
-            layers: "huc2nc",
-            format: 'image/png',
-            transparent: true
-        }, {
+        }
+    );
+    var nchuc6 = new OpenLayers.Layer.TMS("NC HUC 6",
+        SERVER_URI + "tilecache/", {
+            layername: "huc6nc",
+            type: "png",
             isBaseLayer: false,
             visibility: false
-        });
 
-    var nchuc6 = new OpenLayers.Layer.WMS("NC HUC 6",
-        SERVER_URI + "tilecache", {
-            layers: "huc6nc",
-            format: 'image/png',
-            transparent: true
-        }, {
+        }
+    );
+    var nchuc8 = new OpenLayers.Layer.TMS("NC HUC 8",
+        SERVER_URI + "tilecache/", {
+            layername: "huc8nc",
+            type: "png",
             isBaseLayer: false,
             visibility: false
-        });
 
-    var nchuc10 = new OpenLayers.Layer.WMS("NC HUC 10",
-        SERVER_URI + "tilecache", {
-            layers: "huc10nc",
-            format: 'image/png',
-            transparent: true
-        }, {
+        }
+    );
+    var nchuc10 = new OpenLayers.Layer.TMS("NC HUC 10",
+        SERVER_URI + "tilecache/", {
+            layername: "huc10nc",
+            type: "png",
             isBaseLayer: false,
             visibility: false
-        });
 
-    var counties = new OpenLayers.Layer.WMS("NC Counties",
-        SERVER_URI + "tilecache", {
-            layers: "counties",
-            format: 'image/png',
-            transparent: true
-        }, {
+        }
+    );
+    var nchuc12 = new OpenLayers.Layer.TMS("NC HUC 12",
+        SERVER_URI + "tilecache/", {
+            layername: "huc12nc",
+            type: "png",
             isBaseLayer: false,
-            visibility: false,
-            displayInLayerSwitcher: false
-        });
+            visibility: false
+
+        }
+    );
+    var counties = new OpenLayers.Layer.TMS("NC Counties",
+        SERVER_URI + "tilecache/", {
+            layername: "counties",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+    /////////////////////////////////////////////////////////////////////
+    ////TMS label layers
+    /////////////////////////////////////////////////////////////////
+    var nchuc2_lbl = new OpenLayers.Layer.TMS("NC HUC 2 Label",
+        SERVER_URI + "tilecache/", {
+            layername: "huc2nc_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+    var nchuc4_lbl = new OpenLayers.Layer.TMS("NC HUC 4 Label",
+        SERVER_URI + "tilecache/", {
+            layername: "huc4nc_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+    var nchuc6_lbl = new OpenLayers.Layer.TMS("NC HUC 6 Label",
+        SERVER_URI + "tilecache/", {
+            layername: "huc6nc_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+    var nchuc8_lbl = new OpenLayers.Layer.TMS("NC HUC 8 Label",
+        SERVER_URI + "tilecache/", {
+            layername: "huc8nc_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+    var nchuc10_lbl = new OpenLayers.Layer.TMS("NC HUC 10 Label",
+        SERVER_URI + "tilecache/", {
+            layername: "huc10nc_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+    var nchuc12_lbl = new OpenLayers.Layer.TMS("NC HUC 12 Label",
+        SERVER_URI + "tilecache/", {
+            layername: "huc12nc_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+    var counties_lbl = new OpenLayers.Layer.TMS("NC Counties Label",
+        SERVER_URI + "tilecache/", {
+            layername: "counties_lbl",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false
+
+        }
+    );
+
+//////////////////////////////////////////////////////////////
+////bcr layer, no label no cache
 
     var ncbcr = new OpenLayers.Layer.WMS("NC BCR",
         SERVER_URI + "geoserver/wms", {
@@ -161,88 +218,8 @@ Ext.onReady(function() {
             displayInLayerSwitcher: true
         });
 
-    //////////label layers  from tilecache
-    var counties_lbl = new OpenLayers.Layer.WMS("NC Counties Label",
-        SERVER_URI + "tilecache", {
-            layers: "counties_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc2_lbl = new OpenLayers.Layer.WMS("NC HUC 2 Label",
-        SERVER_URI + "tilecache", {
-            layers: "huc2nc_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc4_lbl = new OpenLayers.Layer.WMS("NC HUC 4 Label",
-        SERVER_URI + "tilecache", {
-            layers: "huc4nc_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc6_lbl = new OpenLayers.Layer.WMS("NC HUC 6 Label",
-        SERVER_URI + "tilecache", {
-            layers: "huc6nc_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc8_lbl = new OpenLayers.Layer.WMS("NC HUC 8 Label",
-        SERVER_URI + "tilecache", {
-            layers: "huc8nc_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc10_lbl = new OpenLayers.Layer.WMS("NC HUC 10 Label",
-        SERVER_URI + "tilecache", {
-            layers: "huc10nc_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-    var nchuc12_lbl = new OpenLayers.Layer.WMS("NC HUC 12 Label",
-        SERVER_URI + "tilecache", {
-            layers: "huc12nc_lbl",
-            format: 'image/png',
-            transparent: true,
-            tilesorigin: [map.maxExtent.left, map.maxExtent.bottom]
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
-
-
+    ///////////////////////////////////////////////////////////////////
     ///////vector layers for query select tool
-    //////////WMS layers
     var nchuc12_qry = new OpenLayers.Layer.WMS("query geoserver, h12",
         SERVER_URI + "geoserver/wms", {
             layers: "huc12nc",
