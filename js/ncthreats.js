@@ -15,7 +15,7 @@ Ext.onReady(function() {
     ////////////////////////////////////////////
     //initialize map
     ///////////////////////////////////////////////////
-    var map_extent = new OpenLayers.Bounds(-9462455, 3963396, -8324634, 4405547);
+    var map_extent = new OpenLayers.Bounds(-9406496, 4001978, -8382357, 4397372);
     var proj_4326 = new OpenLayers.Projection('EPSG:4326');
     var proj_900913 = new OpenLayers.Projection('EPSG:900913');
 
@@ -60,11 +60,21 @@ Ext.onReady(function() {
     var counties_base = new OpenLayers.Layer.TMS("None",
         SERVER_URI + "tilecache/", {
             layername: "counties",
-            type: "png"
+            type: "png",
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+
+    var hillshade = new OpenLayers.Layer.WMS("NC Hillshade",
+        SERVER_URI + "geoserver/wms", {
+            layers: "NC_Hill_3857_to",
+            format: 'image/png'
+        }, {
+            visibility: false,
+            displayInLayerSwitcher: false
+        });
     ////////////////////////////////////////////////////////////
-    /// TMS line layers
+    /// TMS line layers overlays
     /////////////////////////////////////////////////////////
 
 
@@ -73,8 +83,8 @@ Ext.onReady(function() {
             layername: "huc2nc",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     var nchuc4 = new OpenLayers.Layer.TMS("NC HUC 4",
@@ -82,8 +92,8 @@ Ext.onReady(function() {
             layername: "huc4nc",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     var nchuc6 = new OpenLayers.Layer.TMS("NC HUC 6",
@@ -91,8 +101,8 @@ Ext.onReady(function() {
             layername: "huc6nc",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     var nchuc8 = new OpenLayers.Layer.TMS("NC HUC 8",
@@ -100,8 +110,8 @@ Ext.onReady(function() {
             layername: "huc8nc",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     var nchuc10 = new OpenLayers.Layer.TMS("NC HUC 10",
@@ -109,8 +119,8 @@ Ext.onReady(function() {
             layername: "huc10nc",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     var nchuc12 = new OpenLayers.Layer.TMS("NC HUC 12",
@@ -118,8 +128,8 @@ Ext.onReady(function() {
             layername: "huc12nc",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     var counties = new OpenLayers.Layer.TMS("NC Counties",
@@ -127,85 +137,79 @@ Ext.onReady(function() {
             layername: "counties",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
     /////////////////////////////////////////////////////////////////////
-    ////TMS label layers
+    ////TMS label layers overlays
     /////////////////////////////////////////////////////////////////
     var nchuc2_lbl = new OpenLayers.Layer.TMS("NC HUC 2 Label",
         SERVER_URI + "tilecache/", {
             layername: "huc2nc_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-
     var nchuc4_lbl = new OpenLayers.Layer.TMS("NC HUC 4 Label",
         SERVER_URI + "tilecache/", {
             layername: "huc4nc_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-
     var nchuc6_lbl = new OpenLayers.Layer.TMS("NC HUC 6 Label",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-
     var nchuc8_lbl = new OpenLayers.Layer.TMS("NC HUC 8 Label",
         SERVER_URI + "tilecache/", {
             layername: "huc8nc_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-
     var nchuc10_lbl = new OpenLayers.Layer.TMS("NC HUC 10 Label",
         SERVER_URI + "tilecache/", {
             layername: "huc10nc_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-
     var nchuc12_lbl = new OpenLayers.Layer.TMS("NC HUC 12 Label",
         SERVER_URI + "tilecache/", {
             layername: "huc12nc_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-
     var counties_lbl = new OpenLayers.Layer.TMS("NC Counties Label",
         SERVER_URI + "tilecache/", {
             layername: "counties_lbl",
             type: "png",
             isBaseLayer: false,
-            visibility: false
-
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
 
-//////////////////////////////////////////////////////////////
-////bcr layer, no label no cache
+    //////////////////////////////////////////////////////////////
+    ////bcr layer, no label no cache
 
     var ncbcr = new OpenLayers.Layer.WMS("NC BCR",
         SERVER_URI + "geoserver/wms", {
@@ -351,7 +355,7 @@ Ext.onReady(function() {
 
     });
 
-    var results = new OpenLayers.Layer.Vector("AOI Results", {
+    var results = new OpenLayers.Layer.Vector("Results", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
@@ -365,7 +369,7 @@ Ext.onReady(function() {
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
         results, counties_qry,
         nchuc2_qry, nchuc4_qry, nchuc6_qry, nchuc8_qry, nchuc10_qry,
-        nchuc12_qry, gphy, osm, counties_base
+        nchuc12_qry, gphy, osm, counties_base, hillshade
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -494,7 +498,9 @@ Ext.onReady(function() {
         }
     };
 
-
+    ////////////////////////////////////////////////////////////////////
+    ////start panels config
+    ///////////////////////////////////////////////////////////
     var combopdf = [
         ["Landscape", 'Landscape'],
         ["Portrait", "Portrait"]
@@ -518,7 +524,7 @@ Ext.onReady(function() {
         fieldLabel: 'Orientation'
         // applyTo: 'local-states'
     });
-
+    ///print panel
     var formPanel = new Ext.form.FormPanel({
         title: "Print config",
         width: 296,
@@ -566,7 +572,8 @@ Ext.onReady(function() {
             }
         }]
     });
-    //formPanel.getComponent('printcmb1').setWidth(200);
+
+    /////////////create area panel
     var comboStore = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
@@ -754,6 +761,7 @@ Ext.onReady(function() {
         }]
     });
 
+    //////////////////////////processing panel
     var comboStore2 = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
@@ -1015,7 +1023,8 @@ Ext.onReady(function() {
         expanded: true,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("AOI") !== -1;
+                return record.get("layer").CLASS_NAME ===
+                    'OpenLayers.Layer.Vector';;
             }
         }
     });
