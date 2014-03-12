@@ -9,8 +9,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    var SERVER_URI = "http://localhost/";
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -501,34 +501,12 @@ Ext.onReady(function() {
     ////////////////////////////////////////////////////////////////////
     ////start panels config
     ///////////////////////////////////////////////////////////
-    var combopdf = [
-        ["Landscape", 'Landscape'],
-        ["Portrait", "Portrait"]
-    ];
-    var comboStorepdf = new Ext.data.ArrayStore({
-        fields: ['name', 'pdftype'],
-        data: combopdf
-    });
 
-    var pdfcombobox = new Ext.form.ComboBox({
-        store: comboStorepdf,
-        displayField: 'name',
-        typeAhead: true,
-        mode: 'local',
-        forceSelection: true,
-        triggerAction: 'all',
-        // emptyText: 'Select a state...',
-        selectOnFocus: true,
-        value: 'Landscape',
-        name: 'orientation',
-        fieldLabel: 'Orientation'
-        // applyTo: 'local-states'
-    });
     ///print panel
     var formPanel = new Ext.form.FormPanel({
         title: "Print config",
         width: 296,
-        height: 350,
+        height: 250,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
@@ -539,8 +517,7 @@ Ext.onReady(function() {
                 name: "comment",
                 value: "North Carolina Threats analysis tool",
                 fieldLabel: "Comment"
-            },
-            pdfcombobox
+            }
         ],
         buttons: [{
             text: "Create PDF",
@@ -559,8 +536,7 @@ Ext.onReady(function() {
                     url: SERVER_URI + "wps/pdf",
                     data: {
                         htmlseg: pdf_hdr + htmlseg,
-                        text: form_vals.comment,
-                        orient: form_vals.orientation
+                        text: form_vals.comment
                     }
                 }).done(function(data, textStatus, jqXHR) {
                     var pdfresource = jqXHR.getResponseHeader('Location');
@@ -831,7 +807,18 @@ Ext.onReady(function() {
     };
 
 
-    var threat_calcs = function() {
+    var threat_calcs_map = function() {
+        var form_vals = formPanel3.getForm().getValues(true);
+        $.ajax({
+            url: resource + '/map?' + form_vals,
+            type: 'GET',
+            dataType: 'json'
+        }).done(function(data) {
+            onExecuted(data.results);
+        });
+    };
+
+    var threat_calcs_report = function() {
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
             url: resource + '/map?' + form_vals,
@@ -868,9 +855,11 @@ Ext.onReady(function() {
             }
         }],
         buttons: [{
-            text: "Calculate",
-
-            handler: threat_calcs
+            text: "Report",
+            handler: threat_calcs_report
+        }, {
+            text: "Show map",
+            handler: threat_calcs_map
         }]
     });
 
@@ -1024,7 +1013,7 @@ Ext.onReady(function() {
         loader: {
             filter: function(record) {
                 return record.get("layer").CLASS_NAME ===
-                    'OpenLayers.Layer.Vector';;
+                    'OpenLayers.Layer.Vector';
             }
         }
     });
