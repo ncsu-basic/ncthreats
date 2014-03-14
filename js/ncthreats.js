@@ -9,8 +9,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    // var SERVER_URI = "http://localhost/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://localhost/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -55,13 +55,14 @@ Ext.onReady(function() {
         buffer: 0
     });
 
-    // var osm = new OpenLayers.Layer.OSM("Open Street Map");
-
     var osm = new OpenLayers.Layer.OSM("Open Street Map", "", {
         resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
-        serverResolutions: [156543.03390625, 78271.516953125, 39135.7584765625, 19567.87923828125, 9783.939619140625, 4891.9698095703125,
-            2445.9849047851562, 1222.9924523925781, 611.4962261962891, 305.74811309814453, 152.87405654907226, 76.43702827453613,
-            38.218514137268066, 19.109257068634033, 9.554628534317017, 4.777314267158508, 2.388657133579254, 1.194328566789627,
+        serverResolutions: [156543.03390625, 78271.516953125, 39135.7584765625,
+            19567.87923828125, 9783.939619140625, 4891.9698095703125,
+            2445.9849047851562, 1222.9924523925781, 611.4962261962891,
+            305.74811309814453, 152.87405654907226, 76.43702827453613,
+            38.218514137268066, 19.109257068634033, 9.554628534317017,
+            4.777314267158508, 2.388657133579254, 1.194328566789627,
             0.5971642833948135
         ]
     });
@@ -74,14 +75,22 @@ Ext.onReady(function() {
         }
     );
 
-    var hillshade = new OpenLayers.Layer.WMS("NC Hillshade",
-        SERVER_URI + "geoserver/wms", {
-            layers: "NC_Hill_3857_to",
-            format: 'image/png'
-        }, {
-            visibility: false,
-            displayInLayerSwitcher: false
-        });
+    var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
+        SERVER_URI + "tilecache/", {
+            layername: "hillshadenc",
+            type: "png",
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+        }
+    );
+
+    // var hillshade = new OpenLayers.Layer.WMS("NC Hillshade",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "NC_Hill_3857_to",
+    //         format: 'image/png'
+    //     }, {
+    //         visibility: false,
+    //         displayInLayerSwitcher: false
+    //     });
     ////////////////////////////////////////////////////////////
     /// TMS line layers overlays
     /////////////////////////////////////////////////////////
@@ -355,13 +364,11 @@ Ext.onReady(function() {
 
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
 
-
     var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
         styleMap: styleMap,
-
     });
 
     var results = new OpenLayers.Layer.Vector("Results", {
@@ -370,7 +377,6 @@ Ext.onReady(function() {
         projection: proj_4326,
         styleMap: resultsStyleMap,
         renderers: ["SVG"]
-
     });
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
@@ -522,12 +528,11 @@ Ext.onReady(function() {
             anchor: "100%"
         },
         items: [{
-                xtype: "textarea",
-                name: "comment",
-                value: "North Carolina Threats analysis tool",
-                fieldLabel: "Comment"
-            }
-        ],
+            xtype: "textarea",
+            name: "comment",
+            value: "North Carolina Threats analysis tool",
+            fieldLabel: "Comment"
+        }],
         buttons: [{
             text: "Create PDF",
             handler: function() {
@@ -550,9 +555,8 @@ Ext.onReady(function() {
                 }).done(function(data, textStatus, jqXHR) {
                     var pdfresource = jqXHR.getResponseHeader('Location');
                     console.log(pdfresource);
-                    $('#dnlds').attr('href', pdfresource);
-                    // $('#dnlds').click();
-                    document.getElementById('dnlds').click();
+                    $('#dnlds').attr('action', pdfresource);
+                    $('#dnlds').submit();
                 });
             }
         }]
@@ -830,11 +834,13 @@ Ext.onReady(function() {
     var threat_calcs_report = function() {
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
-            url: resource + '/map?' + form_vals,
+            url: resource + '/report?' + form_vals,
             type: 'GET',
             dataType: 'json'
         }).done(function(data) {
-            onExecuted(data.results);
+            // onExecuted(data.results);
+            console.log(data.message);
+
         });
     };
 
