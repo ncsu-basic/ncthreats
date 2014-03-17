@@ -9,8 +9,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    var SERVER_URI = "http://localhost/";
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -636,31 +636,69 @@ Ext.onReady(function() {
         new_selection();
     };
     var aoi_to_file, onExecuted;
-    //function to submit defined area to pywps
+    //function to submit defined area
     var save_action = function() {
-        //console.log("remove... tell me more");
-        // var text = formPanel2.getComponent('desc_txt').getValue();
-        // if (text.length === 0) {
-        //     text = "no description provided";
-        // }
-        //console.log(text);
-        var gml_writer = new OpenLayers.Format.GML.v3({
-            featureType: 'MultiPolygon',
-            featureNS: 'http://jimserver.net/',
-            geometryName: 'aoi',
-            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-            'externalProjection': new OpenLayers.Projection("EPSG:4326")
-        });
+        var selected_predef = formPanel2.getForm().getValues().predef_selection;
+        var sel_type = formPanel2.getForm().getValues().aoi_type;
+        var gml = '';
+        var aoi_list = [];
+        if (sel_type !== 'predefined') {
+            var gml_writer = new OpenLayers.Format.GML.v3({
+                featureType: 'MultiPolygon',
+                featureNS: 'http://jimserver.net/',
+                geometryName: 'aoi',
+                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                'externalProjection': new OpenLayers.Projection("EPSG:4326")
+            });
 
-        var gml = gml_writer.write(highlightLayer.features);
+            gml = gml_writer.write(highlightLayer.features);
 
+        } else {
+            gml = '';
+            console.log(selected_predef);
+            switch (selected_predef) {
+                case 'NC HUC 2':
+                    col_name = "huc2";
+                    break;
+                case 'NC HUC 4':
+                    col_name = "huc4";
+                    break;
+                case 'NC HUC 6':
+                    col_name = "huc6";
+                    break;
+                case 'NC HUC 8':
+                    col_name = "huc8";
+                    break;
+                case 'NC HUC 10':
+                    col_name = "huc10";
+                    break;
+                case 'NC HUC 12':
+                    col_name = "huc_12";
+                    break;
+                case 'NC Counties':
+                    col_name = "co_num";
+                    break;
+                case 'NC BCR':
+                    col_name = "bcr";
+                    break;
+            }
+            var selected_features_drawn =
+                map.getLayersByName("AOI Selection")[0].features;
+            for (var j = 0; j < selected_features_drawn.length; j++) {
+                aoi_list.push(
+                    Math.floor(selected_features_drawn[j].data[col_name]));
+            }
+            console.log(aoi_list);
+
+        }
 
         $.ajax({
             type: "POST",
             url: SERVER_URI + "wps",
             data: {
                 gml: gml,
-                text: ''
+                aoi_list: aoi_list,
+                predef_type: selected_predef
             },
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
