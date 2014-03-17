@@ -9,8 +9,8 @@ Ext.onReady(function() {
     var resource;
 
     //var , wps, save_link, saveaoi_form;
-    // var SERVER_URI = "http://localhost/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://localhost/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -686,7 +686,7 @@ Ext.onReady(function() {
                 map.getLayersByName("AOI Selection")[0].features;
             for (var j = 0; j < selected_features_drawn.length; j++) {
                 aoi_list.push(
-                    Math.floor(selected_features_drawn[j].data[col_name]));
+                    selected_features_drawn[j].data[col_name]);
             }
             console.log(aoi_list);
 
@@ -698,7 +698,8 @@ Ext.onReady(function() {
             data: {
                 gml: gml,
                 aoi_list: aoi_list,
-                predef_type: selected_predef
+                predef_type: selected_predef,
+                sel_type: sel_type
             },
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
