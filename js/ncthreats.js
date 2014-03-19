@@ -770,6 +770,10 @@ Ext.onReady(function() {
                 boxLabel: 'custom<br>Click on map to create polygon',
                 name: 'aoi_type',
                 inputValue: 'custom'
+            },{
+                boxLabel: 'statewide',
+                name: 'aoi_type',
+                inputValue: 'statewide'
             }],
             listeners: {
                 change: form2_chng
