@@ -8,17 +8,19 @@
 	background-image: url('../OpenLayers-2.13.1/theme/default/img/nc.png');
 }
 div.olControlMousePosition {
-	/*right: 100px !important;*/
-	bottom:  20px !important;
+	/* right: 100px !important;
+	*/
+	bottom: 20px !important;
 }
-.pages input, .pages button, .pages p {
+.pages input,
+.pages button,
+.pages p {
 	margin: 5px;
 }
 .pages h3 {
 	margin: 10px;
 	text-align: center;
 }
-
 .olImageLoadError {
 	display: none !important;
 }
@@ -42,27 +44,28 @@ div.olControlMousePosition {
 #upload_msg {
 	width: 75%;
 	height: 20px;
-	border: solid black 1px;
-	margin: 5px auto 5px;
+	/*border: solid black 1px;*/
+	margin: 10px ;
 	font-size: 12px;
 }
+#yep {
+	font: 12px tahoma, arial, helvetica, sans-serif;
+	margin: 10px;
+}
 
-/*
-
- .nav_action {
- background-image:url('../OpenLayers-2.12/theme/default/img/pan_off.png');
- }
- .draw_action {
- background-image:url('../OpenLayers-2.12/theme/default/img/draw_polygon_off.png');
- }
- .remove_action {
- background-image:url('../OpenLayers-2.12/theme/default/img/remove_point_off.png');
- }
- .save_action {
- background-image:url('../OpenLayers-2.12/theme/default/img/save_features_off.png');
- }
- .print_action {
- background-image:url('Human-gnome-dev-printer.png');
- }
- * */
-
+/* .nav_action {
+	background-image: url('../OpenLayers-2.12/theme/default/img/pan_off.png');
+}
+.draw_action {
+	background-image: url('../OpenLayers-2.12/theme/default/img/draw_polygon_off.png');
+}
+.remove_action {
+	background-image: url('../OpenLayers-2.12/theme/default/img/remove_point_off.png');
+}
+.save_action {
+	background-image: url('../OpenLayers-2.12/theme/default/img/save_features_off.png');
+}
+.print_action {
+	background-image: url('Human-gnome-dev-printer.png');
+}
+* */

@@ -10,6 +10,8 @@ Ext.onReady(function() {
 
     //var , wps, save_link, saveaoi_form;
     var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    // var HOST_NAME  = "http://tecumseh.zo.ncsu.edu/"
     // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
@@ -767,10 +769,12 @@ Ext.onReady(function() {
                 inputValue: 'predefined',
                 checked: true
             }, {
-                boxLabel: 'custom<br>Click on map to create polygon',
+                boxLabel: 'custom<br>Click on map to create polygon,' +
+                    'or open shapefile panel.',
                 name: 'aoi_type',
-                inputValue: 'custom'
-            },{
+                inputValue: 'custom',
+                id: 'custom_radio_sel'
+            }, {
                 boxLabel: 'statewide',
                 name: 'aoi_type',
                 inputValue: 'statewide'
@@ -1111,7 +1115,7 @@ Ext.onReady(function() {
     });
 
     var area_tab = new Ext.Panel({
-        title: 'AOI Upload',
+        title: 'Shapefile Upload',
         cls: 'pages',
         autoScroll: true,
         id: "aoi_upload_id"
@@ -1161,84 +1165,16 @@ Ext.onReady(function() {
     //start scripting for panel html pages
     ///////////////////////////////////////////////////////////////////////
 
-    var submit_saved = function(txt) {
-        /*
-        var parser, xmlDoc;
-        if (window.DOMParser) {
-            parser = new DOMParser();
-            xmlDoc = parser.parseFromString(txt, "text/xml");
-        } else // Internet Explorer
-        {
-            xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-            xmlDoc.async = false;
-            xmlDoc.loadXML(txt);
-        }
-        //res is aoiname
-        //var res = xmlDoc.getElementsByTagName("aoiName")[0].
-        //childNodes[0].nodeValue;
-        var res = xmlDoc.getElementsByTagName("html")[0];
-        console.log(res);
-        console.log(txt);*/
-        var res;
 
-
-        //see for ref http://api.jquery.com/jQuery.parseHTML
-        //spent too f'n long figuring this out
-        //see also Flanagan 4th ed, p. 812
-        var test = $.parseHTML(txt);
-        $.each(test, function(i, el) {
-            //nodeNames[i] = "<li>" + el.nodeName + "</li>";
-            if (el.firstChild && el.hasAttributes()) {
-                console.log(el.firstChild.nodeValue);
-                res = el.firstChild.nodeValue;
-            }
-        });
-        console.log(res);
-
-        var cql = "identifier = '" + res + "'";
-        delete results.params.CQL_FILTER;
-        results.mergeNewParams({
-            'CQL_FILTER': cql
-        });
-        results.setVisibility(true);
-    };
 
     var page_script = function() {
-
-        //button for saved aoi upload, compliant browsers
-        var el = document.getElementById('aoi_btn');
-
-        //button for shapefile upload
-        var el3 = document.getElementById('shp_btn');
-
-        //this function gets saved aoi xml string for file upload method
-        var func = function() {
-            var file = document.getElementById('file').files[0];
-            //console.log(file);
-            if (file) {
-                var blob = file.slice();
-                console.log(blob.size);
-                //var url = window.URL || window.webkitURL;
-                //var blobURLref = url.createObjectURL(file);
-                var fileReader = new FileReader();
-                fileReader.readAsText(file);
-                fileReader.onload = function(oFREvent) {
-                    submit_saved(oFREvent.target.result);
-                    //console.log(oFREvent.target.result);
-                };
-            }
-        };
-        //this function gets saved aoi xml string for paste into textarea
-        //var func2 = function() {
-        //  var text = document.getElementById("aoi_copy").value.trim();
-        //  submit_saved(text);
-        //};
 
         var shpTonchuc12 = function(shp, prj, shx) {
 
             $.ajax({
                 type: "POST",
-                url: "pages/shptogml.php",
+                // url: "pages/shptogml.php",
+                url: SERVER_URI + "wps/shptojson",
                 data: {
                     shp: shp,
                     shx: shx,
@@ -1248,9 +1184,11 @@ Ext.onReady(function() {
                 success: function(data) {
 
                     var geojson_format = new OpenLayers.Format.GeoJSON();
-                    var shpfeatures = geojson_format.read(data.json);
+                    var shpfeatures = geojson_format.read(data);
                     highlightLayer.addFeatures(shpfeatures);
                     //console.log(shpfeatures);
+                    document.getElementById('custom_radio_sel').checked =
+                        'checked';
                     Ext.getCmp('aoi_upload_id').collapse();
                     Ext.getCmp('aoi_create_id').expand();
                 }
@@ -1259,7 +1197,7 @@ Ext.onReady(function() {
         };
 
         //this function processes shapefile upload
-        var func3 = function() {
+        var upload_shps = function() {
             var files = document.getElementById('file2').files;
             var fileReader = [];
             var parse_filename, result;
@@ -1325,28 +1263,19 @@ Ext.onReady(function() {
                     //console.log("file shp, prj, or shx missing");
                     $("#upload_msg").html("file shp, prj, or shx missing");
                 } else {
-                    $("#upload_msg").html("");
+                    // $("#upload_msg").html("");
 
                 }
             }
         };
-        //event listeners for buttons on html page
-        if (el.addEventListener) {
-            el.addEventListener("click", func, false);
-            //el2.addEventListener("click", func2, false);
-            el3.addEventListener("click", func3, false);
-        } else if (el.attachEvent) {
-            el.attachEvent('onclick', func);
-            //el2.attachEvent('onclick', func2);
-            el3.attachEvent('onclick', func3);
-        }
+
+        $("#shp_btn").click(upload_shps);
 
     };
     var el = Ext.getCmp("aoi_upload_id");
     var mgr = el.getUpdater();
     mgr.update({
-        //update this for differing servers - JBW
-        url: "/pages/upload.html"
+        url: HOST_NAME + "pages/upload.html"
     });
     mgr.on("update", page_script);
 

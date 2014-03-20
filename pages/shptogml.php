@@ -41,7 +41,7 @@ $fp1 = fopen("/tmp/{$base_file}.prj", "wb");
 fwrite($fp1, $prj_str);
 fclose($fp1);
 
-$cmd = "/usr/bin/ogr2ogr -f GeoJSON -t_srs EPSG:900913  /tmp/{$base_file}.json /tmp/{$base_file}.shp";
+$cmd = "/usr/local/bin/ogr2ogr -f GeoJSON -t_srs EPSG:900913  /tmp/{$base_file}.json /tmp/{$base_file}.shp";
 exec($cmd);
 
 $json = file_get_contents("/tmp/{$base_file}.json");
