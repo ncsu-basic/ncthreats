@@ -1,0 +1,8 @@
+The NC threats online tool is a web mapping application that uses as its base the OpenLayers JavaScript mapping library. This library is able to display tiled images and line or vector images in an application that allows smooth pan and zoom. The applicatin further uses GeoExt and ExtJS JavaScript libraries to support and display the map created by OpenLayers.
+
+To supply data to the browser from the server there are several different methods. Most map images are originally created by the Java web app GeoServer, however these are mostly served as tiles from a cache run by the Python tile server program TileCache.
+
+Web mapping application calculations and vector layers often served as GeoJSON via Ajax are done with Python. We use the Python framework Flask connecting to a PostgreSQL database running the PostGIS spatial database extension.
+
+All of this is being hosted on a university supported version of Red Hat 6 running on a
+Hyper-V virtual server.
