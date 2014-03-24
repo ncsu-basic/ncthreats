@@ -1185,6 +1185,10 @@ Ext.onReady(function() {
 
                     var geojson_format = new OpenLayers.Format.GeoJSON();
                     var shpfeatures = geojson_format.read(data);
+                    highlightLayer.destroyFeatures();
+                    results.removeAllFeatures();
+                    map.zoomToExtent(map_extent);
+                    console.log('hello browser');
                     highlightLayer.addFeatures(shpfeatures);
                     //console.log(shpfeatures);
                     document.getElementById('custom_radio_sel').checked =
