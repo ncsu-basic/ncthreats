@@ -506,6 +506,7 @@ Ext.onReady(function() {
 
     var remove_action = function() {
         new_selection();
+        map.zoomToExtent(map_extent);
         var vis_lyrs = [counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
             nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
             nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, results
@@ -1173,7 +1174,6 @@ Ext.onReady(function() {
 
             $.ajax({
                 type: "POST",
-                // url: "pages/shptogml.php",
                 url: SERVER_URI + "wps/shptojson",
                 data: {
                     shp: shp,
