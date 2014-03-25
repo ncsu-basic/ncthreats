@@ -516,6 +516,8 @@ Ext.onReady(function() {
         }
     };
 
+
+
     ////////////////////////////////////////////////////////////////////
     ////start panels config
     ///////////////////////////////////////////////////////////
@@ -535,6 +537,11 @@ Ext.onReady(function() {
             name: "comment",
             value: "North Carolina Threats analysis tool",
             fieldLabel: "Comment"
+        }, {
+            xtype: "container",
+            id: "pdf_error_msg",
+            height: 30
+            // html: "some error message, longer ddd longer still longer"
         }],
         buttons: [{
             text: "Create PDF",
@@ -556,10 +563,21 @@ Ext.onReady(function() {
                         text: form_vals.comment
                     }
                 }).done(function(data, textStatus, jqXHR) {
-                    var pdfresource = jqXHR.getResponseHeader('Location');
-                    console.log(pdfresource);
-                    $('#dnlds').attr('action', pdfresource);
-                    $('#dnlds').submit();
+                    if (jqXHR.status === 201) {
+                        $('#pdf_error_msg').html('');
+                        var pdfresource = jqXHR.getResponseHeader('Location');
+                        $('#dnlds').attr('action', pdfresource);
+                        $('#dnlds').submit();
+                    } else {
+                        console.log("error" + jqXHR.status);
+                        $('#pdf_error_msg').html(jqXHR.statusText +
+                            " Please try again.");
+                    }
+
+                }).fail(function(jqXHR) {
+                    console.log(jqXHR.statusText + " Please try again.");
+                    $('#pdf_error_msg').html(jqXHR.statusText +
+                        " Please try again.");
                 });
             }
         }]
