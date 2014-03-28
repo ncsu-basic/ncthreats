@@ -85,14 +85,7 @@ Ext.onReady(function() {
         }
     );
 
-    // var hillshade = new OpenLayers.Layer.WMS("NC Hillshade",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "NC_Hill_3857_to",
-    //         format: 'image/png'
-    //     }, {
-    //         visibility: false,
-    //         displayInLayerSwitcher: false
-    //     });
+
     ////////////////////////////////////////////////////////////
     /// TMS line layers overlays
     /////////////////////////////////////////////////////////
@@ -899,15 +892,9 @@ Ext.onReady(function() {
 
     var threat_calcs_report = function() {
         var form_vals = formPanel3.getForm().getValues(true);
-        $.ajax({
-            url: resource + '/report?' + form_vals,
-            type: 'GET',
-            dataType: 'json'
-        }).done(function(data) {
-            // onExecuted(data.results);
-            console.log(data.message);
-
-        });
+        var url = resource + '/report?' + escape(form_vals);
+        console.log(url);
+        window.open(url);
     };
 
     var formPanel3 = new Ext.form.FormPanel({
