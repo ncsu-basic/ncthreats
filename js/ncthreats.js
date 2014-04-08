@@ -7,10 +7,10 @@ Ext.onReady(function() {
 
     var resource;
 
-    var SERVER_URI = "http://localhost/";
-    var HOST_NAME = "http://localhost/ncthreats/";
-    // var HOST_NAME  = "http://tecumseh.zo.ncsu.edu/"
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    // var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/"
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -902,7 +902,7 @@ Ext.onReady(function() {
     var threat_calcs_map = function() {
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
-            url: resource + '/map?' + form_vals,
+            url: resource + '/map?' + encodeURI(form_vals),
             type: 'GET',
             dataType: 'json'
         }).done(function(data) {
@@ -916,6 +916,22 @@ Ext.onReady(function() {
         console.log(url);
         window.open(url);
     };
+
+    var threat_calcs_ssheet = function() {
+        var form_vals = formPanel3.getForm().getValues(true);
+        $.ajax({
+            url: resource + '/ssheet?' + encodeURI(form_vals),
+            type: 'GET'
+        }).done(function(data, textStatus, jqXHR) {
+            if (jqXHR.status === 201) {
+                var csvresource = jqXHR.getResponseHeader('Location');
+                $('#dnlds').attr('action', csvresource);
+                $('#dnlds').submit();
+            } else {
+                console.log("error" + jqXHR.status);
+            }
+        });
+    }
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
@@ -943,6 +959,9 @@ Ext.onReady(function() {
             }
         }],
         buttons: [{
+            text: "Spreadsheet",
+            handler: threat_calcs_ssheet
+        }, {
             text: "Report",
             handler: threat_calcs_report
         }, {
