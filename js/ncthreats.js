@@ -5,10 +5,8 @@ var map;
 Ext.onReady(function() {
     "use strict";
 
-
     var resource;
 
-    //var , wps, save_link, saveaoi_form;
     var SERVER_URI = "http://localhost/";
     var HOST_NAME = "http://localhost/ncthreats/";
     // var HOST_NAME  = "http://tecumseh.zo.ncsu.edu/"
@@ -509,6 +507,44 @@ Ext.onReady(function() {
         }
     };
 
+    function getResource(url) {
+        var handler = function() {
+            window.open(url);
+        };
+        return handler;
+    }
+
+    onExecuted = function(aoi) {
+        var geojson_format = new OpenLayers.Format.GeoJSON({
+            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+        });
+        results.removeAllFeatures();
+        results.addFeatures(geojson_format.read(aoi));
+        results.setVisibility(true);
+    };
+
+    ////////////////////////////////////////////////////////
+    //if hash in url use to load AOI
+    ///////////////////////////////////////////////////
+    if (window.location.hash.slice(1).length !== 0) {
+        resource = SERVER_URI + 'wps/' + window.location.hash.slice(1);
+        $.ajax({
+            type: "GET",
+            url: resource + '/saved',
+            dataType: "json"
+        }).done(function(data, textStatus, jqXHR) {
+            aoi_to_file = getResource(resource);
+            Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+            onExecuted(data.geojson);
+            var extent = new OpenLayers.Bounds(
+                data.extent).transform(proj_4326, proj_900913);
+            map.zoomToExtent(extent);
+        });
+
+    }
+
+    console.log(resource);
 
 
     ////////////////////////////////////////////////////////////////////
@@ -726,22 +762,6 @@ Ext.onReady(function() {
             map.zoomToExtent(extent);
         });
 
-        function getResource(url) {
-            var handler = function() {
-                window.open(url);
-            };
-            return handler;
-        }
-
-        onExecuted = function(aoi) {
-            var geojson_format = new OpenLayers.Format.GeoJSON({
-                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-                'externalProjection': new OpenLayers.Projection("EPSG:4326")
-            });
-            results.removeAllFeatures();
-            results.addFeatures(geojson_format.read(aoi));
-            results.setVisibility(true);
-        };
 
 
     };
@@ -892,7 +912,7 @@ Ext.onReady(function() {
 
     var threat_calcs_report = function() {
         var form_vals = formPanel3.getForm().getValues(true);
-        var url = resource + '/report?' + escape(form_vals);
+        var url = resource + '/report?' + encodeURI(form_vals);
         console.log(url);
         window.open(url);
     };
