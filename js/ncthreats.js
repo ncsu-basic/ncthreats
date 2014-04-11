@@ -9,7 +9,7 @@ Ext.onReady(function() {
 
     // var SERVER_URI = "http://localhost/";
     // var HOST_NAME = "http://localhost/ncthreats/";
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/"
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
     var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
@@ -931,7 +931,7 @@ Ext.onReady(function() {
                 console.log("error" + jqXHR.status);
             }
         });
-    }
+    };
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
@@ -967,6 +967,106 @@ Ext.onReady(function() {
         }, {
             text: "Show map",
             handler: threat_calcs_map
+        }]
+    });
+
+    var registration_form = new Ext.FormPanel({
+        labelWidth: 75, // label settings here cascade unless overridden
+        url: 'save-form.php',
+        frame: true,
+        title: 'Site Registration',
+        bodyStyle: 'padding:5px 5px 0',
+        width: 296,
+        defaults: {
+            width: 230
+        },
+        defaultType: 'textfield',
+
+        items: [{
+            fieldLabel: 'First Name',
+            name: 'first',
+            allowBlank: false
+        }, {
+            fieldLabel: 'Last Name',
+            name: 'last'
+        }, {
+            fieldLabel: 'Company',
+            name: 'company'
+        }, {
+            fieldLabel: 'Email',
+            name: 'email',
+            vtype: 'email'
+        }, {
+            fieldLabel: 'Password',
+            name: 'password'
+        }],
+
+        buttons: [{
+            text: 'Save'
+        }, {
+            text: 'Cancel'
+        }]
+    });
+
+    var login_form = new Ext.FormPanel({
+        labelWidth: 80,
+        url: SERVER_URI + "wps/login",
+        frame: true,
+        title: 'Please Login',
+        defaultType: 'textfield',
+        monitorValid: true,
+        // Specific attributes for the text fields for username / password.
+        // The "name" attribute defines the name of variables sent to the server.
+        items: [{
+            fieldLabel: 'Username',
+            name: 'loginUsername',
+            allowBlank: false
+        }, {
+            fieldLabel: 'Password',
+            name: 'loginPassword',
+            inputType: 'password',
+            allowBlank: false
+        }],
+
+        // All the magic happens after the user clicks the button
+        buttons: [{
+            text: 'Login',
+            formBind: true,
+            // Function that fires when user clicks the button
+            handler: function() {
+                login_form.getForm().submit({
+                    method: 'POST',
+                    waitTitle: 'Connecting',
+                    waitMsg: 'Sending data...',
+
+                    //The server would
+                    // actually respond with valid JSON
+
+                    success: function() {
+                        Ext.Msg.alert('Status',
+                            'Login Successful!', function(btn, text) {
+                                if (btn == 'ok') {
+                                    // var redirect = 'test.asp';
+                                    // window.location = redirect;
+                                }
+                            });
+                    },
+
+
+                    failure: function(form, action) {
+                        if (action.failureType == 'server') {
+                            var obj = Ext.util.JSON.decode(
+                                action.response.responseText);
+                            Ext.Msg.alert('Login Failed!', obj.errors.reason);
+                        } else {
+                            Ext.Msg.alert('Warning!',
+                                'Authentication server is unreachable : ' +
+                                action.response.responseText);
+                        }
+                        login_form.getForm().reset();
+                    }
+                });
+            }
         }]
     });
 
@@ -1147,12 +1247,12 @@ Ext.onReady(function() {
                 layerList7, layerList8
             ]
         },
-        title: "NC layers",
+        title: "Layers",
         rootVisible: false
     });
 
     var process_tab = new Ext.Panel({
-        title: 'Processing',
+        title: 'Model',
         //html: "some content",
         items: [formPanel3],
         cls: 'help',
@@ -1172,6 +1272,15 @@ Ext.onReady(function() {
         items: [formPanel2],
         id: "aoi_create_id"
     });
+
+    var login_tab = new Ext.Panel({
+        title: 'Login',
+        //html: "some content",
+        items: [login_form],
+        cls: 'help',
+        autoScroll: true
+    });
+
 
     var accordion = new Ext.Panel({
         title: 'Area',
@@ -1194,7 +1303,7 @@ Ext.onReady(function() {
         region: 'west',
         width: 300,
         activeTab: 0,
-        items: [tree, accordion, process_tab, print_tab],
+        items: [tree, accordion, process_tab, print_tab, login_tab],
         deferredRender: false
     });
 
