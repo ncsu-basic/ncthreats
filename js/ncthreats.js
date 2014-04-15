@@ -7,10 +7,10 @@ Ext.onReady(function() {
 
     var resource;
 
-    // var SERVER_URI = "http://localhost/";
-    // var HOST_NAME = "http://localhost/ncthreats/";
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -533,7 +533,7 @@ Ext.onReady(function() {
             type: "GET",
             url: resource + '/saved',
             dataType: "json"
-        }).done(function(data, textStatus, jqXHR) {
+        }).done(function(data) {
             aoi_to_file = getResource(resource);
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
             onExecuted(data.geojson);
@@ -970,43 +970,7 @@ Ext.onReady(function() {
         }]
     });
 
-    var registration_form = new Ext.FormPanel({
-        labelWidth: 75, // label settings here cascade unless overridden
-        url: 'save-form.php',
-        frame: true,
-        title: 'Site Registration',
-        bodyStyle: 'padding:5px 5px 0',
-        width: 296,
-        defaults: {
-            width: 230
-        },
-        defaultType: 'textfield',
 
-        items: [{
-            fieldLabel: 'First Name',
-            name: 'first',
-            allowBlank: false
-        }, {
-            fieldLabel: 'Last Name',
-            name: 'last'
-        }, {
-            fieldLabel: 'Company',
-            name: 'company'
-        }, {
-            fieldLabel: 'Email',
-            name: 'email',
-            vtype: 'email'
-        }, {
-            fieldLabel: 'Password',
-            name: 'password'
-        }],
-
-        buttons: [{
-            text: 'Save'
-        }, {
-            text: 'Cancel'
-        }]
-    });
 
     var login_form = new Ext.FormPanel({
         labelWidth: 80,
@@ -1036,20 +1000,16 @@ Ext.onReady(function() {
             handler: function() {
                 login_form.getForm().submit({
                     method: 'POST',
-                    waitTitle: 'Connecting',
-                    waitMsg: 'Sending data...',
-
-                    //The server would
-                    // actually respond with valid JSON
-
+                    // waitTitle: 'Connecting',
+                    // waitMsg: 'Sending data...',
                     success: function() {
                         Ext.Msg.alert('Status',
-                            'Login Successful!', function(btn, text) {
+                            'Login Successful!', function(btn) {
                                 if (btn == 'ok') {
-                                    // var redirect = 'test.asp';
-                                    // window.location = redirect;
                                 }
                             });
+                        $('#login-msg').html("<h2>you are logged in</h2>");
+                        // login_tab.body.update('another message');
                     },
 
 
@@ -1273,11 +1233,27 @@ Ext.onReady(function() {
         id: "aoi_create_id"
     });
 
+    var login_html = ["<h2>Registration</h2>",
+        "<p>If you have not registered please visit the",
+        "<a href='",
+        SERVER_URI + 'wps/register',
+        "' target='_blank'> registration</a> page.</p>"
+    ];
+
     var login_tab = new Ext.Panel({
         title: 'Login',
-        //html: "some content",
-        items: [login_form],
-        cls: 'help',
+        items: [login_form, {
+            xtype: 'spacer',
+            height: 28,
+            cls: 'mycontent',
+            id: 'login-msg'
+        }, {
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: login_html.join('')
+        }],
+        // cls: 'help',
         autoScroll: true
     });
 
