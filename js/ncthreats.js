@@ -7,10 +7,10 @@ Ext.onReady(function() {
 
     var resource;
 
-    var SERVER_URI = "http://localhost/";
-    var HOST_NAME = "http://localhost/ncthreats/";
-    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    // var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -1010,12 +1010,11 @@ Ext.onReady(function() {
                     },
                     dataType: "json",
                     success: function(data) {
-                        if(data.success){
+                        if (data.success) {
                             Ext.Msg.alert('Status',
-                            'Login Successful!', function(btn) {
-                                if (btn == 'ok') {
-                                }
-                            });
+                                'Login Successful!', function(btn) {
+                                    if (btn == 'ok') {}
+                                });
                             console.log(data.username);
                             console.log(data.firstname);
                             var loginmsg = "<p>Hello " + data.firstname + "</p>";
@@ -1025,13 +1024,42 @@ Ext.onReady(function() {
                         }
 
 
-                      
+
                     }
                 });
 
-                        
+
 
             }
+        }]
+    });
+
+    var passwdreset = function() {
+        console.log("password reset");
+    }
+
+    var passwdresetPanel = new Ext.FormPanel({
+        labelWidth: 75, // label settings here cascade unless overridden
+        url: 'save-form.php',
+        frame: true,
+        title: 'Password reset',
+        bodyStyle: 'padding:5px 15px 0',
+        width: 296,
+        defaults: {
+            width: 200
+        },
+        defaultType: 'textfield',
+
+        items: [{
+            fieldLabel: 'email',
+            name: 'first',
+            allowBlank: false,
+            width: 150
+        }],
+
+        buttons: [{
+            text: 'Submit',
+            handler: passwdreset
         }]
     });
 
@@ -1248,16 +1276,18 @@ Ext.onReady(function() {
     var login_tab = new Ext.Panel({
         title: 'Login',
         items: [login_form, {
-            xtype: 'spacer',
-            height: 28,
-            cls: 'mycontent',
-            id: 'login-msg'
-        }, {
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: login_html.join('')
-        }],
+                xtype: 'spacer',
+                height: 28,
+                cls: 'mycontent',
+                id: 'login-msg'
+            }, {
+                xtype: 'container',
+                autoEl: 'div',
+                cls: 'mycontent',
+                html: login_html.join('')
+            },
+            passwdresetPanel
+        ],
         // cls: 'help',
         autoScroll: true
     });
