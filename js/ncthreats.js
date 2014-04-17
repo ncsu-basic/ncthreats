@@ -995,37 +995,42 @@ Ext.onReady(function() {
         // All the magic happens after the user clicks the button
         buttons: [{
             text: 'Login',
-            formBind: true,
+            // formBind: true,
             // Function that fires when user clicks the button
             handler: function() {
-                login_form.getForm().submit({
-                    method: 'POST',
-                    // waitTitle: 'Connecting',
-                    // waitMsg: 'Sending data...',
-                    success: function() {
-                        Ext.Msg.alert('Status',
+                console.log(login_form.getForm().getValues());
+                var username = login_form.getForm().getValues().loginUsername;
+                var passwd = login_form.getForm().getValues().loginPassword;
+                $.ajax({
+                    type: "POST",
+                    url: SERVER_URI + "wps/login",
+                    data: {
+                        loginUsername: username,
+                        loginPassword: passwd
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.success){
+                            Ext.Msg.alert('Status',
                             'Login Successful!', function(btn) {
                                 if (btn == 'ok') {
                                 }
                             });
-                        $('#login-msg').html("<h2>you are logged in</h2>");
-                        // login_tab.body.update('another message');
-                    },
+                            console.log(data.username);
+                            console.log(data.firstname);
+                            var loginmsg = "<p>Hello " + data.firstname + "</p>";
+                            loginmsg += "<p> You are logged in as " + data.username + "</p>";
+                            $("#login-msg").html(loginmsg);
 
-
-                    failure: function(form, action) {
-                        if (action.failureType == 'server') {
-                            var obj = Ext.util.JSON.decode(
-                                action.response.responseText);
-                            Ext.Msg.alert('Login Failed!', obj.errors.reason);
-                        } else {
-                            Ext.Msg.alert('Warning!',
-                                'Authentication server is unreachable : ' +
-                                action.response.responseText);
                         }
-                        login_form.getForm().reset();
+
+
+                      
                     }
                 });
+
+                        
+
             }
         }]
     });
