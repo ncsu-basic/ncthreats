@@ -7,10 +7,10 @@ Ext.onReady(function() {
 
     var resource;
 
-    // var SERVER_URI = "http://localhost/";
-    // var HOST_NAME = "http://localhost/ncthreats/";
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -979,24 +979,18 @@ Ext.onReady(function() {
         title: 'Please Login',
         defaultType: 'textfield',
         monitorValid: true,
-        // Specific attributes for the text fields for username / password.
-        // The "name" attribute defines the name of variables sent to the server.
         items: [{
             fieldLabel: 'Username',
-            name: 'loginUsername',
-            allowBlank: false
+            name: 'loginUsername'
+            // allowBlank: false
         }, {
             fieldLabel: 'Password',
             name: 'loginPassword',
-            inputType: 'password',
-            allowBlank: false
+            inputType: 'password'
+            // allowBlank: false
         }],
-
-        // All the magic happens after the user clicks the button
         buttons: [{
             text: 'Login',
-            // formBind: true,
-            // Function that fires when user clicks the button
             handler: function() {
                 console.log(login_form.getForm().getValues());
                 var username = login_form.getForm().getValues().loginUsername;
@@ -1022,20 +1016,31 @@ Ext.onReady(function() {
                             $("#login-msg").html(loginmsg);
 
                         }
-
-
-
                     }
                 });
-
-
-
             }
         }]
     });
 
     var passwdreset = function() {
-        console.log("password reset");
+        var email = passwdresetPanel.getForm().getValues().email;
+        console.log(email);
+        $.ajax({
+            type: "POST",
+            url: SERVER_URI + "wps/reset",
+            data: {
+                email: email
+            },
+            dataType: "json",
+            success: function(data) {
+                if (data.success) {
+                    Ext.Msg.alert('Status',
+                        data.msg, function(btn) {
+                            if (btn == 'ok') {}
+                        });
+                }
+            }
+        });
     }
 
     var passwdresetPanel = new Ext.FormPanel({
@@ -1052,8 +1057,7 @@ Ext.onReady(function() {
 
         items: [{
             fieldLabel: 'email',
-            name: 'first',
-            allowBlank: false,
+            name: 'email',
             width: 150
         }],
 
@@ -1277,7 +1281,7 @@ Ext.onReady(function() {
         title: 'Login',
         items: [login_form, {
                 xtype: 'spacer',
-                height: 28,
+                height: 40,
                 cls: 'mycontent',
                 id: 'login-msg'
             }, {
