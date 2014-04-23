@@ -7,10 +7,10 @@ Ext.onReady(function() {
 
     var resource;
 
-    var SERVER_URI = "http://localhost/";
-    var HOST_NAME = "http://localhost/ncthreats/";
-    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    // var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -816,7 +816,7 @@ Ext.onReady(function() {
             }
         }],
         buttons: [{
-            text: "AOI info",
+            text: "Save",
             handler: aoi_to_file,
             //itemId: "resource_btn",
             id: "resource_btn"
@@ -974,7 +974,7 @@ Ext.onReady(function() {
 
     var login_form = new Ext.FormPanel({
         labelWidth: 80,
-        url: SERVER_URI + "wps/login",
+        // url: SERVER_URI + "wps/login",
         frame: true,
         title: 'Please Login',
         defaultType: 'textfield',
@@ -1013,7 +1013,9 @@ Ext.onReady(function() {
                             console.log(data.firstname);
                             var loginmsg = "<p>Hello " + data.firstname + "</p>";
                             loginmsg += "<p> You are logged in as " + data.username + "</p>";
+                            loginmsg += "<p>Open my <a href='#'>page</a>.</p>"
                             $("#login-msg").html(loginmsg);
+                            Ext.getCmp('userpanel').expand();
 
                         }
                     }
@@ -1044,12 +1046,11 @@ Ext.onReady(function() {
     }
 
     var passwdresetPanel = new Ext.FormPanel({
-        labelWidth: 75, // label settings here cascade unless overridden
-        url: 'save-form.php',
+        labelWidth: 80, // label settings here cascade unless overridden
         frame: true,
         title: 'Password reset',
-        bodyStyle: 'padding:5px 15px 0',
-        width: 296,
+        // bodyStyle: 'padding:5px 15px 0',
+        // width: 296,
         defaults: {
             width: 200
         },
@@ -1064,6 +1065,29 @@ Ext.onReady(function() {
         buttons: [{
             text: 'Submit',
             handler: passwdreset
+        }]
+    });
+
+    var passwdchngPanel = new Ext.FormPanel({
+        labelWidth: 120, // label settings here cascade unless overridden
+        frame: true,
+        title: 'Password change',
+        // bodyStyle: 'padding:5px 15px 0',
+        // width: 296,
+        defaults: {
+            width: 200
+        },
+        defaultType: 'textfield',
+
+        items: [{
+            fieldLabel: 'new password',
+            name: 'passwd',
+            width: 150
+        }],
+
+        buttons: [{
+            text: 'Submit'
+            // handler: passwdreset
         }]
     });
 
@@ -1277,23 +1301,35 @@ Ext.onReady(function() {
         "' target='_blank'> registration</a> page.</p>"
     ];
 
-    var login_tab = new Ext.Panel({
+    var login_panel = new Ext.Panel({
         title: 'Login',
         items: [login_form, {
-                xtype: 'spacer',
-                height: 40,
-                cls: 'mycontent',
-                id: 'login-msg'
-            }, {
                 xtype: 'container',
                 autoEl: 'div',
                 cls: 'mycontent',
                 html: login_html.join('')
             },
             passwdresetPanel
+            // {
+            //     xtype: 'button',
+            //     text: 'MyPage'
+            // }
         ],
         // cls: 'help',
         autoScroll: true
+    });
+
+    var user_panel = new Ext.Panel({
+        title: 'User',
+        id: 'userpanel',
+        items: [{
+                xtype: 'spacer',
+                height: 60,
+                cls: 'mycontent',
+                id: 'login-msg'
+            },
+            passwdchngPanel
+        ]
     });
 
 
@@ -1307,6 +1343,23 @@ Ext.onReady(function() {
         items: [area_tab2, area_tab]
     });
 
+    function handleActivate(tab) {
+        console.log(tab.title + ' was activated.');
+    }
+
+    var login_accordion = new Ext.Panel({
+        title: 'User',
+        layout: 'accordion',
+        defaults: {
+            // applied to each contained panel
+            //bodyStyle : 'padding:15px'
+        },
+        items: [login_panel, user_panel],
+        listeners: {
+            activate: handleActivate
+        }
+    });
+
     var print_tab = new Ext.Panel({
         title: 'Print',
         autoScroll: true,
@@ -1318,9 +1371,15 @@ Ext.onReady(function() {
         region: 'west',
         width: 300,
         activeTab: 0,
-        items: [tree, accordion, process_tab, print_tab, login_tab],
+        items: [tree, accordion, process_tab, print_tab, login_accordion],
         deferredRender: false
     });
+
+    // left.getItem('login_accordion').on('activate', function() {
+    //     console.log('tabe opened');
+    // });
+
+    // });
 
     new Ext.Viewport({
         layout: "border",
