@@ -970,7 +970,15 @@ Ext.onReady(function() {
         }]
     });
 
-
+    var open_user_tab = function(firstname, username) {
+        console.log(username);
+        console.log(firstname);
+        var loginmsg = "<p>Hello " + firstname + "</p>";
+        loginmsg += "<p> You are logged in as " + username + "</p>";
+        loginmsg += "<p>Open my <a href='#'>page</a>.</p>"
+        $("#login-msg").html(loginmsg);
+        Ext.getCmp('userpanel').expand();
+    }
 
     var login_form = new Ext.FormPanel({
         labelWidth: 80,
@@ -1009,13 +1017,7 @@ Ext.onReady(function() {
                                 'Login Successful!', function(btn) {
                                     if (btn == 'ok') {}
                                 });
-                            console.log(data.username);
-                            console.log(data.firstname);
-                            var loginmsg = "<p>Hello " + data.firstname + "</p>";
-                            loginmsg += "<p> You are logged in as " + data.username + "</p>";
-                            loginmsg += "<p>Open my <a href='#'>page</a>.</p>"
-                            $("#login-msg").html(loginmsg);
-                            Ext.getCmp('userpanel').expand();
+                             open_user_tab(data.firstname, data.username);
 
                         }
                     }
@@ -1059,7 +1061,7 @@ Ext.onReady(function() {
         items: [{
             fieldLabel: 'email',
             name: 'email',
-            width: 150
+            width: 180
         }],
 
         buttons: [{
@@ -1345,6 +1347,19 @@ Ext.onReady(function() {
 
     function handleActivate(tab) {
         console.log(tab.title + ' was activated.');
+        $.ajax({
+            url: SERVER_URI + "wps/loginchk",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                if (data.loggedin) {
+                    console.log(data.username);
+                    open_user_tab(data.firstname, data.username);
+                } else {
+                    console.log('not logged in');
+                }
+            }
+        });
     }
 
     var login_accordion = new Ext.Panel({
