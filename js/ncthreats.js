@@ -975,7 +975,8 @@ Ext.onReady(function() {
         console.log(firstname);
         var loginmsg = "<p>Hello " + firstname + "</p>";
         loginmsg += "<p> You are logged in as " + username + "</p>";
-        loginmsg += "<p>Open my <a href='#'>page</a>.</p>"
+        loginmsg += "<p>Open my <a target='_blank' href='" +
+            HOST_NAME + "wps/user/" + username + "'>page</a>.</p>"
         $("#login-msg").html(loginmsg);
         Ext.getCmp('userpanel').expand();
     }
@@ -1017,7 +1018,7 @@ Ext.onReady(function() {
                                 'Login Successful!', function(btn) {
                                     if (btn == 'ok') {}
                                 });
-                             open_user_tab(data.firstname, data.username);
+                            open_user_tab(data.firstname, data.username);
 
                         }
                     }
@@ -1070,6 +1071,21 @@ Ext.onReady(function() {
         }]
     });
 
+    var passwdchng = function() {
+        console.log('changing passwd');
+        var newpasswd = passwdchngPanel.getForm().getValues().passwd;
+        console.log(newpasswd);
+        $.ajax({
+            url: SERVER_URI + "wps/passwdchng",
+            type: "POST",
+            data: {'newpasswd': newpasswd},
+            dataType: "json",
+            success: function(data) {
+              console.log(data);
+            }
+        });
+    }
+
     var passwdchngPanel = new Ext.FormPanel({
         labelWidth: 120, // label settings here cascade unless overridden
         frame: true,
@@ -1088,8 +1104,8 @@ Ext.onReady(function() {
         }],
 
         buttons: [{
-            text: 'Submit'
-            // handler: passwdreset
+            text: 'Submit',
+            handler: passwdchng
         }]
     });
 
