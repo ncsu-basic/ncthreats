@@ -2,15 +2,16 @@
 
 
 var map;
+
 Ext.onReady(function() {
     "use strict";
 
     var resource;
 
-    // var SERVER_URI = "http://localhost/";
-    // var HOST_NAME = "http://localhost/ncthreats/";
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -976,10 +977,10 @@ Ext.onReady(function() {
         var loginmsg = "<p>Hello " + firstname + "</p>";
         loginmsg += "<p> You are logged in as " + username + "</p>";
         loginmsg += "<p>Open my <a target='_blank' href='" +
-            HOST_NAME + "wps/user/" + username + "'>page</a>.</p>"
+            SERVER_URI + "wps/user/" + username + "'>page</a>.</p>";
         $("#login-msg").html(loginmsg);
         Ext.getCmp('userpanel').expand();
-    }
+    };
 
     var login_form = new Ext.FormPanel({
         labelWidth: 80,
@@ -1046,7 +1047,7 @@ Ext.onReady(function() {
                 }
             }
         });
-    }
+    };
 
     var passwdresetPanel = new Ext.FormPanel({
         labelWidth: 80, // label settings here cascade unless overridden
@@ -1078,13 +1079,22 @@ Ext.onReady(function() {
         $.ajax({
             url: SERVER_URI + "wps/passwdchng",
             type: "POST",
-            data: {'newpasswd': newpasswd},
+            data: {
+                'newpasswd': newpasswd
+            },
             dataType: "json",
             success: function(data) {
-              console.log(data);
+                console.log(data);
+                if (data.success) {
+                    Ext.Msg.alert('Status',
+                        'Login Successful!', function(btn) {
+                            if (btn == 'ok') {}
+                        });
+
+                }
             }
         });
-    }
+    };
 
     var passwdchngPanel = new Ext.FormPanel({
         labelWidth: 120, // label settings here cascade unless overridden
