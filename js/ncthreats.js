@@ -8,10 +8,10 @@ Ext.onReady(function() {
 
     var resource;
 
-    var SERVER_URI = "http://localhost/";
-    var HOST_NAME = "http://localhost/ncthreats/";
-    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://localhost/";
+    // var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -748,7 +748,7 @@ Ext.onReady(function() {
             url: SERVER_URI + "wps",
             data: {
                 gml: gml,
-                aoi_list: aoi_list,
+                aoi_list: aoi_list.join(":"),
                 predef_type: selected_predef,
                 sel_type: sel_type
             },
@@ -1087,7 +1087,7 @@ Ext.onReady(function() {
                 console.log(data);
                 if (data.success) {
                     Ext.Msg.alert('Status',
-                        'Login Successful!', function(btn) {
+                        'Password changed.', function(btn) {
                             if (btn == 'ok') {}
                         });
 
