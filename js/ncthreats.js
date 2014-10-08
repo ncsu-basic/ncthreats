@@ -8,10 +8,11 @@ Ext.onReady(function() {
 
     var resource;
 
-    // var SERVER_URI = "http://localhost/";
+    var SERVER_URI = "http://localhost/";
     // var HOST_NAME = "http://localhost/ncthreats/";
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/";
+    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
