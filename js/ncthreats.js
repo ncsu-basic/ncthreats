@@ -1,6 +1,3 @@
-/*global google:false,  Ext:false, GeoExt:false, OpenLayers:false  */
-
-
 var map;
 
 Ext.onReady(function() {
@@ -415,6 +412,7 @@ Ext.onReady(function() {
 
     function add_point(e) {
         var lonlat = map.getLonLatFromViewPortPx(e.xy);
+        console.log(lonlat.lon);
         var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
         pts.push(pt);
         var linearRing = new OpenLayers.Geometry.LinearRing(pts);
@@ -572,7 +570,7 @@ Ext.onReady(function() {
             xtype: "container",
             id: "pdf_error_msg",
             height: 30
-            // html: "some error message, longer ddd longer still longer"
+                // html: "some error message, longer ddd longer still longer"
         }],
         buttons: [{
             text: "Create PDF",
@@ -993,12 +991,12 @@ Ext.onReady(function() {
         items: [{
             fieldLabel: 'Username',
             name: 'loginUsername'
-            // allowBlank: false
+                // allowBlank: false
         }, {
             fieldLabel: 'Password',
             name: 'loginPassword',
             inputType: 'password'
-            // allowBlank: false
+                // allowBlank: false
         }],
         buttons: [{
             text: 'Login',
@@ -1017,7 +1015,8 @@ Ext.onReady(function() {
                     success: function(data) {
                         if (data.success) {
                             Ext.Msg.alert('Status',
-                                'Login Successful!', function(btn) {
+                                'Login Successful!',
+                                function(btn) {
                                     if (btn == 'ok') {}
                                 });
                             open_user_tab(data.firstname, data.username);
@@ -1042,7 +1041,8 @@ Ext.onReady(function() {
             success: function(data) {
                 if (data.success) {
                     Ext.Msg.alert('Status',
-                        data.msg, function(btn) {
+                        data.msg,
+                        function(btn) {
                             if (btn == 'ok') {}
                         });
                 }
@@ -1088,7 +1088,8 @@ Ext.onReady(function() {
                 console.log(data);
                 if (data.success) {
                     Ext.Msg.alert('Status',
-                        'Password changed.', function(btn) {
+                        'Password changed.',
+                        function(btn) {
                             if (btn == 'ok') {}
                         });
 

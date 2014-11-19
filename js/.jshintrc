@@ -6,7 +6,15 @@
   "esnext": true,
   "globals": {},
   "globalstrict": true,
-  "quotmark": true,
+  "quotmark": false,
   "undef": true,
-  "unused": true
+  "unused": true,
+  "jquery": true,
+  "devel": true,
+  "predef": [ 
+    "google",
+    "Ext",
+    "GeoExt",
+    "OpenLayers"
+   ]
 }
