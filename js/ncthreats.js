@@ -388,6 +388,7 @@ Ext.onReady(function() {
     }
     map.events.register('zoomend', map, console_on_zoom);
 
+    // create click control to read lat/lon
     OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
         defaultHandlerOptions: {
             'single': true,
@@ -409,19 +410,42 @@ Ext.onReady(function() {
         trigger: add_point
     });
     var pts = [];
+    var col_name;
+
 
     function add_point(e) {
-        var lonlat = map.getLonLatFromViewPortPx(e.xy);
-        console.log(lonlat.lon);
-        var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
-        pts.push(pt);
-        var linearRing = new OpenLayers.Geometry.LinearRing(pts);
-        highlightLayer.destroyFeatures();
-        var polygonFeature =
-            new OpenLayers.Feature.Vector(
-                new OpenLayers.Geometry.Polygon([linearRing]));
-        highlightLayer.addFeatures([polygonFeature]);
-        highlightLayer.redraw();
+        var mode = formPanel2.getComponent('rg1').getValue().inputValue;
+        if (mode.indexOf("custom") !== -1) {
+            var lonlat = map.getLonLatFromViewPortPx(e.xy);
+            var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
+            pts.push(pt);
+            var linearRing = new OpenLayers.Geometry.LinearRing(pts);
+            highlightLayer.destroyFeatures();
+            var polygonFeature =
+                new OpenLayers.Feature.Vector(
+                    new OpenLayers.Geometry.Polygon([linearRing]));
+            highlightLayer.addFeatures([polygonFeature]);
+            highlightLayer.redraw();
+        } else {
+            var lonlat = map.getLonLatFromViewPortPx(e.xy);
+            console.log(lonlat);
+            $.ajax({
+                type: "GET",
+                url: SERVER_URI + "wps/pttojson",
+                data: {
+                    pt_lon: lonlat.lon,
+                    pt_lat: lonlat.lat,
+                    qry_lyr: col_name + "nc"
+                },
+                dataType: "json"
+            }).done(function(data, textStatus, jqXHR) {
+                if (jqXHR.status === 200) {
+                    console.log(data.msg);
+                }
+
+            });
+
+        }
 
     }
 
@@ -445,10 +469,10 @@ Ext.onReady(function() {
     map.addControl(query_ctl);
 
     var selected_hucs = {};
-    var col_name;
 
     //function to outline selected predefined areas of interest
     function showInfo(evt) {
+        console.log(selected_hucs);
         if (evt.features && evt.features.length) {
             for (var i = 0; i < evt.features.length; i++) {
                 //if selected feature is on then remove it
@@ -487,8 +511,10 @@ Ext.onReady(function() {
             highlightLayer.destroyFeatures();
             pts = [];
         } else if (mode.indexOf("predefined") !== -1) {
-            click.deactivate();
-            query_ctl.activate();
+            // click.deactivate();
+            // query_ctl.activate();
+            click.activate();
+            query_ctl.deactivate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         }
