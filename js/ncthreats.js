@@ -509,9 +509,8 @@ Ext.onReady(function() {
                 selected_hucs[evt.the_huc] = 'off';
                 var selected_features_drawn =
                     map.getLayersByName("AOI Selection")[0].features;
-                console.log(selected_features_drawn);
                 for (var j = 0; j < selected_features_drawn.length; j++) {
-                    if (selected_features_drawn[j].data[col_name] ===
+                    if (selected_features_drawn[j].data.name ===
                         evt.the_huc) {
                         map.getLayersByName(
                             "AOI Selection"
