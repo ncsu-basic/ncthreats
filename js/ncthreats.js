@@ -428,7 +428,6 @@ Ext.onReady(function() {
             highlightLayer.redraw();
         } else {
             var lonlat = map.getLonLatFromViewPortPx(e.xy);
-            console.log(lonlat);
             $.ajax({
                 type: "GET",
                 url: SERVER_URI + "wps/pttojson",
@@ -795,7 +794,7 @@ Ext.onReady(function() {
                 map.getLayersByName("AOI Selection")[0].features;
             for (var j = 0; j < selected_features_drawn.length; j++) {
                 aoi_list.push(
-                    selected_features_drawn[j].data[col_name]);
+                    selected_features_drawn[j].data.name);
             }
             console.log(aoi_list);
 
