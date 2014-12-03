@@ -435,12 +435,13 @@ Ext.onReady(function() {
                 data: {
                     pt_lon: lonlat.lon,
                     pt_lat: lonlat.lat,
-                    qry_lyr: col_name + "nc"
+                    qry_lyr: col_name
                 },
                 dataType: "json"
             }).done(function(data, textStatus, jqXHR) {
                 if (jqXHR.status === 200) {
-                    console.log(data.msg);
+                    // console.log(data.msg);
+                    showInfo2(data);
                 }
 
             });
@@ -480,6 +481,7 @@ Ext.onReady(function() {
                     selected_hucs[evt.features[i].data[col_name]] = 'off';
                     var selected_features_drawn =
                         map.getLayersByName("AOI Selection")[0].features;
+                    console.log(selected_features_drawn);
                     for (var j = 0; j < selected_features_drawn.length; j++) {
                         if (selected_features_drawn[j].data[col_name] ===
                             evt.features[i].data[col_name]) {
@@ -494,6 +496,38 @@ Ext.onReady(function() {
                     highlightLayer.addFeatures(evt.features[i]);
                 }
             }
+            highlightLayer.redraw();
+        }
+    }
+
+    //function to outline selected predefined areas of interest
+    function showInfo2(evt) {
+        if (evt.the_geom) {
+            // for (var i = 0; i < evt.features.length; i++) {
+            //if selected feature is on then remove it
+            if (selected_hucs[evt.the_huc] === 'on') {
+                selected_hucs[evt.the_huc] = 'off';
+                var selected_features_drawn =
+                    map.getLayersByName("AOI Selection")[0].features;
+                console.log(selected_features_drawn);
+                for (var j = 0; j < selected_features_drawn.length; j++) {
+                    if (selected_features_drawn[j].data[col_name] ===
+                        evt.the_huc) {
+                        map.getLayersByName(
+                            "AOI Selection"
+                        )[0].removeFeatures(selected_features_drawn[j]);
+                    }
+                }
+                // else add feature
+            } else {
+                selected_hucs[evt.the_huc] = 'on';
+                var format = new OpenLayers.Format.GeoJSON({
+                    'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                    'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                });
+                highlightLayer.addFeatures(format.read(evt.the_geom));
+            }
+            // }
             highlightLayer.redraw();
         }
     }
