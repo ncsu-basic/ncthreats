@@ -218,92 +218,102 @@ Ext.onReady(function() {
         }
     );
 
+     var ncbcr = new OpenLayers.Layer.TMS("NC BCR",
+        SERVER_URI + "tilecache/", {
+            layername: "ncbcr",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+        }
+    );
+
     //////////////////////////////////////////////////////////////
     ////bcr layer, no label no cache
 
-    var ncbcr = new OpenLayers.Layer.WMS("NC BCR",
-        SERVER_URI + "geoserver/wms", {
-            layers: "nc_bcr",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false,
-            displayInLayerSwitcher: true
-        });
+    // var ncbcr = new OpenLayers.Layer.WMS("NC BCR",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "nc_bcr",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         displayInLayerSwitcher: true
+    //     });
 
     ///////////////////////////////////////////////////////////////////
     ///////vector layers for query select tool
-    var nchuc12_qry = new OpenLayers.Layer.WMS("query geoserver, h12",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc12nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
+    // var nchuc12_qry = new OpenLayers.Layer.WMS("query geoserver, h12",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "huc12nc",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false
+    //     });
 
-    var nchuc8_qry = new OpenLayers.Layer.WMS("query geoserver, h8",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc8nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
+    // var nchuc8_qry = new OpenLayers.Layer.WMS("query geoserver, h8",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "huc8nc",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false
+    //     });
 
-    var nchuc4_qry = new OpenLayers.Layer.WMS("query geoserver, h4",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc4nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
+    // var nchuc4_qry = new OpenLayers.Layer.WMS("query geoserver, h4",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "huc4nc",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false
+    //     });
 
-    var nchuc2_qry = new OpenLayers.Layer.WMS("query geoserver, h2",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc2nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
+    // var nchuc2_qry = new OpenLayers.Layer.WMS("query geoserver, h2",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "huc2nc",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false
+    //     });
 
-    var nchuc6_qry = new OpenLayers.Layer.WMS("query geoserver, h6",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc6nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
+    // var nchuc6_qry = new OpenLayers.Layer.WMS("query geoserver, h6",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "huc6nc",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false
+    //     });
 
-    var nchuc10_qry = new OpenLayers.Layer.WMS("query geoserver, h10",
-        SERVER_URI + "geoserver/wms", {
-            layers: "huc10nc",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false
-        });
+    // var nchuc10_qry = new OpenLayers.Layer.WMS("query geoserver, h10",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "huc10nc",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false
+    //     });
 
-    var counties_qry = new OpenLayers.Layer.WMS("query geoserver, counties",
-        SERVER_URI + "geoserver/wms", {
-            layers: "counties",
-            format: 'image/png',
-            transparent: true
-        }, {
-            isBaseLayer: false,
-            visibility: false,
-            displayInLayerSwitcher: false
-        });
+    // var counties_qry = new OpenLayers.Layer.WMS("query geoserver, counties",
+    //     SERVER_URI + "geoserver/wms", {
+    //         layers: "counties",
+    //         format: 'image/png',
+    //         transparent: true
+    //     }, {
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         displayInLayerSwitcher: false
+    //     });
     ///////////////////////////////////////////////////////////
     ////////////analysis layers
 
@@ -374,9 +384,7 @@ Ext.onReady(function() {
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
-        results, counties_qry,
-        nchuc2_qry, nchuc4_qry, nchuc6_qry, nchuc8_qry, nchuc10_qry,
-        nchuc12_qry, gphy, osm, counties_base, hillshade
+        results, gphy, osm, counties_base, hillshade
     ]);
 
     //////////////////////////////////////////////////////////////////////////
