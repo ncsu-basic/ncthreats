@@ -218,7 +218,7 @@ Ext.onReady(function() {
         }
     );
 
-     var ncbcr = new OpenLayers.Layer.TMS("NC BCR",
+    var ncbcr = new OpenLayers.Layer.TMS("NC BCR",
         SERVER_URI + "tilecache/", {
             layername: "ncbcr",
             type: "png",
@@ -381,10 +381,18 @@ Ext.onReady(function() {
         renderers: ["SVG"]
     });
 
+    var huc12_state = new OpenLayers.Layer.Vector("HUC 12 Maps", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: resultsStyleMap,
+        renderers: ["SVG"]
+    });
+
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
-        results, gphy, osm, counties_base, hillshade
+        results, gphy, osm, counties_base, hillshade, huc12_state
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -913,6 +921,23 @@ Ext.onReady(function() {
     ];
     comboStore2.loadData(comboData2);
 
+    var comboStore3 = new Ext.data.ArrayStore({
+        fields: ['layerName', 'layerId']
+    });
+    var comboData3 = [
+        ["2010", '2010'],
+        ["2020", '2020'],
+        ["2030", '2030'],
+        ["2040", '2040'],
+        ["2050", '2050'],
+        ["2060", '2060'],
+        ["2070", '2070'],
+        ["2080", '2080'],
+        ["2090", '2090'],
+        ["2100", '2100'],
+    ];
+    comboStore3.loadData(comboData3);
+
 
 
     var checkGroup = {
@@ -963,6 +988,65 @@ Ext.onReady(function() {
             }]
         }]
     };
+
+    var mapsRadioGroup = {
+        xtype: 'fieldset',
+        title: 'HUC 12 Maps',
+        autoHeight: true,
+        layout: 'form',
+        // collapsed: true, // initially collapse the group
+        //  collapsible: true,
+        items: [{
+            // Use the default, automatic layout to distribute the controls evenly
+            // across a single row
+            xtype: 'radiogroup',
+            fieldLabel: 'select map',
+            id: 'mapradgrp',
+            columns: 1,
+            items: [{
+                boxLabel: 'Pollution 1',
+                imputValue: 'polu1',
+                name: 'map'
+            }, {
+                boxLabel: 'Pollution 2',
+                imputValue: 'polu2',
+                name: 'map'
+            }, {
+                boxLabel: 'Disease 1',
+                imputValue: 'dise1',
+                name: 'map'
+            }, {
+                boxLabel: 'Disease 2',
+                imputValue: 'dise2',
+                name: 'map'
+            }, {
+                boxLabel: 'Sea Level Rise',
+                imputValue: 'slr',
+                name: 'map'
+            }, {
+                boxLabel: 'Fire Probability',
+                imputValue: 'firp',
+                name: 'map'
+            }, {
+                boxLabel: 'Fire Sup',
+                imputValue: 'firs',
+                name: 'map'
+            }, {
+                boxLabel: 'Transportation Corridors',
+                imputValue: 'tran',
+                name: 'map'
+            }, {
+                boxLabel: 'Fragmentaion Index',
+                imputValue: 'frag',
+                name: 'map'
+            }, {
+                boxLabel: 'Urban Percentage',
+                imputValue: 'urb',
+                name: 'map'
+            }]
+        }]
+    };
+
 
 
     var threat_calcs_map = function() {
@@ -1034,6 +1118,34 @@ Ext.onReady(function() {
             text: "Show map",
             handler: threat_calcs_map
         }]
+    });
+
+    var formPanel4 = new Ext.form.FormPanel({
+        title: "Calculations",
+        width: 296,
+        height: 500,
+        bodyStyle: "padding:20px; ",
+        labelAlign: "top",
+        defaults: {
+            anchor: "100%"
+        },
+        items: [mapsRadioGroup, {
+            xtype: "combo",
+            itemId: "cmb2",
+            store: comboStore3,
+            name: 'year',
+            fieldLabel: "Target year",
+            value: "2010",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+        }],
+        buttons: []
     });
 
     var open_user_tab = function(firstname, username) {
@@ -1376,6 +1488,14 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
+    var maps_tab = new Ext.Panel({
+        title: 'Maps',
+        //html: "some content",
+        items: [formPanel4],
+        cls: 'help',
+        autoScroll: true
+    });
+
     var area_tab = new Ext.Panel({
         title: 'Shapefile Upload',
         cls: 'pages',
@@ -1436,7 +1556,7 @@ Ext.onReady(function() {
             // applied to each contained panel
             //bodyStyle : 'padding:15px'
         },
-        items: [area_tab2, area_tab]
+        items: [area_tab2, area_tab, process_tab]
     });
 
     function handleActivate(tab) {
@@ -1480,7 +1600,7 @@ Ext.onReady(function() {
         region: 'west',
         width: 300,
         activeTab: 0,
-        items: [tree, accordion, process_tab, print_tab, login_accordion],
+        items: [tree, maps_tab, accordion, print_tab, login_accordion],
         deferredRender: false
     });
 
