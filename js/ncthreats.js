@@ -912,12 +912,7 @@ Ext.onReady(function() {
         ["2020", '2020'],
         ["2030", '2030'],
         ["2040", '2040'],
-        ["2050", '2050'],
-        ["2060", '2060'],
-        ["2070", '2070'],
-        ["2080", '2080'],
-        ["2090", '2090'],
-        ["2100", '2100'],
+        ["2050", '2050']
     ];
     comboStore2.loadData(comboData2);
 
@@ -929,12 +924,7 @@ Ext.onReady(function() {
         ["2020", '2020'],
         ["2030", '2030'],
         ["2040", '2040'],
-        ["2050", '2050'],
-        ["2060", '2060'],
-        ["2070", '2070'],
-        ["2080", '2080'],
-        ["2090", '2090'],
-        ["2100", '2100'],
+        ["2050", '2050']
     ];
     comboStore3.loadData(comboData3);
 
@@ -1005,45 +995,52 @@ Ext.onReady(function() {
             columns: 1,
             items: [{
                 boxLabel: 'Pollution 1',
-                imputValue: 'polu1',
+                inputValue: 'polu1',
                 name: 'map'
             }, {
                 boxLabel: 'Pollution 2',
-                imputValue: 'polu2',
+                inputValue: 'polu2',
                 name: 'map'
             }, {
                 boxLabel: 'Disease 1',
-                imputValue: 'dise1',
+                inputValue: 'dise1',
                 name: 'map'
             }, {
                 boxLabel: 'Disease 2',
-                imputValue: 'dise2',
+                inputValue: 'dise2',
                 name: 'map'
             }, {
                 boxLabel: 'Sea Level Rise',
-                imputValue: 'slr',
+                inputValue: 'slr',
                 name: 'map'
             }, {
                 boxLabel: 'Fire Probability',
-                imputValue: 'firp',
+                inputValue: 'firp',
                 name: 'map'
             }, {
                 boxLabel: 'Fire Sup',
-                imputValue: 'firs',
+                inputValue: 'firs',
                 name: 'map'
             }, {
                 boxLabel: 'Transportation Corridors',
-                imputValue: 'tran',
+                inputValue: 'tran',
                 name: 'map'
             }, {
                 boxLabel: 'Fragmentaion Index',
-                imputValue: 'frag',
+                inputValue: 'frag',
                 name: 'map'
             }, {
                 boxLabel: 'Urban Percentage',
-                imputValue: 'urb',
+                inputValue: 'urb',
                 name: 'map'
-            }]
+            }],
+            listeners: {
+                change: function(field, newValue, oldValue) {
+                    console.log(newValue.inputValue);
+                }
+
+            }
+
         }]
     };
 
@@ -1120,8 +1117,12 @@ Ext.onReady(function() {
         }]
     });
 
+    var form4_chng = function() {
+        console.log("form4_chng");
+    }
+
     var formPanel4 = new Ext.form.FormPanel({
-        title: "Calculations",
+        title: "",
         width: 296,
         height: 500,
         bodyStyle: "padding:20px; ",
@@ -1142,7 +1143,7 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             listeners: {
-                //'select': form2_chng
+                'select': form4_chng
             }
         }],
         buttons: []
@@ -1550,7 +1551,7 @@ Ext.onReady(function() {
 
 
     var accordion = new Ext.Panel({
-        title: 'Area',
+        title: 'AOI',
         layout: 'accordion',
         defaults: {
             // applied to each contained panel
