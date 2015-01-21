@@ -449,55 +449,55 @@ Ext.onReady(function() {
 
     }
 
-    var featureinfo_format = new OpenLayers.Format.WMSGetFeatureInfo({
-        externalProjection: proj_4326,
-        internalProjection: proj_900913
-    });
+    // var featureinfo_format = new OpenLayers.Format.WMSGetFeatureInfo({
+    //     externalProjection: proj_4326,
+    //     internalProjection: proj_900913
+    // });
 
-    var query_ctl = new OpenLayers.Control.WMSGetFeatureInfo({
-        url: SERVER_URI + 'geoserver/wms',
-        title: 'Identify features by clicking',
-        //layers : [nchuc12],
-        queryVisible: false,
-        infoFormat: "application/vnd.ogc.gml",
-        format: featureinfo_format
-    });
+    // var query_ctl = new OpenLayers.Control.WMSGetFeatureInfo({
+    //     url: SERVER_URI + 'geoserver/wms',
+    //     title: 'Identify features by clicking',
+    //     //layers : [nchuc12],
+    //     queryVisible: false,
+    //     infoFormat: "application/vnd.ogc.gml",
+    //     format: featureinfo_format
+    // });
 
-    query_ctl.layers = [];
+    // query_ctl.layers = [];
 
-    query_ctl.events.register("getfeatureinfo", this, showInfo);
-    map.addControl(query_ctl);
+    // // query_ctl.events.register("getfeatureinfo", this, showInfo);
+    // map.addControl(query_ctl);
 
     var selected_hucs = {};
 
     //function to outline selected predefined areas of interest
-    function showInfo(evt) {
-        console.log(selected_hucs);
-        if (evt.features && evt.features.length) {
-            for (var i = 0; i < evt.features.length; i++) {
-                //if selected feature is on then remove it
-                if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
-                    selected_hucs[evt.features[i].data[col_name]] = 'off';
-                    var selected_features_drawn =
-                        map.getLayersByName("AOI Selection")[0].features;
-                    console.log(selected_features_drawn);
-                    for (var j = 0; j < selected_features_drawn.length; j++) {
-                        if (selected_features_drawn[j].data[col_name] ===
-                            evt.features[i].data[col_name]) {
-                            map.getLayersByName(
-                                "AOI Selection"
-                            )[0].removeFeatures(selected_features_drawn[j]);
-                        }
-                    }
-                    // else add feature
-                } else {
-                    selected_hucs[evt.features[i].data[col_name]] = 'on';
-                    highlightLayer.addFeatures(evt.features[i]);
-                }
-            }
-            highlightLayer.redraw();
-        }
-    }
+    // function showInfo(evt) {
+    //     console.log(selected_hucs);
+    //     if (evt.features && evt.features.length) {
+    //         for (var i = 0; i < evt.features.length; i++) {
+    //             //if selected feature is on then remove it
+    //             if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
+    //                 selected_hucs[evt.features[i].data[col_name]] = 'off';
+    //                 var selected_features_drawn =
+    //                     map.getLayersByName("AOI Selection")[0].features;
+    //                 console.log(selected_features_drawn);
+    //                 for (var j = 0; j < selected_features_drawn.length; j++) {
+    //                     if (selected_features_drawn[j].data[col_name] ===
+    //                         evt.features[i].data[col_name]) {
+    //                         map.getLayersByName(
+    //                             "AOI Selection"
+    //                         )[0].removeFeatures(selected_features_drawn[j]);
+    //                     }
+    //                 }
+    //                 // else add feature
+    //             } else {
+    //                 selected_hucs[evt.features[i].data[col_name]] = 'on';
+    //                 highlightLayer.addFeatures(evt.features[i]);
+    //             }
+    //         }
+    //         highlightLayer.redraw();
+    //     }
+    // }
 
     //function to outline selected predefined areas of interest
     function showInfo2(evt) {
@@ -533,7 +533,7 @@ Ext.onReady(function() {
     var click = new OpenLayers.Control.Click();
     map.addControl(click);
 
-    query_ctl.activate();
+    // query_ctl.activate();
 
     var new_selection = function() {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
@@ -546,7 +546,7 @@ Ext.onReady(function() {
             // click.deactivate();
             // query_ctl.activate();
             click.activate();
-            query_ctl.deactivate();
+            // query_ctl.deactivate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         }
@@ -693,49 +693,49 @@ Ext.onReady(function() {
         if (sel_type === 'predefined') {
             switch (selected_predef) {
                 case 'NC HUC 2':
-                    query_ctl.layers = [nchuc2_qry];
+                    // query_ctl.layers = [nchuc2_qry];
                     col_name = "huc2";
                     nchuc2.setVisibility(true);
                     nchuc2_lbl.setVisibility(true);
                     break;
                 case 'NC HUC 4':
-                    query_ctl.layers = [nchuc4_qry];
+                    // query_ctl.layers = [nchuc4_qry];
                     col_name = "huc4";
                     nchuc4.setVisibility(true);
                     nchuc4_lbl.setVisibility(true);
                     break;
                 case 'NC HUC 6':
-                    query_ctl.layers = [nchuc6_qry];
+                    // query_ctl.layers = [nchuc6_qry];
                     col_name = "huc6";
                     nchuc6.setVisibility(true);
                     nchuc6_lbl.setVisibility(true);
                     break;
                 case 'NC HUC 8':
-                    query_ctl.layers = [nchuc8_qry];
+                    // query_ctl.layers = [nchuc8_qry];
                     col_name = "huc8";
                     nchuc8.setVisibility(true);
                     nchuc8_lbl.setVisibility(true);
                     break;
                 case 'NC HUC 10':
-                    query_ctl.layers = [nchuc10_qry];
+                    // query_ctl.layers = [nchuc10_qry];
                     col_name = "huc10";
                     nchuc10.setVisibility(true);
                     nchuc10_lbl.setVisibility(true);
                     break;
                 case 'NC HUC 12':
-                    query_ctl.layers = [nchuc12_qry];
+                    // query_ctl.layers = [nchuc12_qry];
                     col_name = "huc_12";
                     nchuc12.setVisibility(true);
                     nchuc12_lbl.setVisibility(true);
                     break;
                 case 'NC Counties':
-                    query_ctl.layers = [counties_qry];
+                    // query_ctl.layers = [counties_qry];
                     col_name = "co_num";
                     counties.setVisibility(true);
                     counties_lbl.setVisibility(true);
                     break;
                 case 'NC BCR':
-                    query_ctl.layers = [ncbcr];
+                    // query_ctl.layers = [ncbcr];
                     col_name = "bcr";
                     ncbcr.setVisibility(true);
                     break;
