@@ -389,6 +389,28 @@ Ext.onReady(function() {
         renderers: ["SVG"]
     });
 
+    $.ajax({
+        type: "GET",
+        url: SERVER_URI + 'wps/huc12_state',
+        dataType: "json"
+    }).done(function(data) {
+        // aoi_to_file = getResource(resource);
+        // Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+        // onExecuted(data.geojson);
+        // var extent = new OpenLayers.Bounds(
+        //     data.extent).transform(proj_4326, proj_900913);
+        // map.zoomToExtent(extent);
+        console.log(data);
+                var geojson_format = new OpenLayers.Format.GeoJSON({
+            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+        });
+        // results.removeAllFeatures();
+        huc12_state.addFeatures(geojson_format.read(data));
+        huc12_state.setVisibility(true);
+
+    });
+
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
@@ -555,7 +577,7 @@ Ext.onReady(function() {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
         if (mode.indexOf("custom") !== -1) {
             click.activate();
-            query_ctl.deactivate();
+            // query_ctl.deactivate();
             highlightLayer.destroyFeatures();
             pts = [];
         } else if (mode.indexOf("predefined") !== -1) {
