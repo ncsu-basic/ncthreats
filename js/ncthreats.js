@@ -394,20 +394,12 @@ Ext.onReady(function() {
         url: SERVER_URI + 'wps/huc12_state',
         dataType: "json"
     }).done(function(data) {
-        // aoi_to_file = getResource(resource);
-        // Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-        // onExecuted(data.geojson);
-        // var extent = new OpenLayers.Bounds(
-        //     data.extent).transform(proj_4326, proj_900913);
-        // map.zoomToExtent(extent);
-        console.log(data);
-                var geojson_format = new OpenLayers.Format.GeoJSON({
+        var geojson_format = new OpenLayers.Format.GeoJSON({
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
-        // results.removeAllFeatures();
         huc12_state.addFeatures(geojson_format.read(data));
-        huc12_state.setVisibility(true);
+        huc12_state.setVisibility(false);
 
     });
 
@@ -1058,14 +1050,13 @@ Ext.onReady(function() {
             }],
             listeners: {
                 change: function(field, newValue, oldValue) {
-                    console.log(newValue.inputValue);
+                    // console.log(newValue.inputValue);
+                    // console.log(formPanel4.getForm().getValues(true));
+                    form4_chng();
                 }
-
             }
-
         }]
     };
-
 
 
     var threat_calcs_map = function() {
@@ -1141,6 +1132,22 @@ Ext.onReady(function() {
 
     var form4_chng = function() {
         console.log("form4_chng");
+        console.log(formPanel4.getForm().getValues(true));
+        var qry_str = formPanel4.getForm().getValues(true);
+        $.ajax({
+            type: "GET",
+            url: SERVER_URI + 'wps/huc12_map?' + qry_str,
+            dataType: "json"
+        }).done(function(data) {
+            for (var key in data.res) {
+                var thrt = data.res[key]
+                map.getLayersByName("HUC 12 Maps")[0].
+                getFeaturesByAttribute("huc12", key)[0].
+                attributes.threat = thrt;
+            }
+            map.getLayersByName("HUC 12 Maps")[0].redraw();
+        });
+
     }
 
     var formPanel4 = new Ext.form.FormPanel({
