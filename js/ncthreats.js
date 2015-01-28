@@ -401,6 +401,7 @@ Ext.onReady(function() {
         huc12_state.addFeatures(geojson_format.read(data));
         huc12_state.setVisibility(false);
 
+
     });
 
     map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
@@ -1333,6 +1334,8 @@ Ext.onReady(function() {
     // start GeoExt config
     ///////////////////////////////////////////////
 
+
+
     var ctrl, toolbarItems = [],
         action, actions = {};
     ctrl = new OpenLayers.Control.NavigationHistory();
@@ -1367,6 +1370,39 @@ Ext.onReady(function() {
             map.zoomToExtent(map_extent);
         },
         tooltip: "zoom full extent",
+        iconCls: "nc_zoom",
+        allowDepress: true
+    });
+    actions.next = action;
+    toolbarItems.push(action);
+    var float_win;
+    action = new Ext.Action({
+        handler: function() {
+            // map.zoomToExtent(map_extent);
+            // console.log(float_win);
+            // float_win.open();
+            console.log(float_win);
+            if (float_win === undefined) {
+                float_win = new Ext.Window({
+                    title: "Legend Window",
+                    height: 400,
+                    width: 300,
+                    layout: "fit",
+                    x: 50,
+                    y: 600,
+                    closeAction: 'hide',
+
+                    items: [{
+
+                    }]
+                }).show();
+            } else {
+               float_win.show();
+            }
+
+
+        },
+        tooltip: "show legend window",
         iconCls: "nc_zoom",
         allowDepress: true
     });
