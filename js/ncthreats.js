@@ -1147,6 +1147,7 @@ Ext.onReady(function() {
                 attributes.threat = thrt;
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
+            console.log(data.range);
         });
 
     }
@@ -1365,6 +1366,18 @@ Ext.onReady(function() {
 
     toolbarItems.push("-");
 
+
+    var legend_panel = new Ext.Panel({
+        title: 'legend panel',
+        cls: 'pages',
+        autoScroll: true,
+        id: "legendpnlid",
+        html: "<svg id='lgnddiv'></svg>"
+
+    });
+
+
+
     action = new Ext.Action({
         handler: function() {
             map.zoomToExtent(map_extent);
@@ -1373,6 +1386,7 @@ Ext.onReady(function() {
         iconCls: "nc_zoom",
         allowDepress: true
     });
+
     actions.next = action;
     toolbarItems.push(action);
     var float_win;
@@ -1392,15 +1406,43 @@ Ext.onReady(function() {
                     y: 600,
                     closeAction: 'hide',
 
-                    items: [{
+                    items: [legend_panel
 
-                    }]
+                    ]
                 }).show();
             } else {
-               float_win.show();
+                float_win.show();
+                // legend_panel.body.update("hello world");
             }
+            var data = [1, 2, 3, 4, 5];
+            var width = 420,
+                barHeight = 20;
 
+            var lgd = d3.select("#lgnddiv")
+                .attr("height", 300)
+                .attr("width", 250)
+                .style("background-color", "#eeeeee");
 
+            var bar = lgd.selectAll("g")
+                .data(data)
+                .enter().append("g")
+                .attr("transform", function(d, i) {
+                    return "translate(0," + i * barHeight + ")";
+                });
+
+            bar.append("rect")
+                .attr("width", 10)
+                .attr("height", barHeight - 1);
+
+            bar.append("text")
+                .attr("x", function(d) {
+                    return 30;
+                })
+                .attr("y", barHeight / 2)
+                .attr("dy", ".35em")
+                .text(function(d) {
+                    return d;
+                });
         },
         tooltip: "show legend window",
         iconCls: "nc_zoom",
@@ -1804,5 +1846,4 @@ Ext.onReady(function() {
         url: HOST_NAME + "pages/upload.html"
     });
     mgr.on("update", page_script);
-
 });
