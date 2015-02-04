@@ -5,13 +5,14 @@ Ext.onReady(function() {
 
     var resource;
 
-    var SERVER_URI = "http://localhost/";
+   // var SERVER_URI = "http://localhost/";
     // var HOST_NAME = "http://localhost/ncthreats/";
-    var HOST_NAME = "http://localhost/";
-    // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+
     var lgd_text;
     var lgd_title;
+   // var HOST_NAME = "http://localhost/";
+     var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+     var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -1872,3 +1873,4 @@ Ext.onReady(function() {
     });
     mgr.on("update", page_script);
 });
+
