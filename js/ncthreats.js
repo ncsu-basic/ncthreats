@@ -10,6 +10,8 @@ Ext.onReady(function() {
     var HOST_NAME = "http://localhost/";
     // var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
     // var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var lgd_text;
+    var lgd_title;
 
     ////////////////////////////////////////////
     //initialize map
@@ -325,42 +327,42 @@ Ext.onReady(function() {
     });
 
     var resultsStyleMap = new OpenLayers.StyleMap({});
-
+// ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
     var symbolsLookup = {
         1: {
             strokeColor: "black",
-            fillColor: "#008000",
+            fillColor: "#f5f57a",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.3
+            fillOpacity: 0.6
         },
         2: {
             strokeColor: "black",
-            fillColor: "#C05600",
+            fillColor: "#e8b655",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.3
+            fillOpacity: 0.6
         },
         3: {
             strokeColor: "black",
-            fillColor: "#FFFF00",
+            fillColor: "#d68036",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.3
+            fillOpacity: 0.6
         },
         4: {
             strokeColor: "black",
-            fillColor: "#FF8000",
+            fillColor: "#c3491a",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.3
+            fillOpacity: 0.6
         },
         5: {
             strokeColor: "black",
-            fillColor: "#FF0000",
+            fillColor: "#a80000",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.3
+            fillOpacity: 0.6
         }
     };
 
@@ -1147,7 +1149,12 @@ Ext.onReady(function() {
                 attributes.threat = thrt;
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
-            console.log(data.range);
+            console.log(data.map);
+            lgd_title.text(data.map);
+            lgd_text.text(function(d, i){
+                return data.range[i] + " - " + (data.range[i + 1] - 1);
+            });
+
         });
 
     }
@@ -1368,7 +1375,7 @@ Ext.onReady(function() {
 
 
     var legend_panel = new Ext.Panel({
-        title: 'legend panel',
+        // title: 'legend panel',
         cls: 'pages',
         autoScroll: true,
         id: "legendpnlid",
@@ -1398,7 +1405,7 @@ Ext.onReady(function() {
             console.log(float_win);
             if (float_win === undefined) {
                 float_win = new Ext.Window({
-                    title: "Legend Window",
+                    title: "Legend ",
                     height: 400,
                     width: 300,
                     layout: "fit",
@@ -1414,34 +1421,46 @@ Ext.onReady(function() {
                 float_win.show();
                 // legend_panel.body.update("hello world");
             }
-            var data = [1, 2, 3, 4, 5];
+            var data = ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000'];
             var width = 420,
-                barHeight = 20;
+                barHeight = 30;
 
             var lgd = d3.select("#lgnddiv")
                 .attr("height", 300)
                 .attr("width", 250)
-                .style("background-color", "#eeeeee");
+                .style("background-color", "#fafafa");
+
+            lgd_title = lgd.append('text')
+                .text("hello world")
+                .attr("x", 30)
+                .attr("y", 30)
+                .style("font", "20px sans-serif")
+                .style("text-anchor", "start");
 
             var bar = lgd.selectAll("g")
                 .data(data)
                 .enter().append("g")
                 .attr("transform", function(d, i) {
-                    return "translate(0," + i * barHeight + ")";
+                    return "translate(10," + (i * barHeight + 50) + ")";
                 });
 
             bar.append("rect")
-                .attr("width", 10)
-                .attr("height", barHeight - 1);
+                .attr("width", 30)
+                .attr("height", barHeight - 1)
+                .style("fill", function(d) {
+                    return "#" + d;
+                });
 
-            bar.append("text")
+            lgd_text = bar.append("text")
                 .attr("x", function(d) {
-                    return 30;
+                    return 70;
                 })
                 .attr("y", barHeight / 2)
                 .attr("dy", ".35em")
+                .style("font", "14px sans-serif")
+                .style("text-anchor", "start")
                 .text(function(d) {
-                    return d;
+                    return "xxxx";
                 });
         },
         tooltip: "show legend window",
