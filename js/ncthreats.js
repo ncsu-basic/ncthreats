@@ -1637,6 +1637,8 @@ Ext.onReady(function() {
         id: "aoi_upload_id"
     });
 
+
+
     var area_tab2 = new Ext.Panel({
         title: 'New AOI',
         autoScroll: true,
@@ -1751,6 +1753,17 @@ Ext.onReady(function() {
             split: true
         }
     });
+
+    var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
+    var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
+    var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
+    // Ext.get(panelid).applyStyles("background-image:url(http://tecumseh.zo.ncsu.edu/ext-3.4.1/resources/images/default/panel/light-hd.gif)");
+    Ext.get(panelid1).applyStyles("background-image: none");
+    Ext.get(panelid2).applyStyles("background-image: none");
+    Ext.get(panelid3).applyStyles("background-image: none");
+    Ext.get(panelid1).applyStyles("background-color: red");
+    Ext.get(panelid2).applyStyles("background-color: green");
+    Ext.get(panelid3).applyStyles("background-color: yellow");
 
     ////////////////////////////////////////////////////////////////////////
     //start scripting for panel html pages
