@@ -327,7 +327,7 @@ Ext.onReady(function() {
     });
 
     var resultsStyleMap = new OpenLayers.StyleMap({});
-// ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
+    // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
     var symbolsLookup = {
         1: {
             strokeColor: "black",
@@ -1151,8 +1151,14 @@ Ext.onReady(function() {
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
             lgd_title.text(data.map);
-            lgd_text.text(function(d, i){
-                return data.range[i] + " - " + (data.range[i + 1] - 1);
+            lgd_text.text(function(d, i) {
+                if (i === 0) {
+                    return data.range[i] + " - " + data.range[i + 1];
+
+                } else {
+                    return (data.range[i] + 1) + " - " + data.range[i + 1];
+
+                }
             });
 
         });
