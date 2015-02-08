@@ -1130,16 +1130,42 @@ Ext.onReady(function() {
                 }]
             }, {
                 text: 'habitat conversion',
-                leaf: true
+                children: [{
+                    text: "Sea Level Rise",
+                    leaf: true,
+                    myvalue: "slr"
+                }, {
+                    text: "Fire Probability",
+                    leaf: true,
+                    myvalue: "firp"
+                }, {
+                    text: "Fire Sup",
+                    leaf: true,
+                    myvalue: "firs"
+                }, {
+                    text: "Transportation Corridors",
+                    leaf: true,
+                    myvalue: "tran"
+                }]
             }, {
                 text: 'pollution',
                 myvalue: "polution 1",
                 children: [{
-                    text: 'Menu Option 1',
-                    leaf: true
+                    text: 'polution 1',
+                    leaf: true,
+                    myvalue: "tran"
                 }, {
-                    text: 'Menu Option 2',
-                    leaf: true
+                    text: 'polution 2',
+                    leaf: true,
+                    myvalue: "tran"
+                }, {
+                    text: 'disease 2',
+                    leaf: true,
+                    myvalue: "tran"
+                }, {
+                    text: 'disease 2',
+                    leaf: true,
+                    myvalue: "tran"
                 }]
             }]
         }),
@@ -1149,7 +1175,7 @@ Ext.onReady(function() {
             }
         }
     });
-    treeabc.getRootNode().expand();
+    // treeabc.getRootNode().expand();
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
