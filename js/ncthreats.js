@@ -1096,6 +1096,61 @@ Ext.onReady(function() {
         });
     };
 
+    var treeabc = new Ext.tree.TreePanel({
+        // renderTo: 'tree-div',
+        useArrows: true,
+        autoScroll: true,
+        animate: true,
+        enableDD: true,
+        containerScroll: true,
+        border: true,
+        // height: 500,
+        // auto create TreeLoader
+        // dataUrl: 'get-nodes.php',
+
+        // root: {
+        //     nodeType: 'async',
+        //     text: 'Ext JS',
+        //     draggable: false,
+        //     id: 'source'
+        // }
+        root: new Ext.tree.AsyncTreeNode({
+            expanded: true,
+            children: [{
+                text: 'land use conversion',
+                // leaf: true
+                children: [{
+                    text: 'Fragmentaion Index',
+                    myvalue: "frag",
+                    leaf: true
+                }, {
+                    text: 'Urban Percentage',
+                    myvalue: 'map',
+                    leaf: true
+                }]
+            }, {
+                text: 'habitat conversion',
+                leaf: true
+            }, {
+                text: 'pollution',
+                myvalue: "polution 1",
+                children: [{
+                    text: 'Menu Option 1',
+                    leaf: true
+                }, {
+                    text: 'Menu Option 2',
+                    leaf: true
+                }]
+            }]
+        }),
+        listeners: {
+            click: function(n) {
+                console.log(n.attributes.myvalue);
+            }
+        }
+    });
+    treeabc.getRootNode().expand();
+
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
         width: 296,
@@ -1174,7 +1229,7 @@ Ext.onReady(function() {
         defaults: {
             anchor: "100%"
         },
-        items: [mapsRadioGroup, {
+        items: [treeabc, {
             xtype: "combo",
             itemId: "cmb2",
             store: comboStore3,
