@@ -49,7 +49,7 @@ edit https://raw.github.com/Supervisor/initscripts/master/redhat-init-mingalevme
 
 #updating huc12 coverage
 #drop huc12nc, huc12nc_lbl
-ogr2ogr -f "PostgreSQL" -t_srs EPSG:4326 -nlt MULTIPOLYGON PG:dbname=ncthreats huc12nc.shp
+ogr2ogr -f "PostgreSQL" -t_srs EPSG:4326 -nln huc12nc -nlt MULTIPOLYGON PG:dbname=ncthreats huc12nc.shp
 
 create table huc12nc_lbl(
 pk serial primary key,
@@ -57,6 +57,7 @@ label varchar(100));
 
 SELECT AddGeometryColumn ('huc12nc_lbl','wkb_geometry',4326,'POINT',2);
 
+to get source code of psql function \ef huc_points, export EDITOR=vi
 select huc_points(); # from script huc_points.sql
 
 #disable all Geoserver/Geowebcache caching
@@ -73,3 +74,6 @@ add tilecache to supervisord
 
 edit tilecache service.py ln 140 to pass exception
 edit geoserver wms properties memory
+
+
+
