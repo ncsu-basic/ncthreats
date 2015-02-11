@@ -230,92 +230,7 @@ Ext.onReady(function() {
         }
     );
 
-    //////////////////////////////////////////////////////////////
-    ////bcr layer, no label no cache
 
-    // var ncbcr = new OpenLayers.Layer.WMS("NC BCR",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "nc_bcr",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false,
-    //         displayInLayerSwitcher: true
-    //     });
-
-    ///////////////////////////////////////////////////////////////////
-    ///////vector layers for query select tool
-    // var nchuc12_qry = new OpenLayers.Layer.WMS("query geoserver, h12",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "huc12nc",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false
-    //     });
-
-    // var nchuc8_qry = new OpenLayers.Layer.WMS("query geoserver, h8",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "huc8nc",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false
-    //     });
-
-    // var nchuc4_qry = new OpenLayers.Layer.WMS("query geoserver, h4",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "huc4nc",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false
-    //     });
-
-    // var nchuc2_qry = new OpenLayers.Layer.WMS("query geoserver, h2",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "huc2nc",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false
-    //     });
-
-    // var nchuc6_qry = new OpenLayers.Layer.WMS("query geoserver, h6",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "huc6nc",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false
-    //     });
-
-    // var nchuc10_qry = new OpenLayers.Layer.WMS("query geoserver, h10",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "huc10nc",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false
-    //     });
-
-    // var counties_qry = new OpenLayers.Layer.WMS("query geoserver, counties",
-    //     SERVER_URI + "geoserver/wms", {
-    //         layers: "counties",
-    //         format: 'image/png',
-    //         transparent: true
-    //     }, {
-    //         isBaseLayer: false,
-    //         visibility: false,
-    //         displayInLayerSwitcher: false
-    //     });
     ///////////////////////////////////////////////////////////
     ////////////analysis layers
 
@@ -1118,6 +1033,7 @@ Ext.onReady(function() {
             expanded: true,
             children: [{
                 text: 'land use conversion',
+                expanded: true,
                 // leaf: true
                 children: [{
                     text: 'Fragmentaion Index',
@@ -1130,6 +1046,7 @@ Ext.onReady(function() {
                 }]
             }, {
                 text: 'habitat conversion',
+                expanded: true,
                 children: [{
                     text: "Sea Level Rise",
                     leaf: true,
@@ -1149,7 +1066,7 @@ Ext.onReady(function() {
                 }]
             }, {
                 text: 'pollution',
-                myvalue: "polution 1",
+                expanded: true,
                 children: [{
                     text: 'polution 1',
                     leaf: true,
@@ -1172,6 +1089,9 @@ Ext.onReady(function() {
         listeners: {
             click: function(n) {
                 console.log(n.attributes.myvalue);
+                console.log(formPanel4.getForm().getValues(true));
+                form4_chng(n.attributes.myvalue);
+                huc12_state.setVisibility(true);
             }
         }
     });
@@ -1214,10 +1134,11 @@ Ext.onReady(function() {
         }]
     });
 
-    var form4_chng = function() {
-        console.log("form4_chng");
-        console.log(formPanel4.getForm().getValues(true));
-        var qry_str = formPanel4.getForm().getValues(true);
+    var form4_chng = function(radclick) {
+        // console.log("form4_chng", radclick);
+        // console.log(formPanel4.getForm().getValues(true));
+        var qry_str = formPanel4.getForm().getValues(true) + "&map=" + radclick;
+        console.log(qry_str);
         $.ajax({
             type: "GET",
             url: SERVER_URI + 'wps/huc12_map?' + qry_str,
@@ -1225,9 +1146,16 @@ Ext.onReady(function() {
         }).done(function(data) {
             for (var key in data.res) {
                 var thrt = data.res[key]
-                map.getLayersByName("HUC 12 Maps")[0].
-                getFeaturesByAttribute("huc12", key)[0].
-                attributes.threat = thrt;
+                    // console.log(key);
+                try {
+                    map.getLayersByName("HUC 12 Maps")[0].
+                    getFeaturesByAttribute("huc12", key)[0].
+                    attributes.threat = thrt;
+                } catch (err) {
+                    // console.log(err.message);
+                    console.log(key);
+                }
+
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
@@ -1481,74 +1409,76 @@ Ext.onReady(function() {
         allowDepress: true
     });
 
+
+
     actions.next = action;
     toolbarItems.push(action);
-    var float_win;
+    var float_win = new Ext.Window({
+        title: "Legend ",
+        height: 400,
+        width: 300,
+        layout: "fit",
+        x: 50,
+        y: 600,
+        closeAction: 'hide',
+
+        items: [legend_panel]
+    }).show();
+
+    var data = ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000'];
+    var width = 420,
+        barHeight = 30;
+
+    var lgd = d3.select("#lgnddiv")
+        .attr("height", 300)
+        .attr("width", 250)
+        .style("background-color", "#fafafa");
+
+    lgd_title = lgd.append('text')
+        .text("")
+        .attr("x", 30)
+        .attr("y", 30)
+        .style("font", "20px sans-serif")
+        .style("text-anchor", "start");
+
+    var bar = lgd.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("transform", function(d, i) {
+            return "translate(10," + (i * barHeight + 50) + ")";
+        });
+
+    bar.append("rect")
+        .attr("width", 30)
+        .attr("height", barHeight - 1)
+        .style("fill", function(d) {
+            return "#" + d;
+        });
+
+    lgd_text = bar.append("text")
+        .attr("x", function(d) {
+            return 70;
+        })
+        .attr("y", barHeight / 2)
+        .attr("dy", ".35em")
+        .style("font", "14px sans-serif")
+        .style("text-anchor", "start")
+        .text(function(d) {
+            return "";
+        });
+
+       float_win.hide();
+
     action = new Ext.Action({
         handler: function() {
             // map.zoomToExtent(map_extent);
             // console.log(float_win);
             // float_win.open();
             console.log(float_win);
-            if (float_win === undefined) {
-                float_win = new Ext.Window({
-                    title: "Legend ",
-                    height: 400,
-                    width: 300,
-                    layout: "fit",
-                    x: 50,
-                    y: 600,
-                    closeAction: 'hide',
 
-                    items: [legend_panel
+            float_win.show();
+            // legend_panel.body.update("hello world");
 
-                    ]
-                }).show();
-            } else {
-                float_win.show();
-                // legend_panel.body.update("hello world");
-            }
-            var data = ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000'];
-            var width = 420,
-                barHeight = 30;
-
-            var lgd = d3.select("#lgnddiv")
-                .attr("height", 300)
-                .attr("width", 250)
-                .style("background-color", "#fafafa");
-
-            lgd_title = lgd.append('text')
-                .text("hello world")
-                .attr("x", 30)
-                .attr("y", 30)
-                .style("font", "20px sans-serif")
-                .style("text-anchor", "start");
-
-            var bar = lgd.selectAll("g")
-                .data(data)
-                .enter().append("g")
-                .attr("transform", function(d, i) {
-                    return "translate(10," + (i * barHeight + 50) + ")";
-                });
-
-            bar.append("rect")
-                .attr("width", 30)
-                .attr("height", barHeight - 1)
-                .style("fill", function(d) {
-                    return "#" + d;
-                });
-
-            lgd_text = bar.append("text")
-                .attr("x", function(d) {
-                    return 70;
-                })
-                .attr("y", barHeight / 2)
-                .attr("dy", ".35em")
-                .style("font", "14px sans-serif")
-                .style("text-anchor", "start")
-                .text(function(d) {
-                    return "xxxx";
-                });
         },
         tooltip: "show legend window",
         iconCls: "nc_zoom",
@@ -1570,7 +1500,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'HUC 2',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC HUC 2") !== -1;
@@ -1581,7 +1511,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'HUC 4',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC HUC 4") !== -1;
@@ -1592,7 +1522,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'HUC 6',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC HUC 6") !== -1;
@@ -1603,7 +1533,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'HUC 8',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC HUC 8") !== -1;
@@ -1614,7 +1544,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'HUC 10',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC HUC 10") !== -1;
@@ -1625,7 +1555,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'HUC 12',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC HUC 12") !== -1;
@@ -1636,7 +1566,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'NC Counties',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC Counties") !== -1;
@@ -1647,7 +1577,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'NC BCR',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("NC BCR") !== -1;
@@ -1837,13 +1767,12 @@ Ext.onReady(function() {
     var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
     var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
     var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
-    // Ext.get(panelid).applyStyles("background-image:url(http://tecumseh.zo.ncsu.edu/ext-3.4.1/resources/images/default/panel/light-hd.gif)");
-    Ext.get(panelid1).applyStyles("background-image: url(/images/light-green-hd.gif)");
-    Ext.get(panelid2).applyStyles("background-image: url(/images/light-red-hd.gif)");
-    Ext.get(panelid3).applyStyles("background-image: url(/images/light-hd-blue.gif)");
-    // Ext.get(panelid1).applyStyles("background-color: red");
-    // Ext.get(panelid2).applyStyles("background-color: green");
-    // Ext.get(panelid3).applyStyles("background-color: yellow");
+    Ext.get(panelid1).applyStyles("background-image: url(/images/dark-green-hd.gif)");
+    Ext.get(panelid1).applyStyles("color: white");
+    Ext.get(panelid2).applyStyles("background-image: url(/images/dark-red-hd.gif)");
+    Ext.get(panelid2).applyStyles("color: white");
+    Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
+    Ext.get(panelid3).applyStyles("color: white");
 
     ////////////////////////////////////////////////////////////////////////
     //start scripting for panel html pages
