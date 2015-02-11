@@ -1838,12 +1838,12 @@ Ext.onReady(function() {
     var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
     var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
     // Ext.get(panelid).applyStyles("background-image:url(http://tecumseh.zo.ncsu.edu/ext-3.4.1/resources/images/default/panel/light-hd.gif)");
-    Ext.get(panelid1).applyStyles("background-image: none");
-    Ext.get(panelid2).applyStyles("background-image: none");
-    Ext.get(panelid3).applyStyles("background-image: none");
-    Ext.get(panelid1).applyStyles("background-color: red");
-    Ext.get(panelid2).applyStyles("background-color: green");
-    Ext.get(panelid3).applyStyles("background-color: yellow");
+    Ext.get(panelid1).applyStyles("background-image: url(/images/light-green-hd.gif)");
+    Ext.get(panelid2).applyStyles("background-image: url(/images/light-red-hd.gif)");
+    Ext.get(panelid3).applyStyles("background-image: url(/images/light-hd-blue.gif)");
+    // Ext.get(panelid1).applyStyles("background-color: red");
+    // Ext.get(panelid2).applyStyles("background-color: green");
+    // Ext.get(panelid3).applyStyles("background-color: yellow");
 
     ////////////////////////////////////////////////////////////////////////
     //start scripting for panel html pages
