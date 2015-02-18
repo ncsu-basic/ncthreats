@@ -1,4 +1,6 @@
 http://strk.keybit.net/blog/2012/04/13/simplifying-a-map-layer-using-postgis-topology/
+http://trac.osgeo.org/postgis/wiki/UsersWikiPostgisTopology
+#change topology name for new import, might not be required???
 
 SELECT CreateTopology('nchuc12_topo', find_srid('public', 'huc12nc', 'wkb_geometry'));
 
