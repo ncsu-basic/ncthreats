@@ -7,6 +7,9 @@
 .nc_zoom {
 	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/nc.png');
 }
+.legend_win{
+	background-image: url('../images/legend_btn.png');
+}
 div.olControlMousePosition {
 	/* right: 100px !important;
 	*/

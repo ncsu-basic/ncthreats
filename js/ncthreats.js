@@ -8,6 +8,8 @@ Ext.onReady(function() {
    // var SERVER_URI = "http://localhost/";
     // var HOST_NAME = "http://localhost/ncthreats/";
 
+   // var SERVER_URI = "http://localhost/";
+   // var HOST_NAME = "http://localhost/ncthreats/";
     var lgd_text;
     var lgd_title;
    // var HOST_NAME = "http://localhost/";
@@ -1482,7 +1484,7 @@ Ext.onReady(function() {
 
         },
         tooltip: "show legend window",
-        iconCls: "nc_zoom",
+        iconCls: "legend_win",
         allowDepress: true
     });
     actions.next = action;
