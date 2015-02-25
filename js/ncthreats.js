@@ -957,55 +957,127 @@ Ext.onReady(function() {
         root: new Ext.tree.AsyncTreeNode({
             expanded: true,
             children: [{
-                text: 'land use conversion',
-                expanded: true,
+                text: 'Habitats',
+                expanded: false,
                 // leaf: true
                 children: [{
-                    text: 'Fragmentaion Index',
-                    myvalue: "frag",
+                    text: 'Forest',
+                    myvalue: "forest",
                     leaf: true
                 }, {
-                    text: 'Urban Percentage',
-                    myvalue: 'map',
+                    text: 'Wet Forest',
+                    myvalue: 'wetforest',
+                    leaf: true
+                }, {
+                    text: 'Wet Herbaceous',
+                    myvalue: 'wetherb',
+                    leaf: true
+                }, {
+                    text: 'Open',
+                    myvalue: 'open',
+                    leaf: true
+                }, {
+                    text: 'Scrub/Shrub',
+                    myvalue: 'scrub',
                     leaf: true
                 }]
             }, {
-                text: 'habitat conversion',
-                expanded: true,
+                text: 'Urban/fire',
+                expanded: false,
                 children: [{
-                    text: "Sea Level Rise",
+                    text: "Urban Growth",
                     leaf: true,
                     myvalue: "slr"
                 }, {
-                    text: "Fire Probability",
+                    text: "Fire Suppression",
                     leaf: true,
                     myvalue: "firp"
-                }, {
-                    text: "Fire Sup",
+                }]
+            }, {
+                text: 'Nutrient Loading',
+                expanded: false,
+                children: [{
+                    text: 'Manure Application',
                     leaf: true,
-                    myvalue: "firs"
-                }, {
-                    text: "Transportation Corridors",
+                    myvalue: "tran"
+                },{
+                    text: 'Synthetic Nitrogen Fertilizer Application',
                     leaf: true,
                     myvalue: "tran"
                 }]
             }, {
-                text: 'pollution',
-                expanded: true,
+                text: 'Annual Atmospheric Deposition',
+                expanded: false,
                 children: [{
-                    text: 'polution 1',
+                    text: 'Total Nitrogen Deposition',
                     leaf: true,
                     myvalue: "tran"
-                }, {
-                    text: 'polution 2',
+                },{
+                    text: 'Total Sulfur Deposition',
                     leaf: true,
                     myvalue: "tran"
-                }, {
-                    text: 'disease 2',
+                }]
+            }, {
+                text: 'Hydrologic Alteration',
+                expanded: false,
+                children: [{
+                    text: 'Number of dams',
                     leaf: true,
                     myvalue: "tran"
-                }, {
-                    text: 'disease 2',
+                }]
+            }, {
+                text: 'Impaired Waters',
+                expanded: false,
+                children: [{
+                    text: 'Impaired: All',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Biota',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Metals',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Nutrients',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Habitat',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Temperature',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Pollution',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Impaired: Other',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Fish Consumption Advisory',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Total Length',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Stream density',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Total number of NID point',
+                    leaf: true,
+                    myvalue: "tran"
+                },{
+                    text: 'Total Water Storage',
                     leaf: true,
                     myvalue: "tran"
                 }]
@@ -1015,7 +1087,7 @@ Ext.onReady(function() {
             click: function(n) {
                 console.log(n.attributes.myvalue);
                 console.log(formPanelhuc12maps.getForm().getValues(true));
-                // form4_chng(n.attributes.myvalue);
+                formhuc12maps_chng(n.attributes.myvalue);
                 huc12_state.setVisibility(true);
             }
         }
@@ -1059,10 +1131,10 @@ Ext.onReady(function() {
         }]
     });
 
-    var form4_chng = function(radclick) {
+    var formhuc12maps_chng = function(radclick) {
         // console.log("form4_chng", radclick);
         // console.log(formPanel4.getForm().getValues(true));
-        var qry_str = formPanel4.getForm().getValues(true) + "&map=" + radclick;
+        var qry_str = formPanelhuc12maps.getForm().getValues(true) + "&map=" + radclick;
         console.log(qry_str);
         $.ajax({
             type: "GET",
@@ -1137,6 +1209,7 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
+            hiddenName: 'scenario',
             listeners: {
                 // 'select': form4_chng
             },
