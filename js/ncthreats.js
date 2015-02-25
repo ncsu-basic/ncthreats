@@ -619,7 +619,7 @@ Ext.onReady(function() {
     });
 
     /////////////create area panel
-    var comboStore = new Ext.data.ArrayStore({
+    var comboStorelayers = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData = [
@@ -632,8 +632,9 @@ Ext.onReady(function() {
         ["NC Counties", 'cnt7'],
         ["NC BCR", 'bcr8']
     ];
-    comboStore.loadData(comboData);
+    comboStorelayers.loadData(comboData);
 
+    // called creating new aoi
     var form2_chng = function() {
         remove_action();
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
@@ -692,6 +693,7 @@ Ext.onReady(function() {
         new_selection();
     };
     var aoi_to_file, onExecuted;
+
     //function to submit defined area
     var save_action = function() {
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
@@ -767,11 +769,9 @@ Ext.onReady(function() {
                 data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
         });
-
-
-
     };
 
+    // new aoi panel
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
         width: 296,
@@ -785,7 +785,7 @@ Ext.onReady(function() {
             xtype: "combo",
             itemId: "cmb1",
             name: "predef_selection",
-            store: comboStore,
+            store: comboStorelayers,
             fieldLabel: "Predefined selections",
             typeAhead: true,
             mode: "local",
@@ -836,7 +836,7 @@ Ext.onReady(function() {
     });
 
     //////////////////////////processing panel
-    var comboStore2 = new Ext.data.ArrayStore({
+    var comboStoreyears = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData2 = [
@@ -846,20 +846,20 @@ Ext.onReady(function() {
         ["2040", '2040'],
         ["2050", '2050']
     ];
-    comboStore2.loadData(comboData2);
+    comboStoreyears.loadData(comboData2);
 
-    var comboStore3 = new Ext.data.ArrayStore({
+     var comboStorescenarios = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData3 = [
-        ["2010", '2010'],
-        ["2020", '2020'],
-        ["2030", '2030'],
-        ["2040", '2040'],
-        ["2050", '2050']
+        ["Baseline", 'x'],
+        ["Harvest of pine & hardwood forest", 'a'],
+        ["Biomass&conv of marg agriculture to bfls", 'b'],
+        ["Biomass&conv of marg ag&forest to bfls", 'c'],
+        ["Baseline&conv of marg agriculture to bfls", 'd'],
+        ["Baseline&conv of marg ag&forest to bfls", 'e'],
     ];
-    comboStore3.loadData(comboData3);
-
+    comboStorescenarios.loadData(comboData3);
 
 
     var checkGroup = {
@@ -911,71 +911,6 @@ Ext.onReady(function() {
         }]
     };
 
-    var mapsRadioGroup = {
-        xtype: 'fieldset',
-        title: 'HUC 12 Maps',
-        autoHeight: true,
-        layout: 'form',
-        // collapsed: true, // initially collapse the group
-        //  collapsible: true,
-        items: [{
-            // Use the default, automatic layout to distribute the controls evenly
-            // across a single row
-            xtype: 'radiogroup',
-            fieldLabel: 'select map',
-            id: 'mapradgrp',
-            columns: 1,
-            items: [{
-                boxLabel: 'Pollution 1',
-                inputValue: 'polu1',
-                name: 'map'
-            }, {
-                boxLabel: 'Pollution 2',
-                inputValue: 'polu2',
-                name: 'map'
-            }, {
-                boxLabel: 'Disease 1',
-                inputValue: 'dise1',
-                name: 'map'
-            }, {
-                boxLabel: 'Disease 2',
-                inputValue: 'dise2',
-                name: 'map'
-            }, {
-                boxLabel: 'Sea Level Rise',
-                inputValue: 'slr',
-                name: 'map'
-            }, {
-                boxLabel: 'Fire Probability',
-                inputValue: 'firp',
-                name: 'map'
-            }, {
-                boxLabel: 'Fire Sup',
-                inputValue: 'firs',
-                name: 'map'
-            }, {
-                boxLabel: 'Transportation Corridors',
-                inputValue: 'tran',
-                name: 'map'
-            }, {
-                boxLabel: 'Fragmentaion Index',
-                inputValue: 'frag',
-                name: 'map'
-            }, {
-                boxLabel: 'Urban Percentage',
-                inputValue: 'urb',
-                name: 'map'
-            }],
-            listeners: {
-                change: function(field, newValue, oldValue) {
-                    // console.log(newValue.inputValue);
-                    // console.log(formPanel4.getForm().getValues(true));
-                    form4_chng();
-                }
-            }
-        }]
-    };
-
 
     var threat_calcs_map = function() {
         var form_vals = formPanel3.getForm().getValues(true);
@@ -1011,7 +946,7 @@ Ext.onReady(function() {
         });
     };
 
-    var treeabc = new Ext.tree.TreePanel({
+    var tree_huc12maps = new Ext.tree.TreePanel({
         // renderTo: 'tree-div',
         useArrows: true,
         autoScroll: true,
@@ -1019,16 +954,6 @@ Ext.onReady(function() {
         enableDD: true,
         containerScroll: true,
         border: true,
-        // height: 500,
-        // auto create TreeLoader
-        // dataUrl: 'get-nodes.php',
-
-        // root: {
-        //     nodeType: 'async',
-        //     text: 'Ext JS',
-        //     draggable: false,
-        //     id: 'source'
-        // }
         root: new Ext.tree.AsyncTreeNode({
             expanded: true,
             children: [{
@@ -1089,13 +1014,13 @@ Ext.onReady(function() {
         listeners: {
             click: function(n) {
                 console.log(n.attributes.myvalue);
-                console.log(formPanel4.getForm().getValues(true));
-                form4_chng(n.attributes.myvalue);
+                console.log(formPanelhuc12maps.getForm().getValues(true));
+                // form4_chng(n.attributes.myvalue);
                 huc12_state.setVisibility(true);
             }
         }
     });
-    // treeabc.getRootNode().expand();
+    // tree_huc12maps.getRootNode().expand();
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
@@ -1109,7 +1034,7 @@ Ext.onReady(function() {
         items: [checkGroup, {
             xtype: "combo",
             itemId: "cmb2",
-            store: comboStore2,
+            store: comboStoreyears,
             name: 'year',
             fieldLabel: "Target year",
             value: "2010",
@@ -1174,7 +1099,7 @@ Ext.onReady(function() {
 
     }
 
-    var formPanel4 = new Ext.form.FormPanel({
+    var formPanelhuc12maps = new Ext.form.FormPanel({
         title: "",
         width: 296,
         height: 500,
@@ -1183,10 +1108,10 @@ Ext.onReady(function() {
         defaults: {
             anchor: "100%"
         },
-        items: [treeabc, {
+        items: [tree_huc12maps, {
             xtype: "combo",
             itemId: "cmb2",
-            store: comboStore3,
+            store: comboStoreyears,
             name: 'year',
             fieldLabel: "Target year",
             value: "2010",
@@ -1196,9 +1121,29 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             listeners: {
-                'select': form4_chng
-            }
-        }],
+                // 'select': form4_chng
+            },
+
+        },
+        {
+            xtype: "combo",
+            itemId: "cmb3",
+            store: comboStorescenarios,
+            name: 'year',
+            fieldLabel: "Scenario",
+            value: "x",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                // 'select': form4_chng
+            },
+
+        }
+
+        ],
         buttons: []
     });
 
@@ -1635,7 +1580,7 @@ Ext.onReady(function() {
     var maps_tab = new Ext.Panel({
         title: 'Maps',
         //html: "some content",
-        items: [formPanel4],
+        items: [formPanelhuc12maps],
         cls: 'help',
         autoScroll: true
     });
