@@ -1131,6 +1131,14 @@ Ext.onReady(function() {
         }]
     });
 
+    var legend_titles = {
+        frst: 'Forest Habitat (ha)',
+        ftwt: 'Wet Forest Habitat (ha)',
+        hbwt: 'Wet Herbaceous Habitat (ha)',
+        open: 'Open Habitat (ha)',
+        shrb: 'Scrub/Shrub Habitat (ha)'
+    }
+
     var formhuc12maps_chng = function(radclick) {
         // console.log("form4_chng", radclick);
         // console.log(formPanel4.getForm().getValues(true));
@@ -1160,16 +1168,17 @@ Ext.onReady(function() {
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
-            lgd_title.text(data.map);
-            // lgd_text.text(function(d, i) {
-            //     if (i === 0) {
-            //         return data.range[i] + " - " + data.range[i + 1];
 
-            //     } else {
-            //         return (data.range[i] + 1) + " - " + data.range[i + 1];
+            lgd_title.text(legend_titles[data.map]);
+            lgd_text.text(function(d, i) {
+                if (i === 0) {
+                    return data.range[i] + " - " + data.range[i + 1];
 
-            //     }
-            // });
+                } else {
+                    return (data.range[i] ) + " - " + data.range[i + 1];
+
+                }
+            });
 
         });
 
@@ -1438,8 +1447,8 @@ Ext.onReady(function() {
     toolbarItems.push(action);
     var float_win = new Ext.Window({
         title: "Legend ",
-        height: 400,
-        width: 300,
+        height: 320,
+        width: 320,
         layout: "fit",
         x: 50,
         y: 600,
@@ -1453,15 +1462,15 @@ Ext.onReady(function() {
         barHeight = 30;
 
     var lgd = d3.select("#lgnddiv")
-        .attr("height", 300)
-        .attr("width", 250)
-        .style("background-color", "#fafafa");
+        .attr("height", 270)
+        .attr("width", 270)
+        .style("background-color", "#fdfdfd");
 
     lgd_title = lgd.append('text')
         .text("")
         .attr("x", 30)
         .attr("y", 30)
-        .style("font", "20px sans-serif")
+        .style("font", "18px sans-serif")
         .style("text-anchor", "start");
 
     var bar = lgd.selectAll("g")
