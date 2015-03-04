@@ -16,29 +16,29 @@
     }
 }());
 
-var blah = [{
-    text: 'Forest',
-    myvalue: "frst",
-    leaf: true
-}, {
-    text: 'Wet Forest',
-    myvalue: 'ftwt',
-    leaf: true
-}, {
-    text: 'Wet Herbaceous',
-    myvalue: 'hbwt',
-    leaf: true
-}, {
-    text: 'Open',
-    myvalue: 'open',
-    leaf: true
-}, {
-    text: 'Scrub/Shrub',
-    myvalue: 'shrb',
-    leaf: true
-}];
+// var blah = [{
+//     text: 'Forest',
+//     myvalue: "frst",
+//     leaf: true
+// }, {
+//     text: 'Wet Forest',
+//     myvalue: 'ftwt',
+//     leaf: true
+// }, {
+//     text: 'Wet Herbaceous',
+//     myvalue: 'hbwt',
+//     leaf: true
+// }, {
+//     text: 'Open',
+//     myvalue: 'open',
+//     leaf: true
+// }, {
+//     text: 'Scrub/Shrub',
+//     myvalue: 'shrb',
+//     leaf: true
+// }];
 
-console.log(habitats);
+// console.log(habitats);
 
 var habitats = [{
     text: 'Baseline',
@@ -46,23 +46,23 @@ var habitats = [{
         text: '2010',
         children: [{
             text: 'Forest',
-            myvalue: "frst",
+            myvalue: "frst:10:x",
             leaf: true
         }, {
             text: 'Wet Forest',
-            myvalue: 'ftwt',
+            myvalue: 'ftwt:10:x',
             leaf: true
         }, {
             text: 'Wet Herbaceous',
-            myvalue: 'hbwt',
+            myvalue: 'hbwt:10:x',
             leaf: true
         }, {
             text: 'Open',
-            myvalue: 'open',
+            myvalue: 'open:10:x',
             leaf: true
         }, {
             text: 'Scrub/Shrub',
-            myvalue: 'shrb',
+            myvalue: 'shrb:10:x',
             leaf: true
         }]
 
@@ -70,92 +70,92 @@ var habitats = [{
         text: '2020',
         children: [{
             text: 'Forest',
-            myvalue: "frst",
+            myvalue: "frst:20:x",
             leaf: true
         }, {
             text: 'Wet Forest',
-            myvalue: 'ftwt',
+            myvalue: 'ftwt:20:x',
             leaf: true
         }, {
             text: 'Wet Herbaceous',
-            myvalue: 'hbwt',
+            myvalue: 'hbwt:20:x',
             leaf: true
         }, {
             text: 'Open',
-            myvalue: 'open',
+            myvalue: 'open:20:x',
             leaf: true
         }, {
             text: 'Scrub/Shrub',
-            myvalue: 'shrb',
+            myvalue: 'shrb:20:x',
             leaf: true
         }]
     }, {
         text: '2030',
         children: [{
             text: 'Forest',
-            myvalue: "frst",
+            myvalue: "frst:30:x",
             leaf: true
         }, {
             text: 'Wet Forest',
-            myvalue: 'ftwt',
+            myvalue: 'ftwt:30:x',
             leaf: true
         }, {
             text: 'Wet Herbaceous',
-            myvalue: 'hbwt',
+            myvalue: 'hbwt:30:x',
             leaf: true
         }, {
             text: 'Open',
-            myvalue: 'open',
+            myvalue: 'open:30:x',
             leaf: true
         }, {
             text: 'Scrub/Shrub',
-            myvalue: 'shrb',
+            myvalue: 'shrb:30:x',
             leaf: true
         }]
     }, {
         text: '2040',
         children: [{
             text: 'Forest',
-            myvalue: "frst",
+            myvalue: "frst:40:x",
             leaf: true
         }, {
             text: 'Wet Forest',
-            myvalue: 'ftwt',
+            myvalue: 'ftwt:40:x',
             leaf: true
         }, {
             text: 'Wet Herbaceous',
-            myvalue: 'hbwt',
+            myvalue: 'hbwt:40:x',
             leaf: true
         }, {
             text: 'Open',
-            myvalue: 'open',
+            myvalue: 'open:40:x',
             leaf: true
         }, {
             text: 'Scrub/Shrub',
-            myvalue: 'shrb',
+            myvalue: 'shrb:40:x',
             leaf: true
         }]
     }, {
         text: '2050',
         children: [{
             text: 'Forest',
-            myvalue: "frst",
+            myvalue: "frst:50:x",
             leaf: true
         }, {
             text: 'Wet Forest',
-            myvalue: 'ftwt',
+            myvalue: 'ftwt:50:x',
             leaf: true
         }, {
             text: 'Wet Herbaceous',
-            myvalue: 'hbwt',
+            myvalue: 'hbwt:50:x',
             leaf: true
         }, {
             text: 'Open',
-            myvalue: 'open',
+            myvalue: 'open:50:x',
             leaf: true
         }, {
             text: 'Scrub/Shrub',
-            myvalue: 'shrb',
+            myvalue: 'shrb:50:x',
             leaf: true
         }]
     }]

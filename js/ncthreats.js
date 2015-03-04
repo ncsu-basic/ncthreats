@@ -1176,41 +1176,42 @@ Ext.onReady(function() {
         defaults: {
             anchor: "100%"
         },
-        items: [tree_huc12maps, {
-                xtype: "combo",
-                itemId: "cmb2",
-                store: comboStoreyears,
-                name: 'scn',
-                fieldLabel: "Target year",
-                value: "10",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                hiddenName: 'year',
-                listeners: {
-                    // 'select': form4_chng
-                },
+        items: [tree_huc12maps
+        // , {
+            //     xtype: "combo",
+            //     itemId: "cmb2",
+            //     store: comboStoreyears,
+            //     name: 'scn',
+            //     fieldLabel: "Target year",
+            //     value: "10",
+            //     typeAhead: true,
+            //     mode: "local",
+            //     triggerAction: "all",
+            //     valueField: 'layerId',
+            //     displayField: 'layerName',
+            //     hiddenName: 'year',
+            //     listeners: {
+            //         // 'select': form4_chng
+            //     },
 
-            }, {
-                xtype: "combo",
-                itemId: "cmb3",
-                store: comboStorescenarios,
-                name: 'yr',
-                fieldLabel: "Scenario",
-                value: "x",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                hiddenName: 'scenario',
-                listeners: {
-                    // 'select': form4_chng
-                },
+            // }, {
+            //     xtype: "combo",
+            //     itemId: "cmb3",
+            //     store: comboStorescenarios,
+            //     name: 'yr',
+            //     fieldLabel: "Scenario",
+            //     value: "x",
+            //     typeAhead: true,
+            //     mode: "local",
+            //     triggerAction: "all",
+            //     valueField: 'layerId',
+            //     displayField: 'layerName',
+            //     hiddenName: 'scenario',
+            //     listeners: {
+            //         // 'select': form4_chng
+            //     },
 
-            }
+            // }
 
         ],
         buttons: []
