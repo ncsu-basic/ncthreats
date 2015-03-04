@@ -68,25 +68,690 @@ var habitats = [{
 
     }, {
         text: '2020',
-        children: {}
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
     }, {
         text: '2030',
-        children: {}
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
     }, {
         text: '2040',
-        children: {}
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
     }, {
         text: '2050',
-        children: {}
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
     }]
 }, {
-    text: 'Biofuel Production A'
+    text: 'Biofuel Production A',
+    children: [{
+        text: '2010',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+
+    }, {
+        text: '2020',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2030',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2040',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2050',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }]
 }, {
-    text: 'Biofuel Production B'
+    text: 'Biofuel Production B',
+    children: [{
+        text: '2010',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+
+    }, {
+        text: '2020',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2030',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2040',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2050',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }]
 }, {
-    text: 'Biofuel Production C'
+    text: 'Biofuel Production C',
+    children: [{
+        text: '2010',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+
+    }, {
+        text: '2020',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2030',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2040',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2050',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }]
 }, {
-    text: 'Biofuel Production C'
+    text: 'Biofuel Production C',
+    children: [{
+        text: '2010',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+
+    }, {
+        text: '2020',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2030',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2040',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2050',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }]
 }, {
-    text: 'Biofuel Production E'
+    text: 'Biofuel Production E',
+    children: [{
+        text: '2010',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+
+    }, {
+        text: '2020',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2030',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2040',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }, {
+        text: '2050',
+        children: [{
+            text: 'Forest',
+            myvalue: "frst",
+            leaf: true
+        }, {
+            text: 'Wet Forest',
+            myvalue: 'ftwt',
+            leaf: true
+        }, {
+            text: 'Wet Herbaceous',
+            myvalue: 'hbwt',
+            leaf: true
+        }, {
+            text: 'Open',
+            myvalue: 'open',
+            leaf: true
+        }, {
+            text: 'Scrub/Shrub',
+            myvalue: 'shrb',
+            leaf: true
+        }]
+    }]
 }];
