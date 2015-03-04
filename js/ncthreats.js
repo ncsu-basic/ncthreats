@@ -840,11 +840,11 @@ Ext.onReady(function() {
         fields: ['layerName', 'layerId']
     });
     var comboData2 = [
-        ["2010", '2010'],
-        ["2020", '2020'],
-        ["2030", '2030'],
-        ["2040", '2040'],
-        ["2050", '2050']
+        ["2010", '10'],
+        ["2020", '20'],
+        ["2030", '30'],
+        ["2040", '40'],
+        ["2050", '50']
     ];
     comboStoreyears.loadData(comboData2);
 
@@ -962,15 +962,15 @@ Ext.onReady(function() {
                 // leaf: true
                 children: [{
                     text: 'Forest',
-                    myvalue: "forest",
+                    myvalue: "frst",
                     leaf: true
                 }, {
                     text: 'Wet Forest',
-                    myvalue: 'wetforest',
+                    myvalue: 'ftwt',
                     leaf: true
                 }, {
                     text: 'Wet Herbaceous',
-                    myvalue: 'wetherb',
+                    myvalue: 'hbwt',
                     leaf: true
                 }, {
                     text: 'Open',
@@ -978,7 +978,7 @@ Ext.onReady(function() {
                     leaf: true
                 }, {
                     text: 'Scrub/Shrub',
-                    myvalue: 'scrub',
+                    myvalue: 'shrb',
                     leaf: true
                 }]
             }, {
@@ -1086,7 +1086,7 @@ Ext.onReady(function() {
         listeners: {
             click: function(n) {
                 console.log(n.attributes.myvalue);
-                console.log(formPanelhuc12maps.getForm().getValues(true));
+                // console.log(formPanelhuc12maps.getForm().getValues(true));
                 formhuc12maps_chng(n.attributes.myvalue);
                 huc12_state.setVisibility(true);
             }
@@ -1144,10 +1144,14 @@ Ext.onReady(function() {
             for (var key in data.res) {
                 var thrt = data.res[key]
                     // console.log(key);
+                    // console.log(thrt);
                 try {
                     map.getLayersByName("HUC 12 Maps")[0].
                     getFeaturesByAttribute("huc12", key)[0].
                     attributes.threat = thrt;
+                    // var test = map.getLayersByName("HUC 12 Maps")[0].
+                    // getFeaturesByAttribute("huc12", key)[0];
+                    // console.log(test);
                 } catch (err) {
                     // console.log(err.message);
                     console.log(key);
@@ -1157,15 +1161,15 @@ Ext.onReady(function() {
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
             lgd_title.text(data.map);
-            lgd_text.text(function(d, i) {
-                if (i === 0) {
-                    return data.range[i] + " - " + data.range[i + 1];
+            // lgd_text.text(function(d, i) {
+            //     if (i === 0) {
+            //         return data.range[i] + " - " + data.range[i + 1];
 
-                } else {
-                    return (data.range[i] + 1) + " - " + data.range[i + 1];
+            //     } else {
+            //         return (data.range[i] + 1) + " - " + data.range[i + 1];
 
-                }
-            });
+            //     }
+            // });
 
         });
 
@@ -1174,7 +1178,7 @@ Ext.onReady(function() {
     var formPanelhuc12maps = new Ext.form.FormPanel({
         title: "",
         width: 296,
-        height: 500,
+        // height: 500,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
@@ -1184,14 +1188,15 @@ Ext.onReady(function() {
             xtype: "combo",
             itemId: "cmb2",
             store: comboStoreyears,
-            name: 'year',
+            name: 'scn',
             fieldLabel: "Target year",
-            value: "2010",
+            value: "10",
             typeAhead: true,
             mode: "local",
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
+            hiddenName: 'year',
             listeners: {
                 // 'select': form4_chng
             },
@@ -1201,7 +1206,7 @@ Ext.onReady(function() {
             xtype: "combo",
             itemId: "cmb3",
             store: comboStorescenarios,
-            name: 'year',
+            name: 'yr',
             fieldLabel: "Scenario",
             value: "x",
             typeAhead: true,
