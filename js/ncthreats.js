@@ -848,7 +848,7 @@ Ext.onReady(function() {
     ];
     comboStoreyears.loadData(comboData2);
 
-     var comboStorescenarios = new Ext.data.ArrayStore({
+    var comboStorescenarios = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData3 = [
@@ -946,6 +946,7 @@ Ext.onReady(function() {
         });
     };
 
+    console.log(habitats);
     var tree_huc12maps = new Ext.tree.TreePanel({
         // renderTo: 'tree-div',
         useArrows: true,
@@ -954,33 +955,15 @@ Ext.onReady(function() {
         enableDD: true,
         containerScroll: true,
         border: true,
+        rootVisible: false,
         root: new Ext.tree.AsyncTreeNode({
             expanded: true,
             children: [{
                 text: 'Habitats',
                 expanded: false,
-                // leaf: true
-                children: [{
-                    text: 'Forest',
-                    myvalue: "frst",
-                    leaf: true
-                }, {
-                    text: 'Wet Forest',
-                    myvalue: 'ftwt',
-                    leaf: true
-                }, {
-                    text: 'Wet Herbaceous',
-                    myvalue: 'hbwt',
-                    leaf: true
-                }, {
-                    text: 'Open',
-                    myvalue: 'open',
-                    leaf: true
-                }, {
-                    text: 'Scrub/Shrub',
-                    myvalue: 'shrb',
-                    leaf: true
-                }]
+                // leaf: true,
+                // defined in filr functions.js
+                children: habitats
             }, {
                 text: 'Urban/fire',
                 expanded: false,
@@ -1000,7 +983,7 @@ Ext.onReady(function() {
                     text: 'Manure Application',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Synthetic Nitrogen Fertilizer Application',
                     leaf: true,
                     myvalue: "tran"
@@ -1012,7 +995,7 @@ Ext.onReady(function() {
                     text: 'Total Nitrogen Deposition',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Total Sulfur Deposition',
                     leaf: true,
                     myvalue: "tran"
@@ -1032,51 +1015,51 @@ Ext.onReady(function() {
                     text: 'Impaired: All',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Biota',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Metals',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Nutrients',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Habitat',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Temperature',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Pollution',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Impaired: Other',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Fish Consumption Advisory',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Total Length',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Stream density',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Total number of NID point',
                     leaf: true,
                     myvalue: "tran"
-                },{
+                }, {
                     text: 'Total Water Storage',
                     leaf: true,
                     myvalue: "tran"
@@ -1137,7 +1120,7 @@ Ext.onReady(function() {
         hbwt: 'Wet Herbaceous Habitat (ha)',
         open: 'Open Habitat (ha)',
         shrb: 'Scrub/Shrub Habitat (ha)'
-    }
+    };
 
     var formhuc12maps_chng = function(radclick) {
         // console.log("form4_chng", radclick);
@@ -1150,9 +1133,9 @@ Ext.onReady(function() {
             dataType: "json"
         }).done(function(data) {
             for (var key in data.res) {
-                var thrt = data.res[key]
-                    // console.log(key);
-                    // console.log(thrt);
+                var thrt = data.res[key];
+                // console.log(key);
+                // console.log(thrt);
                 try {
                     map.getLayersByName("HUC 12 Maps")[0].
                     getFeaturesByAttribute("huc12", key)[0].
@@ -1175,14 +1158,14 @@ Ext.onReady(function() {
                     return data.range[i] + " - " + data.range[i + 1];
 
                 } else {
-                    return (data.range[i] ) + " - " + data.range[i + 1];
+                    return (data.range[i]) + " - " + data.range[i + 1];
 
                 }
             });
 
         });
 
-    }
+    };
 
     var formPanelhuc12maps = new Ext.form.FormPanel({
         title: "",
@@ -1194,41 +1177,40 @@ Ext.onReady(function() {
             anchor: "100%"
         },
         items: [tree_huc12maps, {
-            xtype: "combo",
-            itemId: "cmb2",
-            store: comboStoreyears,
-            name: 'scn',
-            fieldLabel: "Target year",
-            value: "10",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            hiddenName: 'year',
-            listeners: {
-                // 'select': form4_chng
-            },
+                xtype: "combo",
+                itemId: "cmb2",
+                store: comboStoreyears,
+                name: 'scn',
+                fieldLabel: "Target year",
+                value: "10",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                hiddenName: 'year',
+                listeners: {
+                    // 'select': form4_chng
+                },
 
-        },
-        {
-            xtype: "combo",
-            itemId: "cmb3",
-            store: comboStorescenarios,
-            name: 'yr',
-            fieldLabel: "Scenario",
-            value: "x",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            hiddenName: 'scenario',
-            listeners: {
-                // 'select': form4_chng
-            },
+            }, {
+                xtype: "combo",
+                itemId: "cmb3",
+                store: comboStorescenarios,
+                name: 'yr',
+                fieldLabel: "Scenario",
+                value: "x",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                hiddenName: 'scenario',
+                listeners: {
+                    // 'select': form4_chng
+                },
 
-        }
+            }
 
         ],
         buttons: []
@@ -1499,7 +1481,7 @@ Ext.onReady(function() {
             return "";
         });
 
-       float_win.hide();
+    float_win.hide();
 
     action = new Ext.Action({
         handler: function() {

@@ -15,6 +15,8 @@ drop table lcscen_x_pct;
 drop table urban_den;
 drop table urban_ha;
 drop table urban_pct;
+drop table DCLRds_m;
+drop table DCLRds_p;
 
 create  table ea_pol(
 HUC_12 char(12) primary key,
@@ -420,6 +422,24 @@ urb40pct numeric(10),
 urb50pct numeric(10)
 );
 
+create table DCLRds_m(
+HUC_12 char(12) primary key,
+rds10m numeric(10),
+rds20m numeric(10),
+rds30m numeric(10),
+rds40m numeric(10),
+rds50m numeric(10)
+);
+
+create table DCLRds_p(
+HUC_12 char(12) primary key,
+rds10p numeric(10),
+rds20p numeric(10),
+rds30p numeric(10),
+rds40p numeric(10),
+rds50p  numeric(10)
+);
+
 
 
 copy ea_pol from '/home/jim/Desktop/ncthreats_tables/tblEA_Pol.txt' with csv header;
@@ -439,5 +459,7 @@ copy lcscen_x_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_pct.txt' 
 copy urban_den from '/home/jim/Desktop/ncthreats_tables/tblUrban_den.txt' with csv header;
 copy urban_ha from '/home/jim/Desktop/ncthreats_tables/tblUrban_ha.txt' with csv header;
 copy urban_pct from '/home/jim/Desktop/ncthreats_tables/tblUrban_pct.txt' with csv header;
+copy DCLRds_m from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_m.txt' with csv header;
+copy DCLRds_p from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_p.txt' with csv header;
 
 
