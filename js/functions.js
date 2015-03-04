@@ -40,6 +40,75 @@
 
 // console.log(habitats);
 
+var urban_tree = [{
+    text: 'Urban Land Cover 2010',
+    myvalue: "",
+    leaf: true
+}, {
+    text: 'Urban Land Cover 2020',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Urban Land Cover 2030',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Urban Land Cover 2040',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Urban Land Cover 2050',
+    myvalue: '',
+    leaf: true
+
+}];
+
+var fire_tree = [{
+    text: 'Fire Suppression 2010',
+    myvalue: "",
+    leaf: true
+}, {
+    text: 'Fire Suppression 2020',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Fire Suppression 2030',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Fire Suppression 2040',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Fire Suppression 2050',
+    myvalue: '',
+    leaf: true
+
+}];
+
+var trans_tree = [{
+    text: 'Transportation 2010',
+    myvalue: "",
+    leaf: true
+}, {
+    text: 'Transportation 2020',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Transportation 2030',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Transportation 2040',
+    myvalue: '',
+    leaf: true
+}, {
+    text: 'Transportation 2050',
+    myvalue: '',
+    leaf: true
+
+}];
+
 var habitats = [{
     text: 'Baseline',
     children: [{

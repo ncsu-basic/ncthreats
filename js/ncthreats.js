@@ -961,21 +961,20 @@ Ext.onReady(function() {
             children: [{
                 text: 'Habitats',
                 expanded: false,
-                // leaf: true,
+
                 // defined in filr functions.js
                 children: habitats
             }, {
-                text: 'Urban/fire',
-                expanded: false,
-                children: [{
-                    text: "Urban Growth",
-                    leaf: true,
-                    myvalue: "slr"
-                }, {
-                    text: "Fire Suppression",
-                    leaf: true,
-                    myvalue: "firp"
-                }]
+                text: 'Urban Growth',
+                children: urban_tree
+            },
+             {
+                text: 'Fire Suppression',
+                children: fire_tree
+            },
+             {
+                text: 'Transportation',
+                children: trans_tree
             }, {
                 text: 'Nutrient Loading',
                 expanded: false,
@@ -1045,22 +1044,6 @@ Ext.onReady(function() {
                     myvalue: "tran"
                 }, {
                     text: 'Fish Consumption Advisory',
-                    leaf: true,
-                    myvalue: "tran"
-                }, {
-                    text: 'Total Length',
-                    leaf: true,
-                    myvalue: "tran"
-                }, {
-                    text: 'Stream density',
-                    leaf: true,
-                    myvalue: "tran"
-                }, {
-                    text: 'Total number of NID point',
-                    leaf: true,
-                    myvalue: "tran"
-                }, {
-                    text: 'Total Water Storage',
                     leaf: true,
                     myvalue: "tran"
                 }]
@@ -1176,44 +1159,7 @@ Ext.onReady(function() {
         defaults: {
             anchor: "100%"
         },
-        items: [tree_huc12maps
-        // , {
-            //     xtype: "combo",
-            //     itemId: "cmb2",
-            //     store: comboStoreyears,
-            //     name: 'scn',
-            //     fieldLabel: "Target year",
-            //     value: "10",
-            //     typeAhead: true,
-            //     mode: "local",
-            //     triggerAction: "all",
-            //     valueField: 'layerId',
-            //     displayField: 'layerName',
-            //     hiddenName: 'year',
-            //     listeners: {
-            //         // 'select': form4_chng
-            //     },
-
-            // }, {
-            //     xtype: "combo",
-            //     itemId: "cmb3",
-            //     store: comboStorescenarios,
-            //     name: 'yr',
-            //     fieldLabel: "Scenario",
-            //     value: "x",
-            //     typeAhead: true,
-            //     mode: "local",
-            //     triggerAction: "all",
-            //     valueField: 'layerId',
-            //     displayField: 'layerName',
-            //     hiddenName: 'scenario',
-            //     listeners: {
-            //         // 'select': form4_chng
-            //     },
-
-            // }
-
-        ],
+        items: [tree_huc12maps],
         buttons: []
     });
 
