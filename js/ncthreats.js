@@ -5,16 +5,10 @@ Ext.onReady(function() {
 
     var resource;
 
-   // var SERVER_URI = "http://localhost/";
-    // var HOST_NAME = "http://localhost/ncthreats/";
-
-   // var SERVER_URI = "http://localhost/";
-   // var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
     var lgd_text;
     var lgd_title;
-   // var HOST_NAME = "http://localhost/";
-     var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-     var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     ////////////////////////////////////////////
     //initialize map
@@ -622,7 +616,7 @@ Ext.onReady(function() {
     });
 
     /////////////create area panel
-    var comboStore = new Ext.data.ArrayStore({
+    var comboStorelayers = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData = [
@@ -635,8 +629,9 @@ Ext.onReady(function() {
         ["NC Counties", 'cnt7'],
         ["NC BCR", 'bcr8']
     ];
-    comboStore.loadData(comboData);
+    comboStorelayers.loadData(comboData);
 
+    // called creating new aoi
     var form2_chng = function() {
         remove_action();
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
@@ -695,6 +690,7 @@ Ext.onReady(function() {
         new_selection();
     };
     var aoi_to_file, onExecuted;
+
     //function to submit defined area
     var save_action = function() {
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
@@ -770,11 +766,9 @@ Ext.onReady(function() {
                 data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
         });
-
-
-
     };
 
+    // new aoi panel
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
         width: 296,
@@ -788,7 +782,7 @@ Ext.onReady(function() {
             xtype: "combo",
             itemId: "cmb1",
             name: "predef_selection",
-            store: comboStore,
+            store: comboStorelayers,
             fieldLabel: "Predefined selections",
             typeAhead: true,
             mode: "local",
@@ -839,30 +833,30 @@ Ext.onReady(function() {
     });
 
     //////////////////////////processing panel
-    var comboStore2 = new Ext.data.ArrayStore({
+    var comboStoreyears = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData2 = [
-        ["2010", '2010'],
-        ["2020", '2020'],
-        ["2030", '2030'],
-        ["2040", '2040'],
-        ["2050", '2050']
+        ["2010", '10'],
+        ["2020", '20'],
+        ["2030", '30'],
+        ["2040", '40'],
+        ["2050", '50']
     ];
-    comboStore2.loadData(comboData2);
+    comboStoreyears.loadData(comboData2);
 
-    var comboStore3 = new Ext.data.ArrayStore({
+    var comboStorescenarios = new Ext.data.ArrayStore({
         fields: ['layerName', 'layerId']
     });
     var comboData3 = [
-        ["2010", '2010'],
-        ["2020", '2020'],
-        ["2030", '2030'],
-        ["2040", '2040'],
-        ["2050", '2050']
+        ["Baseline", 'x'],
+        ["Harvest of pine & hardwood forest", 'a'],
+        ["Biomass&conv of marg agriculture to bfls", 'b'],
+        ["Biomass&conv of marg ag&forest to bfls", 'c'],
+        ["Baseline&conv of marg agriculture to bfls", 'd'],
+        ["Baseline&conv of marg ag&forest to bfls", 'e'],
     ];
-    comboStore3.loadData(comboData3);
-
+    comboStorescenarios.loadData(comboData3);
 
 
     var checkGroup = {
@@ -914,71 +908,6 @@ Ext.onReady(function() {
         }]
     };
 
-    var mapsRadioGroup = {
-        xtype: 'fieldset',
-        title: 'HUC 12 Maps',
-        autoHeight: true,
-        layout: 'form',
-        // collapsed: true, // initially collapse the group
-        //  collapsible: true,
-        items: [{
-            // Use the default, automatic layout to distribute the controls evenly
-            // across a single row
-            xtype: 'radiogroup',
-            fieldLabel: 'select map',
-            id: 'mapradgrp',
-            columns: 1,
-            items: [{
-                boxLabel: 'Pollution 1',
-                inputValue: 'polu1',
-                name: 'map'
-            }, {
-                boxLabel: 'Pollution 2',
-                inputValue: 'polu2',
-                name: 'map'
-            }, {
-                boxLabel: 'Disease 1',
-                inputValue: 'dise1',
-                name: 'map'
-            }, {
-                boxLabel: 'Disease 2',
-                inputValue: 'dise2',
-                name: 'map'
-            }, {
-                boxLabel: 'Sea Level Rise',
-                inputValue: 'slr',
-                name: 'map'
-            }, {
-                boxLabel: 'Fire Probability',
-                inputValue: 'firp',
-                name: 'map'
-            }, {
-                boxLabel: 'Fire Sup',
-                inputValue: 'firs',
-                name: 'map'
-            }, {
-                boxLabel: 'Transportation Corridors',
-                inputValue: 'tran',
-                name: 'map'
-            }, {
-                boxLabel: 'Fragmentaion Index',
-                inputValue: 'frag',
-                name: 'map'
-            }, {
-                boxLabel: 'Urban Percentage',
-                inputValue: 'urb',
-                name: 'map'
-            }],
-            listeners: {
-                change: function(field, newValue, oldValue) {
-                    // console.log(newValue.inputValue);
-                    // console.log(formPanel4.getForm().getValues(true));
-                    form4_chng();
-                }
-            }
-        }]
-    };
-
 
     var threat_calcs_map = function() {
         var form_vals = formPanel3.getForm().getValues(true);
@@ -1014,7 +943,8 @@ Ext.onReady(function() {
         });
     };
 
-    var treeabc = new Ext.tree.TreePanel({
+    console.log(habitats);
+    var tree_huc12maps = new Ext.tree.TreePanel({
         // renderTo: 'tree-div',
         useArrows: true,
         autoScroll: true,
@@ -1022,83 +952,110 @@ Ext.onReady(function() {
         enableDD: true,
         containerScroll: true,
         border: true,
-        // height: 500,
-        // auto create TreeLoader
-        // dataUrl: 'get-nodes.php',
-
-        // root: {
-        //     nodeType: 'async',
-        //     text: 'Ext JS',
-        //     draggable: false,
-        //     id: 'source'
-        // }
+        rootVisible: false,
         root: new Ext.tree.AsyncTreeNode({
             expanded: true,
             children: [{
-                text: 'land use conversion',
-                expanded: true,
-                // leaf: true
+                text: 'Habitats',
+                expanded: false,
+
+                // defined in filr functions.js
+                children: habitats
+            }, {
+                text: 'Urban Growth',
+                children: urban_tree
+            },
+             {
+                text: 'Fire Suppression',
+                children: fire_tree
+            },
+             {
+                text: 'Transportation',
+                children: trans_tree
+            }, {
+                text: 'Nutrient Loading',
+                expanded: false,
                 children: [{
-                    text: 'Fragmentaion Index',
-                    myvalue: "frag",
-                    leaf: true
+                    text: 'Manure Application',
+                    leaf: true,
+                    myvalue: "nutrient:manu"
                 }, {
-                    text: 'Urban Percentage',
-                    myvalue: 'map',
-                    leaf: true
+                    text: 'Synthetic Nitrogen Fertilizer Application',
+                    leaf: true,
+                    myvalue: "nutrient:fert"
                 }]
             }, {
-                text: 'habitat conversion',
-                expanded: true,
+                text: 'Annual Atmospheric Deposition',
+                expanded: false,
                 children: [{
-                    text: "Sea Level Rise",
+                    text: 'Total Nitrogen Deposition',
                     leaf: true,
-                    myvalue: "slr"
+                    myvalue: "nutrient:td_n_t"
                 }, {
-                    text: "Fire Probability",
+                    text: 'Total Sulfur Deposition',
                     leaf: true,
-                    myvalue: "firp"
-                }, {
-                    text: "Fire Sup",
-                    leaf: true,
-                    myvalue: "firs"
-                }, {
-                    text: "Transportation Corridors",
-                    leaf: true,
-                    myvalue: "tran"
+                    myvalue: "nutrient:td_s_t"
                 }]
             }, {
-                text: 'pollution',
-                expanded: true,
+                text: 'Hydrologic Alteration',
+                expanded: false,
                 children: [{
-                    text: 'polution 1',
+                    text: 'Number of dams',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water"
+                }]
+            }, {
+                text: 'Impaired Waters',
+                expanded: false,
+                children: [{
+                    text: 'Impaired: All',
+                    leaf: true,
+                    myvalue: "water:totimplen"
                 }, {
-                    text: 'polution 2',
+                    text: 'Impaired: Biota',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:bioimplen"
                 }, {
-                    text: 'disease 2',
+                    text: 'Impaired: Metals',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:metimplen"
                 }, {
-                    text: 'disease 2',
+                    text: 'Impaired: Nutrients',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:nutimplen"
+                }, {
+                    text: 'Impaired: Habitat',
+                    leaf: true,
+                    myvalue: "water:habimplen"
+                }, {
+                    text: 'Impaired: Temperature',
+                    leaf: true,
+                    myvalue: "water:tempimplen"
+                }, {
+                    text: 'Impaired: Pollution',
+                    leaf: true,
+                    myvalue: "water:polimplen"
+                }, {
+                    text: 'Impaired: Other',
+                    leaf: true,
+                    myvalue: "water:otherlen"
+                }, {
+                    text: 'Fish Consumption Advisory',
+                    leaf: true,
+                    myvalue: "water:fishimplen"
                 }]
             }]
         }),
         listeners: {
             click: function(n) {
                 console.log(n.attributes.myvalue);
-                console.log(formPanel4.getForm().getValues(true));
-                form4_chng(n.attributes.myvalue);
+                // console.log(formPanelhuc12maps.getForm().getValues(true));
+                formhuc12maps_chng(n.attributes.myvalue);
                 huc12_state.setVisibility(true);
             }
         }
     });
-    // treeabc.getRootNode().expand();
+    // tree_huc12maps.getRootNode().expand();
 
     var formPanel3 = new Ext.form.FormPanel({
         title: "Calculations",
@@ -1112,7 +1069,7 @@ Ext.onReady(function() {
         items: [checkGroup, {
             xtype: "combo",
             itemId: "cmb2",
-            store: comboStore2,
+            store: comboStoreyears,
             name: 'year',
             fieldLabel: "Target year",
             value: "2010",
@@ -1137,10 +1094,18 @@ Ext.onReady(function() {
         }]
     });
 
-    var form4_chng = function(radclick) {
+    var legend_titles = {
+        frst: 'Forest Habitat (ha)',
+        ftwt: 'Wet Forest Habitat (ha)',
+        hbwt: 'Wet Herbaceous Habitat (ha)',
+        open: 'Open Habitat (ha)',
+        shrb: 'Scrub/Shrub Habitat (ha)'
+    };
+
+    var formhuc12maps_chng = function(radclick) {
         // console.log("form4_chng", radclick);
         // console.log(formPanel4.getForm().getValues(true));
-        var qry_str = formPanel4.getForm().getValues(true) + "&map=" + radclick;
+        var qry_str = formPanelhuc12maps.getForm().getValues(true) + "&map=" + radclick;
         console.log(qry_str);
         $.ajax({
             type: "GET",
@@ -1148,60 +1113,49 @@ Ext.onReady(function() {
             dataType: "json"
         }).done(function(data) {
             for (var key in data.res) {
-                var thrt = data.res[key]
-                    // console.log(key);
+                var thrt = data.res[key];
+                // console.log(key);
+                // console.log(thrt);
                 try {
                     map.getLayersByName("HUC 12 Maps")[0].
                     getFeaturesByAttribute("huc12", key)[0].
                     attributes.threat = thrt;
+                    // var test = map.getLayersByName("HUC 12 Maps")[0].
+                    // getFeaturesByAttribute("huc12", key)[0];
+                    // console.log(test);
                 } catch (err) {
-                    // console.log(err.message);
-                    console.log(key);
+                    // console.log(key);
                 }
 
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
-            lgd_title.text(data.map);
+
+            lgd_title.text(legend_titles[data.map]);
             lgd_text.text(function(d, i) {
                 if (i === 0) {
                     return data.range[i] + " - " + data.range[i + 1];
 
                 } else {
-                    return (data.range[i] + 1) + " - " + data.range[i + 1];
+                    return (data.range[i]) + " - " + data.range[i + 1];
 
                 }
             });
 
         });
 
-    }
+    };
 
-    var formPanel4 = new Ext.form.FormPanel({
+    var formPanelhuc12maps = new Ext.form.FormPanel({
         title: "",
         width: 296,
-        height: 500,
+        // height: 500,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
             anchor: "100%"
         },
-        items: [treeabc, {
-            xtype: "combo",
-            itemId: "cmb2",
-            store: comboStore3,
-            name: 'year',
-            fieldLabel: "Target year",
-            value: "2010",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            listeners: {
-                'select': form4_chng
-            }
-        }],
+        items: [tree_huc12maps],
         buttons: []
     });
 
@@ -1418,8 +1372,8 @@ Ext.onReady(function() {
     toolbarItems.push(action);
     var float_win = new Ext.Window({
         title: "Legend ",
-        height: 400,
-        width: 300,
+        height: 320,
+        width: 320,
         layout: "fit",
         x: 50,
         y: 600,
@@ -1433,15 +1387,15 @@ Ext.onReady(function() {
         barHeight = 30;
 
     var lgd = d3.select("#lgnddiv")
-        .attr("height", 300)
-        .attr("width", 250)
-        .style("background-color", "#fafafa");
+        .attr("height", 270)
+        .attr("width", 270)
+        .style("background-color", "#fdfdfd");
 
     lgd_title = lgd.append('text')
         .text("")
         .attr("x", 30)
         .attr("y", 30)
-        .style("font", "20px sans-serif")
+        .style("font", "18px sans-serif")
         .style("text-anchor", "start");
 
     var bar = lgd.selectAll("g")
@@ -1470,7 +1424,7 @@ Ext.onReady(function() {
             return "";
         });
 
-       float_win.hide();
+    float_win.hide();
 
     action = new Ext.Action({
         handler: function() {
@@ -1638,7 +1592,7 @@ Ext.onReady(function() {
     var maps_tab = new Ext.Panel({
         title: 'Maps',
         //html: "some content",
-        items: [formPanel4],
+        items: [formPanelhuc12maps],
         cls: 'help',
         autoScroll: true
     });
