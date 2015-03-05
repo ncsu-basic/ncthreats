@@ -42,69 +42,69 @@
 
 var urban_tree = [{
     text: 'Urban Land Cover 2010',
-    myvalue: "",
+    myvalue: "urban:10",
     leaf: true
 }, {
     text: 'Urban Land Cover 2020',
-    myvalue: '',
+    myvalue: 'urban:20',
     leaf: true
 }, {
     text: 'Urban Land Cover 2030',
-    myvalue: '',
+    myvalue: 'urban:30',
     leaf: true
 }, {
     text: 'Urban Land Cover 2040',
-    myvalue: '',
+    myvalue: 'urban:40',
     leaf: true
 }, {
     text: 'Urban Land Cover 2050',
-    myvalue: '',
+    myvalue: 'urban:50',
     leaf: true
 
 }];
 
 var fire_tree = [{
     text: 'Fire Suppression 2010',
-    myvalue: "",
+    myvalue: "fire:10",
     leaf: true
 }, {
     text: 'Fire Suppression 2020',
-    myvalue: '',
+    myvalue: 'fire:20',
     leaf: true
 }, {
     text: 'Fire Suppression 2030',
-    myvalue: '',
+    myvalue: 'fire:30',
     leaf: true
 }, {
     text: 'Fire Suppression 2040',
-    myvalue: '',
+    myvalue: 'fire:40',
     leaf: true
 }, {
     text: 'Fire Suppression 2050',
-    myvalue: '',
+    myvalue: 'fire:50',
     leaf: true
 
 }];
 
 var trans_tree = [{
     text: 'Transportation 2010',
-    myvalue: "",
+    myvalue: "trans:10",
     leaf: true
 }, {
     text: 'Transportation 2020',
-    myvalue: '',
+    myvalue: 'trans:20',
     leaf: true
 }, {
     text: 'Transportation 2030',
-    myvalue: '',
+    myvalue: 'trans:30',
     leaf: true
 }, {
     text: 'Transportation 2040',
-    myvalue: '',
+    myvalue: 'trans:40',
     leaf: true
 }, {
     text: 'Transportation 2050',
-    myvalue: '',
+    myvalue: 'trans:50',
     leaf: true
 
 }];

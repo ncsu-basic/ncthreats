@@ -981,11 +981,11 @@ Ext.onReady(function() {
                 children: [{
                     text: 'Manure Application',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "nutrient:manu"
                 }, {
                     text: 'Synthetic Nitrogen Fertilizer Application',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "nutrient:fert"
                 }]
             }, {
                 text: 'Annual Atmospheric Deposition',
@@ -993,11 +993,11 @@ Ext.onReady(function() {
                 children: [{
                     text: 'Total Nitrogen Deposition',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "nutrient:td_n_t"
                 }, {
                     text: 'Total Sulfur Deposition',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "nutrient:td_s_t"
                 }]
             }, {
                 text: 'Hydrologic Alteration',
@@ -1005,7 +1005,7 @@ Ext.onReady(function() {
                 children: [{
                     text: 'Number of dams',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water"
                 }]
             }, {
                 text: 'Impaired Waters',
@@ -1013,39 +1013,39 @@ Ext.onReady(function() {
                 children: [{
                     text: 'Impaired: All',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:totimplen"
                 }, {
                     text: 'Impaired: Biota',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:bioimplen"
                 }, {
                     text: 'Impaired: Metals',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:metimplen"
                 }, {
                     text: 'Impaired: Nutrients',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:nutimplen"
                 }, {
                     text: 'Impaired: Habitat',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:habimplen"
                 }, {
                     text: 'Impaired: Temperature',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:tempimplen"
                 }, {
                     text: 'Impaired: Pollution',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:polimplen"
                 }, {
                     text: 'Impaired: Other',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:otherlen"
                 }, {
                     text: 'Fish Consumption Advisory',
                     leaf: true,
-                    myvalue: "tran"
+                    myvalue: "water:fishimplen"
                 }]
             }]
         }),
@@ -1127,8 +1127,7 @@ Ext.onReady(function() {
                     // getFeaturesByAttribute("huc12", key)[0];
                     // console.log(test);
                 } catch (err) {
-                    // console.log(err.message);
-                    console.log(key);
+                    // console.log(key);
                 }
 
             }
