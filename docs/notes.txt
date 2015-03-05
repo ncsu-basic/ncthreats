@@ -68,12 +68,15 @@ reduce min res to 38.218 in tilecache.cfg
 
 edit tomcat6.conf
 JAVA_OPTS="-Xmx256M -Xms48m"
+adjust geoserver wms memory settings
 remove metatiles from tilecache for lines
 
 add tilecache to supervisord
 
 edit tilecache service.py ln 140 to pass exception
 edit geoserver wms properties memory
+
+http://gis.stackexchange.com/questions/107265/geoserver-change-master-password-masterpw-info-missing
 
 
 
