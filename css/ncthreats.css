@@ -78,6 +78,11 @@ div.olControlMousePosition {
   text-anchor: end;
 }
 
+.tree_image{
+	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/nc.png') !important;
+
+}
+
 
 /* .nav_action {
 	background-image: url('../OpenLayers-2.12/theme/default/img/pan_off.png');
