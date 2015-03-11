@@ -1104,8 +1104,10 @@ Ext.onReady(function() {
         ftwt: 'Wet Forest Habitat (ha)',
         hbwt: 'Wet Herbaceous Habitat (ha)',
         open: 'Open Habitat (ha)',
-        shrb: 'Scrub/Shrub Habitat (ha)xxx',
-        urban: 'Urban (ha)'
+        shrb: 'Scrub/Shrub Habitat (ha)',
+        urban: 'Urban (ha)',
+        fire: 'urban density w/in: 5 mile radius',
+        trans: 'length (m) of divided: center line roads'
     };
     var legend_titles2 = {
 
@@ -1130,9 +1132,12 @@ Ext.onReady(function() {
                 }
             }
             if (legend_titles1[data.map]) {
-                lgd_title.text(legend_titles1[data.map]);
+                lgd_title.text(legend_titles1[data.map].split(':')[0]);
+                lgd_title2.text(legend_titles1[data.map].split(':')[1]);
             } else {
                 lgd_title.text("not set");
+                lgd_title2.text("not set");
+                console.log(data.map);
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
@@ -1379,12 +1384,11 @@ Ext.onReady(function() {
     var float_win = new Ext.Window({
         title: "Legend ",
         height: 270,
-        width: 290,
+        width: 260,
         layout: "fit",
         x: 50,
         y: 600,
         closeAction: 'hide',
-
         items: [legend_panel]
     }).show();
 
@@ -1394,7 +1398,7 @@ Ext.onReady(function() {
 
     var lgd = d3.select("#lgnddiv")
         .attr("height", 220)
-        .attr("width", 250)
+        .attr("width", 220)
         .style("background-color", "#fefefe");
 
     lgd_title = lgd.append('text')
@@ -1405,7 +1409,7 @@ Ext.onReady(function() {
         .style("text-anchor", "start");
 
     lgd_title2 = lgd.append('text')
-        .text("xxx")
+        .text("")
         .attr("x", 30)
         .attr("y", 50)
         .style("font", "16px sans-serif")
