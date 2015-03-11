@@ -1007,6 +1007,24 @@ Ext.onReady(function() {
                     leaf: true,
                     myvalue: "water:NID"
                 }]
+            },
+            {
+                text: 'Forest Health',
+                expanded: false,
+                children: [{
+                    text: 'Forest Insect/Disease Risk ',
+                    leaf: true,
+                    myvalue: "frsthlth"
+                }]
+            },
+            {
+                text: 'Energy Development',
+                expanded: false,
+                children: [{
+                    text: 'Triassic Basin',
+                    leaf: true,
+                    myvalue: "energydev"
+                }]
             }, {
                 text: 'Impaired Waters',
                 expanded: false,
