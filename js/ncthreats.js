@@ -7,8 +7,8 @@ Ext.onReady(function() {
 
     var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
     var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
-    var lgd_text;
-    var lgd_title;
+
+    var lgd_text, lgd_title, lgd_title2;
 
     ////////////////////////////////////////////
     //initialize map
@@ -958,18 +958,18 @@ Ext.onReady(function() {
             children: [{
                 text: 'Habitats',
                 expanded: false,
+                qtip: 'click for documentation',
 
-                // defined in filr functions.js
-                children: habitats
+                // defined in file functions.js
+                children: habitats,
+                // iconCls: 'tree_image'
             }, {
                 text: 'Urban Growth',
                 children: urban_tree
-            },
-             {
+            }, {
                 text: 'Fire Suppression',
                 children: fire_tree
-            },
-             {
+            }, {
                 text: 'Transportation',
                 children: trans_tree
             }, {
@@ -1002,7 +1002,7 @@ Ext.onReady(function() {
                 children: [{
                     text: 'Number of dams',
                     leaf: true,
-                    myvalue: "water"
+                    myvalue: "water:NID"
                 }]
             }, {
                 text: 'Impaired Waters',
@@ -1094,18 +1094,20 @@ Ext.onReady(function() {
         }]
     });
 
-    var legend_titles = {
+    var legend_titles1 = {
         frst: 'Forest Habitat (ha)',
         ftwt: 'Wet Forest Habitat (ha)',
         hbwt: 'Wet Herbaceous Habitat (ha)',
         open: 'Open Habitat (ha)',
-        shrb: 'Scrub/Shrub Habitat (ha)'
+        shrb: 'Scrub/Shrub Habitat (ha)xxx',
+        urban: 'Urban (ha)'
     };
+    var legend_titles2 = {
+
+    }
 
     var formhuc12maps_chng = function(radclick) {
-        // console.log("form4_chng", radclick);
-        // console.log(formPanel4.getForm().getValues(true));
-        var qry_str = formPanelhuc12maps.getForm().getValues(true) + "&map=" + radclick;
+        var qry_str = "&map=" + radclick;
         console.log(qry_str);
         $.ajax({
             type: "GET",
@@ -1114,24 +1116,22 @@ Ext.onReady(function() {
         }).done(function(data) {
             for (var key in data.res) {
                 var thrt = data.res[key];
-                // console.log(key);
-                // console.log(thrt);
                 try {
                     map.getLayersByName("HUC 12 Maps")[0].
                     getFeaturesByAttribute("huc12", key)[0].
                     attributes.threat = thrt;
-                    // var test = map.getLayersByName("HUC 12 Maps")[0].
-                    // getFeaturesByAttribute("huc12", key)[0];
-                    // console.log(test);
                 } catch (err) {
                     // console.log(key);
                 }
-
+            }
+            if (legend_titles1[data.map]) {
+                lgd_title.text(legend_titles1[data.map]);
+            } else {
+                lgd_title.text("not set");
             }
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
 
-            lgd_title.text(legend_titles[data.map]);
             lgd_text.text(function(d, i) {
                 if (i === 0) {
                     return data.range[i] + " - " + data.range[i + 1];
@@ -1398,11 +1398,19 @@ Ext.onReady(function() {
         .style("font", "18px sans-serif")
         .style("text-anchor", "start");
 
+    lgd_title2 = lgd.append('text')
+        .text("xxx")
+        .attr("x", 30)
+        .attr("y", 50)
+        .style("font", "18px sans-serif")
+        .style("text-anchor", "start");
+
+
     var bar = lgd.selectAll("g")
         .data(data)
         .enter().append("g")
         .attr("transform", function(d, i) {
-            return "translate(10," + (i * barHeight + 50) + ")";
+            return "translate(10," + (i * barHeight + 70) + ")";
         });
 
     bar.append("rect")
@@ -1413,10 +1421,8 @@ Ext.onReady(function() {
         });
 
     lgd_text = bar.append("text")
-        .attr("x", function(d) {
-            return 70;
-        })
         .attr("y", barHeight / 2)
+        .attr("x", 60)
         .attr("dy", ".35em")
         .style("font", "14px sans-serif")
         .style("text-anchor", "start")
