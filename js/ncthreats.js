@@ -959,6 +959,8 @@ Ext.onReady(function() {
                 text: 'Habitats',
                 expanded: false,
                 qtip: 'click for documentation',
+                href: 'http://google.com',
+                hrefTarget: "_blank",
 
                 // defined in file functions.js
                 children: habitats,
