@@ -961,10 +961,10 @@ Ext.onReady(function() {
                 qtip: 'click for documentation',
                 href: 'http://google.com',
                 hrefTarget: "_blank",
+                // iconCls: 'tree_image'
 
                 // defined in file functions.js
                 children: habitats,
-                // iconCls: 'tree_image'
             }, {
                 text: 'Urban Growth',
                 children: urban_tree
@@ -1052,8 +1052,11 @@ Ext.onReady(function() {
             click: function(n) {
                 console.log(n.attributes.myvalue);
                 // console.log(formPanelhuc12maps.getForm().getValues(true));
-                formhuc12maps_chng(n.attributes.myvalue);
-                huc12_state.setVisibility(true);
+                if (n.attributes.myvalue) {
+                    console.log(n.attributes.myvalue);
+                    formhuc12maps_chng(n.attributes.myvalue);
+                    huc12_state.setVisibility(true);
+                }
             }
         }
     });
@@ -1147,6 +1150,7 @@ Ext.onReady(function() {
         });
 
     };
+
 
     var formPanelhuc12maps = new Ext.form.FormPanel({
         title: "",
@@ -1374,8 +1378,8 @@ Ext.onReady(function() {
     toolbarItems.push(action);
     var float_win = new Ext.Window({
         title: "Legend ",
-        height: 320,
-        width: 320,
+        height: 270,
+        width: 290,
         layout: "fit",
         x: 50,
         y: 600,
@@ -1386,25 +1390,25 @@ Ext.onReady(function() {
 
     var data = ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000'];
     var width = 420,
-        barHeight = 30;
+        barHeight = 25;
 
     var lgd = d3.select("#lgnddiv")
-        .attr("height", 270)
-        .attr("width", 270)
-        .style("background-color", "#fdfdfd");
+        .attr("height", 220)
+        .attr("width", 250)
+        .style("background-color", "#fefefe");
 
     lgd_title = lgd.append('text')
         .text("")
         .attr("x", 30)
         .attr("y", 30)
-        .style("font", "18px sans-serif")
+        .style("font", "16px sans-serif")
         .style("text-anchor", "start");
 
     lgd_title2 = lgd.append('text')
         .text("xxx")
         .attr("x", 30)
         .attr("y", 50)
-        .style("font", "18px sans-serif")
+        .style("font", "16px sans-serif")
         .style("text-anchor", "start");
 
 
@@ -1412,11 +1416,11 @@ Ext.onReady(function() {
         .data(data)
         .enter().append("g")
         .attr("transform", function(d, i) {
-            return "translate(10," + (i * barHeight + 70) + ")";
+            return "translate(10," + (i * barHeight + 80) + ")";
         });
 
     bar.append("rect")
-        .attr("width", 30)
+        .attr("width", 25)
         .attr("height", barHeight - 1)
         .style("fill", function(d) {
             return "#" + d;
@@ -1426,7 +1430,7 @@ Ext.onReady(function() {
         .attr("y", barHeight / 2)
         .attr("x", 60)
         .attr("dy", ".35em")
-        .style("font", "14px sans-serif")
+        .style("font", "13px sans-serif")
         .style("text-anchor", "start")
         .text(function(d) {
             return "";
@@ -1597,10 +1601,23 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
+    var mapsmsg_panel = new Ext.Panel({
+        width: 296,
+        items: [{
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<p>Click links for documentation. More text to see wrapping.</p>"
+        }],
+        // cls: 'help',
+        autoScroll: true
+    });
+
     var maps_tab = new Ext.Panel({
         title: 'Maps',
         //html: "some content",
-        items: [formPanelhuc12maps],
+        items: [mapsmsg_panel, formPanelhuc12maps],
         cls: 'help',
         autoScroll: true
     });
