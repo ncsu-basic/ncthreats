@@ -943,6 +943,7 @@ Ext.onReady(function() {
         });
     };
 
+    var show_legend_flag = true;
     console.log(habitats);
     var tree_huc12maps = new Ext.tree.TreePanel({
         // renderTo: 'tree-div',
@@ -1056,6 +1057,11 @@ Ext.onReady(function() {
                     console.log(n.attributes.myvalue);
                     formhuc12maps_chng(n.attributes.myvalue);
                     huc12_state.setVisibility(true);
+                    if (show_legend_flag) {
+                        float_win.show();
+                        show_legend_flag = false;
+                    }
+
                 }
             }
         }
@@ -1386,8 +1392,8 @@ Ext.onReady(function() {
         height: 270,
         width: 260,
         layout: "fit",
-        x: 50,
-        y: 600,
+        x: 320,
+        y: 550,
         closeAction: 'hide',
         items: [legend_panel]
     }).show();

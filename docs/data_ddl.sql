@@ -15,8 +15,10 @@ drop table lcscen_x_pct;
 drop table urban_den;
 drop table urban_ha;
 drop table urban_pct;
-drop table DCLRds_m;
-drop table DCLRds_p;
+drop table energy_dev;
+drop table forest_health;
+drop table transportation;
+
 
 create  table ea_pol(
 HUC_12 char(12) primary key,
@@ -422,23 +424,27 @@ urb40pct numeric(10),
 urb50pct numeric(10)
 );
 
-create table DCLRds_m(
+create table energy_dev(
 HUC_12 char(12) primary key,
-rds10m numeric(10),
-rds20m numeric(10),
-rds30m numeric(10),
-rds40m numeric(10),
-rds50m numeric(10)
+triassic_ha numeric(10),
+triassic_perc numeric(10)
 );
 
-create table DCLRds_p(
+create table forest_health(
 HUC_12 char(12) primary key,
-rds10p numeric(10),
-rds20p numeric(10),
-rds30p numeric(10),
-rds40p numeric(10),
-rds50p  numeric(10)
+FHlth_Ha numeric(10),
+FHlth_Per numeric(10)
 );
+
+create table transportation(
+HUC_12 char(12) primary key,
+rds10mha numeric(10),
+rds20mha numeric(10),
+rds30mha numeric(10),
+rds40mha numeric(10),
+rds50mha numeric(10)
+);
+
 
 
 
@@ -459,7 +465,9 @@ copy lcscen_x_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_pct.txt' 
 copy urban_den from '/home/jim/Desktop/ncthreats_tables/tblUrban_den.txt' with csv header;
 copy urban_ha from '/home/jim/Desktop/ncthreats_tables/tblUrban_ha.txt' with csv header;
 copy urban_pct from '/home/jim/Desktop/ncthreats_tables/tblUrban_pct.txt' with csv header;
-copy DCLRds_m from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_m.txt' with csv header;
-copy DCLRds_p from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_p.txt' with csv header;
+
+copy energy_dev from '/home/jim/Desktop/ncthreats_tables/tblTriassic_data.txt' with csv header;
+copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data.txt' with csv header;
+copy transportation from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_mha.txt' with csv header;
 
 
