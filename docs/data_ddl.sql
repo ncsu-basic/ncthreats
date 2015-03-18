@@ -39,6 +39,8 @@ drop table urban_ha_rnk;
 drop table transportation_rnk;
 drop table static_rnk;
 
+drop table legend_data;
+
 
 create  table ea_pol(
 HUC_12 char(12) primary key,
@@ -504,6 +506,28 @@ triassic_rnk smallint,
 FHlth_Rnk smallint
 );
 
+create table legend_data(
+layer_desc varchar(100),
+layer_str varchar(100),
+color1 varchar(100),
+color2 varchar(100),
+color3 varchar(100),
+color4 varchar(100),
+color5 varchar(100),
+color6 varchar(100),
+range1 varchar(100),
+range2 varchar(100),
+range3 varchar(100),
+range4 varchar(100),
+range5 varchar(100),
+range6 varchar(100),
+range2_vals varchar(100),
+range3_vals varchar(100),
+range4_vals varchar(100),
+range5_vals varchar(100),
+range6_vals varchar(100)
+);
+
 
 copy ea_pol from '/home/jim/Desktop/ncthreats_tables/tblEA_Pol.txt' with csv header;
 copy ea_h20 from '/home/jim/Desktop/ncthreats_tables/tblEA_h2o.txt' with csv header;
@@ -531,5 +555,8 @@ copy static_rnk from '/home/jim/Desktop/ncthreats_tables/tblStatic_rnk.txt' with
 copy energy_dev from '/home/jim/Desktop/ncthreats_tables/tblTriassic_data.txt' with csv header;
 copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data.txt' with csv header;
 copy transportation from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_mha.txt' with csv header;
+
+copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data.csv.txt' with csv;
+
 
 
