@@ -241,6 +241,13 @@ Ext.onReady(function() {
     var resultsStyleMap = new OpenLayers.StyleMap({});
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
     var symbolsLookup = {
+          0: {
+            strokeColor: "black",
+            fillColor: "#f5f57a",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0
+        },
         1: {
             strokeColor: "black",
             fillColor: "#f5f57a",
@@ -277,6 +284,8 @@ Ext.onReady(function() {
             fillOpacity: 0.6
         }
     };
+
+    symbolsLookup["0"].fillColor = "#ffffff";
 
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
 
@@ -1155,26 +1164,35 @@ Ext.onReady(function() {
                     // console.log(key);
                 }
             }
-            if (legend_titles1[data.map]) {
-                lgd_title.text(legend_titles1[data.map].split(':')[0]);
-                lgd_title2.text(legend_titles1[data.map].split(':')[1]);
-            } else {
-                lgd_title.text("not set");
-                lgd_title2.text("not set");
-                console.log(data.map);
-            }
+            // if (legend_titles1[data.map]) {
+            //     lgd_title.text(legend_titles1[data.map].split(':')[0]);
+            //     lgd_title2.text(legend_titles1[data.map].split(':')[1]);
+            // } else {
+            //     lgd_title.text("not set");
+            //     lgd_title2.text("not set");
+            //     console.log(data.map);
+            // }
+            symbolsLookup["1"].fillColor = "#" + data.colors.color2;
+            symbolsLookup["2"].fillColor = "#" + data.colors.color3;
+            symbolsLookup["3"].fillColor = "#" + data.colors.color4;
+            symbolsLookup["4"].fillColor = "#" + data.colors.color5;
+            symbolsLookup["5"].fillColor = "#" + data.colors.color6;
+            console.log(symbolsLookup["5"].fillColor);
             map.getLayersByName("HUC 12 Maps")[0].redraw();
             console.log(data.map);
 
-            lgd_text.text(function(d, i) {
-                if (i === 0) {
-                    return data.range[i] + " - " + data.range[i + 1];
+            // lgd_text.text(function(d, i) {
+            //     if (i === 0) {
+            //         return data.range[i] + " - " + data.range[i + 1];
 
-                } else {
-                    return (data.range[i]) + " - " + data.range[i + 1];
+            //     } else {
+            //         return (data.range[i]) + " - " + data.range[i + 1];
 
-                }
-            });
+            //     }
+            // });
+
+
+
 
         });
 
