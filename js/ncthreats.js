@@ -243,42 +243,42 @@ Ext.onReady(function() {
     var symbolsLookup = {
           0: {
             strokeColor: "black",
-            fillColor: "#f5f57a",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0
         },
         1: {
             strokeColor: "black",
-            fillColor: "#f5f57a",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.6
         },
         2: {
             strokeColor: "black",
-            fillColor: "#e8b655",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.6
         },
         3: {
             strokeColor: "black",
-            fillColor: "#d68036",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.6
         },
         4: {
             strokeColor: "black",
-            fillColor: "#c3491a",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.6
         },
         5: {
             strokeColor: "black",
-            fillColor: "#a80000",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 0.6
