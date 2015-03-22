@@ -1539,7 +1539,7 @@ Ext.onReady(function() {
     });
     var layerList3 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'HUC 6',
+        text: 'NC River Basins',
         leaf: false,
         expanded: false,
         loader: {
@@ -1550,7 +1550,7 @@ Ext.onReady(function() {
     });
     var layerList4 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'HUC 8',
+        text: 'NC River Subbasins',
         leaf: false,
         expanded: false,
         loader: {
@@ -1561,7 +1561,7 @@ Ext.onReady(function() {
     });
     var layerList5 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'HUC 10',
+        text: 'NC Watersheds',
         leaf: false,
         expanded: false,
         loader: {
@@ -1639,7 +1639,7 @@ Ext.onReady(function() {
                 layerList7, layerList8
             ]
         },
-        title: "Layers",
+        title: "Setup",
         rootVisible: false
     });
 
