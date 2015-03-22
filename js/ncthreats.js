@@ -327,10 +327,10 @@ Ext.onReady(function() {
 
     });
 
-    map.addLayers([counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+    map.addLayers([huc12_state, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
-        results, gphy, osm, counties_base, hillshade, huc12_state
+        results, gphy, osm, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -1634,8 +1634,8 @@ Ext.onReady(function() {
         width: 300,
         root: {
             nodeType: "async",
-            children: [layerList10, layerList9, layerList, layerList2,
-                layerList3, layerList4, layerList5, layerList6,
+            children: [layerList10, layerList9,
+                layerList3, layerList4, layerList5,
                 layerList7, layerList8
             ]
         },
