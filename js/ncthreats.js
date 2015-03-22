@@ -8,7 +8,7 @@ Ext.onReady(function() {
     var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
     var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
-    var lgd_text, lgd_title, lgd_title2;
+    var lgd_text, lgd_title, lgd_title2, lgd_color;
 
     ////////////////////////////////////////////
     //initialize map
@@ -241,47 +241,47 @@ Ext.onReady(function() {
     var resultsStyleMap = new OpenLayers.StyleMap({});
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
     var symbolsLookup = {
-          0: {
+        0: {
             strokeColor: "black",
-            fillColor: "#f5f57a",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0
+            fillOpacity: 1
         },
         1: {
             strokeColor: "black",
-            fillColor: "#f5f57a",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.6
+            fillOpacity: 1
         },
         2: {
             strokeColor: "black",
-            fillColor: "#e8b655",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.6
+            fillOpacity: 1
         },
         3: {
             strokeColor: "black",
-            fillColor: "#d68036",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.6
+            fillOpacity: 1
         },
         4: {
             strokeColor: "black",
-            fillColor: "#c3491a",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.6
+            fillOpacity: 1
         },
         5: {
             strokeColor: "black",
-            fillColor: "#a80000",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 0.6
+            fillOpacity: 1
         }
     };
 
@@ -1016,8 +1016,7 @@ Ext.onReady(function() {
                     leaf: true,
                     myvalue: "water:NID"
                 }]
-            },
-            {
+            }, {
                 text: 'Forest Health',
                 expanded: false,
                 children: [{
@@ -1025,8 +1024,7 @@ Ext.onReady(function() {
                     leaf: true,
                     myvalue: "frsthlth"
                 }]
-            },
-            {
+            }, {
                 text: 'Energy Development',
                 expanded: false,
                 children: [{
@@ -1069,10 +1067,6 @@ Ext.onReady(function() {
                     text: 'Impaired: Other',
                     leaf: true,
                     myvalue: "water:otherlen"
-                }, {
-                    text: 'Fish Consumption Advisory',
-                    leaf: true,
-                    myvalue: "water:fishimplen"
                 }]
             }]
         }),
@@ -1139,12 +1133,25 @@ Ext.onReady(function() {
         open: 'Open Habitat (ha)',
         shrb: 'Scrub/Shrub Habitat (ha)',
         urban: 'Urban (ha)',
-        fire: 'urban density w/in: 5 mile radius',
-        trans: 'length (m) of divided: center line roads'
+        fire: 'urban density w/in? 5 mile radius',
+        trans: 'length (m) of divided? center line roads',
+        "nutrient:manu": "Manure Application? kg/ha/yr",
+        "nutrient:fert": "Synthetic Nitrogen? Fertilizer Application kg/ha/yr",
+        "nutrient:td_n_t": "Total Nitrogen? Deposition   kg/ha",
+        "nutrient:td_s_t": "Total Sulfur? Deposition kg/ha",
+        frsthlth: "Forest Insect?Disease Risk",
+        energydev: "Triassic Basin",
+        "water:totimplen": "Impaired: All km",
+        "water:bioimplen": "Impaired: Biota km",
+        "water:metimplen": "Impaired: Metals km",
+        "water:nutimplen": "Impaired: Nutrients km",
+        "water:habimplen": "Impaired: Habitat   km",
+        "water:tempimplen": "Impaired: Temperature  km",
+        "water:polimplen": "Impaired: Pollution km",
+        "water:otherlen": "Impaired: Other  km",
+        "water:NID": "Number of dams n"
     };
-    var legend_titles2 = {
 
-    }
 
     var formhuc12maps_chng = function(radclick) {
         var qry_str = "&map=" + radclick;
@@ -1164,33 +1171,30 @@ Ext.onReady(function() {
                     // console.log(key);
                 }
             }
-            // if (legend_titles1[data.map]) {
-            //     lgd_title.text(legend_titles1[data.map].split(':')[0]);
-            //     lgd_title2.text(legend_titles1[data.map].split(':')[1]);
-            // } else {
-            //     lgd_title.text("not set");
-            //     lgd_title2.text("not set");
-            //     console.log(data.map);
-            // }
-            symbolsLookup["1"].fillColor = "#" + data.colors.color2;
-            symbolsLookup["2"].fillColor = "#" + data.colors.color3;
-            symbolsLookup["3"].fillColor = "#" + data.colors.color4;
-            symbolsLookup["4"].fillColor = "#" + data.colors.color5;
-            symbolsLookup["5"].fillColor = "#" + data.colors.color6;
+            if (legend_titles1[data.map]) {
+                lgd_title.text(legend_titles1[data.map].split('?')[0]);
+                lgd_title2.text(legend_titles1[data.map].split('?')[1]);
+            } else {
+                lgd_title.text("not set");
+                lgd_title2.text("not set");
+                console.log(data.map);
+            }
+            symbolsLookup["1"].fillColor = "#" + data.colors[1];
+            symbolsLookup["2"].fillColor = "#" + data.colors[2];
+            symbolsLookup["3"].fillColor = "#" + data.colors[3];
+            symbolsLookup["4"].fillColor = "#" + data.colors[4];
+            symbolsLookup["5"].fillColor = "#" + data.colors[5];
             console.log(symbolsLookup["5"].fillColor);
             map.getLayersByName("HUC 12 Maps")[0].redraw();
-            console.log(data.map);
+            console.log(data);
 
-            // lgd_text.text(function(d, i) {
-            //     if (i === 0) {
-            //         return data.range[i] + " - " + data.range[i + 1];
+            lgd_text.text(function(d, i) {
+                return data.lgd_text[i];
+            });
 
-            //     } else {
-            //         return (data.range[i]) + " - " + data.range[i + 1];
-
-            //     }
-            // });
-
+            lgd_color.style("fill", function(d, i) {
+                return "#" + data.colors[i];
+            });
 
 
 
@@ -1434,7 +1438,7 @@ Ext.onReady(function() {
         items: [legend_panel]
     }).show();
 
-    var data = ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000'];
+    var data = ['dddddd', 'dddddd', 'dddddd', 'dddddd', 'dddddd', 'dddddd'];
     var width = 420,
         barHeight = 25;
 
@@ -1462,10 +1466,10 @@ Ext.onReady(function() {
         .data(data)
         .enter().append("g")
         .attr("transform", function(d, i) {
-            return "translate(10," + (i * barHeight + 80) + ")";
+            return "translate(10," + (i * barHeight + 70) + ")";
         });
 
-    bar.append("rect")
+    lgd_color = bar.append("rect")
         .attr("width", 25)
         .attr("height", barHeight - 1)
         .style("fill", function(d) {
@@ -1478,8 +1482,8 @@ Ext.onReady(function() {
         .attr("dy", ".35em")
         .style("font", "13px sans-serif")
         .style("text-anchor", "start")
-        .text(function(d) {
-            return "";
+        .text(function() {
+            return "0 - 0";
         });
 
     float_win.hide();
