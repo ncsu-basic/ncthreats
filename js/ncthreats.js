@@ -960,7 +960,7 @@ Ext.onReady(function() {
             inputValue: 5
         }]
     };
-     var checkGroupimpaired = {
+    var checkGroupimpaired = {
         xtype: 'radiogroup',
         fieldLabel: 'Impaired Waters',
         columns: 1,
@@ -1219,7 +1219,7 @@ Ext.onReady(function() {
                     //'select': form2_chng
                 }
 
-            },  {
+            }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
@@ -1251,7 +1251,7 @@ Ext.onReady(function() {
                     //'select': form2_chng
                 }
 
-            },  {
+            }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
@@ -1267,12 +1267,12 @@ Ext.onReady(function() {
                     //'select': form2_chng
                 }
 
-            },  {
+            }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "synthetic nitrogen fertilizer weight",
+                fieldLabel: "Synthetic Nitrogen Fertilizer",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1288,103 +1288,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "Total Sulfur Deposition weight",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-
-            },  {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Forest Insect/Disease Risk weight",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-
-            },  {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Triassic Basin weight",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-
-            },  {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Number of Dams weight",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-
-            }, checkGroupimpaired, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Impaired: All  weight",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-
-            },  {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Impaired: Biota weight",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-
-            },  {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Impaired: Metals weight",
+                fieldLabel: "Total Nitrogen Deposition",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1400,7 +1304,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "Impaired: Nutrients weight",
+                fieldLabel: "Total Sulfur Deposition",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1416,7 +1320,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "Impaired: Habitat weight",
+                fieldLabel: "Forest Insect/Disease Risk",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1432,7 +1336,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "Impaired: Temperature weight",
+                fieldLabel: "Triassic Basin",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1443,12 +1347,12 @@ Ext.onReady(function() {
                     //'select': form2_chng
                 }
 
-            },  {
+            }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "Impaired: Pollution weight",
+                fieldLabel: "Number of Dams",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1459,12 +1363,125 @@ Ext.onReady(function() {
                     //'select': form2_chng
                 }
 
-            },  {
+            },
+            checkGroupimpaired, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
-                fieldLabel: "Impaired: Other weight",
+                fieldLabel: "Impaired: All",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Biota",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Metals",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Nutrients",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Habitat",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Temperature",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Pollution",
+                value: "notinclude",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    //'select': form2_chng
+                }
+
+            }, {
+                xtype: "combo",
+                // itemId: "cmb2",
+                store: comboStoreweights,
+                name: 'year',
+                fieldLabel: "Impaired: Other",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
