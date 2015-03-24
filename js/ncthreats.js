@@ -933,56 +933,23 @@ Ext.onReady(function() {
     //     }]
     // };
 
-    var checkGrouphabitat = {
-        xtype: 'radiogroup',
-        fieldLabel: 'Habitat ',
-        columns: 1,
-        items: [{
-            boxLabel: 'forest',
-            name: 'rb-auto',
-            inputValue: 1,
-            checked: true
-        }, {
-            boxLabel: 'wet forest',
-            name: 'rb-auto',
-            inputValue: 2
-        }, {
-            boxLabel: 'open',
-            name: 'rb-auto',
-            inputValue: 3
-        }, {
-            boxLabel: 'scrub',
-            name: 'rb-auto',
-            inputValue: 4
-        }, {
-            boxLabel: 'wet herbaceous',
-            name: 'rb-auto',
-            inputValue: 5
-        }]
-    };
-    var checkGroupimpaired = {
-        xtype: 'radiogroup',
-        fieldLabel: 'Impaired Waters',
-        columns: 1,
-        items: [{
-            boxLabel: 'Impaired: All',
-            name: 'rb-auto',
-            inputValue: 1,
-            checked: true
-        }, {
-            boxLabel: 'Impaired: Individual',
-            name: 'rb-auto',
-            inputValue: 2
-        }]
-    };
 
 
     var threat_calcs_map = function() {
-        var form_vals = habitat_panel.getForm().getValues(true);
+        var form_vals = habitat_panel.getForm().getValues();
+        // console.log(form_vals);
+        form_vals = modelpaneltop.getForm().getValues();
+        // console.log(form_vals);
+        form_vals = modelpanelmid.getForm().getValues();
+        // console.log(form_vals);
+        form_vals = modelpanelbot.getForm().getValues();
         console.log(form_vals);
         $.ajax({
-            url: resource + '/map?' + encodeURI(form_vals),
+            url: SERVER_URI+ 'wps/map',
             type: 'GET',
+            data:{
+                hello: "world"
+            },
             dataType: 'json'
         }).done(function(data) {
             onExecuted(data.results);
@@ -991,7 +958,7 @@ Ext.onReady(function() {
 
     var threat_calcs_report = function() {
         var form_vals = formPanel3.getForm().getValues(true);
-        var url = resource + '/report?' + encodeURI(form_vals);
+        var url = SERVER_URI + 'wps/report?' + encodeURI(form_vals);
         console.log(url);
         window.open(url);
     };
@@ -999,7 +966,7 @@ Ext.onReady(function() {
     var threat_calcs_ssheet = function() {
         var form_vals = formPanel3.getForm().getValues(true);
         $.ajax({
-            url: resource + '/ssheet?' + encodeURI(form_vals),
+            url: SERVER_URI + '/ssheet?' + encodeURI(form_vals),
             type: 'GET'
         }).done(function(data, textStatus, jqXHR) {
             if (jqXHR.status === 201) {
@@ -1149,6 +1116,34 @@ Ext.onReady(function() {
     });
     // tree_huc12maps.getRootNode().expand();
 
+    var checkGrouphabitat = {
+        xtype: 'radiogroup',
+        fieldLabel: 'Habitat ',
+        columns: 1,
+        items: [{
+            boxLabel: 'forest',
+            name: 'habitat',
+            inputValue: 'frst',
+            checked: true
+        }, {
+            boxLabel: 'wet forest',
+            name: 'habitat',
+            inputValue: 'ftwt'
+        }, {
+            boxLabel: 'open',
+            name: 'habitat',
+            inputValue: 'open'
+        }, {
+            boxLabel: 'scrub',
+            name: 'habitat',
+            inputValue: 'shrb'
+        }, {
+            boxLabel: 'wet herbaceous',
+            name: 'habitat',
+            inputValue: 'hbwt'
+        }]
+    };
+
     var habitat_panel = new Ext.form.FormPanel({
         title: "",
         width: 280,
@@ -1171,8 +1166,8 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            submitValue : true,
-            hiddenName : 'scenario',
+            submitValue: true,
+            hiddenName: 'scenario',
             listeners: {
                 //'select': form2_chng
             }
@@ -1188,8 +1183,8 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            submitValue : true,
-            hiddenName : 'weight',
+            submitValue: true,
+            hiddenName: 'habitat_weight',
             listeners: {
                 //'select': form2_chng
             }
@@ -1240,7 +1235,7 @@ Ext.onReady(function() {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Urban Growth",
             value: "1.00",
             typeAhead: true,
@@ -1248,6 +1243,8 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'urbangrth',
             listeners: {
                 //'select': form2_chng
             }
@@ -1256,7 +1253,7 @@ Ext.onReady(function() {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Fire Suppression",
             value: "1.00",
             typeAhead: true,
@@ -1264,15 +1261,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'firesup'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Divided Centerline Highways",
             value: "1.00",
             typeAhead: true,
@@ -1280,15 +1276,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'hiway'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Manure Application",
             value: "1.00",
             typeAhead: true,
@@ -1296,15 +1291,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'manure'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Synthetic Nitrogen Fertilizer",
             value: "1.00",
             typeAhead: true,
@@ -1312,15 +1306,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'nitrofrt'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Total Nitrogen Deposition",
             value: "1.00",
             typeAhead: true,
@@ -1328,15 +1321,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'totnitro'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Total Sulfur Deposition",
             value: "1.00",
             typeAhead: true,
@@ -1344,15 +1336,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'totsulf'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Forest Insect/Disease Risk",
             value: "1.00",
             typeAhead: true,
@@ -1360,15 +1351,14 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'insectdisease'
 
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Triassic Basin",
             value: "1.00",
             typeAhead: true,
@@ -1376,15 +1366,13 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
-
+            submitValue: true,
+            hiddenName: 'triassic'
         }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'miscdata',
             fieldLabel: "Number of Dams",
             value: "1.00",
             typeAhead: true,
@@ -1392,12 +1380,27 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
-            listeners: {
-                //'select': form2_chng
-            }
+            submitValue: true,
+            hiddenName: 'ndams'
 
         }]
     });
+
+    var checkGroupimpaired = {
+        xtype: 'radiogroup',
+        fieldLabel: 'Impaired Waters',
+        columns: 1,
+        items: [{
+            boxLabel: 'Impaired: All',
+            name: 'impaired',
+            inputValue: 'all',
+            checked: true
+        }, {
+            boxLabel: 'Impaired: Individual',
+            name: 'impaired',
+            inputValue: 'indiv'
+        }]
+    };
 
     var modelpanelbot = new Ext.form.FormPanel({
         title: "",
@@ -1413,7 +1416,7 @@ Ext.onReady(function() {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: All",
                 value: "1.00",
                 typeAhead: true,
@@ -1421,15 +1424,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairall'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Biota",
                 value: "notinclude",
                 typeAhead: true,
@@ -1437,15 +1439,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairbiota'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Metals",
                 value: "notinclude",
                 typeAhead: true,
@@ -1453,15 +1454,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairmetal'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Nutrients",
                 value: "notinclude",
                 typeAhead: true,
@@ -1469,15 +1469,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairnutr'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Habitat",
                 value: "notinclude",
                 typeAhead: true,
@@ -1485,15 +1484,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairhab'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Temperature",
                 value: "notinclude",
                 typeAhead: true,
@@ -1501,15 +1499,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairtemp'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Pollution",
                 value: "notinclude",
                 typeAhead: true,
@@ -1517,15 +1514,14 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairpolu'
 
             }, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
-                name: 'year',
+                name: 'miscdata',
                 fieldLabel: "Impaired: Other",
                 value: "notinclude",
                 typeAhead: true,
@@ -1533,9 +1529,8 @@ Ext.onReady(function() {
                 triggerAction: "all",
                 valueField: 'layerId',
                 displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+                submitValue: true,
+                hiddenName: 'impairother'
 
             }
         ],
@@ -2223,15 +2218,15 @@ Ext.onReady(function() {
         }
     });
 
-    var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
-    var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
-    var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
-    Ext.get(panelid1).applyStyles("background-image: url(/images/dark-green-hd.gif)");
-    Ext.get(panelid1).applyStyles("color: white");
-    Ext.get(panelid2).applyStyles("background-image: url(/images/dark-red-hd.gif)");
-    Ext.get(panelid2).applyStyles("color: white");
-    Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
-    Ext.get(panelid3).applyStyles("color: white");
+    // var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
+    // var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
+    // var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
+    // Ext.get(panelid1).applyStyles("background-image: url(/images/dark-green-hd.gif)");
+    // Ext.get(panelid1).applyStyles("color: white");
+    // Ext.get(panelid2).applyStyles("background-image: url(/images/dark-red-hd.gif)");
+    // Ext.get(panelid2).applyStyles("color: white");
+    // Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
+    // Ext.get(panelid3).applyStyles("color: white");
 
     ////////////////////////////////////////////////////////////////////////
     //start scripting for panel html pages
@@ -2347,10 +2342,10 @@ Ext.onReady(function() {
         $("#shp_btn").click(upload_shps);
 
     };
-    var el = Ext.getCmp("aoi_upload_id");
-    var mgr = el.getUpdater();
-    mgr.update({
-        url: HOST_NAME + "pages/upload.html"
-    });
-    mgr.on("update", page_script);
+    // var el = Ext.getCmp("aoi_upload_id");
+    // var mgr = el.getUpdater();
+    // mgr.update({
+    //     url: HOST_NAME + "pages/upload.html"
+    // });
+    // mgr.on("update", page_script);
 });
