@@ -940,12 +940,12 @@ Ext.onReady(function() {
         items: [{
             boxLabel: 'forest',
             name: 'rb-auto',
-            inputValue: 1
+            inputValue: 1,
+            checked: true
         }, {
             boxLabel: 'wet forest',
             name: 'rb-auto',
-            inputValue: 2,
-            checked: true
+            inputValue: 2
         }, {
             boxLabel: 'open',
             name: 'rb-auto',
@@ -967,12 +967,12 @@ Ext.onReady(function() {
         items: [{
             boxLabel: 'Impaired: All',
             name: 'rb-auto',
-            inputValue: 1
+            inputValue: 1,
+            checked: true
         }, {
             boxLabel: 'Impaired: Individual',
             name: 'rb-auto',
-            inputValue: 2,
-            checked: true
+            inputValue: 2
         }]
     };
 
@@ -1148,11 +1148,54 @@ Ext.onReady(function() {
     });
     // tree_huc12maps.getRootNode().expand();
 
-    var formPanel3 = new Ext.form.FormPanel({
-        title: "Calculations",
+    var habitat_panel = new Ext.form.FormPanel({
+        title: "",
         width: 280,
         // height: 500,
-        bodyStyle: "padding:20px; ",
+        bodyStyle: "padding:20px;  margin-top: 5px;",
+        border: true,
+        // labelAlign: "top",
+        defaults: {
+            anchor: "100%"
+        },
+        items: [{
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStorescenarios,
+            name: 'year',
+            fieldLabel: "Biofuels Scenario",
+            value: "x",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+        }, checkGrouphabitat, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Habitat",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+        }]
+    });
+
+    var modelpaneltop = new Ext.form.FormPanel({
+        title: "",
+        width: 280,
+        // height: 500,
+        bodyStyle: "padding:20px; margin-top: 5px;",
         // labelAlign: "top",
         defaults: {
             anchor: "100%"
@@ -1172,205 +1215,202 @@ Ext.onReady(function() {
                 listeners: {
                     //'select': form2_chng
                 }
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStorescenarios,
-                name: 'year',
-                fieldLabel: "Scenario",
-                value: "x",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-            },
-            checkGrouphabitat, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Habitat",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Urban Growth",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+            }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Fire Suppression",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Divided Centerline Highways",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Manure Application",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+        ]
+    });
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Synthetic Nitrogen Fertilizer",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+    var modelpanelmid = new Ext.form.FormPanel({
+        title: "",
+        width: 280,
+        // height: 500,
+        bodyStyle: "padding:20px; margin-top: 5px;",
+        // labelAlign: "top",
+        defaults: {
+            anchor: "100%"
+        },
+        items: [{
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Urban Growth",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Total Nitrogen Deposition",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Fire Suppression",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Total Sulfur Deposition",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Divided Centerline Highways",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Forest Insect/Disease Risk",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Manure Application",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Triassic Basin",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Synthetic Nitrogen Fertilizer",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
 
-            }, {
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreweights,
-                name: 'year',
-                fieldLabel: "Number of Dams",
-                value: "notinclude",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Total Nitrogen Deposition",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
 
-            },
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Total Sulfur Deposition",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Forest Insect/Disease Risk",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Triassic Basin",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'year',
+            fieldLabel: "Number of Dams",
+            value: "1.00",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+
+        }]
+    });
+
+    var modelpanelbot = new Ext.form.FormPanel({
+        title: "",
+        width: 280,
+        // height: 500,
+        bodyStyle: "padding:20px; margin-top: 5px;",
+        // labelAlign: "top",
+        defaults: {
+            anchor: "100%"
+        },
+        items: [
             checkGroupimpaired, {
                 xtype: "combo",
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'year',
                 fieldLabel: "Impaired: All",
-                value: "notinclude",
+                value: "1.00",
                 typeAhead: true,
                 mode: "local",
                 triggerAction: "all",
@@ -1493,9 +1533,6 @@ Ext.onReady(function() {
                 }
 
             }
-
-
-
         ],
         buttons: [{
             text: "Spreadsheet",
@@ -2029,7 +2066,7 @@ Ext.onReady(function() {
     var process_tab = new Ext.Panel({
         title: 'Model',
         //html: "some content",
-        items: [formPanel3],
+        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
         cls: 'help',
         autoScroll: true
     });
