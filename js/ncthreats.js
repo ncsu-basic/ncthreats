@@ -978,7 +978,8 @@ Ext.onReady(function() {
 
 
     var threat_calcs_map = function() {
-        var form_vals = formPanel3.getForm().getValues(true);
+        var form_vals = habitat_panel.getForm().getValues(true);
+        console.log(form_vals);
         $.ajax({
             url: resource + '/map?' + encodeURI(form_vals),
             type: 'GET',
@@ -1162,7 +1163,7 @@ Ext.onReady(function() {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStorescenarios,
-            name: 'year',
+            name: 'scenario',
             fieldLabel: "Biofuels Scenario",
             value: "x",
             typeAhead: true,
@@ -1170,6 +1171,8 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
+            submitValue : true,
+            hiddenName : 'scenario',
             listeners: {
                 //'select': form2_chng
             }
@@ -1177,7 +1180,7 @@ Ext.onReady(function() {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'year',
+            name: 'hab_wts',
             fieldLabel: "Habitat",
             value: "1.00",
             typeAhead: true,
@@ -1185,6 +1188,8 @@ Ext.onReady(function() {
             triggerAction: "all",
             valueField: 'layerId',
             displayField: 'layerName',
+            submitValue : true,
+            hiddenName : 'weight',
             listeners: {
                 //'select': form2_chng
             }
