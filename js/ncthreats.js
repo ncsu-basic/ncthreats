@@ -142,7 +142,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var counties = new OpenLayers.Layer.TMS("County Labels",
+    var counties = new OpenLayers.Layer.TMS("County Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "counties",
             type: "png",
@@ -208,7 +208,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var counties_lbl = new OpenLayers.Layer.TMS("County Boundaries",
+    var counties_lbl = new OpenLayers.Layer.TMS("County Labels",
         SERVER_URI + "tilecache/", {
             layername: "counties_lbl",
             type: "png",
@@ -221,6 +221,26 @@ Ext.onReady(function() {
     var ncbcr = new OpenLayers.Layer.TMS("NC BCR",
         SERVER_URI + "tilecache/", {
             layername: "ncbcr",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+        }
+    );
+
+    var ncbounds = new OpenLayers.Layer.TMS("State Boundary",
+        SERVER_URI + "tilecache/", {
+            layername: "ncbounds",
+            type: "png",
+            isBaseLayer: false,
+            visibility: false,
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+        }
+    );
+
+    var ecoregions = new OpenLayers.Layer.TMS("Ecoegion Boundaries",
+        SERVER_URI + "tilecache/", {
+            layername: "ecoregions",
             type: "png",
             isBaseLayer: false,
             visibility: false,
@@ -297,7 +317,8 @@ Ext.onReady(function() {
         styleMap: styleMap,
     });
 
-    var results = new OpenLayers.Layer.Vector("Results", {
+    // old layer name Results
+    var results = new OpenLayers.Layer.Vector("Composite Threats", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
@@ -305,7 +326,7 @@ Ext.onReady(function() {
         renderers: ["SVG"]
     });
 
-    var huc12_state = new OpenLayers.Layer.Vector("HUC 12 Maps", {
+    var huc12_state = new OpenLayers.Layer.Vector("Individual Threats", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
@@ -328,7 +349,7 @@ Ext.onReady(function() {
 
     });
 
-    map.addLayers([huc12_state, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+    map.addLayers([huc12_state, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
         results, gphy, osm, counties_base
@@ -1665,7 +1686,7 @@ Ext.onReady(function() {
             for (var key in data.res) {
                 var thrt = data.res[key];
                 try {
-                    map.getLayersByName("HUC 12 Maps")[0].
+                    map.getLayersByName("Individual Threats")[0].
                     getFeaturesByAttribute("huc12", key)[0].
                     attributes.threat = thrt;
                 } catch (err) {
@@ -1686,7 +1707,7 @@ Ext.onReady(function() {
             symbolsLookup["4"].fillColor = "#" + data.colors[4];
             symbolsLookup["5"].fillColor = "#" + data.colors[5];
             console.log(symbolsLookup["5"].fillColor);
-            map.getLayersByName("HUC 12 Maps")[0].redraw();
+            map.getLayersByName("Individual Threats")[0].redraw();
             console.log(data);
 
             lgd_text.text(function(d, i) {
@@ -2029,12 +2050,12 @@ Ext.onReady(function() {
     });
     var layerList2 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'HUC 4',
+        text: 'NC State',
         leaf: false,
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC HUC 4") !== -1;
+                return record.get("layer").name.indexOf("State Boundary") !== -1;
             }
         }
     });
@@ -2073,12 +2094,12 @@ Ext.onReady(function() {
     });
     var layerList6 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'HUC 12',
+        text: 'NC Ecoregions',
         leaf: false,
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC HUC 12") !== -1;
+                return record.get("layer").name.indexOf("Ecoegion") !== -1;
             }
         }
     });
@@ -2135,7 +2156,7 @@ Ext.onReady(function() {
         width: 300,
         root: {
             nodeType: "async",
-            children: [layerList7, layerList8,
+            children: [layerList2, layerList7, layerList6, layerList8,
                 layerList3, layerList4, layerList5, layerList9, layerList10
 
             ]
