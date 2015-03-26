@@ -233,7 +233,7 @@ Ext.onReady(function() {
             layername: "ncbounds",
             type: "png",
             isBaseLayer: false,
-            visibility: false,
+            visibility: true,
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
@@ -2052,7 +2052,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'NC State',
         leaf: false,
-        expanded: false,
+        expanded: true,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("State Boundary") !== -1;
