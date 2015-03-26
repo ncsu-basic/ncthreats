@@ -5,7 +5,7 @@ Ext.onReady(function() {
 
     var resource;
 
-    var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://localhost/";
     var SERVER_URI = "http://localhost/";
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
@@ -937,19 +937,27 @@ Ext.onReady(function() {
 
 
     var threat_calcs_map = function() {
-        var form_vals = habitat_panel.getForm().getValues();
+        var form_vals_hab = habitat_panel.getForm().getValues();
         // console.log(form_vals);
-        form_vals = modelpaneltop.getForm().getValues();
+        var form_vals_year = modelpaneltop.getForm().getValues();
         // console.log(form_vals);
-        form_vals = modelpanelmid.getForm().getValues();
+        var form_vals_misc = modelpanelmid.getForm().getValues();
         // console.log(form_vals);
-        form_vals = modelpanelbot.getForm().getValues();
-        console.log(form_vals);
+        var form_vals_water = modelpanelbot.getForm().getValues();
+        console.log(form_vals_water);
         $.ajax({
-            url: SERVER_URI+ 'wps/map',
+            url: SERVER_URI + 'wps/map',
             type: 'GET',
-            data:{
-                hello: "world"
+            data: {
+                impaired: form_vals_water.impaired,
+                impairall: form_vals_water.impairall,
+                impairbioata: form_vals_water.impairbioata,
+                impairmetal: form_vals_water.impairmetal,
+                impairnutr: form_vals_water.impairnutr,
+                impairother: form_vals_water.impairother,
+                impairpolu: form_vals_water.impairpolu,
+                impairhab: form_vals_water.impairhab,
+                impairtemp: form_vals_water.impairnutr
             },
             dataType: 'json'
         }).done(function(data) {
