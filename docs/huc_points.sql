@@ -20,9 +20,6 @@ BEGIN
         RAISE NOTICE 'center  is %', centroidx;
         END LOOP;
 
-
-
-
     RETURN 0;
 END;
 $function$
