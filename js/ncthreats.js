@@ -218,7 +218,7 @@ Ext.onReady(function() {
         }
     );
 
-    var ncbcr = new OpenLayers.Layer.TMS("NC BCR",
+    var ncbcr = new OpenLayers.Layer.TMS("Bird Conservation Region Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "ncbcr",
             type: "png",
@@ -2116,12 +2116,12 @@ Ext.onReady(function() {
     });
     var layerList8 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'NC BCR',
+        text: 'NC Bird Conservation Regions',
         leaf: false,
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC BCR") !== -1;
+                return record.get("layer").name.indexOf("Bird Conservation") !== -1;
             }
         }
     });
