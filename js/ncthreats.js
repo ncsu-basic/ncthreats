@@ -938,13 +938,13 @@ Ext.onReady(function() {
 
     var threat_calcs_map = function() {
         var form_vals_hab = habitat_panel.getForm().getValues();
-        // console.log(form_vals);
+        // console.log(form_vals_hab);
         var form_vals_year = modelpaneltop.getForm().getValues();
-        // console.log(form_vals);
+        // console.log(form_vals_year);
         var form_vals_misc = modelpanelmid.getForm().getValues();
-        // console.log(form_vals);
+        console.log(form_vals_misc);
         var form_vals_water = modelpanelbot.getForm().getValues();
-        console.log(form_vals_water);
+        // console.log(form_vals_water);
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
@@ -957,7 +957,21 @@ Ext.onReady(function() {
                 impairother: form_vals_water.impairother,
                 impairpolu: form_vals_water.impairpolu,
                 impairhab: form_vals_water.impairhab,
-                impairtemp: form_vals_water.impairnutr
+                impairtemp: form_vals_water.impairnutr,
+                scenario: form_vals_hab.scenario,
+                habitat: form_vals_hab.habitat,
+                habitat_weight: form_vals_hab.habitat_weight,
+                year: form_vals_year.year,
+                firesup: form_vals_misc.firesup,
+                hiway: form_vals_misc.hiway,
+                insectdisease: form_vals_misc.insectdisease,
+                manure: form_vals_misc.manure,
+                ndams: form_vals_misc.ndams,
+                nitrofrt: form_vals_misc.nitrofrt,
+                totnitro: form_vals_misc.totnitro,
+                totsulf: form_vals_misc.totsulf,
+                triassic: form_vals_misc.triassic,
+                urbangrth: form_vals_misc.urbangrth
             },
             dataType: 'json'
         }).done(function(data) {
@@ -1167,7 +1181,7 @@ Ext.onReady(function() {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStorescenarios,
-            name: 'scenario',
+            name: 'misc',
             fieldLabel: "Biofuels Scenario",
             value: "x",
             typeAhead: true,
