@@ -106,7 +106,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var nchuc6 = new OpenLayers.Layer.TMS("NC HUC 6",
+    var nchuc6 = new OpenLayers.Layer.TMS("River Basin Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc",
             type: "png",
@@ -115,7 +115,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var nchuc8 = new OpenLayers.Layer.TMS("NC HUC 8",
+    var nchuc8 = new OpenLayers.Layer.TMS("Subbasin Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc8nc",
             type: "png",
@@ -124,7 +124,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var nchuc10 = new OpenLayers.Layer.TMS("NC HUC 10",
+    var nchuc10 = new OpenLayers.Layer.TMS("Watershed Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc10nc",
             type: "png",
@@ -142,7 +142,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var counties = new OpenLayers.Layer.TMS("NC Counties",
+    var counties = new OpenLayers.Layer.TMS("County Labels",
         SERVER_URI + "tilecache/", {
             layername: "counties",
             type: "png",
@@ -172,7 +172,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var nchuc6_lbl = new OpenLayers.Layer.TMS("NC HUC 6 Label",
+    var nchuc6_lbl = new OpenLayers.Layer.TMS("River Basin Labels",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc_lbl",
             type: "png",
@@ -181,7 +181,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var nchuc8_lbl = new OpenLayers.Layer.TMS("NC HUC 8 Label",
+    var nchuc8_lbl = new OpenLayers.Layer.TMS("Subbasin Labels",
         SERVER_URI + "tilecache/", {
             layername: "huc8nc_lbl",
             type: "png",
@@ -190,7 +190,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var nchuc10_lbl = new OpenLayers.Layer.TMS("NC HUC 10 Label",
+    var nchuc10_lbl = new OpenLayers.Layer.TMS("Watershed Labels",
         SERVER_URI + "tilecache/", {
             layername: "huc10nc_lbl",
             type: "png",
@@ -208,7 +208,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
-    var counties_lbl = new OpenLayers.Layer.TMS("NC Counties Label",
+    var counties_lbl = new OpenLayers.Layer.TMS("County Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "counties_lbl",
             type: "png",
@@ -1061,7 +1061,7 @@ Ext.onReady(function() {
     };
 
     var show_legend_flag = true;
-    console.log(habitats);
+    // console.log(habitats);
     var tree_huc12maps = new Ext.tree.TreePanel({
         // renderTo: 'tree-div',
         useArrows: true,
@@ -2045,7 +2045,7 @@ Ext.onReady(function() {
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC HUC 6") !== -1;
+                return record.get("layer").name.indexOf("River Basin") !== -1;
             }
         }
     });
@@ -2056,7 +2056,7 @@ Ext.onReady(function() {
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC HUC 8") !== -1;
+                return record.get("layer").name.indexOf("Subbasin") !== -1;
             }
         }
     });
@@ -2067,7 +2067,7 @@ Ext.onReady(function() {
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC HUC 10") !== -1;
+                return record.get("layer").name.indexOf("Watershed") !== -1;
             }
         }
     });
@@ -2089,7 +2089,7 @@ Ext.onReady(function() {
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").name.indexOf("NC Counties") !== -1;
+                return record.get("layer").name.indexOf("County") !== -1;
             }
         }
     });
@@ -2107,9 +2107,9 @@ Ext.onReady(function() {
 
     var layerList9 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'Analysis',
+        text: 'Data Layers',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").CLASS_NAME ===
@@ -2135,9 +2135,9 @@ Ext.onReady(function() {
         width: 300,
         root: {
             nodeType: "async",
-            children: [layerList10, layerList9,
-                layerList3, layerList4, layerList5,
-                layerList7, layerList8
+            children: [layerList7, layerList8,
+                layerList3, layerList4, layerList5, layerList9, layerList10
+
             ]
         },
         title: "Setup",
@@ -2279,7 +2279,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 2,
+        activeTab: 0,
         // accordion
         items: [tree, maps_tab, process_tab, print_tab, login_accordion],
         deferredRender: false
