@@ -40,6 +40,8 @@ drop table transportation_rnk;
 drop table static_rnk;
 
 drop table legend_data;
+drop table wind_avg;
+drop table wind_rnk;
 
 
 create  table ea_pol(
@@ -528,6 +530,16 @@ range5_vals varchar(100),
 range6_vals varchar(100)
 );
 
+create table wind_avg(
+HUC_12 char(12) primary key,
+WPC_avg numeric(6,3)
+);
+
+create table wind_rnk(
+HUC_12 char(12) primary key,
+WPC_rnk smallint
+);
+
 
 copy ea_pol from '/home/jim/Desktop/ncthreats_tables/tblEA_Pol.txt' with csv header;
 copy ea_h20 from '/home/jim/Desktop/ncthreats_tables/tblEA_h2o.txt' with csv header;
@@ -538,12 +550,12 @@ copy lcscen_d_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_ha.txt' wi
 copy lcscen_e_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_ha.txt' with csv header;
 copy lcscen_x_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_ha.txt' with csv header;
 
-copy lcscen_a_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_rnk.txt' with csv header;
-copy lcscen_b_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_rnk.txt' with csv header;
-copy lcscen_c_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_rnk.txt' with csv header;
-copy lcscen_d_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_rnk.txt' with csv header;
-copy lcscen_e_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_rnk.txt' with csv header;
-copy lcscen_x_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_rnk.txt' with csv header;
+copy lcscen_a_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_rnk2.txt' with csv header;
+copy lcscen_b_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_rnk2.txt' with csv header;
+copy lcscen_c_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_rnk2.txt' with csv header;
+copy lcscen_d_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_rnk2.txt' with csv header;
+copy lcscen_e_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_rnk2.txt' with csv header;
+copy lcscen_x_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_rnk2.txt' with csv header;
 
 copy urban_den from '/home/jim/Desktop/ncthreats_tables/tblUrban_den.txt' with csv header;
 copy urban_ha from '/home/jim/Desktop/ncthreats_tables/tblUrban_ha.txt' with csv header;
@@ -551,12 +563,15 @@ copy urban_den_rnk from '/home/jim/Desktop/ncthreats_tables/tblUrban_den_rnk.txt
 copy urban_ha_rnk from '/home/jim/Desktop/ncthreats_tables/tblUrban_ha_rnk.txt' with csv header;
 copy transportation_rnk from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_rnk.txt' with csv header;
 copy static_rnk from '/home/jim/Desktop/ncthreats_tables/tblStatic_rnk.txt' with csv header;
+copy wind_avg from '/home/jim/Desktop/ncthreats_tables/tblWPC_avg.txt' with csv header;
+copy wind_rnk from '/home/jim/Desktop/ncthreats_tables/tblWPC_rnk.txt' with csv header;
+
 
 copy energy_dev from '/home/jim/Desktop/ncthreats_tables/tblTriassic_data.txt' with csv header;
 copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data.txt' with csv header;
 copy transportation from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_mha.txt' with csv header;
 
-copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data.csv.txt' with csv;
+copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data.csv' with csv;
 
 
 
