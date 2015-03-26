@@ -980,16 +980,74 @@ Ext.onReady(function() {
     };
 
     var threat_calcs_report = function() {
-        var form_vals = formPanel3.getForm().getValues(true);
-        var url = SERVER_URI + 'wps/report?' + encodeURI(form_vals);
+        var form_vals_hab = habitat_panel.getForm().getValues();
+        var form_vals_year = modelpaneltop.getForm().getValues();
+        var form_vals_misc = modelpanelmid.getForm().getValues();
+        var form_vals_water = modelpanelbot.getForm().getValues();
+        var form_vals = {
+            impaired: form_vals_water.impaired,
+            impairall: form_vals_water.impairall,
+            impairbioata: form_vals_water.impairbioata,
+            impairmetal: form_vals_water.impairmetal,
+            impairnutr: form_vals_water.impairnutr,
+            impairother: form_vals_water.impairother,
+            impairpolu: form_vals_water.impairpolu,
+            impairhab: form_vals_water.impairhab,
+            impairtemp: form_vals_water.impairnutr,
+            scenario: form_vals_hab.scenario,
+            habitat: form_vals_hab.habitat,
+            habitat_weight: form_vals_hab.habitat_weight,
+            year: form_vals_year.year,
+            firesup: form_vals_misc.firesup,
+            hiway: form_vals_misc.hiway,
+            insectdisease: form_vals_misc.insectdisease,
+            manure: form_vals_misc.manure,
+            ndams: form_vals_misc.ndams,
+            nitrofrt: form_vals_misc.nitrofrt,
+            totnitro: form_vals_misc.totnitro,
+            totsulf: form_vals_misc.totsulf,
+            triassic: form_vals_misc.triassic,
+            urbangrth: form_vals_misc.urbangrth
+        };
+        var qry_str = $.param(form_vals);
+        var url = SERVER_URI + 'wps/report?' + qry_str;
         console.log(url);
         window.open(url);
     };
 
     var threat_calcs_ssheet = function() {
-        var form_vals = formPanel3.getForm().getValues(true);
+        var form_vals_hab = habitat_panel.getForm().getValues();
+        var form_vals_year = modelpaneltop.getForm().getValues();
+        var form_vals_misc = modelpanelmid.getForm().getValues();
+        var form_vals_water = modelpanelbot.getForm().getValues();
+        var form_vals = {
+            impaired: form_vals_water.impaired,
+            impairall: form_vals_water.impairall,
+            impairbioata: form_vals_water.impairbioata,
+            impairmetal: form_vals_water.impairmetal,
+            impairnutr: form_vals_water.impairnutr,
+            impairother: form_vals_water.impairother,
+            impairpolu: form_vals_water.impairpolu,
+            impairhab: form_vals_water.impairhab,
+            impairtemp: form_vals_water.impairnutr,
+            scenario: form_vals_hab.scenario,
+            habitat: form_vals_hab.habitat,
+            habitat_weight: form_vals_hab.habitat_weight,
+            year: form_vals_year.year,
+            firesup: form_vals_misc.firesup,
+            hiway: form_vals_misc.hiway,
+            insectdisease: form_vals_misc.insectdisease,
+            manure: form_vals_misc.manure,
+            ndams: form_vals_misc.ndams,
+            nitrofrt: form_vals_misc.nitrofrt,
+            totnitro: form_vals_misc.totnitro,
+            totsulf: form_vals_misc.totsulf,
+            triassic: form_vals_misc.triassic,
+            urbangrth: form_vals_misc.urbangrth
+        };
+        var qry_str = $.param(form_vals);
         $.ajax({
-            url: SERVER_URI + '/ssheet?' + encodeURI(form_vals),
+            url: SERVER_URI + 'wps/ssheet?' + qry_str,
             type: 'GET'
         }).done(function(data, textStatus, jqXHR) {
             if (jqXHR.status === 201) {
