@@ -78,8 +78,9 @@ div.olControlMousePosition {
   text-anchor: end;
 }
 
-.tree_image{
-	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/nc.png') !important;
+.gx-tree-layer-icon{
+	/*background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/nc.png') !important;*/
+	background-image: none !important;
 
 }
 

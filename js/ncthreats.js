@@ -20,6 +20,7 @@ Ext.onReady(function() {
     map = new OpenLayers.Map({
         displayProjection: new OpenLayers.Projection("EPSG:4326"),
         maxExtent: map_extent,
+        baseLayer: osm,
         projection: new OpenLayers.Projection("EPSG:900913"),
         resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
         //numZoomLevels: 7,
