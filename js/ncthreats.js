@@ -351,7 +351,7 @@ Ext.onReady(function() {
 
     map.addLayers([huc12_state, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
-        nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, highlightLayer,
+        nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
         results, gphy, osm, counties_base
     ]);
 
@@ -1160,6 +1160,10 @@ Ext.onReady(function() {
                     text: 'Triassic Basin',
                     leaf: true,
                     myvalue: "energydev"
+                }, {
+                    text: 'Wind Resource',
+                    leaf: true,
+                    myvalue: "wind"
                 }]
             }, {
                 text: 'Impaired Waters',
