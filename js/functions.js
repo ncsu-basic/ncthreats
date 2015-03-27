@@ -20,6 +20,52 @@
 
 // console.log(habitats);
 
+var slr_up = [{
+    text: '2000-2010',
+    myvalue: "slr_up:10",
+    leaf: true
+}, {
+    text: '2000-2020',
+    myvalue: 'slr_up:20',
+    leaf: true
+}, {
+    text: '2000-2030',
+    myvalue: 'slr_up:30',
+    leaf: true
+}, {
+    text: '2000-2040',
+    myvalue: 'slr_up:40',
+    leaf: true
+}, {
+    text: '2000-2050',
+    myvalue: 'slr_up:50',
+    leaf: true
+
+}];
+
+var slr_lc = [{
+    text: '2000-2010',
+    myvalue: "slr_lc:10",
+    leaf: true
+}, {
+    text: '2000-2020',
+    myvalue: 'slr_lc:20',
+    leaf: true
+}, {
+    text: '2000-2030',
+    myvalue: 'slr_lc:30',
+    leaf: true
+}, {
+    text: '2000-2040',
+    myvalue: 'slr_lc:40',
+    leaf: true
+}, {
+    text: '2000-2050',
+    myvalue: 'slr_lc:50',
+    leaf: true
+
+}];
+
 var urban_tree = [{
     text: '2010',
     myvalue: "urban:10",
