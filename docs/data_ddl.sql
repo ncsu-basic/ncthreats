@@ -527,11 +527,18 @@ range3 varchar(100),
 range4 varchar(100),
 range5 varchar(100),
 range6 varchar(100),
-range2_vals varchar(100),
-range3_vals varchar(100),
-range4_vals varchar(100),
-range5_vals varchar(100),
-range6_vals varchar(100)
+range1_low numeric(10,3),
+range1_high numeric(10,3),
+range2_low numeric(10,3),
+range2_high numeric(10,3),
+range3_low numeric(10,3),
+range3_high numeric(10,3),
+range4_low numeric(10,3),
+range4_high numeric(10,3),
+range5_low numeric(10,3),
+range5_high numeric(10,3),
+range6_low numeric(10,3),
+range6_high numeric(10,3)
 );
 
 create table wind_avg(
@@ -615,7 +622,7 @@ copy slamm_lc_rnk from '/home/jim/Desktop/ncthreats_tables/tblSlamm_lc_rnk.txt' 
 copy slamm_up_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_ha.txt' with csv header;
 copy slamm_up_rnk from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_rnk.txt' with csv header;
 
-copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data.csv' with csv;
+copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data.csv' with csv header;
 
 
 
