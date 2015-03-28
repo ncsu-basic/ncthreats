@@ -1744,7 +1744,11 @@ Ext.onReady(function() {
         "water:tempimplen": "Impaired: Temperature  km",
         "water:polimplen": "Impaired: Pollution km",
         "water:otherlen": "Impaired: Other  km",
-        "water:NID": "Number of dams n"
+        "water:NID": "Number of dams n",
+        wind: "Wind Power Class? (mean)",
+        slr_lc: "Terrestrial Landcover? Change (ha)",
+        slr_up: "Undeveloped Upland? Change (ha)"
+
     };
 
 
