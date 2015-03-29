@@ -260,6 +260,7 @@ Ext.onReady(function() {
     });
 
     var resultsStyleMap = new OpenLayers.StyleMap({});
+    var resultsStyleMap_model = new OpenLayers.StyleMap({});
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
     var symbolsLookup = {
         0: {
@@ -306,9 +307,90 @@ Ext.onReady(function() {
         }
     };
 
+    var symbolsLookup_model = {
+        0: {
+            strokeColor: "black",
+            fillColor: "#006100",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        1: {
+            strokeColor: "black",
+            fillColor: "#367D00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        2: {
+            strokeColor: "black",
+            fillColor: "#619A00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        3: {
+            strokeColor: "black",
+            fillColor: "#8FBB00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        4: {
+            strokeColor: "black",
+            fillColor: "#C6CDC00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        5: {
+            strokeColor: "black",
+            fillColor: "#FFFF00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        6: {
+            strokeColor: "black",
+            fillColor: "#FFDA00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        7: {
+            strokeColor: "black",
+            fillColor: "#FFAF00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        8: {
+            strokeColor: "black",
+            fillColor: "#FF8400",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        9: {
+            strokeColor: "black",
+            fillColor: "#FF5A00",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        10: {
+            strokeColor: "black",
+            fillColor: "#FF2200",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        }
+    };
+
     symbolsLookup["0"].fillColor = "#ffffff";
 
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
+    resultsStyleMap_model.addUniqueValueRules('default', 'threat', symbolsLookup_model);
 
     var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
         displayInLayerSwitcher: false,
@@ -322,7 +404,7 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: resultsStyleMap,
+        styleMap: resultsStyleMap_model,
         renderers: ["SVG"]
     });
 
@@ -345,8 +427,19 @@ Ext.onReady(function() {
         });
         huc12_state.addFeatures(geojson_format.read(data));
         huc12_state.setVisibility(false);
+    });
 
-
+    $.ajax({
+        type: "GET",
+        url: SERVER_URI + 'wps/huc12_state',
+        dataType: "json"
+    }).done(function(data) {
+        var geojson_format = new OpenLayers.Format.GeoJSON({
+            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+        });
+        results.addFeatures(geojson_format.read(data));
+        results.setVisibility(true);
     });
 
     map.addLayers([huc12_state, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
@@ -996,7 +1089,26 @@ Ext.onReady(function() {
             },
             dataType: 'json'
         }).done(function(data) {
-            onExecuted(data.results);
+            console.log(data.res_arr);
+            console.log(data.col_hdrs.length);
+            var results_col = data.col_hdrs.length;
+
+
+            for (var key in data.res_arr) {
+                var thrt = data.res_arr[key][results_col];
+                thrt = Math.round(thrt);
+                console.log(typeof(key));
+                try {
+                    map.getLayersByName("Composite Threats")[0].
+                    getFeaturesByAttribute("huc12", key)[0].
+                    attributes.threat = thrt;
+                } catch (err) {
+                    console.log(key);
+                }
+            }
+            map.getLayersByName("Composite Threats")[0].redraw();
+
+            // onExecuted(data.results);
         });
     };
 
@@ -1410,7 +1522,7 @@ Ext.onReady(function() {
             submitValue: true,
             hiddenName: 'slr_up'
 
-        },{
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
@@ -1423,9 +1535,9 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             submitValue: true,
-            hiddenName: 'manure'
+            hiddenName: 'slr_lc'
 
-        },{
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
@@ -1439,7 +1551,7 @@ Ext.onReady(function() {
             displayField: 'layerName',
             submitValue: true,
             hiddenName: 'triassic'
-        },{
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
@@ -1453,7 +1565,7 @@ Ext.onReady(function() {
             displayField: 'layerName',
             submitValue: true,
             hiddenName: 'wind'
-        },{
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
@@ -1528,7 +1640,7 @@ Ext.onReady(function() {
             submitValue: true,
             hiddenName: 'insectdisease'
 
-        },  {
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
