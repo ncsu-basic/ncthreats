@@ -5,8 +5,8 @@ Ext.onReady(function() {
 
     var resource;
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/";
+    var SERVER_URI = "http://localhost/";
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
 
@@ -1085,7 +1085,9 @@ Ext.onReady(function() {
                 totnitro: form_vals_misc.totnitro,
                 totsulf: form_vals_misc.totsulf,
                 triassic: form_vals_misc.triassic,
-                urbangrth: form_vals_misc.urbangrth
+                urbangrth: form_vals_misc.urbangrth,
+                slr_up: form_vals_misc.slr_up,
+                slr_lc: form_vals_misc.slr_lc
             },
             dataType: 'json'
         }).done(function(data) {
@@ -1142,7 +1144,9 @@ Ext.onReady(function() {
             totnitro: form_vals_misc.totnitro,
             totsulf: form_vals_misc.totsulf,
             triassic: form_vals_misc.triassic,
-            urbangrth: form_vals_misc.urbangrth
+            urbangrth: form_vals_misc.urbangrth,
+            slr_up: form_vals_misc.slr_up,
+            slr_lc: form_vals_misc.slr_lc
         };
         var qry_str = $.param(form_vals);
         var url = SERVER_URI + 'wps/report?' + qry_str;
@@ -1178,7 +1182,9 @@ Ext.onReady(function() {
             totnitro: form_vals_misc.totnitro,
             totsulf: form_vals_misc.totsulf,
             triassic: form_vals_misc.triassic,
-            urbangrth: form_vals_misc.urbangrth
+            urbangrth: form_vals_misc.urbangrth,
+            slr_up: form_vals_misc.slr_up,
+            slr_lc: form_vals_misc.slr_lc
         };
         var qry_str = $.param(form_vals);
         $.ajax({
@@ -2635,11 +2641,11 @@ Ext.onReady(function() {
         $("#shp_btn").click(upload_shps);
 
     };
-    var el = Ext.getCmp("aoi_upload_id");
-    var mgr = el.getUpdater();
-    mgr.update({
-        url: HOST_NAME + "pages/upload.html"
-    });
-    mgr.on("update", page_script);
+    // var el = Ext.getCmp("aoi_upload_id");
+    // var mgr = el.getUpdater();
+    // mgr.update({
+    //     url: HOST_NAME + "pages/upload.html"
+    // });
+    // mgr.on("update", page_script);
 });
 
