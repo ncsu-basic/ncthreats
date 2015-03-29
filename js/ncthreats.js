@@ -338,7 +338,7 @@ Ext.onReady(function() {
         },
         4: {
             strokeColor: "black",
-            fillColor: "#C6CDC00",
+            fillColor: "#C6DC00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
@@ -1097,7 +1097,9 @@ Ext.onReady(function() {
             for (var key in data.res_arr) {
                 var thrt = data.res_arr[key][results_col];
                 thrt = Math.round(thrt);
-                console.log(typeof(key));
+                if (!symbolsLookup_model.hasOwnProperty(thrt)){
+                    console.log("not valid lever", thrt);
+                }
                 try {
                     map.getLayersByName("Composite Threats")[0].
                     getFeaturesByAttribute("huc12", key)[0].
