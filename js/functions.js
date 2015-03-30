@@ -113,23 +113,23 @@ var fire_tree = [{
 }];
 
 var trans_tree = [{
-    text: '2010',
+    text: '2010 Divided Highways',
     myvalue: "trans:10",
     leaf: true
 }, {
-    text: '2020',
+    text: '2020 Divided Highways',
     myvalue: 'trans:20',
     leaf: true
 }, {
-    text: '2030',
+    text: '2030 Divided Highways',
     myvalue: 'trans:30',
     leaf: true
 }, {
-    text: '2040',
+    text: '2040 Divided Highways',
     myvalue: 'trans:40',
     leaf: true
 }, {
-    text: '2050',
+    text: '2050 Divided Highways',
     myvalue: 'trans:50',
     leaf: true
 

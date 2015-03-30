@@ -45,7 +45,7 @@ Ext.onReady(function() {
     ////////////////////////////////////////////////////////////////////////////
 
     //////Base Layers
-    var gphy = new OpenLayers.Layer.Google("Google Physical", {
+    var gphy = new OpenLayers.Layer.Google("Google Physical Map", {
         type: google.maps.MapTypeId.TERRAIN,
         MAX_ZOOM_LEVEL: 12,
         MIN_ZOOM_LEVEL: 6,
@@ -427,20 +427,22 @@ Ext.onReady(function() {
         });
         huc12_state.addFeatures(geojson_format.read(data));
         huc12_state.setVisibility(false);
+        results.addFeatures(geojson_format.read(data));
+        results.setVisibility(false);
     });
 
-    $.ajax({
-        type: "GET",
-        url: SERVER_URI + 'wps/huc12_state',
-        dataType: "json"
-    }).done(function(data) {
-        var geojson_format = new OpenLayers.Format.GeoJSON({
-            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-            'externalProjection': new OpenLayers.Projection("EPSG:4326")
-        });
-        results.addFeatures(geojson_format.read(data));
-        results.setVisibility(true);
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: SERVER_URI + 'wps/huc12_state',
+    //     dataType: "json"
+    // }).done(function(data) {
+    //     var geojson_format = new OpenLayers.Format.GeoJSON({
+    //         'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+    //         'externalProjection': new OpenLayers.Projection("EPSG:4326")
+    //     });
+    //     results.addFeatures(geojson_format.read(data));
+    //     results.setVisibility(true);
+    // });
 
     map.addLayers([huc12_state, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
@@ -1099,7 +1101,7 @@ Ext.onReady(function() {
             for (var key in data.res_arr) {
                 var thrt = data.res_arr[key][results_col];
                 thrt = Math.round(thrt);
-                if (!symbolsLookup_model.hasOwnProperty(thrt)){
+                if (!symbolsLookup_model.hasOwnProperty(thrt)) {
                     console.log("not valid lever", thrt);
                 }
                 try {
@@ -1231,7 +1233,7 @@ Ext.onReady(function() {
                 text: 'Fire Suppression',
                 children: fire_tree
             }, {
-                text: 'Transportation',
+                text: 'Transportation Corridors',
                 children: trans_tree
             }, {
                 text: 'Nutrient Loading',
@@ -1241,7 +1243,7 @@ Ext.onReady(function() {
                     leaf: true,
                     myvalue: "nutrient:manu"
                 }, {
-                    text: 'Synthetic Nitrogen Fertilizer Application',
+                    text: 'Synthetic Nitrogen Fertilizer',
                     leaf: true,
                     myvalue: "nutrient:fert"
                 }]
@@ -1844,26 +1846,26 @@ Ext.onReady(function() {
     var legend_titles1 = {
         frst: 'Forest Habitat (ha)',
         ftwt: 'Wet Forest Habitat (ha)',
-        hbwt: 'Wet Herbaceous Habitat (ha)',
+        hbwt: 'Wet Herbaceous? Habitat (ha)',
         open: 'Open Habitat (ha)',
         shrb: 'Scrub/Shrub Habitat (ha)',
-        urban: 'Urban (ha)',
-        fire: 'urban density w/in? 5 mile radius',
-        trans: 'length (m) of divided? center line roads',
-        "nutrient:manu": "Manure Application? kg/ha/yr",
-        "nutrient:fert": "Synthetic Nitrogen? Fertilizer Application kg/ha/yr",
-        "nutrient:td_n_t": "Total Nitrogen? Deposition   kg/ha",
+        urban: 'Urban Land Cover (ha)',
+        fire: 'Mean Urban Density? w/in 5 mile radius',
+        trans: 'Mean Length/Area of? Major Highways (m/ha)',
+        "nutrient:manu": "Manure Application? (kg/ha/yr)",
+        "nutrient:fert": "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
+        "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha)",
         "nutrient:td_s_t": "Total Sulfur? Deposition kg/ha",
-        frsthlth: "Forest Insect?Disease Risk",
-        energydev: "Triassic Basin",
-        "water:totimplen": "Impaired: All km",
-        "water:bioimplen": "Impaired: Biota km",
-        "water:metimplen": "Impaired: Metals km",
-        "water:nutimplen": "Impaired: Nutrients km",
-        "water:habimplen": "Impaired: Habitat   km",
-        "water:tempimplen": "Impaired: Temperature  km",
-        "water:polimplen": "Impaired: Pollution km",
-        "water:otherlen": "Impaired: Other  km",
+        frsthlth: "Forest Insect/Disease Risk? (ha)",
+        energydev: "Triassic basin (ha)",
+        "water:totimplen": "Impaired for Any Reason? (km)",
+        "water:bioimplen": "Impaired: Biota? (km)",
+        "water:metimplen": "Impaired Due to Metal? Contaminant (km)",
+        "water:nutimplen": "Impaired Due to? Nutrient Loading (km)",
+        "water:habimplen": "Impaired Habitat? (km)",
+        "water:tempimplen": "Impaired Temperature? (km)",
+        "water:polimplen": "Impaired Due to? Pollution (km)",
+        "water:otherlen": "Impaired for Other? Causes (km)",
         "water:NID": "Number of dams n",
         wind: "Wind Power Class? (mean)",
         slr_lc: "Terrestrial Landcover? Change (ha)",
@@ -2377,7 +2379,22 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<p>Click links for documentation. More text to see wrapping.</p>"
+            html: "<h2>Threats to Wildlife Habitat</h2>"
+        }],
+        // cls: 'help',
+        autoScroll: true
+    });
+    var msg = "<p>Click threat data layer to view on map.</p>";
+    msg += "<p>Click folder for more data information.</p>";
+    var mapsmsg_panel2 = new Ext.Panel({
+        width: 296,
+
+        items: [{
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: msg
         }],
         // cls: 'help',
         autoScroll: true
@@ -2386,7 +2403,7 @@ Ext.onReady(function() {
     var maps_tab = new Ext.Panel({
         title: 'Maps',
         //html: "some content",
-        items: [mapsmsg_panel, formPanelhuc12maps],
+        items: [mapsmsg_panel, formPanelhuc12maps, mapsmsg_panel2],
         cls: 'help',
         autoScroll: true
     });
@@ -2497,7 +2514,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 2,
+        activeTab: 1,
         // accordion
         items: [tree, maps_tab, process_tab, print_tab, login_accordion],
         deferredRender: false
@@ -2648,4 +2665,3 @@ Ext.onReady(function() {
     // });
     // mgr.on("update", page_script);
 });
-
