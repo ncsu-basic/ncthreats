@@ -1054,13 +1054,13 @@ Ext.onReady(function() {
 
     var threat_calcs_map = function() {
         var form_vals_hab = habitat_panel.getForm().getValues();
-        // console.log(form_vals_hab);
+        console.log(form_vals_hab);
         var form_vals_year = modelpaneltop.getForm().getValues();
         // console.log(form_vals_year);
         var form_vals_misc = modelpanelmid.getForm().getValues();
         // console.log(form_vals_misc);
         var form_vals_water = modelpanelbot.getForm().getValues();
-        console.log(form_vals_water);
+        // console.log(form_vals_water);
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
@@ -1094,7 +1094,7 @@ Ext.onReady(function() {
             },
             dataType: 'json'
         }).done(function(data) {
-            console.log(data.res_arr);
+            console.log(data.col_hdrs);
             console.log(data.col_hdrs.length);
             var results_col = data.col_hdrs.length;
 
@@ -2333,7 +2333,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'Data Layers',
         leaf: false,
-        expanded: true,
+        expanded: false,
         loader: {
             filter: function(record) {
                 return record.get("layer").CLASS_NAME ===
@@ -2518,7 +2518,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 1,
+        activeTab: 0,
         // accordion
         items: [tree, maps_tab, process_tab, print_tab],
         deferredRender: false
