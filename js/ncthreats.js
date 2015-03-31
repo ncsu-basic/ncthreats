@@ -1058,22 +1058,22 @@ Ext.onReady(function() {
         var form_vals_year = modelpaneltop.getForm().getValues();
         // console.log(form_vals_year);
         var form_vals_misc = modelpanelmid.getForm().getValues();
-        console.log(form_vals_misc);
+        // console.log(form_vals_misc);
         var form_vals_water = modelpanelbot.getForm().getValues();
-        // console.log(form_vals_water);
+        console.log(form_vals_water);
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
             data: {
                 impaired: form_vals_water.impaired,
                 impairall: form_vals_water.impairall,
-                impairbioata: form_vals_water.impairbioata,
+                impairbiota: form_vals_water.impairbiota,
                 impairmetal: form_vals_water.impairmetal,
                 impairnutr: form_vals_water.impairnutr,
                 impairother: form_vals_water.impairother,
                 impairpolu: form_vals_water.impairpolu,
                 impairhab: form_vals_water.impairhab,
-                impairtemp: form_vals_water.impairnutr,
+                impairtemp: form_vals_water.impairtemp,
                 scenario: form_vals_hab.scenario,
                 habitat: form_vals_hab.habitat,
                 habitat_weight: form_vals_hab.habitat_weight,
@@ -1128,13 +1128,13 @@ Ext.onReady(function() {
         var form_vals = {
             impaired: form_vals_water.impaired,
             impairall: form_vals_water.impairall,
-            impairbioata: form_vals_water.impairbioata,
+            impairbiota: form_vals_water.impairbiota,
             impairmetal: form_vals_water.impairmetal,
             impairnutr: form_vals_water.impairnutr,
             impairother: form_vals_water.impairother,
             impairpolu: form_vals_water.impairpolu,
             impairhab: form_vals_water.impairhab,
-            impairtemp: form_vals_water.impairnutr,
+            impairtemp: form_vals_water.impairtemp,
             scenario: form_vals_hab.scenario,
             habitat: form_vals_hab.habitat,
             habitat_weight: form_vals_hab.habitat_weight,
@@ -1167,13 +1167,13 @@ Ext.onReady(function() {
         var form_vals = {
             impaired: form_vals_water.impaired,
             impairall: form_vals_water.impairall,
-            impairbioata: form_vals_water.impairbioata,
+            impairbiota: form_vals_water.impairbiota,
             impairmetal: form_vals_water.impairmetal,
             impairnutr: form_vals_water.impairnutr,
             impairother: form_vals_water.impairother,
             impairpolu: form_vals_water.impairpolu,
             impairhab: form_vals_water.impairhab,
-            impairtemp: form_vals_water.impairnutr,
+            impairtemp: form_vals_water.impairtemp,
             scenario: form_vals_hab.scenario,
             habitat: form_vals_hab.habitat,
             habitat_weight: form_vals_hab.habitat_weight,
