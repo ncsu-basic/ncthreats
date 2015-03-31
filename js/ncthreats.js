@@ -264,42 +264,42 @@ Ext.onReady(function() {
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
     var symbolsLookup = {
         0: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         1: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         2: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         3: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         4: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         5: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
@@ -309,77 +309,77 @@ Ext.onReady(function() {
 
     var symbolsLookup_model = {
         0: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#006100",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         1: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#367D00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         2: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#619A00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         3: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#8FBB00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         4: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#C6DC00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         5: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#FFFF00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         6: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#FFDA00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         7: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#FFAF00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         8: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#FF8400",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         9: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#FF5A00",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         10: {
-            strokeColor: "black",
+            strokeColor: "#CCCCCC",
             fillColor: "#FF2200",
             strokeWidth: 1,
             strokeOpacity: 1,
@@ -444,10 +444,10 @@ Ext.onReady(function() {
     //     results.setVisibility(true);
     // });
 
-    map.addLayers([huc12_state, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+    map.addLayers([huc12_state, results, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
-        results, gphy, osm, counties_base
+        gphy, osm, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -2520,7 +2520,15 @@ Ext.onReady(function() {
         width: 300,
         activeTab: 1,
         // accordion
-        items: [tree, maps_tab, process_tab, print_tab, login_accordion],
+        items: [tree, maps_tab, process_tab, print_tab],
+        deferredRender: false
+    });
+
+    var infopanel = new Ext.TabPanel({
+        region: 'north',
+        height: 100,
+        // accordion
+        html: "<h4>NWRC  Web site</h4>",
         deferredRender: false
     });
 
@@ -2532,10 +2540,11 @@ Ext.onReady(function() {
 
     new Ext.Viewport({
         layout: "border",
-        items: [mapPanel, left],
         defaults: {
             split: true
-        }
+        },
+        items: [mapPanel, left, infopanel ]
+
     });
 
     // var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
