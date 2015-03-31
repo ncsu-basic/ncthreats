@@ -2524,11 +2524,12 @@ Ext.onReady(function() {
         deferredRender: false
     });
 
-    var infopanel = new Ext.TabPanel({
+    var infopanel = new Ext.Panel({
         region: 'north',
         height: 100,
         // accordion
-        html: "<h4>NWRC  Web site</h4>",
+        // html: "<h4>NWRC  Web site</h4>",
+        id: "infopage",
         deferredRender: false
     });
 
@@ -2543,7 +2544,7 @@ Ext.onReady(function() {
         defaults: {
             split: true
         },
-        items: [mapPanel, left, infopanel ]
+        items: [mapPanel, left, infopanel]
 
     });
 
@@ -2676,5 +2677,12 @@ Ext.onReady(function() {
     // mgr.update({
     //     url: HOST_NAME + "pages/upload.html"
     // });
+    // mgr.on("update", page_script);
+
+    var el = Ext.getCmp("infopage");
+    var mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/infopage.html"
+    });
     // mgr.on("update", page_script);
 });

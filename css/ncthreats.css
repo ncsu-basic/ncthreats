@@ -102,4 +102,6 @@ div.olControlMousePosition {
 }
 * */
 
-
+.infopage {
+	color: 'red' !important;
+}
