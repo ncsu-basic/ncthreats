@@ -1089,7 +1089,8 @@ Ext.onReady(function() {
                 triassic: form_vals_misc.triassic,
                 urbangrth: form_vals_misc.urbangrth,
                 slr_up: form_vals_misc.slr_up,
-                slr_lc: form_vals_misc.slr_lc
+                slr_lc: form_vals_misc.slr_lc,
+                wind: form_vals_misc.wind
             },
             dataType: 'json'
         }).done(function(data) {
@@ -1112,6 +1113,7 @@ Ext.onReady(function() {
                     console.log(key);
                 }
             }
+            results.setVisibility(true);
             map.getLayersByName("Composite Threats")[0].redraw();
 
             // onExecuted(data.results);
@@ -1148,7 +1150,8 @@ Ext.onReady(function() {
             triassic: form_vals_misc.triassic,
             urbangrth: form_vals_misc.urbangrth,
             slr_up: form_vals_misc.slr_up,
-            slr_lc: form_vals_misc.slr_lc
+            slr_lc: form_vals_misc.slr_lc,
+            wind: form_vals_misc.wind
         };
         var qry_str = $.param(form_vals);
         var url = SERVER_URI + 'wps/report?' + qry_str;
@@ -1186,7 +1189,8 @@ Ext.onReady(function() {
             triassic: form_vals_misc.triassic,
             urbangrth: form_vals_misc.urbangrth,
             slr_up: form_vals_misc.slr_up,
-            slr_lc: form_vals_misc.slr_lc
+            slr_lc: form_vals_misc.slr_lc,
+            wind: form_vals_misc.wind
         };
         var qry_str = $.param(form_vals);
         $.ajax({
@@ -2329,7 +2333,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'Data Layers',
         leaf: false,
-        expanded: false,
+        expanded: true,
         loader: {
             filter: function(record) {
                 return record.get("layer").CLASS_NAME ===
