@@ -310,7 +310,7 @@ Ext.onReady(function() {
     var symbolsLookup_model = {
         0: {
             strokeColor: "#CCCCCC",
-            fillColor: "#006100",
+            fillColor: "#FFFFFF",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
@@ -1101,7 +1101,7 @@ Ext.onReady(function() {
 
             for (var key in data.res_arr) {
                 var thrt = data.res_arr[key][results_col];
-                thrt = Math.round(thrt);
+                thrt = Math.ceil(thrt / 2) ;
                 if (!symbolsLookup_model.hasOwnProperty(thrt)) {
                     console.log("not valid lever", thrt);
                 }
@@ -1115,6 +1115,24 @@ Ext.onReady(function() {
             }
             results.setVisibility(true);
             map.getLayersByName("Composite Threats")[0].redraw();
+
+            var composite_colors = ["FFFFFF", "FF0000", "FFFF00", "FFFF00", "FFFF00", "FFFF00"];
+            var composite_labels = ['0', '0.01 - 2','2.01 - 4', '4.01 - 6', '6.01 - 8', '8.01 - 10' ];
+
+            lgd_color.style("fill", function(d, i) {
+                return "#" + composite_colors[i];
+            });
+
+             lgd_text.text(function(d, i) {
+                return composite_labels[i];
+            });
+
+            lgd_title.text("Composite threat");
+
+            if (show_legend_flag) {
+                float_win.show();
+                show_legend_flag = false;
+            }
 
             // onExecuted(data.results);
         });
