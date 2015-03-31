@@ -310,42 +310,42 @@ Ext.onReady(function() {
     var symbolsLookup_model = {
         0: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FFFFFF",
+            fillColor: "#ffffbf",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         1: {
             strokeColor: "#CCCCCC",
-            fillColor: "#367D00",
+            fillColor: "#ffdc82",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         2: {
             strokeColor: "#CCCCCC",
-            fillColor: "#619A00",
+            fillColor: "#f7b84a",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         3: {
             strokeColor: "#CCCCCC",
-            fillColor: "#8FBB00",
+            fillColor: "#d68522",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         4: {
             strokeColor: "#CCCCCC",
-            fillColor: "#C6DC00",
+            fillColor: "#9e4410",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         5: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FFFF00",
+            fillColor: "#6b0601",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
@@ -1097,11 +1097,26 @@ Ext.onReady(function() {
             console.log(data.col_hdrs);
             console.log(data.col_hdrs.length);
             var results_col = data.col_hdrs.length;
+            var thrt;
 
 
             for (var key in data.res_arr) {
-                var thrt = data.res_arr[key][results_col];
-                thrt = Math.ceil(thrt / 2) ;
+                var thrt_raw = data.res_arr[key][results_col];
+                // thrt = Math.ceil(thrt / 2) ;
+                if (thrt_raw <= 1.66){
+                    thrt = 0;
+                } else if (thrt_raw <= 3.22) {
+                    thrt = 1;
+                } else if (thrt_raw <= 4.99) {
+                    thrt = 2;
+                } else if (thrt_raw <= 6.66) {
+                    thrt = 3;
+                } else if (thrt_raw <= 8.32) {
+                    thrt = 4;
+                } else {
+                    thrt = 5;
+                }
+
                 if (!symbolsLookup_model.hasOwnProperty(thrt)) {
                     console.log("not valid lever", thrt);
                 }
@@ -1116,18 +1131,18 @@ Ext.onReady(function() {
             results.setVisibility(true);
             map.getLayersByName("Composite Threats")[0].redraw();
 
-            var composite_colors = ["FFFFFF", "FF0000", "FFFF00", "FFFF00", "FFFF00", "FFFF00"];
-            var composite_labels = ['0', '0.01 - 2','2.01 - 4', '4.01 - 6', '6.01 - 8', '8.01 - 10' ];
+            var composite_colors = ["ffffbf", "ffdc82", "f7b84a", "d68522", "9e4410", "6b0601"];
+            var composite_labels = ['0.00 - 1.66', '1.67 - 3.32', '3.33 - 4.99', '5.00 - 6.66', '6.67 - 8.32', '8.33 - 10.00'];
 
             lgd_color.style("fill", function(d, i) {
                 return "#" + composite_colors[i];
             });
 
-             lgd_text.text(function(d, i) {
+            lgd_text.text(function(d, i) {
                 return composite_labels[i];
             });
 
-            lgd_title.text("Composite threat");
+            lgd_title.text("Composite Threat Rank");
 
             if (show_legend_flag) {
                 float_win.show();
