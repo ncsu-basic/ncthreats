@@ -5,8 +5,8 @@ Ext.onReady(function() {
 
     var resource;
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
 
@@ -1131,7 +1131,7 @@ Ext.onReady(function() {
             results.setVisibility(true);
             map.getLayersByName("Composite Threats")[0].redraw();
 
-            var composite_colors = ["ffffbf", "ffdc82", "f7b84a", "d68522", "9e4410", "6b0601"];
+            var composite_colors = ["ffffff", "ffffbe", "ffdb59", "e69b00", "cc3d00", "730000"];
             var composite_labels = ['0.00 - 1.66', '1.67 - 3.32', '3.33 - 4.99', '5.00 - 6.66', '6.67 - 8.32', '8.33 - 10.00'];
 
             lgd_color.style("fill", function(d, i) {
@@ -1300,7 +1300,7 @@ Ext.onReady(function() {
                 text: 'Hydrologic Alteration',
                 expanded: false,
                 children: [{
-                    text: 'Number of dams',
+                    text: 'Number of Dams',
                     leaf: true,
                     myvalue: "water:NID"
                 }]
@@ -1393,7 +1393,7 @@ Ext.onReady(function() {
 
     var checkGrouphabitat = {
         xtype: 'radiogroup',
-        fieldLabel: 'Habitat ',
+        fieldLabel: 'Set Habitat',
         columns: 1,
         items: [{
             boxLabel: 'forest',
@@ -1451,7 +1451,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'hab_wts',
-            fieldLabel: "Habitat",
+            fieldLabel: "Set Weight",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1544,7 +1544,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Transportation / Div. Highways",
+            fieldLabel: "Trans. / Div. Hwys",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1559,7 +1559,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "SLR / Undeveloped Upland Change",
+            fieldLabel: "SLR / Undevelop. Upland Change",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1574,7 +1574,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "SLR / Terrestrial Landcover Change",
+            fieldLabel: "SLR / Terrest. Landcover Chg",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1589,7 +1589,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Energy Dev. / Triassic Basin",
+            fieldLabel: "Energy Develop. / Triassic Basin",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1603,7 +1603,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Energy Dev. / Wind Power",
+            fieldLabel: "Energy Develop. / Wind Power",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1617,7 +1617,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Nutrient Loading / Manure Application",
+            fieldLabel: "Nutri. Loading / Manure Appl.",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1632,7 +1632,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Nutrient Loading / Synthetic Nitrogen",
+            fieldLabel: "Nutri. Loading / Syn. Nitrogen",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1647,7 +1647,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Atmospheric Dep. / Total Nitrogen",
+            fieldLabel: "Atmosph. Dep. / Total Nitrogen",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1662,7 +1662,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Atmospheric Dep. / Total Sulfur",
+            fieldLabel: "Atmosph. Dep. / Total Sulfur",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1677,7 +1677,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Forest Hlth / Insect & Disease Risk",
+            fieldLabel: "Forest Hlth / Insect & Dis. Risk",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1745,7 +1745,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: All",
+                fieldLabel: "  All",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1766,7 +1766,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Biota",
+                fieldLabel: "  Biota",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1781,7 +1781,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Metals",
+                fieldLabel: "  Metals",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1796,7 +1796,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Nutrients",
+                fieldLabel: "  Nutrients",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1811,7 +1811,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Habitat",
+                fieldLabel: "  Habitat",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1826,7 +1826,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Temperature",
+                fieldLabel: "  Temperature",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1841,7 +1841,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Pollution",
+                fieldLabel: "  Pollution",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1856,7 +1856,7 @@ Ext.onReady(function() {
                 // itemId: "cmb2",
                 store: comboStoreweights,
                 name: 'miscdata',
-                fieldLabel: "Impaired: Other",
+                fieldLabel: "  Other",
                 value: "notinclude",
                 typeAhead: true,
                 mode: "local",
@@ -1892,7 +1892,7 @@ Ext.onReady(function() {
         "nutrient:manu": "Manure Application? (kg/ha/yr)",
         "nutrient:fert": "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
         "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha)",
-        "nutrient:td_s_t": "Total Sulfur? Deposition kg/ha",
+        "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha)",
         frsthlth: "Forest Insect/Disease Risk? (ha)",
         energydev: "Triassic basin (ha)",
         "water:totimplen": "Impaired for Any Reason? (km)",
@@ -1903,7 +1903,7 @@ Ext.onReady(function() {
         "water:tempimplen": "Impaired Temperature? (km)",
         "water:polimplen": "Impaired Due to? Pollution (km)",
         "water:otherlen": "Impaired for Other? Causes (km)",
-        "water:NID": "Number of dams n",
+        "water:NID": "Number of Dams (n)", 
         wind: "Wind Power Class? (mean)",
         slr_lc: "Terrestrial Landcover? Change (ha)",
         slr_up: "Undeveloped Upland? Change (ha)"
@@ -2717,5 +2717,4 @@ Ext.onReady(function() {
     mgr.update({
         url: HOST_NAME + "pages/infopage.html"
     });
-    // mgr.on("update", page_script);
 });
