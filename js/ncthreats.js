@@ -1103,7 +1103,7 @@ Ext.onReady(function() {
             for (var key in data.res_arr) {
                 var thrt_raw = data.res_arr[key][results_col];
                 // thrt = Math.ceil(thrt / 2) ;
-                if (thrt_raw <= 1.66){
+                if (thrt_raw <= 1.66) {
                     thrt = 0;
                 } else if (thrt_raw <= 3.22) {
                     thrt = 1;
@@ -1903,7 +1903,7 @@ Ext.onReady(function() {
         "water:tempimplen": "Impaired Temperature? (km)",
         "water:polimplen": "Impaired Due to? Pollution (km)",
         "water:otherlen": "Impaired for Other? Causes (km)",
-        "water:NID": "Number of Dams (n)", 
+        "water:NID": "Number of Dams (n)",
         wind: "Wind Power Class? (mean)",
         slr_lc: "Terrestrial Landcover? Change (ha)",
         slr_up: "Undeveloped Upland? Change (ha)"
@@ -1937,6 +1937,7 @@ Ext.onReady(function() {
                 lgd_title2.text("not set");
                 console.log(data.map);
             }
+            symbolsLookup["0"].fillColor = "#" + data.colors[0];
             symbolsLookup["1"].fillColor = "#" + data.colors[1];
             symbolsLookup["2"].fillColor = "#" + data.colors[2];
             symbolsLookup["3"].fillColor = "#" + data.colors[3];
