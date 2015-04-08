@@ -310,7 +310,7 @@ Ext.onReady(function() {
     var symbolsLookup_model = {
         0: {
             strokeColor: "#CCCCCC",
-            fillColor: "#ffffbf",
+            fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
@@ -392,11 +392,12 @@ Ext.onReady(function() {
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
     resultsStyleMap_model.addUniqueValueRules('default', 'threat', symbolsLookup_model);
 
-    var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
+    var highlightLayer = new OpenLayers.Layer.Vector("None", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
         styleMap: styleMap,
+        checkedGroup: 'datalayers'
     });
 
     // old layer name Results
@@ -405,7 +406,8 @@ Ext.onReady(function() {
         isBaseLayer: false,
         projection: proj_4326,
         styleMap: resultsStyleMap_model,
-        renderers: ["SVG"]
+        renderers: ["SVG"],
+        checkedGroup: 'datalayers'
     });
 
     var huc12_state = new OpenLayers.Layer.Vector("Individual Threats", {
@@ -413,7 +415,8 @@ Ext.onReady(function() {
         isBaseLayer: false,
         projection: proj_4326,
         styleMap: resultsStyleMap,
-        renderers: ["SVG"]
+        renderers: ["SVG"],
+        checkedGroup: 'datalayers'
     });
 
     $.ajax({
@@ -444,7 +447,7 @@ Ext.onReady(function() {
     //     results.setVisibility(true);
     // });
 
-    map.addLayers([huc12_state, results, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+    map.addLayers([huc12_state, results, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
         gphy, osm, counties_base
@@ -1103,7 +1106,7 @@ Ext.onReady(function() {
             for (var key in data.res_arr) {
                 var thrt_raw = data.res_arr[key][results_col];
                 // thrt = Math.ceil(thrt / 2) ;
-                if (thrt_raw <= 1.66){
+                if (thrt_raw <= 1.66) {
                     thrt = 0;
                 } else if (thrt_raw <= 3.22) {
                     thrt = 1;
@@ -2371,6 +2374,9 @@ Ext.onReady(function() {
             filter: function(record) {
                 return record.get("layer").CLASS_NAME ===
                     'OpenLayers.Layer.Vector';
+            },
+            baseAttrs: {
+                checkedGroup: "datalayers"
             }
         }
     });

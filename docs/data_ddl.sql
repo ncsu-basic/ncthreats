@@ -597,12 +597,12 @@ copy lcscen_d_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_ha.txt' wi
 copy lcscen_e_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_ha.txt' with csv header;
 copy lcscen_x_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_ha.txt' with csv header;
 
-copy lcscen_a_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_rnk2.txt' with csv header;
-copy lcscen_b_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_rnk2.txt' with csv header;
-copy lcscen_c_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_rnk2.txt' with csv header;
-copy lcscen_d_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_rnk2.txt' with csv header;
-copy lcscen_e_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_rnk2.txt' with csv header;
-copy lcscen_x_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_rnk2.txt' with csv header;
+copy lcscen_a_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_rnk3.txt' with csv header;
+copy lcscen_b_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_rnk3.txt' with csv header;
+copy lcscen_c_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_rnk3.txt' with csv header;
+copy lcscen_d_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_rnk3.txt' with csv header;
+copy lcscen_e_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_rnk3.txt' with csv header;
+copy lcscen_x_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_rnk3.txt' with csv header;
 
 copy urban_den from '/home/jim/Desktop/ncthreats_tables/tblUrban_den.txt' with csv header;
 copy urban_ha from '/home/jim/Desktop/ncthreats_tables/tblUrban_ha.txt' with csv header;
