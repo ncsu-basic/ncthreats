@@ -136,7 +136,7 @@ var trans_tree = [{
 }];
 
 var habitats = [{
-    text: 'Baseline',
+    text: 'No Bioenergy Production',
     children: [{
         text: 'Forest',
         children: [{
@@ -259,7 +259,7 @@ var habitats = [{
 
     }]
 }, {
-    text: 'Biofuel Production A',
+    text: 'Conventional Bioenergy',
     children: [{
         text: 'Forest',
         children: [{
@@ -382,7 +382,7 @@ var habitats = [{
 
     }]
 }, {
-    text: 'Biofuel Production B',
+    text: 'Conv. + Marginal Agriculture',
     children: [{
         text: 'Forest',
         children: [{
@@ -505,7 +505,7 @@ var habitats = [{
 
     }]
 }, {
-    text: 'Biofuel Production C',
+    text: 'Conv. + Marg. Agri. & Forests',
     children: [{
         text: 'Forest',
         children: [{
@@ -628,7 +628,7 @@ var habitats = [{
 
     }]
 }, {
-    text: 'Biofuel Production D',
+    text: 'Marginal Agriculture Only',
     children: [{
         text: 'Forest',
         children: [{
@@ -751,7 +751,7 @@ var habitats = [{
 
     }]
 }, {
-    text: 'Biofuel Production E',
+    text: 'Marginal Agri. & Forests Only',
     children: [{
         text: 'Forest',
         children: [{
