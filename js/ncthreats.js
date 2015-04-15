@@ -1248,153 +1248,7 @@ Ext.onReady(function() {
 
     var show_legend_flag = true;
     // console.log(habitats);
-    var tree_huc12maps = new Ext.tree.TreePanel({
-        // renderTo: 'tree-div',
-        useArrows: true,
-        autoScroll: true,
-        animate: true,
-        enableDD: true,
-        containerScroll: true,
-        border: true,
-        rootVisible: false,
-        root: new Ext.tree.AsyncTreeNode({
-            expanded: true,
-            children: [{
-                text: 'Habitats',
-                expanded: false,
-                qtip: 'click for documentation',
-                href: 'http://google.com',
-                hrefTarget: "_blank",
-                // iconCls: 'tree_image'
 
-                // defined in file functions.js
-                children: habitats,
-            }, {
-                text: 'Urban Growth',
-                children: urban_tree
-            }, {
-                text: 'Fire Suppression',
-                children: fire_tree
-            }, {
-                text: 'Transportation Corridors',
-                children: trans_tree
-            }, {
-                text: 'Nutrient Loading',
-                expanded: false,
-                children: [{
-                    text: 'Manure Application',
-                    leaf: true,
-                    myvalue: "nutrient:manu"
-                }, {
-                    text: 'Synthetic Nitrogen Fertilizer',
-                    leaf: true,
-                    myvalue: "nutrient:fert"
-                }]
-            }, {
-                text: 'Annual Atmospheric Deposition',
-                expanded: false,
-                children: [{
-                    text: 'Total Nitrogen Deposition',
-                    leaf: true,
-                    myvalue: "nutrient:td_n_t"
-                }, {
-                    text: 'Total Sulfur Deposition',
-                    leaf: true,
-                    myvalue: "nutrient:td_s_t"
-                }]
-            }, {
-                text: 'Hydrologic Alteration',
-                expanded: false,
-                children: [{
-                    text: 'Number of Dams',
-                    leaf: true,
-                    myvalue: "water:NID"
-                }]
-            }, {
-                text: 'Forest Health',
-                expanded: false,
-                children: [{
-                    text: 'Forest Insect/Disease Risk ',
-                    leaf: true,
-                    myvalue: "frsthlth"
-                }]
-            }, {
-                text: 'Energy Development',
-                expanded: false,
-                children: [{
-                    text: 'Triassic Basin',
-                    leaf: true,
-                    myvalue: "energydev"
-                }, {
-                    text: 'Wind Resource',
-                    leaf: true,
-                    myvalue: "wind"
-                }]
-            }, {
-                text: 'Sea Level Rise',
-                expanded: false,
-                children: [{
-                    text: 'Undeveloped Upland Change',
-                    children: slr_up
-                }, {
-                    text: 'Terrestrial Landcover Change',
-                    children: slr_lc
-                }]
-            }, {
-                text: 'Impaired Waters',
-                expanded: false,
-                children: [{
-                    text: 'All Impairments',
-                    leaf: true,
-                    myvalue: "water:totimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Biota',
-                        //                    leaf: true,
-                        //                    myvalue: "water:bioimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Metals',
-                        //                    leaf: true,
-                        //                    myvalue: "water:metimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Nutrients',
-                        //                    leaf: true,
-                        //                    myvalue: "water:nutimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Habitat',
-                        //                    leaf: true,
-                        //                    myvalue: "water:habimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Temperature',
-                        //                    leaf: true,
-                        //                    myvalue: "water:tempimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Pollution',
-                        //                    leaf: true,
-                        //                    myvalue: "water:polimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Other',
-                        //                    leaf: true,
-                        //                    myvalue: "water:otherlen"
-                }]
-            }]
-        }),
-        listeners: {
-            click: function(n) {
-                console.log(n.attributes.myvalue);
-                // console.log(formPanelhuc12maps.getForm().getValues(true));
-                if (n.attributes.myvalue) {
-                    console.log(n.attributes.myvalue);
-                    formhuc12maps_chng(n.attributes.myvalue);
-                    huc12_state.setVisibility(true);
-                    if (show_legend_flag) {
-                        float_win.show();
-                        show_legend_flag = false;
-                    }
-
-                }
-            }
-        }
-    });
     // tree_huc12maps.getRootNode().expand();
 
     var checkGrouphabitat = {
@@ -2004,18 +1858,6 @@ Ext.onReady(function() {
     };
 
 
-    var formPanelhuc12maps = new Ext.form.FormPanel({
-        title: "",
-        width: 296,
-        // height: 500,
-        bodyStyle: "padding:10px; ",
-        labelAlign: "top",
-        defaults: {
-            anchor: "100%"
-        },
-        items: [tree_huc12maps],
-        buttons: []
-    });
 
     var open_user_tab = function(firstname, username) {
         console.log(username);
@@ -2172,7 +2014,9 @@ Ext.onReady(function() {
     // start GeoExt config
     ///////////////////////////////////////////////
 
-
+    //////////////////////////////////////////////////
+    // toolbar
+    /////////////////////////////////////////////////////
 
     var ctrl, toolbarItems = [],
         action, actions = {};
@@ -2239,6 +2083,10 @@ Ext.onReady(function() {
     toolbarItems.push(action);
 
 
+
+    /////////////////////////////////////////////////
+    // legend config
+    //////////////////////////////////////////////////////
     var legend_panel = new Ext.Panel({
         // title: 'legend panel',
         cls: 'pages',
@@ -2308,7 +2156,9 @@ Ext.onReady(function() {
 
     float_win.hide();
 
-
+    //////////////////////////////////////////////////////////////////////
+    // setup  tab
+    /////////////////////////////////////////////////////////////////////
 
     var mapPanel = new GeoExt.MapPanel({
         region: "center",
@@ -2317,13 +2167,6 @@ Ext.onReady(function() {
         extent: map_extent,
         tbar: toolbarItems,
         id: 'ncthreatsMapPanel'
-            // listeners: {
-            //     afterrender : function(panel) {
-            //     var header = panel.header;
-            //     header.setHeight(100);
-            // }
-            // }
-
     });
 
 
@@ -2447,8 +2290,7 @@ Ext.onReady(function() {
 
     var tree = new Ext.tree.TreePanel({
         region: 'west',
-        // width: 300,
-
+        bodyStyle: "padding:10px; margin: 10px;",
         root: {
             nodeType: "async",
             children: [layerList2, layerList7, layerList6, layerList8,
@@ -2456,35 +2298,229 @@ Ext.onReady(function() {
 
             ]
         },
-        // title: "Setup",
         rootVisible: false
     });
 
-    var layermsg_panel_top = new Ext.Panel({
+    var setup_msg_top = new Ext.Container({
         width: 296,
+        autoEl: 'div',
         items: [{
-            // width: 2,
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
             html: "<h2>top message</h2>"
         }],
-        // cls: 'help',
         autoScroll: true
     });
 
-    var layermsg_panel_bot = new Ext.Panel({
+    var setup_msg_bot = new Ext.Container({
         width: 296,
+        autoEl: 'div',
         items: [{
-            // width: 2,
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
             html: "<p>bottom message</p>"
         }],
+        autoScroll: true
+    });
+
+
+    var layers_tab = new Ext.Container({
+        title: 'Setup',
+        autoEl: 'div',
+        // items: new Ext.Container({
+        //     autoEl: 'div',
+        bodyStyle: "padding:10px; ",
+        width: 296,
+        items: [setup_msg_top, tree, setup_msg_bot]
+            // })
+    });
+
+    ///////////////////////////////////////////////////////////////
+    // maps tab
+    ////////////////////////////////////////////////////////////////
+
+    var tree_huc12maps = new Ext.tree.TreePanel({
+        bodyStyle: "padding:10px; margin: 10px;",
+        // renderTo: 'tree-div',
+        useArrows: true,
+        autoScroll: true,
+        animate: true,
+        enableDD: true,
+        containerScroll: true,
+        border: true,
+        rootVisible: false,
+        root: new Ext.tree.AsyncTreeNode({
+            expanded: true,
+            children: [{
+                text: 'Habitats',
+                expanded: false,
+                qtip: 'click for documentation',
+                href: 'http://google.com',
+                hrefTarget: "_blank",
+                // iconCls: 'tree_image'
+
+                // defined in file functions.js
+                children: habitats,
+            }, {
+                text: 'Urban Growth',
+                children: urban_tree
+            }, {
+                text: 'Fire Suppression',
+                children: fire_tree
+            }, {
+                text: 'Transportation Corridors',
+                children: trans_tree
+            }, {
+                text: 'Nutrient Loading',
+                expanded: false,
+                children: [{
+                    text: 'Manure Application',
+                    leaf: true,
+                    myvalue: "nutrient:manu"
+                }, {
+                    text: 'Synthetic Nitrogen Fertilizer',
+                    leaf: true,
+                    myvalue: "nutrient:fert"
+                }]
+            }, {
+                text: 'Annual Atmospheric Deposition',
+                expanded: false,
+                children: [{
+                    text: 'Total Nitrogen Deposition',
+                    leaf: true,
+                    myvalue: "nutrient:td_n_t"
+                }, {
+                    text: 'Total Sulfur Deposition',
+                    leaf: true,
+                    myvalue: "nutrient:td_s_t"
+                }]
+            }, {
+                text: 'Hydrologic Alteration',
+                expanded: false,
+                children: [{
+                    text: 'Number of Dams',
+                    leaf: true,
+                    myvalue: "water:NID"
+                }]
+            }, {
+                text: 'Forest Health',
+                expanded: false,
+                children: [{
+                    text: 'Forest Insect/Disease Risk ',
+                    leaf: true,
+                    myvalue: "frsthlth"
+                }]
+            }, {
+                text: 'Energy Development',
+                expanded: false,
+                children: [{
+                    text: 'Triassic Basin',
+                    leaf: true,
+                    myvalue: "energydev"
+                }, {
+                    text: 'Wind Resource',
+                    leaf: true,
+                    myvalue: "wind"
+                }]
+            }, {
+                text: 'Sea Level Rise',
+                expanded: false,
+                children: [{
+                    text: 'Undeveloped Upland Change',
+                    children: slr_up
+                }, {
+                    text: 'Terrestrial Landcover Change',
+                    children: slr_lc
+                }]
+            }, {
+                text: 'Impaired Waters',
+                expanded: false,
+                children: [{
+                    text: 'All Impairments',
+                    leaf: true,
+                    myvalue: "water:totimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Biota',
+                        //                    leaf: true,
+                        //                    myvalue: "water:bioimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Metals',
+                        //                    leaf: true,
+                        //                    myvalue: "water:metimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Nutrients',
+                        //                    leaf: true,
+                        //                    myvalue: "water:nutimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Habitat',
+                        //                    leaf: true,
+                        //                    myvalue: "water:habimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Temperature',
+                        //                    leaf: true,
+                        //                    myvalue: "water:tempimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Pollution',
+                        //                    leaf: true,
+                        //                    myvalue: "water:polimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Other',
+                        //                    leaf: true,
+                        //                    myvalue: "water:otherlen"
+                }]
+            }]
+        }),
+        listeners: {
+            click: function(n) {
+                console.log(n.attributes.myvalue);
+                // console.log(formPanelhuc12maps.getForm().getValues(true));
+                if (n.attributes.myvalue) {
+                    console.log(n.attributes.myvalue);
+                    formhuc12maps_chng(n.attributes.myvalue);
+                    huc12_state.setVisibility(true);
+                    if (show_legend_flag) {
+                        float_win.show();
+                        show_legend_flag = false;
+                    }
+
+                }
+            }
+        }
+    });
+
+    var mapsmsg_top = new Ext.Container({
+        width: 296,
+        autoEl: 'div',
+        cls: 'mycontent',
+        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2>",
         // cls: 'help',
         autoScroll: true
     });
+
+    var msg = "<p>Click threat data layer to view on map.</p>";
+    msg += "<p>Click folder for more data information.</p>";
+    var mapsmsg_bot = new Ext.Container({
+        width: 296,
+        autoEl: 'div',
+        cls: 'mycontent',
+        html: msg,
+        autoScroll: true
+    });
+
+
+    var maps_tab = new Ext.Container({
+        autoEl: 'div',
+        title: 'Maps',
+        //html: "some content",
+        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
+        // cls: 'help',
+        autoScroll: true
+    });
+
+    /////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
 
     var process_tab = new Ext.Panel({
         title: 'Model',
@@ -2495,73 +2531,8 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
-    var mapsmsg_panel = new Ext.Panel({
-        width: 296,
-        items: [{
-            // width: 2,
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: "<h2>Explore Individual Threats to Wildlife Habitat</h2>"
-        }],
-        // cls: 'help',
-        autoScroll: true
-    });
-    var msg = "<p>Click threat data layer to view on map.</p>";
-    msg += "<p>Click folder for more data information.</p>";
-    var mapsmsg_panel2 = new Ext.Panel({
-        width: 296,
 
-        items: [{
-            // width: 2,
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: msg
-        }],
-        // cls: 'help',
-        autoScroll: true
-    });
 
-    var maps_tab = new Ext.Panel({
-        title: 'Maps',
-        //html: "some content",
-        items: [mapsmsg_panel, formPanelhuc12maps, mapsmsg_panel2],
-        cls: 'help',
-        autoScroll: true
-    });
-
-    var layers_tab_inner = new Ext.Panel({
-        // title: 'Setup',
-        //html: "some content",
-        items: new Ext.Panel({
-            // title: 'Setupdddd',
-            bodyStyle: "padding:10px; ",
-            // width: 296,
-            //html: "some content",
-            items: [tree],
-            cls: 'help',
-            // autoScroll: true
-        }),
-        cls: 'help',
-        autoScroll: true
-    });
-
-       var layers_tab = new Ext.Panel({
-        title: 'Setup',
-        //html: "some content",
-        items: new Ext.Panel({
-            // title: 'Setupdddd',
-            // bodyStyle: "padding:10px; ",
-            width: 296,
-            //html: "some content",
-            items: [layermsg_panel_top, layers_tab_inner, layermsg_panel_bot],
-            cls: 'help',
-            // autoScroll: true
-        }),
-        cls: 'help',
-        autoScroll: true
-    });
     // var area_tab = new Ext.Panel({
     //     title: 'Shapefile Upload',
     //     cls: 'pages',
