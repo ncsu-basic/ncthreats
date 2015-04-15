@@ -2523,7 +2523,7 @@ Ext.onReady(function() {
     // aoi tab
     ////////////////////////////////////////////////////////////
 
-    var area_tab = new Ext.Container({
+    var area_tab = new Ext.Panel({
         title: 'Shapefile Upload',
         cls: 'pages',
         autoScroll: true,
@@ -2532,14 +2532,14 @@ Ext.onReady(function() {
 
 
 
-    var area_tab2 = new Ext.Container({
+    var area_tab2 = new Ext.Panel({
         title: 'New AOI',
         autoScroll: true,
         items: [],
         id: "aoi_create_id"
     });
 
-    var aoi_tab = new Ext.Container({
+    var aoi_tab = new Ext.Panel({
         title: 'AOI',
         layout: 'accordion',
         defaults: {
@@ -2676,13 +2676,13 @@ Ext.onReady(function() {
     var test = mapPanel.getTopToolbar();
     console.log(test);
 
-    // var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
-    // var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
+    var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
+    var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
     // var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
-    // Ext.get(panelid1).applyStyles("background-image: url(/images/dark-green-hd.gif)");
-    // Ext.get(panelid1).applyStyles("color: white");
-    // Ext.get(panelid2).applyStyles("background-image: url(/images/dark-red-hd.gif)");
-    // Ext.get(panelid2).applyStyles("color: white");
+    Ext.get(panelid1).applyStyles("background-image: url(/images/dark-green-hd.gif)");
+    Ext.get(panelid1).applyStyles("color: white");
+    Ext.get(panelid2).applyStyles("background-image: url(/images/dark-red-hd.gif)");
+    Ext.get(panelid2).applyStyles("color: white");
     // Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
     // Ext.get(panelid3).applyStyles("color: white");
 
@@ -2800,16 +2800,17 @@ Ext.onReady(function() {
         $("#shp_btn").click(upload_shps);
 
     };
-    // var el = Ext.getCmp("aoi_upload_id");
-    // var mgr = el.getUpdater();
-    // mgr.update({
-    //     url: HOST_NAME + "pages/upload.html"
-    // });
-    // mgr.on("update", page_script);
-
-    var el = Ext.getCmp("infopage");
+      var el = Ext.getCmp("infopage");
     var mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/infopage.html"
     });
+    var el = Ext.getCmp("aoi_upload_id");
+    var mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/upload.html"
+    });
+    mgr.on("update", page_script);
+
+
 });
