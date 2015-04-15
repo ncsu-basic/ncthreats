@@ -1062,22 +1062,22 @@ Ext.onReady(function() {
         // console.log(form_vals_year);
         var form_vals_misc = modelpanelmid.getForm().getValues();
         // console.log(form_vals_misc);
-//        var form_vals_water = modelpanelbot.getForm().getValues();
+        //        var form_vals_water = modelpanelbot.getForm().getValues();
         // console.log(form_vals_water);
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
             data: {
-//                impaired: form_vals_water.impaired,
-//                impairall: form_vals_water.impairall,
+                //                impaired: form_vals_water.impaired,
+                //                impairall: form_vals_water.impairall,
                 impairall: form_vals_misc.impairall,
-//                impairbiota: form_vals_water.impairbiota,
-//                impairmetal: form_vals_water.impairmetal,
-//                impairnutr: form_vals_water.impairnutr,
-//                impairother: form_vals_water.impairother,
-//                impairpolu: form_vals_water.impairpolu,
-//                impairhab: form_vals_water.impairhab,
-//                impairtemp: form_vals_water.impairtemp,
+                //                impairbiota: form_vals_water.impairbiota,
+                //                impairmetal: form_vals_water.impairmetal,
+                //                impairnutr: form_vals_water.impairnutr,
+                //                impairother: form_vals_water.impairother,
+                //                impairpolu: form_vals_water.impairpolu,
+                //                impairhab: form_vals_water.impairhab,
+                //                impairtemp: form_vals_water.impairtemp,
                 scenario: form_vals_hab.scenario,
                 habitat: form_vals_hab.habitat,
                 habitat_weight: form_vals_hab.habitat_weight,
@@ -1161,18 +1161,18 @@ Ext.onReady(function() {
         var form_vals_hab = habitat_panel.getForm().getValues();
         var form_vals_year = modelpaneltop.getForm().getValues();
         var form_vals_misc = modelpanelmid.getForm().getValues();
-//        var form_vals_water = modelpanelbot.getForm().getValues();
+        //        var form_vals_water = modelpanelbot.getForm().getValues();
         var form_vals = {
-//            impaired: form_vals_water.impaired,
-//            impairall: form_vals_water.impairall,
+            //            impaired: form_vals_water.impaired,
+            //            impairall: form_vals_water.impairall,
             impairall: form_vals_misc.impairall,
-//            impairbiota: form_vals_water.impairbiota,
-//            impairmetal: form_vals_water.impairmetal,
-//            impairnutr: form_vals_water.impairnutr,
-//            impairother: form_vals_water.impairother,
-//            impairpolu: form_vals_water.impairpolu,
-//            impairhab: form_vals_water.impairhab,
-//            impairtemp: form_vals_water.impairtemp,
+            //            impairbiota: form_vals_water.impairbiota,
+            //            impairmetal: form_vals_water.impairmetal,
+            //            impairnutr: form_vals_water.impairnutr,
+            //            impairother: form_vals_water.impairother,
+            //            impairpolu: form_vals_water.impairpolu,
+            //            impairhab: form_vals_water.impairhab,
+            //            impairtemp: form_vals_water.impairtemp,
             scenario: form_vals_hab.scenario,
             habitat: form_vals_hab.habitat,
             habitat_weight: form_vals_hab.habitat_weight,
@@ -1201,18 +1201,18 @@ Ext.onReady(function() {
         var form_vals_hab = habitat_panel.getForm().getValues();
         var form_vals_year = modelpaneltop.getForm().getValues();
         var form_vals_misc = modelpanelmid.getForm().getValues();
-//        var form_vals_water = modelpanelbot.getForm().getValues();
+        //        var form_vals_water = modelpanelbot.getForm().getValues();
         var form_vals = {
-//            impaired: form_vals_water.impaired,
-//            impairall: form_vals_water.impairall,
+            //            impaired: form_vals_water.impaired,
+            //            impairall: form_vals_water.impairall,
             impairall: form_vals_misc.impairall,
-//            impairbiota: form_vals_water.impairbiota,
-//            impairmetal: form_vals_water.impairmetal,
-//            impairnutr: form_vals_water.impairnutr,
-//            impairother: form_vals_water.impairother,
-//            impairpolu: form_vals_water.impairpolu,
-//            impairhab: form_vals_water.impairhab,
-//            impairtemp: form_vals_water.impairtemp,
+            //            impairbiota: form_vals_water.impairbiota,
+            //            impairmetal: form_vals_water.impairmetal,
+            //            impairnutr: form_vals_water.impairnutr,
+            //            impairother: form_vals_water.impairother,
+            //            impairpolu: form_vals_water.impairpolu,
+            //            impairhab: form_vals_water.impairhab,
+            //            impairtemp: form_vals_water.impairtemp,
             scenario: form_vals_hab.scenario,
             habitat: form_vals_hab.habitat,
             habitat_weight: form_vals_hab.habitat_weight,
@@ -1347,34 +1347,34 @@ Ext.onReady(function() {
                     text: 'All Impairments',
                     leaf: true,
                     myvalue: "water:totimplen"
-//                }, {
-//                    text: 'Impaired: Biota',
-//                    leaf: true,
-//                    myvalue: "water:bioimplen"
-//                }, {
-//                    text: 'Impaired: Metals',
-//                    leaf: true,
-//                    myvalue: "water:metimplen"
-//                }, {
-//                    text: 'Impaired: Nutrients',
-//                    leaf: true,
-//                    myvalue: "water:nutimplen"
-//                }, {
-//                    text: 'Impaired: Habitat',
-//                    leaf: true,
-//                    myvalue: "water:habimplen"
-//                }, {
-//                    text: 'Impaired: Temperature',
-//                    leaf: true,
-//                    myvalue: "water:tempimplen"
-//                }, {
-//                    text: 'Impaired: Pollution',
-//                    leaf: true,
-//                    myvalue: "water:polimplen"
-//                }, {
-//                    text: 'Impaired: Other',
-//                    leaf: true,
-//                    myvalue: "water:otherlen"
+                        //                }, {
+                        //                    text: 'Impaired: Biota',
+                        //                    leaf: true,
+                        //                    myvalue: "water:bioimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Metals',
+                        //                    leaf: true,
+                        //                    myvalue: "water:metimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Nutrients',
+                        //                    leaf: true,
+                        //                    myvalue: "water:nutimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Habitat',
+                        //                    leaf: true,
+                        //                    myvalue: "water:habimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Temperature',
+                        //                    leaf: true,
+                        //                    myvalue: "water:tempimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Pollution',
+                        //                    leaf: true,
+                        //                    myvalue: "water:polimplen"
+                        //                }, {
+                        //                    text: 'Impaired: Other',
+                        //                    leaf: true,
+                        //                    myvalue: "water:otherlen"
                 }]
             }]
         }),
@@ -1495,21 +1495,21 @@ Ext.onReady(function() {
             anchor: "100%"
         },
         items: [{
-                xtype: "combo",
-                // itemId: "cmb2",
-                store: comboStoreyears,
-                name: 'year',
-                fieldLabel: "Target year",
-                value: "2010",
-                typeAhead: true,
-                mode: "local",
-                triggerAction: "all",
-                valueField: 'layerId',
-                displayField: 'layerName',
-                listeners: {
-                    //'select': form2_chng
-                }
-            }]
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreyears,
+            name: 'year',
+            fieldLabel: "Target year",
+            value: "2010",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            listeners: {
+                //'select': form2_chng
+            }
+        }]
     });
 
     var modelpanelmid = new Ext.form.FormPanel({
@@ -1730,7 +1730,7 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             submitValue: true,
-           hiddenName: 'impairall'
+            hiddenName: 'impairall'
 
         }],
 
@@ -1747,180 +1747,180 @@ Ext.onReady(function() {
 
     });
 
-//    var checkGroupimpaired = {
-//        xtype: 'radiogroup',
-//        fieldLabel: 'Impaired Waters',
-//        columns: 1,
-//        items: [{
-//            boxLabel: 'Impaired: All',
-//            name: 'impaired',
-//            inputValue: 'all',
-//            checked: true
-//        }, {
-//            boxLabel: 'Impaired: Individual',
-//            name: 'impaired',
-//            inputValue: 'indiv'
-//        }]
-//    };
-//
-//    var modelpanelbot = new Ext.form.FormPanel({
-//        title: "",
-//        width: 280,
-//        // height: 500,
-//        bodyStyle: "padding:20px; margin-top: 5px;",
-//        // labelAlign: "top",
-//        defaults: {
-//            anchor: "100%"
-//        },
-//        items: [
-//            // checkGroupimpaired
-//            {
-//                fieldLabel: 'Impaired Waters',
-//                xtype: 'radio',
-//                boxLabel: 'Impaired: All',
-//                name: 'impaired',
-//                inputValue: 'all',
-//                checked: true
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  All",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairall'
-//
-//            }, {
-//                xtype: 'radio',
-//                boxLabel: 'Impaired: Individual',
-//                name: 'impaired',
-//                inputValue: 'indiv'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Biota",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairbiota'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Metals",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairmetal'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Nutrients",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairnutr'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Habitat",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairhab'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Temperature",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairtemp'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Pollution",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairpolu'
-//
-//            }, {
-//                xtype: "combo",
-//                // itemId: "cmb2",
-//                store: comboStoreweights,
-//                name: 'miscdata',
-//                fieldLabel: "  Other",
-//                value: "notinclude",
-//                typeAhead: true,
-//                mode: "local",
-//                triggerAction: "all",
-//                valueField: 'layerId',
-//                displayField: 'layerName',
-//                submitValue: true,
-//                hiddenName: 'impairother'
-//
-//            }
-//        ],
-//        buttons: [{
-//            text: "Spreadsheet",
-//            handler: threat_calcs_ssheet
-//        }, {
-//            text: "Report",
-//            handler: threat_calcs_report
-//        }, {
-//            text: "Show map",
-//            handler: threat_calcs_map
-//        }]
-//    });
+    //    var checkGroupimpaired = {
+    //        xtype: 'radiogroup',
+    //        fieldLabel: 'Impaired Waters',
+    //        columns: 1,
+    //        items: [{
+    //            boxLabel: 'Impaired: All',
+    //            name: 'impaired',
+    //            inputValue: 'all',
+    //            checked: true
+    //        }, {
+    //            boxLabel: 'Impaired: Individual',
+    //            name: 'impaired',
+    //            inputValue: 'indiv'
+    //        }]
+    //    };
+    //
+    //    var modelpanelbot = new Ext.form.FormPanel({
+    //        title: "",
+    //        width: 280,
+    //        // height: 500,
+    //        bodyStyle: "padding:20px; margin-top: 5px;",
+    //        // labelAlign: "top",
+    //        defaults: {
+    //            anchor: "100%"
+    //        },
+    //        items: [
+    //            // checkGroupimpaired
+    //            {
+    //                fieldLabel: 'Impaired Waters',
+    //                xtype: 'radio',
+    //                boxLabel: 'Impaired: All',
+    //                name: 'impaired',
+    //                inputValue: 'all',
+    //                checked: true
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  All",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairall'
+    //
+    //            }, {
+    //                xtype: 'radio',
+    //                boxLabel: 'Impaired: Individual',
+    //                name: 'impaired',
+    //                inputValue: 'indiv'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Biota",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairbiota'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Metals",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairmetal'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Nutrients",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairnutr'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Habitat",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairhab'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Temperature",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairtemp'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Pollution",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairpolu'
+    //
+    //            }, {
+    //                xtype: "combo",
+    //                // itemId: "cmb2",
+    //                store: comboStoreweights,
+    //                name: 'miscdata',
+    //                fieldLabel: "  Other",
+    //                value: "notinclude",
+    //                typeAhead: true,
+    //                mode: "local",
+    //                triggerAction: "all",
+    //                valueField: 'layerId',
+    //                displayField: 'layerName',
+    //                submitValue: true,
+    //                hiddenName: 'impairother'
+    //
+    //            }
+    //        ],
+    //        buttons: [{
+    //            text: "Spreadsheet",
+    //            handler: threat_calcs_ssheet
+    //        }, {
+    //            text: "Report",
+    //            handler: threat_calcs_report
+    //        }, {
+    //            text: "Show map",
+    //            handler: threat_calcs_map
+    //        }]
+    //    });
 
     var legend_titles1 = {
         frst: 'Forest Habitat (ha)',
@@ -1938,13 +1938,13 @@ Ext.onReady(function() {
         frsthlth: "Forest Insect/Disease Risk? (ha)",
         energydev: "Triassic basin (ha)",
         "water:totimplen": "Impaired for Any Reason? (km)",
-//        "water:bioimplen": "Impaired: Biota? (km)",
-//        "water:metimplen": "Impaired Due to Metal? Contaminant (km)",
-//        "water:nutimplen": "Impaired Due to? Nutrient Loading (km)",
-//        "water:habimplen": "Impaired Habitat? (km)",
-//        "water:tempimplen": "Impaired Temperature? (km)",
-//        "water:polimplen": "Impaired Due to? Pollution (km)",
-//        "water:otherlen": "Impaired for Other? Causes (km)",
+        //        "water:bioimplen": "Impaired: Biota? (km)",
+        //        "water:metimplen": "Impaired Due to Metal? Contaminant (km)",
+        //        "water:nutimplen": "Impaired Due to? Nutrient Loading (km)",
+        //        "water:habimplen": "Impaired Habitat? (km)",
+        //        "water:tempimplen": "Impaired Temperature? (km)",
+        //        "water:polimplen": "Impaired Due to? Pollution (km)",
+        //        "water:otherlen": "Impaired for Other? Causes (km)",
         "water:NID": "Number of Dams (n)",
         wind: "Wind Power Class? (mean)",
         slr_lc: "Terrestrial Landcover? Change (ha)",
@@ -2008,7 +2008,7 @@ Ext.onReady(function() {
         title: "",
         width: 296,
         // height: 500,
-        bodyStyle: "padding:20px; ",
+        bodyStyle: "padding:10px; ",
         labelAlign: "top",
         defaults: {
             anchor: "100%"
@@ -2220,8 +2220,7 @@ Ext.onReady(function() {
 
 
 
-
-        action = new Ext.Action({
+    action = new Ext.Action({
         handler: function() {
             // map.zoomToExtent(map_extent);
             // console.log(float_win);
@@ -2240,7 +2239,7 @@ Ext.onReady(function() {
     toolbarItems.push(action);
 
 
-     var legend_panel = new Ext.Panel({
+    var legend_panel = new Ext.Panel({
         // title: 'legend panel',
         cls: 'pages',
         autoScroll: true,
@@ -2318,12 +2317,12 @@ Ext.onReady(function() {
         extent: map_extent,
         tbar: toolbarItems,
         id: 'ncthreatsMapPanel'
-        // listeners: {
-        //     afterrender : function(panel) {
-        //     var header = panel.header;
-        //     header.setHeight(100);
-        // }
-        // }
+            // listeners: {
+            //     afterrender : function(panel) {
+            //     var header = panel.header;
+            //     header.setHeight(100);
+            // }
+            // }
 
     });
 
@@ -2448,7 +2447,8 @@ Ext.onReady(function() {
 
     var tree = new Ext.tree.TreePanel({
         region: 'west',
-        width: 300,
+        // width: 300,
+
         root: {
             nodeType: "async",
             children: [layerList2, layerList7, layerList6, layerList8,
@@ -2456,14 +2456,40 @@ Ext.onReady(function() {
 
             ]
         },
-        title: "Setup",
+        // title: "Setup",
         rootVisible: false
+    });
+
+    var layermsg_panel_top = new Ext.Panel({
+        width: 296,
+        items: [{
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<h2>top message</h2>"
+        }],
+        // cls: 'help',
+        autoScroll: true
+    });
+
+    var layermsg_panel_bot = new Ext.Panel({
+        width: 296,
+        items: [{
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<p>bottom message</p>"
+        }],
+        // cls: 'help',
+        autoScroll: true
     });
 
     var process_tab = new Ext.Panel({
         title: 'Model',
         //html: "some content",
-//        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
+        //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
         items: [modelmsg_panel, modelpaneltop, habitat_panel, modelpanelmid],
         cls: 'help',
         autoScroll: true
@@ -2505,21 +2531,52 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
-    var area_tab = new Ext.Panel({
-        title: 'Shapefile Upload',
-        cls: 'pages',
-        autoScroll: true,
-        id: "aoi_upload_id"
+    var layers_tab_inner = new Ext.Panel({
+        // title: 'Setup',
+        //html: "some content",
+        items: new Ext.Panel({
+            // title: 'Setupdddd',
+            bodyStyle: "padding:10px; ",
+            // width: 296,
+            //html: "some content",
+            items: [tree],
+            cls: 'help',
+            // autoScroll: true
+        }),
+        cls: 'help',
+        autoScroll: true
     });
 
-
-
-    var area_tab2 = new Ext.Panel({
-        title: 'New AOI',
-        autoScroll: true,
-        items: [formPanel2],
-        id: "aoi_create_id"
+       var layers_tab = new Ext.Panel({
+        title: 'Setup',
+        //html: "some content",
+        items: new Ext.Panel({
+            // title: 'Setupdddd',
+            // bodyStyle: "padding:10px; ",
+            width: 296,
+            //html: "some content",
+            items: [layermsg_panel_top, layers_tab_inner, layermsg_panel_bot],
+            cls: 'help',
+            // autoScroll: true
+        }),
+        cls: 'help',
+        autoScroll: true
     });
+    // var area_tab = new Ext.Panel({
+    //     title: 'Shapefile Upload',
+    //     cls: 'pages',
+    //     autoScroll: true,
+    //     id: "aoi_upload_id"
+    // });
+
+
+
+    // var area_tab2 = new Ext.Panel({
+    //     title: 'New AOI',
+    //     autoScroll: true,
+    //     items: [formPanel2],
+    //     id: "aoi_create_id"
+    // });
 
     var login_html = ["<h2>Registration</h2>",
         "<p>If you have not registered please visit the",
@@ -2613,7 +2670,7 @@ Ext.onReady(function() {
         width: 300,
         activeTab: 0,
         // accordion
-        items: [tree, maps_tab, process_tab, print_tab],
+        items: [layers_tab, maps_tab, process_tab, print_tab],
         deferredRender: false
     });
 
