@@ -78,5 +78,6 @@ edit geoserver wms properties memory
 
 http://gis.stackexchange.com/questions/107265/geoserver-change-master-password-masterpw-info-missing
 
+update  huc6nc_lbl set wkb_geometry = ST_GeomFromText('POINT(-77.5 35.72)', 4326) where  label = 'Pamlico';
 
 

@@ -1,23 +1,30 @@
 .next_action {
-	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/view_next_on.png');
+	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/view_next_on.png');	/*background: no-repeat;*/
+	width: 24px !important;
+	height: 24px !important;
 }
 .prev_action {
 	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/view_previous_on.png');
+	width: 24px !important;
+	height: 24px !important;
 }
 .nc_zoom {
-	background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/nc.png');
+	background-image: url('../images/nc.png');
+	width: 24px !important;
+	height: 24px !important;
 }
-.legend_win{
+.legend_win {
 	background-image: url('../images/legend_btn.png');
+	width: 24px !important;
+	height: 24px !important;
 }
 div.olControlMousePosition {
+
 	/* right: 100px !important;
 	*/
 	bottom: 20px !important;
 }
-.pages input,
-.pages button,
-.pages p {
+.pages input, .pages button, .pages p {
 	margin: 5px;
 }
 .pages h3 {
@@ -46,16 +53,14 @@ div.olControlMousePosition {
 }
 #upload_msg {
 	width: 75%;
-	height: 20px;
-	/*border: solid black 1px;*/
-	margin: 10px ;
+	height: 20px;	/*border: solid black 1px;*/
+	margin: 10px;
 	font-size: 12px;
 }
 #yep {
 	font: 12px tahoma, arial, helvetica, sans-serif;
 	margin: 10px;
 }
-
 .mycontent {
 	font-family: tahoma, arial, helvetica, sans-serif;
 	margin: 10px;
@@ -64,26 +69,23 @@ div.olControlMousePosition {
 	font-size: 12px;
 	line-height: 18px;
 }
-.mycontent h2{
+.mycontent h2 {
 	font-size: 16px;
 	margin: 5px 0px 5px;
 }
 #lgnddiv rect {
-  fill: steelblue;
+	fill: steelblue;
 }
-
 #lgnddiv text {
-  fill: black;
-  font: 10px sans-serif;
-  text-anchor: end;
+	fill: black;
+	font: 10px sans-serif;
+	text-anchor: end;
 }
+.gx-tree-layer-icon {
 
-.gx-tree-layer-icon{
 	/*background-image: url('http://tecumseh.zo.ncsu.edu/OpenLayers-2.13.1/theme/default/img/nc.png') !important;*/
 	background-image: none !important;
-
 }
-
 
 /* .nav_action {
 	background-image: url('../OpenLayers-2.12/theme/default/img/pan_off.png');
@@ -101,7 +103,12 @@ div.olControlMousePosition {
 	background-image: url('Human-gnome-dev-printer.png');
 }
 * */
-
 .infopage {
 	color: 'red' !important;
 }
+
+/*.treedivs {
+	padding 10px;
+	margin: 10p;
+
+}*/
