@@ -5,8 +5,8 @@ Ext.onReady(function() {
 
     var resource;
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/branch1/";
+    var SERVER_URI = "http://localhost/";
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
 
@@ -2515,7 +2515,7 @@ Ext.onReady(function() {
             //bodyStyle : 'padding:15px'
         },
         // area_tab2, area_tab,
-        items: [process_tab]
+        items: [area_tab2, area_tab,process_tab]
     });
 
     function handleActivate(tab) {
@@ -2560,7 +2560,7 @@ Ext.onReady(function() {
         width: 300,
         activeTab: 0,
         // accordion
-        items: [tree, maps_tab, process_tab, print_tab],
+        items: [tree, maps_tab, process_tab, print_tab, accordion],
         deferredRender: false
     });
 
