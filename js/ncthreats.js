@@ -5,8 +5,8 @@ Ext.onReady(function() {
 
     var resource;
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/";
+    var SERVER_URI = "http://localhost/";
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
 
@@ -2181,6 +2181,21 @@ Ext.onReady(function() {
 
     Ext.QuickTips.init();
 
+    action = new Ext.Action({
+        handler: function() {
+            map.zoomToExtent(map_extent);
+        },
+        tooltip: "zoom full extent",
+        iconCls: "nc_zoom",
+        allowDepress: true
+    });
+
+
+    actions.next = action;
+    toolbarItems.push(action);
+    toolbarItems.push("-");
+
+
     action = new GeoExt.Action({
         control: ctrl.previous,
         disabled: true,
@@ -2204,7 +2219,28 @@ Ext.onReady(function() {
     toolbarItems.push("-");
 
 
-    var legend_panel = new Ext.Panel({
+
+
+        action = new Ext.Action({
+        handler: function() {
+            // map.zoomToExtent(map_extent);
+            // console.log(float_win);
+            // float_win.open();
+            console.log(float_win);
+
+            float_win.show();
+            // legend_panel.body.update("hello world");
+
+        },
+        tooltip: "show legend window",
+        iconCls: "legend_win",
+        allowDepress: true
+    });
+    actions.next = action;
+    toolbarItems.push(action);
+
+
+     var legend_panel = new Ext.Panel({
         // title: 'legend panel',
         cls: 'pages',
         autoScroll: true,
@@ -2212,22 +2248,6 @@ Ext.onReady(function() {
         html: "<svg id='lgnddiv'></svg>"
 
     });
-
-
-
-    action = new Ext.Action({
-        handler: function() {
-            map.zoomToExtent(map_extent);
-        },
-        tooltip: "zoom full extent",
-        iconCls: "nc_zoom",
-        allowDepress: true
-    });
-
-
-
-    actions.next = action;
-    toolbarItems.push(action);
     var float_win = new Ext.Window({
         title: "Legend ",
         height: 270,
@@ -2289,23 +2309,7 @@ Ext.onReady(function() {
 
     float_win.hide();
 
-    action = new Ext.Action({
-        handler: function() {
-            // map.zoomToExtent(map_extent);
-            // console.log(float_win);
-            // float_win.open();
-            console.log(float_win);
 
-            float_win.show();
-            // legend_panel.body.update("hello world");
-
-        },
-        tooltip: "show legend window",
-        iconCls: "legend_win",
-        allowDepress: true
-    });
-    actions.next = action;
-    toolbarItems.push(action);
 
     var mapPanel = new GeoExt.MapPanel({
         region: "center",
@@ -2314,7 +2318,16 @@ Ext.onReady(function() {
         extent: map_extent,
         tbar: toolbarItems,
         id: 'ncthreatsMapPanel'
+        // listeners: {
+        //     afterrender : function(panel) {
+        //     var header = panel.header;
+        //     header.setHeight(100);
+        // }
+        // }
+
     });
+
+
 
     var layerList = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
@@ -2627,6 +2640,9 @@ Ext.onReady(function() {
         items: [mapPanel, left, infopanel]
 
     });
+
+    var test = mapPanel.getTopToolbar();
+    console.log(test);
 
     // var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
     // var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
