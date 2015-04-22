@@ -783,6 +783,7 @@ Ext.onReady(function() {
         remove_action();
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
         var sel_type = formPanel2.getForm().getValues().aoi_type;
+        highlightLayer.setVisibility(true);
         if (sel_type === 'predefined') {
             switch (selected_predef) {
                 // case 'NC HUC 2':
@@ -844,6 +845,8 @@ Ext.onReady(function() {
         var sel_type = formPanel2.getForm().getValues().aoi_type;
         var gml = '';
         var aoi_list = [];
+        var selected_predef_new = 'na';
+
         if (sel_type !== 'predefined') {
             var gml_writer = new OpenLayers.Format.GML.v3({
                 featureType: 'MultiPolygon',
@@ -854,11 +857,11 @@ Ext.onReady(function() {
             });
 
             gml = gml_writer.write(highlightLayer.features);
+            console.log(gml);
 
         } else {
             gml = '';
             console.log(selected_predef);
-            var selected_predef_new;
             switch (selected_predef) {
                 case 'NC River Basins':
                     // col_name = "huc6";
@@ -892,15 +895,18 @@ Ext.onReady(function() {
 
         }
 
+        var post_data = {
+            gml: gml,
+            aoi_list: aoi_list.join(":"),
+            predef_type: selected_predef_new,
+            sel_type: sel_type
+        };
+        console.log(post_data);
+
         $.ajax({
             type: "POST",
             url: SERVER_URI + "wps",
-            data: {
-                gml: gml,
-                aoi_list: aoi_list.join(":"),
-                predef_type: selected_predef_new,
-                sel_type: sel_type
-            },
+            data: post_data,
             dataType: "json"
         }).done(function(data, textStatus, jqXHR) {
             resource = jqXHR.getResponseHeader('Location');
