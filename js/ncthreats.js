@@ -74,13 +74,13 @@ Ext.onReady(function() {
         }
     );
 
-    var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
-        SERVER_URI + "tilecache/", {
-            layername: "hillshadenc",
-            type: "png",
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+    // var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "hillshadenc",
+    //         type: "png",
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
 
 
     ////////////////////////////////////////////////////////////
@@ -432,7 +432,7 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: resultsStyleMap_model,
+        styleMap: styleMap,
         renderers: ["SVG"],
         visibility: false
     });
@@ -507,8 +507,9 @@ Ext.onReady(function() {
 
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
+        var lonlat;
         if (mode.indexOf("custom") !== -1) {
-            var lonlat = map.getLonLatFromViewPortPx(e.xy);
+            lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
             pts.push(pt);
             var linearRing = new OpenLayers.Geometry.LinearRing(pts);
@@ -519,7 +520,7 @@ Ext.onReady(function() {
             highlightLayer.addFeatures([polygonFeature]);
             highlightLayer.redraw();
         } else {
-            var lonlat = map.getLonLatFromViewPortPx(e.xy);
+            lonlat = map.getLonLatFromViewPortPx(e.xy);
             $.ajax({
                 type: "GET",
                 url: SERVER_URI + "wps/pttojson",
@@ -892,7 +893,6 @@ Ext.onReady(function() {
                     selected_features_drawn[j].data.name);
             }
             console.log(aoi_list);
-
         }
 
         var post_data = {
