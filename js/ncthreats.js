@@ -858,32 +858,30 @@ Ext.onReady(function() {
         } else {
             gml = '';
             console.log(selected_predef);
+            var selected_predef_new;
             switch (selected_predef) {
-                case 'NC HUC 2':
-                    col_name = "huc2";
+                case 'NC River Basins':
+                    // col_name = "huc6";
+                    selected_predef_new = 'HUC';
                     break;
-                case 'NC HUC 4':
-                    col_name = "huc4";
+                case 'NC River Subbasins':
+                    // col_name = "huc8";
+                    selected_predef_new = 'HUC';
                     break;
-                case 'NC HUC 6':
-                    col_name = "huc6";
-                    break;
-                case 'NC HUC 8':
-                    col_name = "huc8";
-                    break;
-                case 'NC HUC 10':
-                    col_name = "huc10";
-                    break;
-                case 'NC HUC 12':
-                    col_name = "huc_12";
+                case 'NC Watersheds':
+                    // col_name = "huc10";
+                    selected_predef_new = 'HUC';
                     break;
                 case 'NC Counties':
-                    col_name = "co_num";
+                    // col_name = "co_num";
+                    selected_predef_new = 'Counties';
                     break;
                 case 'NC BCR':
-                    col_name = "bcr";
+                    // col_name = "bcr";
+                    selected_predef_new = 'BCR';
                     break;
             }
+            console.log(selected_predef_new);
             var selected_features_drawn =
                 map.getLayersByName("AOI Selection")[0].features;
             for (var j = 0; j < selected_features_drawn.length; j++) {
@@ -900,7 +898,7 @@ Ext.onReady(function() {
             data: {
                 gml: gml,
                 aoi_list: aoi_list.join(":"),
-                predef_type: selected_predef,
+                predef_type: selected_predef_new,
                 sel_type: sel_type
             },
             dataType: "json"
