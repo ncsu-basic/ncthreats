@@ -3,10 +3,12 @@ var map;
 Ext.onReady(function() {
     "use strict";
 
-    var resource;
 
     var HOST_NAME = "http://localhost/branch1/";
     var SERVER_URI = "http://localhost/";
+
+    var resource =  SERVER_URI + "wps/0";
+
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
 
@@ -692,11 +694,8 @@ Ext.onReady(function() {
                 data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
         });
-
     }
-
     console.log(resource);
-
 
     ////////////////////////////////////////////////////////////////////
     ////start panels config
@@ -911,6 +910,7 @@ Ext.onReady(function() {
         }).done(function(data, textStatus, jqXHR) {
             resource = jqXHR.getResponseHeader('Location');
             aoi_to_file = getResource(resource);
+            console.log(resource);
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
             onExecuted(data.geojson);
             var extent = new OpenLayers.Bounds(
@@ -1138,7 +1138,8 @@ Ext.onReady(function() {
             wind: form_vals_misc.wind
         };
         var qry_str = $.param(form_vals);
-        var url = SERVER_URI + 'wps/report?' + qry_str;
+        // var url = SERVER_URI + 'wps/report?' + qry_str;
+        var url = resource + '/report?' + qry_str;
         console.log(url);
         window.open(url);
     };
