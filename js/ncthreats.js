@@ -399,12 +399,7 @@ Ext.onReady(function() {
         styleMap: styleMap
     });
 
-    var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
-        displayInLayerSwitcher: false,
-        isBaseLayer: false,
-        projection: proj_4326,
-        styleMap: styleMap
-    });
+
 
     // old layer name Results
     var composite = new OpenLayers.Layer.Vector("Composite Threats", {
@@ -415,13 +410,7 @@ Ext.onReady(function() {
         renderers: ["SVG"]
     });
 
-    var results = new OpenLayers.Layer.Vector("AOI huc12s", {
-        displayInLayerSwitcher: false,
-        isBaseLayer: false,
-        projection: proj_4326,
-        styleMap: resultsStyleMap_model,
-        renderers: ["SVG"]
-    });
+
 
     var individual = new OpenLayers.Layer.Vector("Individual Threats", {
         displayInLayerSwitcher: false,
@@ -429,6 +418,23 @@ Ext.onReady(function() {
         projection: proj_4326,
         styleMap: resultsStyleMap,
         renderers: ["SVG"]
+    });
+
+    var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: styleMap,
+        visibility: false
+    });
+
+    var results = new OpenLayers.Layer.Vector("AOI huc12s", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: resultsStyleMap_model,
+        renderers: ["SVG"],
+        visibility: false
     });
 
     $.ajax({
@@ -442,8 +448,8 @@ Ext.onReady(function() {
         });
         individual.addFeatures(geojson_format.read(data));
         individual.setVisibility(false);
-        results.addFeatures(geojson_format.read(data));
-        results.setVisibility(false);
+        composite.addFeatures(geojson_format.read(data));
+        composite.setVisibility(false);
     });
 
     // $.ajax({
@@ -663,9 +669,9 @@ Ext.onReady(function() {
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
-        results.removeAllFeatures();
-        results.addFeatures(geojson_format.read(aoi));
-        results.setVisibility(true);
+        composite.removeAllFeatures();
+        composite.addFeatures(geojson_format.read(aoi));
+        composite.setVisibility(true);
     };
 
     ////////////////////////////////////////////////////////
@@ -1076,7 +1082,7 @@ Ext.onReady(function() {
                     console.log(key);
                 }
             }
-            results.setVisibility(true);
+            composite.setVisibility(true);
             map.getLayersByName("Composite Threats")[0].redraw();
 
             var composite_colors = ["ffffff", "ffffbe", "ffdb59", "e69b00", "cc3d00", "730000"];
@@ -2019,8 +2025,8 @@ Ext.onReady(function() {
                 var test2 = record.get("layer").name.indexOf("AOI") === -1;
                 console.log(test1 && test2);
                 return test1 && test2;
-                    // return record.get("layer").CLASS_NAME ===
-                    //     'OpenLayers.Layer.Vector';
+                // return record.get("layer").CLASS_NAME ===
+                //     'OpenLayers.Layer.Vector';
             },
             baseAttrs: {
                 checkedGroup: "foobar"
@@ -2040,8 +2046,8 @@ Ext.onReady(function() {
                 var test2 = record.get("layer").name.indexOf("AOI") !== -1;
                 console.log(test1 && test2);
                 return test1 && test2;
-                    // return record.get("layer").CLASS_NAME ===
-                    //     'OpenLayers.Layer.Vector';
+                // return record.get("layer").CLASS_NAME ===
+                //     'OpenLayers.Layer.Vector';
             }
         }
     });
@@ -2445,7 +2451,7 @@ Ext.onReady(function() {
 
     });
 
-    var test = mapPanel.getTopToolbar();
+    // var test = mapPanel.getTopToolbar();
     // console.log(test);
 
     var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
