@@ -5,8 +5,8 @@ Ext.onReady(function() {
 
     var resource;
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
 
@@ -1327,7 +1327,7 @@ Ext.onReady(function() {
     });
 
     var modelmsg_panel = new Ext.Panel({
-        width: 296,
+        width: 280,
         items: [{
             // width: 2,
             xtype: 'container',
@@ -2163,7 +2163,7 @@ Ext.onReady(function() {
     var mapPanel = new GeoExt.MapPanel({
         region: "center",
         map: map,
-        title: 'NC Map',
+//        title: 'NC Map',
         extent: map_extent,
         tbar: toolbarItems,
         id: 'ncthreatsMapPanel'
@@ -2308,22 +2308,22 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>top message</h2>"
+            html: "<h2>Select data layers to view in map</h2>"
         }],
         autoScroll: true
     });
 
-    var setup_msg_bot = new Ext.Container({
-        width: 296,
-        autoEl: 'div',
-        items: [{
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: "<p>bottom message</p>"
-        }],
-        autoScroll: true
-    });
+//    var setup_msg_bot = new Ext.Container({
+//        width: 296,
+//        autoEl: 'div',
+//        items: [{
+//            xtype: 'container',
+//            autoEl: 'div',
+//            cls: 'mycontent',
+//            html: "<p>bottom message</p>"
+//        }],
+//        autoScroll: true
+//    });
 
 
     var layers_tab = new Ext.Container({
@@ -2333,7 +2333,8 @@ Ext.onReady(function() {
         //     autoEl: 'div',
         bodyStyle: "padding:10px; ",
         width: 296,
-        items: [setup_msg_top, tree, setup_msg_bot]
+//        items: [setup_msg_top, tree, setup_msg_bot]
+        items: [setup_msg_top, tree]
             // })
     });
 
@@ -2494,27 +2495,28 @@ Ext.onReady(function() {
         width: 296,
         autoEl: 'div',
         cls: 'mycontent',
-        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2>",
+        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer to view on map.</p><p>Click folder for more data information.</p>",
         // cls: 'help',
         autoScroll: true
     });
 
-    var msg = "<p>Click threat data layer to view on map.</p>";
-    msg += "<p>Click folder for more data information.</p>";
-    var mapsmsg_bot = new Ext.Container({
-        width: 296,
-        autoEl: 'div',
-        cls: 'mycontent',
-        html: msg,
-        autoScroll: true
-    });
+//   var msg = "<p>Click threat data layer to view on map.</p>";
+//   msg += "<p>Click folder for more data information.</p>";
+//   var mapsmsg_bot = new Ext.Container({
+//        width: 296,
+//        autoEl: 'div',
+//        cls: 'mycontent',
+//        html: msg,
+//        autoScroll: true
+//    });
 
 
     var maps_tab = new Ext.Container({
         autoEl: 'div',
         title: 'Maps',
         //html: "some content",
-        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
+//        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
+        items: [mapsmsg_top, tree_huc12maps],
         // cls: 'help',
         autoScroll: true
     });
@@ -2809,3 +2811,4 @@ Ext.onReady(function() {
         url: HOST_NAME + "pages/infopage.html"
     });
 });
+
