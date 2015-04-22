@@ -664,14 +664,14 @@ Ext.onReady(function() {
         return handler;
     }
 
-    onExecuted = function(aoi) {
+    var onExecuted = function(aoi) {
         var geojson_format = new OpenLayers.Format.GeoJSON({
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
-        composite.removeAllFeatures();
-        composite.addFeatures(geojson_format.read(aoi));
-        composite.setVisibility(true);
+        results.removeAllFeatures();
+        results.addFeatures(geojson_format.read(aoi));
+        results.setVisibility(true);
     };
 
     ////////////////////////////////////////////////////////
@@ -836,7 +836,7 @@ Ext.onReady(function() {
         }
         new_selection();
     };
-    var aoi_to_file, onExecuted;
+    var aoi_to_file;
 
     //function to submit defined area
     var save_action = function() {
