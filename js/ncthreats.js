@@ -88,24 +88,24 @@ Ext.onReady(function() {
     /////////////////////////////////////////////////////////
 
 
-    var nchuc2 = new OpenLayers.Layer.TMS("NC HUC 2",
-        SERVER_URI + "tilecache/", {
-            layername: "huc2nc",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var nchuc4 = new OpenLayers.Layer.TMS("NC HUC 4",
-        SERVER_URI + "tilecache/", {
-            layername: "huc4nc",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+    // var nchuc2 = new OpenLayers.Layer.TMS("NC HUC 2",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "huc2nc",
+    //         type: "png",
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
+    // var nchuc4 = new OpenLayers.Layer.TMS("NC HUC 4",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "huc4nc",
+    //         type: "png",
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
     var nchuc6 = new OpenLayers.Layer.TMS("River Basin Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc",
@@ -392,31 +392,43 @@ Ext.onReady(function() {
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
     resultsStyleMap_model.addUniqueValueRules('default', 'threat', symbolsLookup_model);
 
-    var highlightLayer = new OpenLayers.Layer.Vector("None", {
+    var nonelayer = new OpenLayers.Layer.Vector("None", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: styleMap,
-        checkedGroup: 'datalayers'
+        styleMap: styleMap
+    });
+
+    var highlightLayer = new OpenLayers.Layer.Vector("AOI Selection", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: styleMap
     });
 
     // old layer name Results
-    var results = new OpenLayers.Layer.Vector("Composite Threats", {
+    var composite = new OpenLayers.Layer.Vector("Composite Threats", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
         styleMap: resultsStyleMap_model,
-        renderers: ["SVG"],
-        checkedGroup: 'datalayers'
+        renderers: ["SVG"]
     });
 
-    var huc12_state = new OpenLayers.Layer.Vector("Individual Threats", {
+    var results = new OpenLayers.Layer.Vector("AOI huc12s", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: resultsStyleMap_model,
+        renderers: ["SVG"]
+    });
+
+    var individual = new OpenLayers.Layer.Vector("Individual Threats", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
         styleMap: resultsStyleMap,
-        renderers: ["SVG"],
-        checkedGroup: 'datalayers'
+        renderers: ["SVG"]
     });
 
     $.ajax({
@@ -428,15 +440,15 @@ Ext.onReady(function() {
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
-        huc12_state.addFeatures(geojson_format.read(data));
-        huc12_state.setVisibility(false);
+        individual.addFeatures(geojson_format.read(data));
+        individual.setVisibility(false);
         results.addFeatures(geojson_format.read(data));
         results.setVisibility(false);
     });
 
     // $.ajax({
     //     type: "GET",
-    //     url: SERVER_URI + 'wps/huc12_state',
+    //     url: SERVER_URI + 'wps/individual',
     //     dataType: "json"
     // }).done(function(data) {
     //     var geojson_format = new OpenLayers.Format.GeoJSON({
@@ -447,7 +459,7 @@ Ext.onReady(function() {
     //     results.setVisibility(true);
     // });
 
-    map.addLayers([huc12_state, results, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+    map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
         gphy, osm, counties_base
@@ -630,7 +642,7 @@ Ext.onReady(function() {
     var remove_action = function() {
         new_selection();
         map.zoomToExtent(map_extent);
-        var vis_lyrs = [counties, ncbcr, nchuc2, nchuc4, nchuc6, nchuc12,
+        var vis_lyrs = [counties, ncbcr, nchuc6, nchuc12,
             nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
             nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, results
         ];
@@ -749,12 +761,12 @@ Ext.onReady(function() {
         fields: ['layerName', 'layerId']
     });
     var comboData = [
-        ["NC HUC 2", 'huc1'],
-        ["NC HUC 4", 'huc2'],
-        ["NC HUC 6", 'huc3'],
-        ["NC HUC 8", 'huc4'],
-        ["NC HUC 10", 'huc5'],
-        ["NC HUC 12", 'huc6'],
+        // ["NC HUC 2", 'huc1'],
+        // ["NC HUC 4", 'huc2'],
+        ["NC River Basins", 'huc3'],
+        ["NC River Subbasins", 'huc4'],
+        ["NC Watersheds", 'huc5'],
+        // ["NC HUC 12", 'huc6'],
         ["NC Counties", 'cnt7'],
         ["NC BCR", 'bcr8']
     ];
@@ -767,42 +779,42 @@ Ext.onReady(function() {
         var sel_type = formPanel2.getForm().getValues().aoi_type;
         if (sel_type === 'predefined') {
             switch (selected_predef) {
-                case 'NC HUC 2':
-                    // query_ctl.layers = [nchuc2_qry];
-                    col_name = "huc2";
-                    nchuc2.setVisibility(true);
-                    nchuc2_lbl.setVisibility(true);
-                    break;
-                case 'NC HUC 4':
-                    // query_ctl.layers = [nchuc4_qry];
-                    col_name = "huc4";
-                    nchuc4.setVisibility(true);
-                    nchuc4_lbl.setVisibility(true);
-                    break;
-                case 'NC HUC 6':
+                // case 'NC HUC 2':
+                //     // query_ctl.layers = [nchuc2_qry];
+                //     col_name = "huc2";
+                //     nchuc2.setVisibility(true);
+                //     nchuc2_lbl.setVisibility(true);
+                //     break;
+                // case 'NC HUC 4':
+                //     // query_ctl.layers = [nchuc4_qry];
+                //     col_name = "huc4";
+                //     nchuc4.setVisibility(true);
+                //     nchuc4_lbl.setVisibility(true);
+                //     break;
+                case 'NC River Basins':
                     // query_ctl.layers = [nchuc6_qry];
                     col_name = "huc6";
                     nchuc6.setVisibility(true);
                     nchuc6_lbl.setVisibility(true);
                     break;
-                case 'NC HUC 8':
+                case 'NC River Subbasins':
                     // query_ctl.layers = [nchuc8_qry];
                     col_name = "huc8";
                     nchuc8.setVisibility(true);
                     nchuc8_lbl.setVisibility(true);
                     break;
-                case 'NC HUC 10':
+                case 'NC Watersheds':
                     // query_ctl.layers = [nchuc10_qry];
                     col_name = "huc10";
                     nchuc10.setVisibility(true);
                     nchuc10_lbl.setVisibility(true);
                     break;
-                case 'NC HUC 12':
-                    // query_ctl.layers = [nchuc12_qry];
-                    col_name = "huc_12";
-                    nchuc12.setVisibility(true);
-                    nchuc12_lbl.setVisibility(true);
-                    break;
+                    // case 'NC HUC 12':
+                    //     // query_ctl.layers = [nchuc12_qry];
+                    //     col_name = "huc_12";
+                    //     nchuc12.setVisibility(true);
+                    //     nchuc12_lbl.setVisibility(true);
+                    //     break;
                 case 'NC Counties':
                     // query_ctl.layers = [counties_qry];
                     col_name = "co_num";
@@ -938,10 +950,6 @@ Ext.onReady(function() {
                 name: 'aoi_type',
                 inputValue: 'custom',
                 id: 'custom_radio_sel'
-            }, {
-                boxLabel: 'statewide',
-                name: 'aoi_type',
-                inputValue: 'statewide'
             }],
             listeners: {
                 change: form2_chng
@@ -1004,80 +1012,16 @@ Ext.onReady(function() {
 
 
 
-    // var checkGroupx = {
-    //     xtype: 'fieldset',
-    //     title: 'Habitat',
-    //     autoHeight: true,
-    //     layout: 'form',
-    //     // collapsed: true, // initially collapse the group
-    //     //  collapsible: true,
-    //     items: [{
-    //         // Use the default, automatic layout to distribute the controls evenly
-    //         // across a single row
-    //         xtype: 'checkboxgroup',
-    //         fieldLabel: 'select habitat',
-    //         id: 'cbgrp1',
-    //         columns: 1,
-    //         items: [{
-    //             boxLabel: 'Pollution 1',
-    //             name: 'polu1'
-    //         }, {
-    //             boxLabel: 'Pollution 2',
-    //             name: 'polu2',
-    //             checked: false
-    //         }, {
-    //             boxLabel: 'Disease 1',
-    //             name: 'dise1'
-    //         }, {
-    //             boxLabel: 'Disease 2',
-    //             name: 'dise2'
-    //         }, {
-    //             boxLabel: 'Sea Level Rise',
-    //             name: 'slr'
-    //         }, {
-    //             boxLabel: 'Fire Probability',
-    //             name: 'firp'
-    //         }, {
-    //             boxLabel: 'Fire Suppresion',
-    //             name: 'firs'
-    //         }, {
-    //             boxLabel: 'Transportation Corridors',
-    //             name: 'tran'
-    //         }, {
-    //             boxLabel: 'Fragmentaion Index',
-    //             name: 'frag'
-    //         }, {
-    //             boxLabel: 'Urban Percentage',
-    //             name: 'urb'
-    //         }]
-    //     }]
-    // };
-
-
-
     var threat_calcs_map = function() {
         var form_vals_hab = habitat_panel.getForm().getValues();
         console.log(form_vals_hab);
         var form_vals_year = modelpaneltop.getForm().getValues();
-        // console.log(form_vals_year);
         var form_vals_misc = modelpanelmid.getForm().getValues();
-        // console.log(form_vals_misc);
-        //        var form_vals_water = modelpanelbot.getForm().getValues();
-        // console.log(form_vals_water);
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
             data: {
-                //                impaired: form_vals_water.impaired,
-                //                impairall: form_vals_water.impairall,
                 impairall: form_vals_misc.impairall,
-                //                impairbiota: form_vals_water.impairbiota,
-                //                impairmetal: form_vals_water.impairmetal,
-                //                impairnutr: form_vals_water.impairnutr,
-                //                impairother: form_vals_water.impairother,
-                //                impairpolu: form_vals_water.impairpolu,
-                //                impairhab: form_vals_water.impairhab,
-                //                impairtemp: form_vals_water.impairtemp,
                 scenario: form_vals_hab.scenario,
                 habitat: form_vals_hab.habitat,
                 habitat_weight: form_vals_hab.habitat_weight,
@@ -1164,15 +1108,7 @@ Ext.onReady(function() {
         //        var form_vals_water = modelpanelbot.getForm().getValues();
         var form_vals = {
             //            impaired: form_vals_water.impaired,
-            //            impairall: form_vals_water.impairall,
             impairall: form_vals_misc.impairall,
-            //            impairbiota: form_vals_water.impairbiota,
-            //            impairmetal: form_vals_water.impairmetal,
-            //            impairnutr: form_vals_water.impairnutr,
-            //            impairother: form_vals_water.impairother,
-            //            impairpolu: form_vals_water.impairpolu,
-            //            impairhab: form_vals_water.impairhab,
-            //            impairtemp: form_vals_water.impairtemp,
             scenario: form_vals_hab.scenario,
             habitat: form_vals_hab.habitat,
             habitat_weight: form_vals_hab.habitat_weight,
@@ -1203,16 +1139,7 @@ Ext.onReady(function() {
         var form_vals_misc = modelpanelmid.getForm().getValues();
         //        var form_vals_water = modelpanelbot.getForm().getValues();
         var form_vals = {
-            //            impaired: form_vals_water.impaired,
-            //            impairall: form_vals_water.impairall,
             impairall: form_vals_misc.impairall,
-            //            impairbiota: form_vals_water.impairbiota,
-            //            impairmetal: form_vals_water.impairmetal,
-            //            impairnutr: form_vals_water.impairnutr,
-            //            impairother: form_vals_water.impairother,
-            //            impairpolu: form_vals_water.impairpolu,
-            //            impairhab: form_vals_water.impairhab,
-            //            impairtemp: form_vals_water.impairtemp,
             scenario: form_vals_hab.scenario,
             habitat: form_vals_hab.habitat,
             habitat_weight: form_vals_hab.habitat_weight,
@@ -1327,7 +1254,7 @@ Ext.onReady(function() {
     });
 
     var modelmsg_panel = new Ext.Panel({
-        width: 296,
+        width: 280,
         items: [{
             // width: 2,
             xtype: 'container',
@@ -1601,180 +1528,6 @@ Ext.onReady(function() {
 
     });
 
-    //    var checkGroupimpaired = {
-    //        xtype: 'radiogroup',
-    //        fieldLabel: 'Impaired Waters',
-    //        columns: 1,
-    //        items: [{
-    //            boxLabel: 'Impaired: All',
-    //            name: 'impaired',
-    //            inputValue: 'all',
-    //            checked: true
-    //        }, {
-    //            boxLabel: 'Impaired: Individual',
-    //            name: 'impaired',
-    //            inputValue: 'indiv'
-    //        }]
-    //    };
-    //
-    //    var modelpanelbot = new Ext.form.FormPanel({
-    //        title: "",
-    //        width: 280,
-    //        // height: 500,
-    //        bodyStyle: "padding:20px; margin-top: 5px;",
-    //        // labelAlign: "top",
-    //        defaults: {
-    //            anchor: "100%"
-    //        },
-    //        items: [
-    //            // checkGroupimpaired
-    //            {
-    //                fieldLabel: 'Impaired Waters',
-    //                xtype: 'radio',
-    //                boxLabel: 'Impaired: All',
-    //                name: 'impaired',
-    //                inputValue: 'all',
-    //                checked: true
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  All",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairall'
-    //
-    //            }, {
-    //                xtype: 'radio',
-    //                boxLabel: 'Impaired: Individual',
-    //                name: 'impaired',
-    //                inputValue: 'indiv'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Biota",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairbiota'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Metals",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairmetal'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Nutrients",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairnutr'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Habitat",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairhab'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Temperature",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairtemp'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Pollution",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairpolu'
-    //
-    //            }, {
-    //                xtype: "combo",
-    //                // itemId: "cmb2",
-    //                store: comboStoreweights,
-    //                name: 'miscdata',
-    //                fieldLabel: "  Other",
-    //                value: "notinclude",
-    //                typeAhead: true,
-    //                mode: "local",
-    //                triggerAction: "all",
-    //                valueField: 'layerId',
-    //                displayField: 'layerName',
-    //                submitValue: true,
-    //                hiddenName: 'impairother'
-    //
-    //            }
-    //        ],
-    //        buttons: [{
-    //            text: "Spreadsheet",
-    //            handler: threat_calcs_ssheet
-    //        }, {
-    //            text: "Report",
-    //            handler: threat_calcs_report
-    //        }, {
-    //            text: "Show map",
-    //            handler: threat_calcs_map
-    //        }]
-    //    });
 
     var legend_titles1 = {
         frst: 'Forest Habitat (ha)',
@@ -1792,13 +1545,6 @@ Ext.onReady(function() {
         frsthlth: "Forest Insect/Disease Risk? (ha)",
         energydev: "Triassic basin (ha)",
         "water:totimplen": "Impaired for Any Reason? (km)",
-        //        "water:bioimplen": "Impaired: Biota? (km)",
-        //        "water:metimplen": "Impaired Due to Metal? Contaminant (km)",
-        //        "water:nutimplen": "Impaired Due to? Nutrient Loading (km)",
-        //        "water:habimplen": "Impaired Habitat? (km)",
-        //        "water:tempimplen": "Impaired Temperature? (km)",
-        //        "water:polimplen": "Impaired Due to? Pollution (km)",
-        //        "water:otherlen": "Impaired for Other? Causes (km)",
         "water:NID": "Number of Dams (n)",
         wind: "Wind Power Class? (mean)",
         slr_lc: "Terrestrial Landcover? Change (ha)",
@@ -2163,7 +1909,7 @@ Ext.onReady(function() {
     var mapPanel = new GeoExt.MapPanel({
         region: "center",
         map: map,
-        title: 'NC Map',
+        //        title: 'NC Map',
         extent: map_extent,
         tbar: toolbarItems,
         id: 'ncthreatsMapPanel'
@@ -2171,17 +1917,17 @@ Ext.onReady(function() {
 
 
 
-    var layerList = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'HUC 2',
-        leaf: false,
-        expanded: false,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("NC HUC 2") !== -1;
-            }
-        }
-    });
+    // var layerList = new GeoExt.tree.LayerContainer({
+    //     layerStore: mapPanel.layers,
+    //     text: 'HUC 2',
+    //     leaf: false,
+    //     expanded: false,
+    //     loader: {
+    //         filter: function(record) {
+    //             return record.get("layer").name.indexOf("NC HUC 2") !== -1;
+    //         }
+    //     }
+    // });
     var layerList2 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
         text: 'NC State',
@@ -2255,6 +2001,7 @@ Ext.onReady(function() {
         expanded: false,
         loader: {
             filter: function(record) {
+
                 return record.get("layer").name.indexOf("Bird Conservation") !== -1;
             }
         }
@@ -2267,11 +2014,34 @@ Ext.onReady(function() {
         expanded: false,
         loader: {
             filter: function(record) {
-                return record.get("layer").CLASS_NAME ===
+                var test1 = record.get("layer").CLASS_NAME ===
                     'OpenLayers.Layer.Vector';
+                var test2 = record.get("layer").name.indexOf("AOI") === -1;
+                console.log(test1 && test2);
+                return test1 && test2;
+                    // return record.get("layer").CLASS_NAME ===
+                    //     'OpenLayers.Layer.Vector';
             },
             baseAttrs: {
-                checkedGroup: "datalayers"
+                checkedGroup: "foobar"
+            }
+        }
+    });
+
+    var layerList11 = new GeoExt.tree.LayerContainer({
+        layerStore: mapPanel.layers,
+        text: 'AOI Layers',
+        leaf: false,
+        expanded: false,
+        loader: {
+            filter: function(record) {
+                var test1 = record.get("layer").CLASS_NAME ===
+                    'OpenLayers.Layer.Vector';
+                var test2 = record.get("layer").name.indexOf("AOI") !== -1;
+                console.log(test1 && test2);
+                return test1 && test2;
+                    // return record.get("layer").CLASS_NAME ===
+                    //     'OpenLayers.Layer.Vector';
             }
         }
     });
@@ -2294,7 +2064,7 @@ Ext.onReady(function() {
         root: {
             nodeType: "async",
             children: [layerList2, layerList7, layerList6, layerList8,
-                layerList3, layerList4, layerList5, layerList9, layerList10
+                layerList3, layerList4, layerList5, layerList9, layerList11, layerList10
 
             ]
         },
@@ -2308,22 +2078,22 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>top message</h2>"
+            html: "<h2>Select data layers to view in map</h2>"
         }],
         autoScroll: true
     });
 
-    var setup_msg_bot = new Ext.Container({
-        width: 296,
-        autoEl: 'div',
-        items: [{
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: "<p>bottom message</p>"
-        }],
-        autoScroll: true
-    });
+    //    var setup_msg_bot = new Ext.Container({
+    //        width: 296,
+    //        autoEl: 'div',
+    //        items: [{
+    //            xtype: 'container',
+    //            autoEl: 'div',
+    //            cls: 'mycontent',
+    //            html: "<p>bottom message</p>"
+    //        }],
+    //        autoScroll: true
+    //    });
 
 
     var layers_tab = new Ext.Container({
@@ -2333,7 +2103,8 @@ Ext.onReady(function() {
         //     autoEl: 'div',
         bodyStyle: "padding:10px; ",
         width: 296,
-        items: [setup_msg_top, tree, setup_msg_bot]
+        //        items: [setup_msg_top, tree, setup_msg_bot]
+        items: [setup_msg_top, tree]
             // })
     });
 
@@ -2479,7 +2250,7 @@ Ext.onReady(function() {
                 if (n.attributes.myvalue) {
                     console.log(n.attributes.myvalue);
                     formhuc12maps_chng(n.attributes.myvalue);
-                    huc12_state.setVisibility(true);
+                    individual.setVisibility(true);
                     if (show_legend_flag) {
                         float_win.show();
                         show_legend_flag = false;
@@ -2494,27 +2265,28 @@ Ext.onReady(function() {
         width: 296,
         autoEl: 'div',
         cls: 'mycontent',
-        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2>",
+        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer to view on map.</p><p>Click folder for more data information.</p>",
         // cls: 'help',
         autoScroll: true
     });
 
-    var msg = "<p>Click threat data layer to view on map.</p>";
-    msg += "<p>Click folder for more data information.</p>";
-    var mapsmsg_bot = new Ext.Container({
-        width: 296,
-        autoEl: 'div',
-        cls: 'mycontent',
-        html: msg,
-        autoScroll: true
-    });
+    //   var msg = "<p>Click threat data layer to view on map.</p>";
+    //   msg += "<p>Click folder for more data information.</p>";
+    //   var mapsmsg_bot = new Ext.Container({
+    //        width: 296,
+    //        autoEl: 'div',
+    //        cls: 'mycontent',
+    //        html: msg,
+    //        autoScroll: true
+    //    });
 
 
     var maps_tab = new Ext.Container({
         autoEl: 'div',
         title: 'Maps',
         //html: "some content",
-        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
+        //        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
+        items: [mapsmsg_top, tree_huc12maps],
         // cls: 'help',
         autoScroll: true
     });
@@ -2535,7 +2307,7 @@ Ext.onReady(function() {
     var area_tab2 = new Ext.Panel({
         title: 'New AOI',
         autoScroll: true,
-        items: [],
+        items: [formPanel2],
         id: "aoi_create_id"
     });
 
@@ -2674,7 +2446,7 @@ Ext.onReady(function() {
     });
 
     var test = mapPanel.getTopToolbar();
-    console.log(test);
+    // console.log(test);
 
     var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
     var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
@@ -2800,17 +2572,20 @@ Ext.onReady(function() {
         $("#shp_btn").click(upload_shps);
 
     };
-      var el = Ext.getCmp("infopage");
+    // load header page with links and title
+    var el = Ext.getCmp("infopage");
     var mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/infopage.html"
     });
-    var el = Ext.getCmp("aoi_upload_id");
-    var mgr = el.getUpdater();
-    mgr.update({
+
+    // load shapefile upload page
+    var el2 = Ext.getCmp("aoi_upload_id");
+    var mgr2 = el2.getUpdater();
+    mgr2.update({
         url: HOST_NAME + "pages/upload.html"
     });
-    mgr.on("update", page_script);
+    mgr2.on("update", page_script);
 
 
 });
