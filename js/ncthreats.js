@@ -254,11 +254,17 @@ Ext.onReady(function() {
     ///////////////////////////////////////////////////////////
     ////////////analysis layers
 
-    var styleMap = new OpenLayers.StyleMap({
+    var styleMaphuc12s = new OpenLayers.StyleMap({
         strokeColor: "red",
         strokeWidth: 2,
         strokeOpacity: 0.5,
-        fillOpacity: 0.2
+        fillOpacity: 0
+    });
+    var styleMapselection = new OpenLayers.StyleMap({
+        strokeColor: "black",
+        strokeWidth: 4,
+        strokeOpacity: 0.5,
+        fillOpacity: 0
     });
 
     var resultsStyleMap = new OpenLayers.StyleMap({});
@@ -397,8 +403,7 @@ Ext.onReady(function() {
     var nonelayer = new OpenLayers.Layer.Vector("None", {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
-        projection: proj_4326,
-        styleMap: styleMap
+        projection: proj_4326
     });
 
 
@@ -426,7 +431,7 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: styleMap,
+        styleMap: styleMapselection,
         visibility: false
     });
 
@@ -434,7 +439,7 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: styleMap,
+        styleMap: styleMaphuc12s,
         renderers: ["SVG"],
         visibility: false
     });
