@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/branch1/";
+    var HOST_NAME = "http://localhost/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
