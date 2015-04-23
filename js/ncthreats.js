@@ -7,7 +7,7 @@ Ext.onReady(function() {
     var HOST_NAME = "http://localhost/branch1/";
     var SERVER_URI = "http://localhost/";
 
-    var resource =  SERVER_URI + "wps/0";
+    var resource = SERVER_URI + "wps/0";
 
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
@@ -1137,11 +1137,46 @@ Ext.onReady(function() {
             slr_lc: form_vals_misc.slr_lc,
             wind: form_vals_misc.wind
         };
-        var qry_str = $.param(form_vals);
-        // var url = SERVER_URI + 'wps/report?' + qry_str;
-        var url = resource + '/report?' + qry_str;
-        console.log(url);
-        window.open(url);
+
+        var includes_list = {
+            impairall: form_vals_misc.impairall,
+            // scenario: form_vals_hab.scenario,
+            // habitat: form_vals_hab.habitat,
+            habitat_weight: form_vals_hab.habitat_weight,
+            // year: form_vals_year.year,
+            firesup: form_vals_misc.firesup,
+            hiway: form_vals_misc.hiway,
+            insectdisease: form_vals_misc.insectdisease,
+            manure: form_vals_misc.manure,
+            ndams: form_vals_misc.ndams,
+            nitrofrt: form_vals_misc.nitrofrt,
+            totnitro: form_vals_misc.totnitro,
+            totsulf: form_vals_misc.totsulf,
+            triassic: form_vals_misc.triassic,
+            urbangrth: form_vals_misc.urbangrth,
+            slr_up: form_vals_misc.slr_up,
+            slr_lc: form_vals_misc.slr_lc,
+            wind: form_vals_misc.wind
+        }
+
+        // do not submit form if not factors included
+        var submit_form = false;
+        for (var x in includes_list) {
+            console.log(includes_list[x]);
+            if (includes_list[x] !== 'notinclude') {
+                submit_form = true;
+            }
+        }
+        if (submit_form) {
+            var qry_str = $.param(form_vals);
+            // var url = SERVER_URI + 'wps/report?' + qry_str;
+            var url = resource + '/report?' + qry_str;
+            console.log(url);
+            window.open(url);
+        } else {
+            alert("no factors included");
+        }
+
     };
 
     var threat_calcs_ssheet = function() {
@@ -1526,16 +1561,19 @@ Ext.onReady(function() {
 
         }],
 
-        buttons: [{
-            text: "Spreadsheet",
-            handler: threat_calcs_ssheet
-        }, {
-            text: "Report",
-            handler: threat_calcs_report
-        }, {
-            text: "Show map",
-            handler: threat_calcs_map
-        }]
+        buttons: [
+            // {
+            //     text: "Spreadsheet",
+            //     handler: threat_calcs_ssheet
+            // },
+            {
+                text: "Report",
+                handler: threat_calcs_report
+            }, {
+                text: "Show map",
+                handler: threat_calcs_map
+            }
+        ]
 
     });
 
