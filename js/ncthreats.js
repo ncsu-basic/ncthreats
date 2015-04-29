@@ -257,13 +257,13 @@ Ext.onReady(function() {
     var styleMaphuc12s = new OpenLayers.StyleMap({
         strokeColor: "red",
         strokeWidth: 2,
-        strokeOpacity: 0.5,
+        strokeOpacity: 1,
         fillOpacity: 0
     });
     var styleMapselection = new OpenLayers.StyleMap({
         strokeColor: "black",
         strokeWidth: 4,
-        strokeOpacity: 0.5,
+        strokeOpacity: 1,
         fillOpacity: 0
     });
 
@@ -654,6 +654,7 @@ Ext.onReady(function() {
     };
 
     var remove_action = function() {
+        resource = SERVER_URI + "wps/0";
         new_selection();
         map.zoomToExtent(map_extent);
         var vis_lyrs = [counties, ncbcr, nchuc6, nchuc12,
@@ -928,60 +929,98 @@ Ext.onReady(function() {
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
         width: 296,
-        height: 350,
+        height: 400,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
             anchor: "100%"
         },
         items: [{
-            xtype: "combo",
-            itemId: "cmb1",
-            name: "predef_selection",
-            store: comboStorelayers,
-            fieldLabel: "Predefined selections",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            listeners: {
-                'select': form2_chng
-            }
-        }, {
-            xtype: 'radiogroup',
-            fieldLabel: 'Area Of Interest (AOI) type',
-            name: 'aoiType',
-            columns: 1,
-            itemId: "rg1",
-            items: [{
-                boxLabel: 'predefined<br>Click on map to select/deselect',
-                name: 'aoi_type',
-                inputValue: 'predefined',
-                checked: true
+                xtype: "combo",
+                itemId: "cmb1",
+                name: "predef_selection",
+                store: comboStorelayers,
+                fieldLabel: "Predefined selections",
+                typeAhead: true,
+                mode: "local",
+                triggerAction: "all",
+                valueField: 'layerId',
+                displayField: 'layerName',
+                listeners: {
+                    'select': form2_chng
+                }
             }, {
-                boxLabel: 'custom<br>Click on map to create polygon,' +
-                    'or open shapefile panel.',
-                name: 'aoi_type',
-                inputValue: 'custom',
-                id: 'custom_radio_sel'
-            }],
-            listeners: {
-                change: form2_chng
-            }
-        }],
-        buttons: [{
-            text: "Save",
-            handler: aoi_to_file,
-            //itemId: "resource_btn",
-            id: "resource_btn"
-        }, {
-            text: "Reset",
-            handler: remove_action
-        }, {
-            text: "Submit",
-            handler: save_action
-        }]
+                xtype: 'radiogroup',
+                fieldLabel: 'Area Of Interest (AOI) type',
+                name: 'aoiType',
+                columns: 1,
+                itemId: "rg1",
+                items: [{
+                    boxLabel: 'predefined<br>Click on map to select/deselect',
+                    name: 'aoi_type',
+                    inputValue: 'predefined',
+                    checked: true
+                }, {
+                    boxLabel: 'custom<br>Click on map to create polygon,' +
+                        'or open shapefile panel.',
+                    name: 'aoi_type',
+                    inputValue: 'custom',
+                    id: 'custom_radio_sel'
+                }],
+                listeners: {
+                    change: form2_chng
+                }
+            }, {
+                xtype: 'container',
+                layout: {
+                    type: 'vbox',
+                    // padding: '10',
+                    align: 'center'
+                },
+                // width: 200,
+                height: 200,
+                defaults:{margins:'0 0 10 0'},
+                items: [{
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Submit',
+                    handler: save_action
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Reset',
+                    handler: remove_action
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Save',
+                    id: "resource_btn",
+                    handler: aoi_to_file
+                }, {
+                    xtype: 'button',
+                    text: 'Report',
+                    width: 80
+                    // margins: '0'
+                }]
+
+            }]
+            // buttons: [{
+            //     text: "report",
+            //     // handler: aoi_to_file,
+            //     //itemId: "resource_btn",
+            //     // id: "resource_btn"
+            // },{
+            //     text: "Save",
+            //     handler: aoi_to_file,
+            //     //itemId: "resource_btn",
+            //     id: "resource_btn"
+            // }, {
+            //     text: "Reset",
+            //     handler: remove_action
+            // }, {
+            //     text: "Submit",
+            //     handler: save_action
+            // }]
     });
 
     //////////////////////////processing panel
@@ -2469,7 +2508,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 0,
+        activeTab: 4,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
