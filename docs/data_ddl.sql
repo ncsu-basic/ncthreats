@@ -589,7 +589,7 @@ up0050rnk smallint
 
 
 copy ea_pol from '/home/jim/Desktop/ncthreats_tables/tblEA_Pol.txt' with csv header;
-copy ea_h20 from '/home/jim/Desktop/ncthreats_tables/tblEA_h2o.txt' with csv header;
+copy ea_h20 from '/home/jim/Desktop/ncthreats_tables/tblEA_h2o_SD.txt' with csv header;
 copy lcscen_a_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_ha.txt' with csv header;
 copy lcscen_b_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_ha.txt' with csv header;
 copy lcscen_c_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_ha.txt' with csv header;
