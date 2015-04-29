@@ -1012,7 +1012,7 @@ Ext.onReady(function() {
                             threat_calcs_report();
                         } else if (is_indiv) {
                             // console.log(indiv_layer);
-                            threat_calcs_report_indiv(indiv_layer)
+                            threat_calcs_report_indiv(indiv_layer);
 
                         } else {
                             console.log("no map");
@@ -1175,9 +1175,10 @@ Ext.onReady(function() {
     threat_calcs_report_indiv = function(lyrdesc) {
         console.log(lyrdesc);
         var frmvals = lyrdesc.split(":");
-        var form_vals;
+        var form_vals = {};
         console.log(frmvals.length);
         var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
+        var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
         if (habthrts.indexOf(frmvals[0]) !== -1) {
             console.log(frmvals[0]);
             console.log(frmvals[1]);
@@ -1187,23 +1188,60 @@ Ext.onReady(function() {
                 habitat: frmvals[0],
                 year: "20" + frmvals[1],
                 habitat_weight: "1.0"
+            };
+        } else if (yearthrts.indexOf(frmvals[0]) !== -1) {
+            console.log(frmvals[0]);
+            console.log(frmvals[1]);
+            form_vals = {
+                year: "20" + frmvals[1],
+            };
+            if (frmvals[0] === 'urban') {
+                form_vals.urbangrth = "1.0";
+            } else if (frmvals[0] === 'fire') {
+                form_vals.firesup = "1.0";
+            } else if (frmvals[0] === 'trans') {
+                form_vals.hiway = "1.0";
+            } else if (frmvals[0] === 'slr_up') {
+                form_vals.slr_up = "1.0";
+            } else if (frmvals[0] === 'slr_lc') {
+                form_vals.slr_lc = "1.0";
+            }
+        } else if (frmvals.length === 2) {
+            if (frmvals[1] === 'manu') {
+                form_vals.manure = "1.0";
+            } else if (frmvals[1] === 'fert') {
+                form_vals.nitrofrt = "1.0";
+            } else if (frmvals[1] === 'td_s_t') {
+                form_vals.totsulf = "1.0";
+            } else if (frmvals[1] === 'td_n_t') {
+                form_vals.totnitro = "1.0";
+            } else if (frmvals[1] === 'NID') {
+                form_vals.nadms = "1.0";
+            } else if (frmvals[1] === 'totimplen') {
+                form_vals.impairall = "1.0";
             }
 
-                var qry_str = $.param(form_vals);
-                // var url = SERVER_URI + 'wps/report?' + qry_str;
-                var url = resource + '/report?' + qry_str;
-                console.log(url);
-                window.open(url);
-
-
-
+        } else {
+            if (frmvals[0] === 'frsthlth') {
+                form_vals.insectdisease = "1.0";
+            } else if (frmvals[0] === 'energydev') {
+                form_vals.triassic = "1.0";
+            } else if (frmvals[0] === 'wind') {
+                form_vals.wind = "1.0";
+            }
         }
 
 
-    }
+        if (!$.isEmptyObject(form_vals)) {
+            var qry_str = $.param(form_vals);
+            // var url = SERVER_URI + 'wps/report?' + qry_str;
+            var url = resource + '/report?' + qry_str;
+            console.log(url);
+            window.open(url);
+        }
+    };
 
     threat_calcs_report = function() {
-        console.log("test");
         var form_vals_hab = habitat_panel.getForm().getValues();
         var form_vals_year = modelpaneltop.getForm().getValues();
         var form_vals_misc = modelpanelmid.getForm().getValues();
@@ -1249,7 +1287,7 @@ Ext.onReady(function() {
             slr_up: form_vals_misc.slr_up,
             slr_lc: form_vals_misc.slr_lc,
             wind: form_vals_misc.wind
-        }
+        };
 
         // do not submit form if not factors included
         var submit_form = false;
@@ -1271,45 +1309,45 @@ Ext.onReady(function() {
 
     };
 
-    var threat_calcs_ssheet = function() {
-        var form_vals_hab = habitat_panel.getForm().getValues();
-        var form_vals_year = modelpaneltop.getForm().getValues();
-        var form_vals_misc = modelpanelmid.getForm().getValues();
-        //        var form_vals_water = modelpanelbot.getForm().getValues();
-        var form_vals = {
-            impairall: form_vals_misc.impairall,
-            scenario: form_vals_hab.scenario,
-            habitat: form_vals_hab.habitat,
-            habitat_weight: form_vals_hab.habitat_weight,
-            year: form_vals_year.year,
-            firesup: form_vals_misc.firesup,
-            hiway: form_vals_misc.hiway,
-            insectdisease: form_vals_misc.insectdisease,
-            manure: form_vals_misc.manure,
-            ndams: form_vals_misc.ndams,
-            nitrofrt: form_vals_misc.nitrofrt,
-            totnitro: form_vals_misc.totnitro,
-            totsulf: form_vals_misc.totsulf,
-            triassic: form_vals_misc.triassic,
-            urbangrth: form_vals_misc.urbangrth,
-            slr_up: form_vals_misc.slr_up,
-            slr_lc: form_vals_misc.slr_lc,
-            wind: form_vals_misc.wind
-        };
-        var qry_str = $.param(form_vals);
-        $.ajax({
-            url: SERVER_URI + 'wps/ssheet?' + qry_str,
-            type: 'GET'
-        }).done(function(data, textStatus, jqXHR) {
-            if (jqXHR.status === 201) {
-                var csvresource = jqXHR.getResponseHeader('Location');
-                $('#dnlds').attr('action', csvresource);
-                $('#dnlds').submit();
-            } else {
-                console.log("error" + jqXHR.status);
-            }
-        });
-    };
+    // var threat_calcs_ssheet = function() {
+    //     var form_vals_hab = habitat_panel.getForm().getValues();
+    //     var form_vals_year = modelpaneltop.getForm().getValues();
+    //     var form_vals_misc = modelpanelmid.getForm().getValues();
+    //     //        var form_vals_water = modelpanelbot.getForm().getValues();
+    //     var form_vals = {
+    //         impairall: form_vals_misc.impairall,
+    //         scenario: form_vals_hab.scenario,
+    //         habitat: form_vals_hab.habitat,
+    //         habitat_weight: form_vals_hab.habitat_weight,
+    //         year: form_vals_year.year,
+    //         firesup: form_vals_misc.firesup,
+    //         hiway: form_vals_misc.hiway,
+    //         insectdisease: form_vals_misc.insectdisease,
+    //         manure: form_vals_misc.manure,
+    //         ndams: form_vals_misc.ndams,
+    //         nitrofrt: form_vals_misc.nitrofrt,
+    //         totnitro: form_vals_misc.totnitro,
+    //         totsulf: form_vals_misc.totsulf,
+    //         triassic: form_vals_misc.triassic,
+    //         urbangrth: form_vals_misc.urbangrth,
+    //         slr_up: form_vals_misc.slr_up,
+    //         slr_lc: form_vals_misc.slr_lc,
+    //         wind: form_vals_misc.wind
+    //     };
+    //     var qry_str = $.param(form_vals);
+    //     $.ajax({
+    //         url: SERVER_URI + 'wps/ssheet?' + qry_str,
+    //         type: 'GET'
+    //     }).done(function(data, textStatus, jqXHR) {
+    //         if (jqXHR.status === 201) {
+    //             var csvresource = jqXHR.getResponseHeader('Location');
+    //             $('#dnlds').attr('action', csvresource);
+    //             $('#dnlds').submit();
+    //         } else {
+    //             console.log("error" + jqXHR.status);
+    //         }
+    //     });
+    // };
 
     var show_legend_flag = true;
     // console.log(habitats);
