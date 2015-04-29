@@ -924,7 +924,9 @@ Ext.onReady(function() {
             map.zoomToExtent(extent);
         });
     };
-
+    var threat_calcs_report;
+    var threat_calcs_report_indiv;
+    var indiv_layer;
     // new aoi panel
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
@@ -979,7 +981,9 @@ Ext.onReady(function() {
                 },
                 // width: 200,
                 height: 200,
-                defaults:{margins:'0 0 10 0'},
+                defaults: {
+                    margins: '0 0 10 0'
+                },
                 items: [{
                     xtype: 'button',
                     width: 80,
@@ -999,8 +1003,21 @@ Ext.onReady(function() {
                 }, {
                     xtype: 'button',
                     text: 'Report',
-                    width: 80
-                    // margins: '0'
+                    width: 80,
+                    handler: function() {
+                        var is_composite = composite.getVisibility();
+                        var is_indiv = individual.getVisibility();
+                        if (is_composite) {
+                            threat_calcs_map();
+                            threat_calcs_report();
+                        } else if (is_indiv) {
+                            // console.log(indiv_layer);
+                            threat_calcs_report_indiv(indiv_layer)
+
+                        } else {
+                            console.log("no map");
+                        }
+                    },
                 }]
 
             }]
@@ -1155,7 +1172,38 @@ Ext.onReady(function() {
         });
     };
 
-    var threat_calcs_report = function() {
+    threat_calcs_report_indiv = function(lyrdesc) {
+        console.log(lyrdesc);
+        var frmvals = lyrdesc.split(":");
+        var form_vals;
+        console.log(frmvals.length);
+        var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
+        if (habthrts.indexOf(frmvals[0]) !== -1) {
+            console.log(frmvals[0]);
+            console.log(frmvals[1]);
+            console.log(frmvals[2]);
+            form_vals = {
+                scenario: frmvals[2],
+                habitat: frmvals[0],
+                year: "20" + frmvals[1],
+                habitat_weight: "1.0"
+            }
+
+                var qry_str = $.param(form_vals);
+                // var url = SERVER_URI + 'wps/report?' + qry_str;
+                var url = resource + '/report?' + qry_str;
+                console.log(url);
+                window.open(url);
+
+
+
+        }
+
+
+    }
+
+    threat_calcs_report = function() {
+        console.log("test");
         var form_vals_hab = habitat_panel.getForm().getValues();
         var form_vals_year = modelpaneltop.getForm().getValues();
         var form_vals_misc = modelpanelmid.getForm().getValues();
@@ -1654,6 +1702,8 @@ Ext.onReady(function() {
             url: SERVER_URI + 'wps/huc12_map?' + qry_str,
             dataType: "json"
         }).done(function(data) {
+            composite.setVisibility(false);
+            individual.setVisibility(true);
             for (var key in data.res) {
                 var thrt = data.res[key];
                 try {
@@ -2305,43 +2355,17 @@ Ext.onReady(function() {
                     text: 'All Impairments',
                     leaf: true,
                     myvalue: "water:totimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Biota',
-                        //                    leaf: true,
-                        //                    myvalue: "water:bioimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Metals',
-                        //                    leaf: true,
-                        //                    myvalue: "water:metimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Nutrients',
-                        //                    leaf: true,
-                        //                    myvalue: "water:nutimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Habitat',
-                        //                    leaf: true,
-                        //                    myvalue: "water:habimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Temperature',
-                        //                    leaf: true,
-                        //                    myvalue: "water:tempimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Pollution',
-                        //                    leaf: true,
-                        //                    myvalue: "water:polimplen"
-                        //                }, {
-                        //                    text: 'Impaired: Other',
-                        //                    leaf: true,
-                        //                    myvalue: "water:otherlen"
+
                 }]
             }]
         }),
         listeners: {
             click: function(n) {
-                console.log(n.attributes.myvalue);
                 // console.log(formPanelhuc12maps.getForm().getValues(true));
                 if (n.attributes.myvalue) {
                     console.log(n.attributes.myvalue);
+                    indiv_layer = n.attributes.myvalue;
+
                     formhuc12maps_chng(n.attributes.myvalue);
                     individual.setVisibility(true);
                     if (show_legend_flag) {
