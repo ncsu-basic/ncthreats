@@ -622,7 +622,7 @@ copy slamm_lc_rnk from '/home/jim/Desktop/ncthreats_tables/tblSlamm_lc_rnk.txt' 
 copy slamm_up_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_ha.txt' with csv header;
 copy slamm_up_rnk from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_rnk.txt' with csv header;
 
-copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data.csv' with csv header;
+copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data2.csv' with csv header;
 
 
 

@@ -1085,17 +1085,22 @@ Ext.onReady(function() {
 
     var threat_calcs_map = function() {
         var form_vals_hab = habitat_panel.getForm().getValues();
-        console.log(form_vals_hab);
         var form_vals_year = modelpaneltop.getForm().getValues();
         var form_vals_misc = modelpanelmid.getForm().getValues();
+        console.log(form_vals_misc);
+
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
             data: {
-                impairall: form_vals_misc.impairall,
+                impairbiota: form_vals_misc.impairbiota,
+                impairmetal: form_vals_misc.impairmetal,
                 scenario: form_vals_hab.scenario,
-                habitat: form_vals_hab.habitat,
-                habitat_weight: form_vals_hab.habitat_weight,
+                frst: form_vals_hab.frst,
+                ftwt: form_vals_hab.ftwt,
+                hbwt: form_vals_hab.hbwt,
+                open: form_vals_hab.open,
+                shrb: form_vals_hab.shrb,
                 year: form_vals_year.year,
                 firesup: form_vals_misc.firesup,
                 hiway: form_vals_misc.hiway,
@@ -1249,11 +1254,14 @@ Ext.onReady(function() {
         var form_vals_misc = modelpanelmid.getForm().getValues();
         //        var form_vals_water = modelpanelbot.getForm().getValues();
         var form_vals = {
-            //            impaired: form_vals_water.impaired,
-            impairall: form_vals_misc.impairall,
+            impairbiota: form_vals_misc.impairbiota,
+            impairmetal: form_vals_misc.impairmetal,
             scenario: form_vals_hab.scenario,
-            habitat: form_vals_hab.habitat,
-            habitat_weight: form_vals_hab.habitat_weight,
+            frst: form_vals_hab.frst,
+            ftwt: form_vals_hab.ftwt,
+            hbwt: form_vals_hab.hbwt,
+            open: form_vals_hab.open,
+            shrb: form_vals_hab.shrb,
             year: form_vals_year.year,
             firesup: form_vals_misc.firesup,
             hiway: form_vals_misc.hiway,
@@ -1271,10 +1279,14 @@ Ext.onReady(function() {
         };
 
         var includes_list = {
-            impairall: form_vals_misc.impairall,
+            impairbiota: form_vals_misc.impairbiota,
+            impairmetal: form_vals_misc.impairmetal,
             // scenario: form_vals_hab.scenario,
-            // habitat: form_vals_hab.habitat,
-            habitat_weight: form_vals_hab.habitat_weight,
+            frst: form_vals_hab.frst,
+            ftwt: form_vals_hab.ftwt,
+            hbwt: form_vals_hab.hbwt,
+            open: form_vals_hab.open,
+            shrb: form_vals_hab.shrb,
             // year: form_vals_year.year,
             firesup: form_vals_misc.firesup,
             hiway: form_vals_misc.hiway,
@@ -1394,12 +1406,12 @@ Ext.onReady(function() {
         defaults: {
             anchor: "100%"
         },
-        items: [checkGrouphabitat, {
+        items: [{
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
-            name: 'hab_wts',
-            fieldLabel: "Include / Set Weight",
+            name: 'misc',
+            fieldLabel: "Upland Forest",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1407,7 +1419,75 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             submitValue: true,
-            hiddenName: 'habitat_weight',
+            hiddenName: 'frst',
+            listeners: {
+                //'select': form2_chng
+            }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'misc',
+            fieldLabel: "Wet Forest",
+            value: "notinclude",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'ftwt',
+            listeners: {
+                //'select': form2_chng
+            }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'misc',
+            fieldLabel: "Open",
+            value: "notinclude",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'open',
+            listeners: {
+                //'select': form2_chng
+            }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'misc',
+            fieldLabel: "Wet Herbaceous",
+            value: "notinclude",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'hbwt',
+            listeners: {
+                //'select': form2_chng
+            }
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'misc',
+            fieldLabel: "Scrub-shrub",
+            value: "notinclude",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'shrb',
             listeners: {
                 //'select': form2_chng
             }
@@ -1681,7 +1761,7 @@ Ext.onReady(function() {
             // itemId: "cmb2",
             store: comboStoreweights,
             name: 'miscdata',
-            fieldLabel: "Impaired Waters",
+            fieldLabel: "Impaired Waters - Biota",
             value: "notinclude",
             typeAhead: true,
             mode: "local",
@@ -1689,7 +1769,22 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             submitValue: true,
-            hiddenName: 'impairall'
+            hiddenName: 'impairbiota'
+
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStoreweights,
+            name: 'miscdata',
+            fieldLabel: "Impaired Waters - Metal",
+            value: "notinclude",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'impairmetal'
 
         }],
 
@@ -2442,7 +2537,7 @@ Ext.onReady(function() {
                     leaf: true,
                     myvalue: "water:bioimplen"
 
-                },{
+                }, {
                     text: 'Metal Impairments',
                     qtip: 'view data',
                     leaf: true,
@@ -2624,7 +2719,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 4,
+        activeTab: 2,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
