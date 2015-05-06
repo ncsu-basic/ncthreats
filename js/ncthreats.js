@@ -2387,6 +2387,10 @@ Ext.onReady(function() {
             // })
     });
 
+    function tree_listener() {
+        console.log("test");
+    }
+
     ///////////////////////////////////////////////////////////////
     // data tab
     ////////////////////////////////////////////////////////////////
@@ -2408,35 +2412,41 @@ Ext.onReady(function() {
                 expanded: false,
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_habitat.html',
-                hrefTarget: "_blank",
                 // iconCls: 'tree_image'
 
                 // defined in file functions.js
                 children: habitats,
+                hrefTarget: "infowindow",
+                cls: "infowindow"
             }, {
                 text: 'Urban Growth',
                 qtip: 'more info',
+                children: urban_tree,
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_urban.html',
-                hrefTarget: "_blank",
-                children: urban_tree
+                hrefTarget: "infowindow",
+                cls: "infowindow"
             }, {
                 text: 'Fire Suppression',
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_firesupp.html',
-                hrefTarget: "_blank",
-                children: fire_tree
+                children: fire_tree,
+                hrefTarget: "infowindow",
+                cls: "infowindow"
             }, {
                 text: 'Transportation Corridors',
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_trans_dcl.html',
-                hrefTarget: "_blank",
-                children: trans_tree
+                children: trans_tree,
+                hrefTarget: "infowindow",
+                cls: "infowindow"
             }, {
                 text: 'Nutrient Loading',
                 expanded: false,
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_nl.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
+
                 children: [{
                     text: 'Manure Application',
                     qtip: 'view data',
@@ -2453,7 +2463,8 @@ Ext.onReady(function() {
                 expanded: false,
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_aad.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
                 children: [{
                     text: 'Total Nitrogen Deposition',
                     qtip: 'view data',
@@ -2470,7 +2481,8 @@ Ext.onReady(function() {
                 expanded: false,
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_nid.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
                 children: [{
                     text: 'Number of Dams',
                     qtip: 'view data',
@@ -2482,7 +2494,8 @@ Ext.onReady(function() {
                 expanded: false,
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_forest_health.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
                 children: [{
                     text: 'Forest Insect/Disease Risk ',
                     qtip: 'view data',
@@ -2494,7 +2507,8 @@ Ext.onReady(function() {
                 expanded: false,
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_energy.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
                 children: [{
                     text: 'Triassic Basin',
                     qtip: 'view data',
@@ -2510,7 +2524,8 @@ Ext.onReady(function() {
                 text: 'Sea Level Rise',
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
                 expanded: false,
                 children: [{
                     text: 'Undeveloped Upland Change',
@@ -2529,7 +2544,8 @@ Ext.onReady(function() {
                 text: 'Impaired Waters - 303(d)',
                 qtip: 'more info',
                 href: 'http://tecumseh.zo.ncsu.edu/pages/info_imp_h2o.html',
-                hrefTarget: "_blank",
+                hrefTarget: "infowindow",
+                cls: "infowindow",
                 expanded: false,
                 children: [{
                     text: 'Biota Impairments',
@@ -2548,8 +2564,14 @@ Ext.onReady(function() {
         }),
         listeners: {
             click: function(n) {
+                console.log(n.attributes.cls);
+                if (n.attributes.cls && n.attributes.cls === 'infowindow') {
+                    var strWindowFeatures = "height=400,width=400,top=100,left=100";
+                    window.open("", 'infowindow', strWindowFeatures);
+                }
                 // console.log(formPanelhuc12maps.getForm().getValues(true));
                 if (n.attributes.myvalue) {
+
                     console.log(n.attributes.myvalue);
                     indiv_layer = n.attributes.myvalue;
 
@@ -2564,6 +2586,8 @@ Ext.onReady(function() {
             }
         }
     });
+
+
 
     var mapsmsg_top = new Ext.Container({
         width: 296,
@@ -2719,7 +2743,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 2,
+        activeTab: 1,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
