@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1723,7 +1723,8 @@ Ext.onReady(function() {
         "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha)",
         frsthlth: "Forest Insect/Disease Risk? (ha)",
         energydev: "Triassic basin (ha)",
-        "water:totimplen": "Impaired for Any Reason? (km)",
+        "water:bioimplen": "Biota Impairments? (km*stream density)",
+        "water:metimplen": "Metal Impariments? (km*stream density)",
         "water:NID": "Number of Dams (n)",
         wind: "Wind Power Class? (mean)",
         slr_lc: "Terrestrial Landcover? Change (ha)",
@@ -2259,7 +2260,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>Select data layers to view in map</h2>"
+            html: "<h2>Select Layers to View on Map</h2>"
         }],
         autoScroll: true
     });
@@ -2290,7 +2291,7 @@ Ext.onReady(function() {
     });
 
     ///////////////////////////////////////////////////////////////
-    // maps tab
+    // data tab
     ////////////////////////////////////////////////////////////////
 
     var tree_huc12maps = new Ext.tree.TreePanel({
@@ -2306,10 +2307,10 @@ Ext.onReady(function() {
         root: new Ext.tree.AsyncTreeNode({
             expanded: true,
             children: [{
-                text: 'Habitats',
+                text: 'Habitat Loss',
                 expanded: false,
-                qtip: 'click for documentation',
-                href: 'http://google.com',
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_habitat.html',
                 hrefTarget: "_blank",
                 // iconCls: 'tree_image'
 
@@ -2317,82 +2318,133 @@ Ext.onReady(function() {
                 children: habitats,
             }, {
                 text: 'Urban Growth',
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_urban.html',
+                hrefTarget: "_blank",
                 children: urban_tree
             }, {
                 text: 'Fire Suppression',
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_firesupp.html',
+                hrefTarget: "_blank",
                 children: fire_tree
             }, {
                 text: 'Transportation Corridors',
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_trans_dcl.html',
+                hrefTarget: "_blank",
                 children: trans_tree
             }, {
                 text: 'Nutrient Loading',
                 expanded: false,
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_nl.html',
+                hrefTarget: "_blank",
                 children: [{
                     text: 'Manure Application',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:manu"
                 }, {
                     text: 'Synthetic Nitrogen Fertilizer',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:fert"
                 }]
             }, {
                 text: 'Annual Atmospheric Deposition',
                 expanded: false,
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_aad.html',
+                hrefTarget: "_blank",
                 children: [{
                     text: 'Total Nitrogen Deposition',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:td_n_t"
                 }, {
                     text: 'Total Sulfur Deposition',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:td_s_t"
                 }]
             }, {
                 text: 'Hydrologic Alteration',
                 expanded: false,
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_nid.html',
+                hrefTarget: "_blank",
                 children: [{
                     text: 'Number of Dams',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "water:NID"
                 }]
             }, {
                 text: 'Forest Health',
                 expanded: false,
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_forest_health.html',
+                hrefTarget: "_blank",
                 children: [{
                     text: 'Forest Insect/Disease Risk ',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "frsthlth"
                 }]
             }, {
                 text: 'Energy Development',
                 expanded: false,
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_energy.html',
+                hrefTarget: "_blank",
                 children: [{
                     text: 'Triassic Basin',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "energydev"
                 }, {
                     text: 'Wind Resource',
+                    qtip: 'view data',
                     leaf: true,
                     myvalue: "wind"
                 }]
             }, {
                 text: 'Sea Level Rise',
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                hrefTarget: "_blank",
                 expanded: false,
                 children: [{
                     text: 'Undeveloped Upland Change',
+                    qtip: 'more info',
+                    href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                    hrefTarget: "_blank",
                     children: slr_up
                 }, {
                     text: 'Terrestrial Landcover Change',
+                    qtip: 'more info',
+                    href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                    hrefTarget: "_blank",
                     children: slr_lc
                 }]
             }, {
-                text: 'Impaired Waters',
+                text: 'Impaired Waters - 303(d)',
+                qtip: 'more info',
+                href: 'http://tecumseh.zo.ncsu.edu/pages/info_imp_h2o.html',
+                hrefTarget: "_blank",
                 expanded: false,
                 children: [{
-                    text: 'All Impairments',
+                    text: 'Biota Impairments',
+                    qtip: 'view data',
                     leaf: true,
-                    myvalue: "water:totimplen"
+                    myvalue: "water:bioimplen"
+
+                },{
+                    text: 'Metal Impairments',
+                    qtip: 'view data',
+                    leaf: true,
+                    myvalue: "water:metimplen"
 
                 }]
             }]
@@ -2420,7 +2472,7 @@ Ext.onReady(function() {
         width: 296,
         autoEl: 'div',
         cls: 'mycontent',
-        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer to view on map.</p><p>Click folder for more data information.</p>",
+        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer name to view on map.</p><p>Click folder name for more data information.</p>",
         // cls: 'help',
         autoScroll: true
     });
@@ -2438,7 +2490,7 @@ Ext.onReady(function() {
 
     var maps_tab = new Ext.Container({
         autoEl: 'div',
-        title: 'Maps',
+        title: 'Data',
         //html: "some content",
         //        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
         items: [mapsmsg_top, tree_huc12maps],
