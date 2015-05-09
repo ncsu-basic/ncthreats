@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1071,13 +1071,13 @@ Ext.onReady(function() {
     });
     var comboData4 = [
         ["do not include", "notinclude"],
-        ["include: 0.12 weight", '0.12'],
-        ["include: 0.25 weight", '0.25'],
-        ["include: 0.50 weight", '0.50'],
-        ["include: 1.00 weight", '1.00'],
-        ["include: 1.50 weight", '1.50'],
-        ["include: 3.00 weight", '3.00'],
-        ["include: 6.00 weight", '6.00']
+        ["INCLUDE: no threshold", '0.12'],
+        ["INCLUDE: >1 threshold", '0.25'],
+        ["INCLUDE: >2 threshold", '0.50'],
+        ["INCLUDE: >3 threshold", '1.00'],
+        ["INCLUDE: >4 threshold", '1.50'],
+        ["INCLUDE: >5 threshold", '3.00']
+//        ["INCLUDE: 6.00 weight", '6.00']
     ];
     comboStoreweights.loadData(comboData4);
 
@@ -1166,7 +1166,7 @@ Ext.onReady(function() {
                 return composite_labels[i];
             });
 
-            lgd_title.text("Composite Threat Rank");
+            lgd_title.text("Threat Rank");
 
             if (show_legend_flag) {
                 float_win.show();
@@ -1407,6 +1407,12 @@ Ext.onReady(function() {
             anchor: "100%"
         },
         items: [{
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<p>Projected habitat loss since 2000.</p>"
+        },{
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
@@ -1492,6 +1498,12 @@ Ext.onReady(function() {
                 //'select': form2_chng
             }
         }, {
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<p>Set bioenergy scenario (optional).</p>"
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStorescenarios,
@@ -1518,7 +1530,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>Build Composite Threat Model</h2><p>Set a target year. Include each threat by setting a weighting factor. View resultant map or report with buttons on the bottom (scroll down).</p>"
+            html: "<h2>Build Composite Threat Model</h2><p>Set a target year. Include threat data for analysis. Click submit button to view resultant maps and report (scroll down).</p>"
         }],
         // cls: 'help',
         autoScroll: true
@@ -1816,8 +1828,8 @@ Ext.onReady(function() {
         trans: 'Mean Length/Area of? Major Highways (m/ha)',
         "nutrient:manu": "Manure Application? (kg/ha/yr)",
         "nutrient:fert": "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
-        "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha)",
-        "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha)",
+        "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha/yr)",
+        "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha/yr)",
         frsthlth: "Forest Insect/Disease Risk? (ha)",
         energydev: "Triassic basin (ha)",
         "water:bioimplen": "Biota Impairments? (km*stream density)",
