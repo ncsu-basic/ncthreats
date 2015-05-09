@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1071,12 +1071,12 @@ Ext.onReady(function() {
     });
     var comboData4 = [
         ["do not include", "notinclude"],
-        ["INCLUDE: no threshold", '0.12'],
-        ["INCLUDE: >1 threshold", '0.25'],
-        ["INCLUDE: >2 threshold", '0.50'],
-        ["INCLUDE: >3 threshold", '1.00'],
-        ["INCLUDE: >4 threshold", '1.50'],
-        ["INCLUDE: >5 threshold", '3.00']
+        ["INCLUDE: no threshold", '0'],
+        ["INCLUDE: >1 threshold", '1'],
+        ["INCLUDE: >2 threshold", '2'],
+        ["INCLUDE: >3 threshold", '3'],
+        ["INCLUDE: >4 threshold", '4'],
+        ["INCLUDE: >5 threshold", '5']
 //        ["INCLUDE: 6.00 weight", '6.00']
     ];
     comboStoreweights.loadData(comboData4);
