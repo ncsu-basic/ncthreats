@@ -1114,7 +1114,8 @@ Ext.onReady(function() {
                 urbangrth: form_vals_misc.urbangrth,
                 slr_up: form_vals_misc.slr_up,
                 slr_lc: form_vals_misc.slr_lc,
-                wind: form_vals_misc.wind
+                wind: form_vals_misc.wind,
+                mode: 'model'
             },
             dataType: 'json'
         }).done(function(data) {
@@ -1190,10 +1191,9 @@ Ext.onReady(function() {
             console.log(frmvals[2]);
             form_vals = {
                 scenario: frmvals[2],
-                habitat: frmvals[0],
                 year: "20" + frmvals[1],
-                habitat_weight: "1.0"
             };
+            form_vals[frmvals[0]] = '1.0'
         } else if (yearthrts.indexOf(frmvals[0]) !== -1) {
             console.log(frmvals[0]);
             console.log(frmvals[1]);
@@ -1237,6 +1237,7 @@ Ext.onReady(function() {
                 form_vals.wind = "1.0";
             }
         }
+        form_vals['mode'] = 'single';
 
 
         if (!$.isEmptyObject(form_vals)) {
@@ -1275,7 +1276,8 @@ Ext.onReady(function() {
             urbangrth: form_vals_misc.urbangrth,
             slr_up: form_vals_misc.slr_up,
             slr_lc: form_vals_misc.slr_lc,
-            wind: form_vals_misc.wind
+            wind: form_vals_misc.wind,
+            mode: 'model'
         };
 
         var includes_list = {
