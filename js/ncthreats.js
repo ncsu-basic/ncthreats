@@ -315,7 +315,7 @@ Ext.onReady(function() {
         }
     };
 
-    var symbolsLookup_model = {
+     var symbolsLookup_model = {
         0: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
@@ -323,147 +323,114 @@ Ext.onReady(function() {
             strokeOpacity: 1,
             fillOpacity: 1
         },
-         1: {
+        1: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FFFF80",
+            fillColor: "#FFFF7F",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         2: {
             strokeColor: "#CCCCCC",
-            fillColor: "#473863",
+            fillColor: "#C4F75D",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         3: {
             strokeColor: "#CCCCCC",
-            fillColor: "#503E61",
+            fillColor: "#86ED3D",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         4: {
             strokeColor: "#CCCCCC",
-            fillColor: "#58445F",
+            fillColor: "#44E214",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         5: {
             strokeColor: "#CCCCCC",
-            fillColor: "#5F4A5D",
+            fillColor: "#3DCC41",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         6: {
             strokeColor: "#CCCCCC",
-            fillColor: "#65525B",
+            fillColor: "#3AB272",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         7: {
             strokeColor: "#CCCCCC",
-            fillColor: "#6A5B59",
+            fillColor: "#33A587",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         8: {
             strokeColor: "#CCCCCC",
-            fillColor: "#725155",
+            fillColor: "#26999B",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         9: {
             strokeColor: "#CCCCCC",
-            fillColor: "#7A4650",
+            fillColor: "#1A8CA8",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         10: {
             strokeColor: "#CCCCCC",
-            fillColor: "#86444B",
+            fillColor: "#2073A0",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         11: {
             strokeColor: "#CCCCCC",
-            fillColor: "#944346",
+            fillColor: "#215D99",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         12: {
             strokeColor: "#CCCCCC",
-            fillColor: "#A44541",
+            fillColor: "#1F4991",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         13: {
             strokeColor: "#CCCCCC",
-            fillColor: "#B54B3D",
+            fillColor: "#1C3689",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         14: {
             strokeColor: "#CCCCCC",
-            fillColor: "#C05442",
+            fillColor: "#15227F",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         15: {
             strokeColor: "#CCCCCC",
-            fillColor: "#C9503F",
-            strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
-        16: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#D24E3C",
-            strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
-        17: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#DA4E39",
-            strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
-        18: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#E24F36",
-            strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
-        19: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#E95332",
-            strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
-        20: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#EE592F",
+            fillColor: "#0D1077",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         }
     };
+
+
 
     symbolsLookup["0"].fillColor = "#ffffff";
 
