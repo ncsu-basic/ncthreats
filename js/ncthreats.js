@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://localhost/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -323,72 +323,142 @@ Ext.onReady(function() {
             strokeOpacity: 1,
             fillOpacity: 1
         },
-        1: {
+         1: {
             strokeColor: "#CCCCCC",
-            fillColor: "#ffdc82",
+            fillColor: "#FFFF80",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         2: {
             strokeColor: "#CCCCCC",
-            fillColor: "#f7b84a",
+            fillColor: "#473863",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         3: {
             strokeColor: "#CCCCCC",
-            fillColor: "#d68522",
+            fillColor: "#503E61",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         4: {
             strokeColor: "#CCCCCC",
-            fillColor: "#9e4410",
+            fillColor: "#58445F",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         5: {
             strokeColor: "#CCCCCC",
-            fillColor: "#6b0601",
+            fillColor: "#5F4A5D",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         6: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FFDA00",
+            fillColor: "#65525B",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         7: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FFAF00",
+            fillColor: "#6A5B59",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         8: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FF8400",
+            fillColor: "#725155",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         9: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FF5A00",
+            fillColor: "#7A4650",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
         },
         10: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FF2200",
+            fillColor: "#86444B",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        11: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#944346",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        12: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#A44541",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        13: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#B54B3D",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        14: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#C05442",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        15: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#C9503F",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        16: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#D24E3C",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        17: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#DA4E39",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        18: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#E24F36",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        19: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#E95332",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 1
+        },
+        20: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#EE592F",
             strokeWidth: 1,
             strokeOpacity: 1,
             fillOpacity: 1
@@ -1126,21 +1196,22 @@ Ext.onReady(function() {
 
 
             for (var key in data.res_arr) {
-                var thrt_raw = data.res_arr[key][results_col];
+                var thrt = data.res_arr[key][results_col];
+                console.log(thrt);
                 // thrt = Math.ceil(thrt / 2) ;
-                if (thrt_raw <= 1.66) {
-                    thrt = 0;
-                } else if (thrt_raw <= 3.22) {
-                    thrt = 1;
-                } else if (thrt_raw <= 4.99) {
-                    thrt = 2;
-                } else if (thrt_raw <= 6.66) {
-                    thrt = 3;
-                } else if (thrt_raw <= 8.32) {
-                    thrt = 4;
-                } else {
-                    thrt = 5;
-                }
+                // if (thrt_raw <= 1.66) {
+                //     thrt = 0;
+                // } else if (thrt_raw <= 3.22) {
+                //     thrt = 1;
+                // } else if (thrt_raw <= 4.99) {
+                //     thrt = 2;
+                // } else if (thrt_raw <= 6.66) {
+                //     thrt = 3;
+                // } else if (thrt_raw <= 8.32) {
+                //     thrt = 4;
+                // } else {
+                //     thrt = 5;
+                // }
 
                 if (!symbolsLookup_model.hasOwnProperty(thrt)) {
                     console.log("not valid lever", thrt);
