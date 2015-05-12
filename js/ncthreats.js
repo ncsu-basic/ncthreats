@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -1211,8 +1211,11 @@ Ext.onReady(function() {
                 float_win.show();
                 show_legend_flag = false;
             }
+            $('#lgnddiv').css('display', 'none');
+            $('#lgdimg').css('display', 'block');
 
             // onExecuted(data.results);
+            // "<svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
         });
     };
 
@@ -1928,6 +1931,9 @@ Ext.onReady(function() {
                 return "#" + data.colors[i];
             });
 
+            $('#lgnddiv').css('display', 'block');
+            $('#lgdimg').css('display', 'none');
+
 
 
         });
@@ -2169,7 +2175,7 @@ Ext.onReady(function() {
         cls: 'pages',
         autoScroll: true,
         id: "legendpnlid",
-        html: "<svg id='lgnddiv'></svg>"
+        html: "<svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
 
     });
     var float_win = new Ext.Window({
