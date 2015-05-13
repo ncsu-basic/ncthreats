@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -315,7 +315,7 @@ Ext.onReady(function() {
         }
     };
 
-     var symbolsLookup_model = {
+    var symbolsLookup_model = {
         0: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
@@ -547,11 +547,12 @@ Ext.onReady(function() {
     });
     var pts = [];
     var col_name;
+    var lonlat;
+
 
 
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
-        var lonlat;
         if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
@@ -565,6 +566,7 @@ Ext.onReady(function() {
             highlightLayer.redraw();
         } else {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
+
             $.ajax({
                 type: "GET",
                 url: SERVER_URI + "wps/pttojson",
@@ -576,10 +578,9 @@ Ext.onReady(function() {
                 dataType: "json"
             }).done(function(data, textStatus, jqXHR) {
                 if (jqXHR.status === 200) {
-                    // console.log(data.msg);
+                    console.log(data);
                     showInfo2(data);
                 }
-
             });
 
         }
@@ -889,8 +890,23 @@ Ext.onReady(function() {
         var gml = '';
         var aoi_list = [];
         var selected_predef_new = 'na';
+        var point_buffer = {};
+        console.log(pts.length);
+
+
 
         if (sel_type !== 'predefined') {
+            if (pts.length === 1){
+                sel_type = 'point_buffer';
+                var lonlatdegrees = lonlat.transform(proj_900913, proj_4326);
+                // console.log(lonlatdegrees);
+                point_buffer = {
+                    lon: lonlatdegrees.lon,
+                    lat: lonlatdegrees.lat
+                };
+                console.log(lonlat);
+                lonlat  = {};
+            }
             var gml_writer = new OpenLayers.Format.GML.v3({
                 featureType: 'MultiPolygon',
                 featureNS: 'http://jimserver.net/',
@@ -900,7 +916,7 @@ Ext.onReady(function() {
             });
 
             gml = gml_writer.write(highlightLayer.features);
-            console.log(gml);
+            // console.log(gml);
 
         } else {
             gml = '';
@@ -941,9 +957,10 @@ Ext.onReady(function() {
             gml: gml,
             aoi_list: aoi_list.join(":"),
             predef_type: selected_predef_new,
-            sel_type: sel_type
+            sel_type: sel_type,
+            point_buffer: point_buffer
         };
-        console.log(post_data);
+        // console.log(post_data);
 
         $.ajax({
             type: "POST",
@@ -1114,7 +1131,7 @@ Ext.onReady(function() {
         ["INCLUDE: >3 threshold", '3'],
         ["INCLUDE: >4 threshold", '4'],
         ["INCLUDE: >5 threshold", '5']
-//        ["INCLUDE: 6.00 weight", '6.00']
+        //        ["INCLUDE: 6.00 weight", '6.00']
     ];
     comboStoreweights.loadData(comboData4);
 
@@ -1234,7 +1251,7 @@ Ext.onReady(function() {
                 scenario: frmvals[2],
                 year: "20" + frmvals[1],
             };
-            form_vals[frmvals[0]] = '1.0'
+            form_vals[frmvals[0]] = '1.0';
         } else if (yearthrts.indexOf(frmvals[0]) !== -1) {
             console.log(frmvals[0]);
             console.log(frmvals[1]);
@@ -1455,7 +1472,7 @@ Ext.onReady(function() {
             autoEl: 'div',
             cls: 'mycontent',
             html: "<p><b>Projected habitat loss since 2000</b></p>"
-        },{
+        }, {
             xtype: "combo",
             // itemId: "cmb2",
             store: comboStoreweights,
@@ -1557,7 +1574,7 @@ Ext.onReady(function() {
             mode: "local",
             triggerAction: "all",
             valueField: 'layerId',
-           displayField: 'layerName',
+            displayField: 'layerName',
             submitValue: true,
             hiddenName: 'scenario',
             listeners: {
