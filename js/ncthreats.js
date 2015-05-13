@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1454,7 +1454,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<p>Projected habitat loss since 2000.</p>"
+            html: "<p><b>Projected habitat loss since 2000</b></p>"
         },{
             xtype: "combo",
             // itemId: "cmb2",
@@ -1545,7 +1545,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<p>Set bioenergy scenario (optional).</p>"
+            html: "<p><b>Set bioenergy scenario (optional)</b></p>"
         }, {
             xtype: "combo",
             // itemId: "cmb2",
@@ -1557,7 +1557,7 @@ Ext.onReady(function() {
             mode: "local",
             triggerAction: "all",
             valueField: 'layerId',
-            displayField: 'layerName',
+           displayField: 'layerName',
             submitValue: true,
             hiddenName: 'scenario',
             listeners: {
@@ -1573,7 +1573,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>Build Composite Threat Model</h2><p>Set a target year. Include threat data for analysis. Click submit button to view resultant maps and report (scroll down).</p>"
+            html: "<h2>Analyze Threats</h2><p>Set a target year. Include threat data for analysis. Set threat rank threshold. Click submit button to view resultant maps and report (scroll down).</p>"
         }],
         // cls: 'help',
         autoScroll: true
@@ -2711,7 +2711,7 @@ Ext.onReady(function() {
     ///////////////////////////////////////////////////////////
 
     var process_tab = new Ext.Panel({
-        title: 'Model',
+        title: 'Analyze',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
         items: [modelmsg_panel, modelpaneltop, habitat_panel, modelpanelmid],
