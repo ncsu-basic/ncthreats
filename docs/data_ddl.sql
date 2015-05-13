@@ -615,14 +615,14 @@ copy wind_rnk from '/home/jim/Desktop/ncthreats_tables/tblWPC_rnk.txt' with csv 
 
 
 copy energy_dev from '/home/jim/Desktop/ncthreats_tables/tblTriassic_data.txt' with csv header;
-copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data.txt' with csv header;
+copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data2.txt' with csv header;
 copy transportation from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_mha.txt' with csv header;
 copy slamm_lc_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_lc_ha.txt' with csv header;
 copy slamm_lc_rnk from '/home/jim/Desktop/ncthreats_tables/tblSlamm_lc_rnk.txt' with csv header;
 copy slamm_up_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_ha.txt' with csv header;
 copy slamm_up_rnk from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_rnk.txt' with csv header;
 
-copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data2.csv' with csv header;
+copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data3.csv' with csv header;
 
 
 
