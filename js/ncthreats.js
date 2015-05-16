@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -896,7 +896,7 @@ Ext.onReady(function() {
 
 
         if (sel_type !== 'predefined') {
-            if (pts.length === 1){
+            if (pts.length === 1) {
                 sel_type = 'point_buffer';
                 var lonlatdegrees = lonlat.transform(proj_900913, proj_4326);
                 // console.log(lonlatdegrees);
@@ -905,7 +905,7 @@ Ext.onReady(function() {
                     lat: lonlatdegrees.lat
                 };
                 console.log(lonlat);
-                lonlat  = {};
+                lonlat = {};
             }
             var gml_writer = new OpenLayers.Format.GML.v3({
                 featureType: 'MultiPolygon',
@@ -1017,9 +1017,9 @@ Ext.onReady(function() {
                     inputValue: 'predefined',
                     checked: true
                 }, {
-                    boxLabel: 'custom<br>Click on map to create analysis point'  + 
-			       ' or polygon, then Submit:',
-                     name: 'aoi_type',
+                    boxLabel: 'custom<br>Click on map to create analysis point' +
+                        ' or polygon, then Submit:',
+                    name: 'aoi_type',
                     inputValue: 'custom',
                     id: 'custom_radio_sel'
                 }],
@@ -1039,49 +1039,49 @@ Ext.onReady(function() {
                     margins: '0 0 10 0'
                 },
                 items: [{
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Submit',
-                    handler: save_action
-                }, 
-{
-            // width: 2,
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: "<p>View Report of AOI:<br><br></p>"
-        },
-
-                  {
-                    xtype: 'button',
-                    text: 'Report',
-                    width: 80,
-                    handler: function() {
-                        var is_composite = composite.getVisibility();
-                        var is_indiv = individual.getVisibility();
-                        if (is_composite) {
-                            threat_calcs_map();
-                            threat_calcs_report();
-                        } else if (is_indiv) {
-                            // console.log(indiv_layer);
-                            threat_calcs_report_indiv(indiv_layer);
-
-                        } else {
-                            console.log("no map");
-                        }
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Submit',
+                        handler: save_action
+                    }, {
+                        // width: 2,
+                        xtype: 'container',
+                        autoEl: 'div',
+                        cls: 'mycontent',
+                        html: "<p>View Report of AOI:<br><br></p>"
                     },
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Reset',
-                    handler: remove_action
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Save',
-                    id: "resource_btn",
-                    handler: aoi_to_file
-                }]
+
+                    {
+                        xtype: 'button',
+                        text: 'Report',
+                        width: 80,
+                        handler: function() {
+                            var is_composite = composite.getVisibility();
+                            var is_indiv = individual.getVisibility();
+                            if (is_composite) {
+                                threat_calcs_map();
+                                threat_calcs_report();
+                            } else if (is_indiv) {
+                                // console.log(indiv_layer);
+                                threat_calcs_report_indiv(indiv_layer);
+
+                            } else {
+                                console.log("no map");
+                            }
+                        },
+                    }, {
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Reset',
+                        handler: remove_action
+                    }, {
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Save',
+                        id: "resource_btn",
+                        handler: aoi_to_file
+                    }
+                ]
 
             }]
             // buttons: [{
@@ -1288,7 +1288,7 @@ Ext.onReady(function() {
             } else if (frmvals[1] === 'td_n_t') {
                 form_vals.totnitro = "1.0";
             } else if (frmvals[1] === 'NID') {
-                form_vals.nadms = "1.0";
+                form_vals.ndams = "1.0";
             } else if (frmvals[1] === 'bioimplen') {
                 form_vals.impairbiota = "1.0";
             } else if (frmvals[1] === 'metimplen') {
@@ -1304,7 +1304,7 @@ Ext.onReady(function() {
                 form_vals.wind = "1.0";
             }
         }
-        form_vals['mode'] = 'single';
+        form_vals.mode = 'single';
 
 
         if (!$.isEmptyObject(form_vals)) {
