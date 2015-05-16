@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1017,9 +1017,9 @@ Ext.onReady(function() {
                     inputValue: 'predefined',
                     checked: true
                 }, {
-                    boxLabel: 'custom<br>Click on map to create polygon,' +
-                        'or open shapefile panel.',
-                    name: 'aoi_type',
+                    boxLabel: 'custom<br>Click on map to create analysis point'  + 
+			       ' or polygon, then Submit:',
+                     name: 'aoi_type',
                     inputValue: 'custom',
                     id: 'custom_radio_sel'
                 }],
@@ -1043,18 +1043,16 @@ Ext.onReady(function() {
                     width: 80,
                     text: 'Submit',
                     handler: save_action
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Reset',
-                    handler: remove_action
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Save',
-                    id: "resource_btn",
-                    handler: aoi_to_file
-                }, {
+                }, 
+{
+            // width: 2,
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<p>View Report of AOI:<br><br></p>"
+        },
+
+                  {
                     xtype: 'button',
                     text: 'Report',
                     width: 80,
@@ -1072,6 +1070,17 @@ Ext.onReady(function() {
                             console.log("no map");
                         }
                     },
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Reset',
+                    handler: remove_action
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Save',
+                    id: "resource_btn",
+                    handler: aoi_to_file
                 }]
 
             }]
@@ -2606,13 +2615,15 @@ Ext.onReady(function() {
                     text: 'Undeveloped Upland Change',
                     qtip: 'more info',
                     href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
-                    hrefTarget: "_blank",
+                    hrefTarget: "infowindow",
+                    cls: "infowindow",
                     children: slr_up
                 }, {
                     text: 'Terrestrial Landcover Change',
                     qtip: 'more info',
                     href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
-                    hrefTarget: "_blank",
+                    hrefTarget: "infowindow",
+                    cls: "infowindow",
                     children: slr_lc
                 }]
             }, {
