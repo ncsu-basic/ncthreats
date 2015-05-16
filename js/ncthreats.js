@@ -1187,9 +1187,8 @@ Ext.onReady(function() {
             var results_col = data.col_hdrs.length;
             var thrt;
 
-
             for (var key in data.res_arr) {
-                var thrt = data.res_arr[key][results_col];
+                thrt = data.res_arr[key][results_col];
                 console.log(thrt);
                 // thrt = Math.ceil(thrt / 2) ;
                 // if (thrt_raw <= 1.66) {
