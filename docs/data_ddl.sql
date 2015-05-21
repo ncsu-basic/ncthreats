@@ -27,6 +27,14 @@ drop table lcscen_d_rnk;
 drop table lcscen_e_rnk;
 drop table lcscen_x_rnk;
 
+drop table lcscen_a_pct;
+drop table lcscen_b_pct;
+drop table lcscen_c_pct;
+drop table lcscen_d_pct;
+drop table lcscen_e_pct;
+drop table lcscen_x_pct;
+drop table urban_pct;
+
 drop table energy_dev;
 drop table forest_health;
 drop table transportation;
@@ -73,6 +81,191 @@ TotalLengt numeric(10),
 StreamDens numeric(10),
 NID numeric(10),
 MGAL numeric(10)
+);
+
+
+create table urban_pct(
+HUC_12 char(12) primary key,
+urb10pct numeric(6, 1),
+urb20pct numeric(6, 1),
+urb30pct numeric(6, 1),
+urb40pct numeric(6, 1),
+urb50pct numeric(6, 1)
+);
+
+
+create  table lcscen_a_pct(
+HUC_12 char(12) primary key,
+frst10pct numeric(6, 1),
+frst20pct numeric(6, 1),
+frst30pct numeric(6, 1),
+frst40pct numeric(6, 1),
+frst50pct numeric(6, 1),
+ftwt10pct numeric(6, 1),
+ftwt20pct numeric(6, 1),
+ftwt30pct numeric(6, 1),
+ftwt40pct numeric(6, 1),
+ftwt50pct numeric(6, 1),
+hbwt10pct numeric(6, 1),
+hbwt20pct numeric(6, 1),
+hbwt30pct numeric(6, 1),
+hbwt40pct numeric(6, 1),
+hbwt50pct numeric(6, 1),
+open10pct numeric(6, 1),
+open20pct numeric(6, 1),
+open30pct numeric(6, 1),
+open40pct numeric(6, 1),
+open50pct numeric(6, 1),
+shrb10pct numeric(6, 1),
+shrb20pct numeric(6, 1),
+shrb30pct numeric(6, 1),
+shrb40pct numeric(6, 1),
+shrb50pct numeric(6, 1)
+);
+
+create  table lcscen_b_pct(
+HUC_12 char(12) primary key,
+frst10pct numeric(6, 1),
+frst20pct numeric(6, 1),
+frst30pct numeric(6, 1),
+frst40pct numeric(6, 1),
+frst50pct numeric(6, 1),
+ftwt10pct numeric(6, 1),
+ftwt20pct numeric(6, 1),
+ftwt30pct numeric(6, 1),
+ftwt40pct numeric(6, 1),
+ftwt50pct numeric(6, 1),
+hbwt10pct numeric(6, 1),
+hbwt20pct numeric(6, 1),
+hbwt30pct numeric(6, 1),
+hbwt40pct numeric(6, 1),
+hbwt50pct numeric(6, 1),
+open10pct numeric(6, 1),
+open20pct numeric(6, 1),
+open30pct numeric(6, 1),
+open40pct numeric(6, 1),
+open50pct numeric(6, 1),
+shrb10pct numeric(6, 1),
+shrb20pct numeric(6, 1),
+shrb30pct numeric(6, 1),
+shrb40pct numeric(6, 1),
+shrb50pct numeric(6, 1)
+);
+
+create  table lcscen_c_pct(
+HUC_12 char(12) primary key,
+frst10pct numeric(6, 1),
+frst20pct numeric(6, 1),
+frst30pct numeric(6, 1),
+frst40pct numeric(6, 1),
+frst50pct numeric(6, 1),
+ftwt10pct numeric(6, 1),
+ftwt20pct numeric(6, 1),
+ftwt30pct numeric(6, 1),
+ftwt40pct numeric(6, 1),
+ftwt50pct numeric(6, 1),
+hbwt10pct numeric(6, 1),
+hbwt20pct numeric(6, 1),
+hbwt30pct numeric(6, 1),
+hbwt40pct numeric(6, 1),
+hbwt50pct numeric(6, 1),
+open10pct numeric(6, 1),
+open20pct numeric(6, 1),
+open30pct numeric(6, 1),
+open40pct numeric(6, 1),
+open50pct numeric(6, 1),
+shrb10pct numeric(6, 1),
+shrb20pct numeric(6, 1),
+shrb30pct numeric(6, 1),
+shrb40pct numeric(6, 1),
+shrb50pct numeric(6, 1)
+);
+
+create  table lcscen_d_pct(
+HUC_12 char(12) primary key,
+frst10pct numeric(6, 1),
+frst20pct numeric(6, 1),
+frst30pct numeric(6, 1),
+frst40pct numeric(6, 1),
+frst50pct numeric(6, 1),
+ftwt10pct numeric(6, 1),
+ftwt20pct numeric(6, 1),
+ftwt30pct numeric(6, 1),
+ftwt40pct numeric(6, 1),
+ftwt50pct numeric(6, 1),
+hbwt10pct numeric(6, 1),
+hbwt20pct numeric(6, 1),
+hbwt30pct numeric(6, 1),
+hbwt40pct numeric(6, 1),
+hbwt50pct numeric(6, 1),
+open10pct numeric(6, 1),
+open20pct numeric(6, 1),
+open30pct numeric(6, 1),
+open40pct numeric(6, 1),
+open50pct numeric(6, 1),
+shrb10pct numeric(6, 1),
+shrb20pct numeric(6, 1),
+shrb30pct numeric(6, 1),
+shrb40pct numeric(6, 1),
+shrb50pct numeric(6, 1)
+);
+
+create  table lcscen_e_pct(
+HUC_12 char(12) primary key,
+frst10pct numeric(6, 1),
+frst20pct numeric(6, 1),
+frst30pct numeric(6, 1),
+frst40pct numeric(6, 1),
+frst50pct numeric(6, 1),
+ftwt10pct numeric(6, 1),
+ftwt20pct numeric(6, 1),
+ftwt30pct numeric(6, 1),
+ftwt40pct numeric(6, 1),
+ftwt50pct numeric(6, 1),
+hbwt10pct numeric(6, 1),
+hbwt20pct numeric(6, 1),
+hbwt30pct numeric(6, 1),
+hbwt40pct numeric(6, 1),
+hbwt50pct numeric(6, 1),
+open10pct numeric(6, 1),
+open20pct numeric(6, 1),
+open30pct numeric(6, 1),
+open40pct numeric(6, 1),
+open50pct numeric(6, 1),
+shrb10pct numeric(6, 1),
+shrb20pct numeric(6, 1),
+shrb30pct numeric(6, 1),
+shrb40pct numeric(6, 1),
+shrb50pct numeric(6, 1)
+);
+
+create  table lcscen_x_pct(
+HUC_12 char(12) primary key,
+frst10pct numeric(6, 1),
+frst20pct numeric(6, 1),
+frst30pct numeric(6, 1),
+frst40pct numeric(6, 1),
+frst50pct numeric(6, 1),
+ftwt10pct numeric(6, 1),
+ftwt20pct numeric(6, 1),
+ftwt30pct numeric(6, 1),
+ftwt40pct numeric(6, 1),
+ftwt50pct numeric(6, 1),
+hbwt10pct numeric(6, 1),
+hbwt20pct numeric(6, 1),
+hbwt30pct numeric(6, 1),
+hbwt40pct numeric(6, 1),
+hbwt50pct numeric(6, 1),
+open10pct numeric(6, 1),
+open20pct numeric(6, 1),
+open30pct numeric(6, 1),
+open40pct numeric(6, 1),
+open50pct numeric(6, 1),
+shrb10pct numeric(6, 1),
+shrb20pct numeric(6, 1),
+shrb30pct numeric(6, 1),
+shrb40pct numeric(6, 1),
+shrb50pct numeric(6, 1)
 );
 
 create  table lcscen_a_ha(
@@ -596,6 +789,15 @@ copy lcscen_c_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_ha.txt' wi
 copy lcscen_d_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_ha.txt' with csv header;
 copy lcscen_e_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_ha.txt' with csv header;
 copy lcscen_x_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_ha.txt' with csv header;
+
+copy lcscen_a_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_Apct.txt' with csv header;
+copy lcscen_b_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_Bpct.txt' with csv header;
+copy lcscen_c_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_Cpct.txt' with csv header;
+copy lcscen_d_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_Dpct.txt' with csv header;
+copy lcscen_e_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_Epct.txt' with csv header;
+copy lcscen_x_pct from '/home/jim/Desktop/ncthreats_tables/tblLCScen_Xpct.txt' with csv header;
+copy urban_pct from '/home/jim/Desktop/ncthreats_tables/tblUrban_pct.txt' with csv header;
+
 
 copy lcscen_a_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_rnk3.txt' with csv header;
 copy lcscen_b_rnk from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_rnk3.txt' with csv header;
