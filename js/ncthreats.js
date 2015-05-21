@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1304,12 +1304,13 @@ Ext.onReady(function() {
             }
         }
         form_vals.mode = 'single';
+        form_vals = {'map': lyrdesc}
 
 
         if (!$.isEmptyObject(form_vals)) {
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
-            var url = resource + '/report?' + qry_str;
+            var url = resource + '/report_indiv?' + qry_str;
             console.log(url);
             window.open(url);
         }
