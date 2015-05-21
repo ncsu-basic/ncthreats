@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1134,12 +1134,12 @@ Ext.onReady(function() {
     });
     var comboData4 = [
         ["do not include", "notinclude"],
-        ["INCLUDE: no threshold", '0'],
-        ["INCLUDE: >1 threshold", '1'],
-        ["INCLUDE: >2 threshold", '2'],
-        ["INCLUDE: >3 threshold", '3'],
-        ["INCLUDE: >4 threshold", '4'],
-        ["INCLUDE: >5 threshold", '5']
+        ["INCLUDE: no limit", '0'],
+        ["INCLUDE: >1 limit", '1'],
+        ["INCLUDE: >2 limit", '2'],
+        ["INCLUDE: >3 limit", '3'],
+        ["INCLUDE: >4 limit", '4'],
+        ["INCLUDE: >5 limit", '5']
         //        ["INCLUDE: 6.00 weight", '6.00']
     ];
     comboStoreweights.loadData(comboData4);
@@ -1598,7 +1598,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>Analyze Threats</h2><p>Set a target year. Include threat data for analysis. Set threat rank threshold. Click submit button to view resultant maps and report (scroll down).</p>"
+            html: "<h2>Analyze Threats</h2><p>Set a target year. Include threat data for analysis. Set threat rank lower limit. Click submit button to view resultant maps and report (scroll down).</p>"
         }],
         // cls: 'help',
         autoScroll: true
