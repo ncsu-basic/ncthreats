@@ -1251,58 +1251,58 @@ Ext.onReady(function() {
         console.log(frmvals.length);
         var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
         var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
-        if (habthrts.indexOf(frmvals[0]) !== -1) {
-            console.log(frmvals[0]);
-            console.log(frmvals[1]);
-            console.log(frmvals[2]);
-            form_vals = {
-                scenario: frmvals[2],
-                year: "20" + frmvals[1],
-            };
-            form_vals[frmvals[0]] = '1.0';
-        } else if (yearthrts.indexOf(frmvals[0]) !== -1) {
-            console.log(frmvals[0]);
-            console.log(frmvals[1]);
-            form_vals = {
-                year: "20" + frmvals[1],
-            };
-            if (frmvals[0] === 'urban') {
-                form_vals.urbangrth = "1.0";
-            } else if (frmvals[0] === 'fire') {
-                form_vals.firesup = "1.0";
-            } else if (frmvals[0] === 'trans') {
-                form_vals.hiway = "1.0";
-            } else if (frmvals[0] === 'slr_up') {
-                form_vals.slr_up = "1.0";
-            } else if (frmvals[0] === 'slr_lc') {
-                form_vals.slr_lc = "1.0";
-            }
-        } else if (frmvals.length === 2) {
-            if (frmvals[1] === 'manu') {
-                form_vals.manure = "1.0";
-            } else if (frmvals[1] === 'fert') {
-                form_vals.nitrofrt = "1.0";
-            } else if (frmvals[1] === 'td_s_t') {
-                form_vals.totsulf = "1.0";
-            } else if (frmvals[1] === 'td_n_t') {
-                form_vals.totnitro = "1.0";
-            } else if (frmvals[1] === 'NID') {
-                form_vals.ndams = "1.0";
-            } else if (frmvals[1] === 'bioimplen') {
-                form_vals.impairbiota = "1.0";
-            } else if (frmvals[1] === 'metimplen') {
-                form_vals.impairmetal = "1.0";
-            }
+        // if (habthrts.indexOf(frmvals[0]) !== -1) {
+        //     console.log(frmvals[0]);
+        //     console.log(frmvals[1]);
+        //     console.log(frmvals[2]);
+        //     form_vals = {
+        //         scenario: frmvals[2],
+        //         year: "20" + frmvals[1],
+        //     };
+        //     form_vals[frmvals[0]] = '1.0';
+        // } else if (yearthrts.indexOf(frmvals[0]) !== -1) {
+        //     console.log(frmvals[0]);
+        //     console.log(frmvals[1]);
+        //     form_vals = {
+        //         year: "20" + frmvals[1],
+        //     };
+        //     if (frmvals[0] === 'urban') {
+        //         form_vals.urbangrth = "1.0";
+        //     } else if (frmvals[0] === 'fire') {
+        //         form_vals.firesup = "1.0";
+        //     } else if (frmvals[0] === 'trans') {
+        //         form_vals.hiway = "1.0";
+        //     } else if (frmvals[0] === 'slr_up') {
+        //         form_vals.slr_up = "1.0";
+        //     } else if (frmvals[0] === 'slr_lc') {
+        //         form_vals.slr_lc = "1.0";
+        //     }
+        // } else if (frmvals.length === 2) {
+        //     if (frmvals[1] === 'manu') {
+        //         form_vals.manure = "1.0";
+        //     } else if (frmvals[1] === 'fert') {
+        //         form_vals.nitrofrt = "1.0";
+        //     } else if (frmvals[1] === 'td_s_t') {
+        //         form_vals.totsulf = "1.0";
+        //     } else if (frmvals[1] === 'td_n_t') {
+        //         form_vals.totnitro = "1.0";
+        //     } else if (frmvals[1] === 'NID') {
+        //         form_vals.ndams = "1.0";
+        //     } else if (frmvals[1] === 'bioimplen') {
+        //         form_vals.impairbiota = "1.0";
+        //     } else if (frmvals[1] === 'metimplen') {
+        //         form_vals.impairmetal = "1.0";
+        //     }
 
-        } else {
-            if (frmvals[0] === 'frsthlth') {
-                form_vals.insectdisease = "1.0";
-            } else if (frmvals[0] === 'energydev') {
-                form_vals.triassic = "1.0";
-            } else if (frmvals[0] === 'wind') {
-                form_vals.wind = "1.0";
-            }
-        }
+        // } else {
+        //     if (frmvals[0] === 'frsthlth') {
+        //         form_vals.insectdisease = "1.0";
+        //     } else if (frmvals[0] === 'energydev') {
+        //         form_vals.triassic = "1.0";
+        //     } else if (frmvals[0] === 'wind') {
+        //         form_vals.wind = "1.0";
+        //     }
+        // }
         form_vals.mode = 'single';
         form_vals = {'map': lyrdesc}
 
