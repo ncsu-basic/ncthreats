@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -906,6 +906,18 @@ Ext.onReady(function() {
                 };
                 console.log(lonlat);
                 lonlat = {};
+                $.ajax({
+                    type: "GET",
+                    url: SERVER_URI + "wps/ptbufferjson",
+                    data: point_buffer,
+                    dataType: "json"
+                }).done(function(data, textStatus, jqXHR) {
+                    if (jqXHR.status === 200) {
+                        console.log(data);
+                        showInfo2(data);
+                    }
+                });
+
             }
             var gml_writer = new OpenLayers.Format.GML.v3({
                 featureType: 'MultiPolygon',
@@ -1304,7 +1316,9 @@ Ext.onReady(function() {
         //     }
         // }
         form_vals.mode = 'single';
-        form_vals = {'map': lyrdesc}
+        form_vals = {
+            'map': lyrdesc
+        }
 
 
         if (!$.isEmptyObject(form_vals)) {
