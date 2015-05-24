@@ -34,8 +34,10 @@ Ext.onReady(function() {
                     interval: 100
                 },
                 zoomBoxEnabled: true
-            }), new OpenLayers.Control.PanZoomBar({}),
-            new OpenLayers.Control.MousePosition()
+            }),
+            new OpenLayers.Control.PanZoomBar({}),
+            new OpenLayers.Control.MousePosition(),
+            new OpenLayers.Control.ScaleLine()
         ]
     });
 
@@ -1325,7 +1327,7 @@ Ext.onReady(function() {
         form_vals.mode = 'single';
         form_vals = {
             'map': lyrdesc
-        }
+        };
 
 
         if (!$.isEmptyObject(form_vals)) {
