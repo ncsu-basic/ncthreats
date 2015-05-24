@@ -640,6 +640,7 @@ Ext.onReady(function() {
     //function to outline selected predefined areas of interest
     function showInfo2(evt) {
         if (evt.the_geom) {
+            console.log(evt);
             // for (var i = 0; i < evt.features.length; i++) {
             //if selected feature is on then remove it
             if (selected_hucs[evt.the_huc] === 'on') {
@@ -914,7 +915,13 @@ Ext.onReady(function() {
                 }).done(function(data, textStatus, jqXHR) {
                     if (jqXHR.status === 200) {
                         console.log(data);
-                        showInfo2(data);
+                        // showInfo2(data);
+                        var format = new OpenLayers.Format.GeoJSON({
+                            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                        });
+                        highlightLayer.addFeatures(format.read(data.the_geom));
+                        highlightLayer.redraw();
                     }
                 });
 
