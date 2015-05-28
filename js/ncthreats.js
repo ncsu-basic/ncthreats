@@ -750,9 +750,9 @@ Ext.onReady(function() {
 
     ///print panel
     var formPanel = new Ext.form.FormPanel({
-        title: "Print config",
+        // title: "Print config",
         width: 296,
-        height: 250,
+        height: 200,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
@@ -2842,11 +2842,21 @@ Ext.onReady(function() {
         }
     });
 
-    var print_tab = new Ext.Panel({
+    // var print_tab = new Ext.Panel({
+    //     title: 'Print',
+    //     autoScroll: true,
+    //     id: "print_tab_id",
+    //     items: [formPanel]
+    // });
+
+    var print_tab = new Ext.Container({
+        autoEl: 'div',
         title: 'Print',
-        autoScroll: true,
-        id: "print_tab_id",
-        items: [formPanel]
+        //html: "some content",
+        //        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
+        items: [formPanel],
+        // cls: 'help',
+        autoScroll: true
     });
 
     var left = new Ext.TabPanel({
