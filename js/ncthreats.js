@@ -37,7 +37,7 @@ Ext.onReady(function() {
             }),
             new OpenLayers.Control.PanZoomBar({}),
             new OpenLayers.Control.MousePosition(),
-            new OpenLayers.Control.ScaleLine()
+            new OpenLayers.Control.ScaleLine({geodesic: true})
         ]
     });
 
