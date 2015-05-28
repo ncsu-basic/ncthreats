@@ -2852,10 +2852,7 @@ Ext.onReady(function() {
     var print_tab = new Ext.Container({
         autoEl: 'div',
         title: 'Print',
-        //html: "some content",
-        //        items: [mapsmsg_top, tree_huc12maps, mapsmsg_bot],
         items: [formPanel],
-        // cls: 'help',
         autoScroll: true
     });
 
