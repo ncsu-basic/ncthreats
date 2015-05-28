@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://localhost/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -2918,16 +2918,22 @@ Ext.onReady(function() {
 
                     var geojson_format = new OpenLayers.Format.GeoJSON();
                     var shpfeatures = geojson_format.read(data);
-                    highlightLayer.destroyFeatures();
-                    results.removeAllFeatures();
-                    map.zoomToExtent(map_extent);
-                    highlightLayer.addFeatures(shpfeatures);
-                    highlightLayer.setVisibility(true);
-                    console.log(shpfeatures);
-                    document.getElementById('custom_radio_sel').checked =
-                        'checked';
-                    Ext.getCmp('aoi_upload_id').collapse();
-                    Ext.getCmp('aoi_create_id').expand();
+                    console.log(shpfeatures.length);
+                    if (shpfeatures.length > 1) {
+                        Ext.Msg.alert("user uploaded multipolygon");
+                    } else {
+                        highlightLayer.destroyFeatures();
+                        results.removeAllFeatures();
+                        map.zoomToExtent(map_extent);
+                        highlightLayer.addFeatures(shpfeatures);
+                        highlightLayer.setVisibility(true);
+                        console.log(shpfeatures);
+                        document.getElementById('custom_radio_sel').checked =
+                            'checked';
+                        Ext.getCmp('aoi_upload_id').collapse();
+                        Ext.getCmp('aoi_create_id').expand();
+                    }
+
                 }
             });
 
