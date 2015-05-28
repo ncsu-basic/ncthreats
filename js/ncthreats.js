@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -34,8 +34,10 @@ Ext.onReady(function() {
                     interval: 100
                 },
                 zoomBoxEnabled: true
-            }), new OpenLayers.Control.PanZoomBar({}),
-            new OpenLayers.Control.MousePosition()
+            }),
+            new OpenLayers.Control.PanZoomBar({}),
+            new OpenLayers.Control.MousePosition(),
+            new OpenLayers.Control.ScaleLine()
         ]
     });
 
@@ -640,6 +642,7 @@ Ext.onReady(function() {
     //function to outline selected predefined areas of interest
     function showInfo2(evt) {
         if (evt.the_geom) {
+            console.log(evt);
             // for (var i = 0; i < evt.features.length; i++) {
             //if selected feature is on then remove it
             if (selected_hucs[evt.the_huc] === 'on') {
@@ -906,6 +909,24 @@ Ext.onReady(function() {
                 };
                 console.log(lonlat);
                 lonlat = {};
+                $.ajax({
+                    type: "GET",
+                    url: SERVER_URI + "wps/ptbufferjson",
+                    data: point_buffer,
+                    dataType: "json"
+                }).done(function(data, textStatus, jqXHR) {
+                    if (jqXHR.status === 200) {
+                        console.log(data);
+                        // showInfo2(data);
+                        var format = new OpenLayers.Format.GeoJSON({
+                            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                        });
+                        highlightLayer.addFeatures(format.read(data.the_geom));
+                        highlightLayer.redraw();
+                    }
+                });
+
             }
             var gml_writer = new OpenLayers.Format.GML.v3({
                 featureType: 'MultiPolygon',
@@ -1304,7 +1325,9 @@ Ext.onReady(function() {
         //     }
         // }
         form_vals.mode = 'single';
-        form_vals = {'map': lyrdesc}
+        form_vals = {
+            'map': lyrdesc
+        };
 
 
         if (!$.isEmptyObject(form_vals)) {
