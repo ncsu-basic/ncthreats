@@ -2898,9 +2898,9 @@ Ext.onReady(function() {
                     highlightLayer.destroyFeatures();
                     results.removeAllFeatures();
                     map.zoomToExtent(map_extent);
-                    console.log('hello browser');
                     highlightLayer.addFeatures(shpfeatures);
-                    //console.log(shpfeatures);
+                    highlightLayer.setVisibility(true);
+                    console.log(shpfeatures);
                     document.getElementById('custom_radio_sel').checked =
                         'checked';
                     Ext.getCmp('aoi_upload_id').collapse();
