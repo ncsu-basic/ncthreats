@@ -3052,6 +3052,42 @@ Ext.onReady(function() {
                 e.preventDefault();
                 $("#modelparams4").toggle(500);
             });
+            $("#modellink5").click(function(e){
+                e.preventDefault();
+                $("#modelparams5").toggle(500);
+            });
+            $("#modellink6").click(function(e){
+                e.preventDefault();
+                $("#modelparams6").toggle(500);
+            });
+            $("#modellink7").click(function(e){
+                e.preventDefault();
+                $("#modelparams7").toggle(500);
+            });
+            $("#modellink8").click(function(e){
+                e.preventDefault();
+                $("#modelparams8").toggle(500);
+            });
+            $("#modellink9").click(function(e){
+                e.preventDefault();
+                $("#modelparams9").toggle(500);
+            });
+            $("#modellink10").click(function(e){
+                e.preventDefault();
+                $("#modelparams10").toggle(500);
+            });
+            $("#modellink11").click(function(e){
+                e.preventDefault();
+                $("#modelparams11").toggle(500);
+            });
+            $("#modellink12").click(function(e){
+                e.preventDefault();
+                $("#modelparams12").toggle(500);
+            });
+            $("#modellink13").click(function(e){
+                e.preventDefault();
+                $("#modelparams13").toggle(500);
+            });
 
         });
     }
