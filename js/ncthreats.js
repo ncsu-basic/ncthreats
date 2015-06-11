@@ -37,7 +37,9 @@ Ext.onReady(function() {
             }),
             new OpenLayers.Control.PanZoomBar({}),
             new OpenLayers.Control.MousePosition(),
-            new OpenLayers.Control.ScaleLine({geodesic: true})
+            new OpenLayers.Control.ScaleLine({
+                geodesic: true
+            })
         ]
     });
 
@@ -2739,6 +2741,14 @@ Ext.onReady(function() {
         id: "aoi_upload_id"
     });
 
+    var modelpage = new Ext.Panel({
+        // title: 'model',
+        cls: 'pages',
+        autoScroll: true,
+        id: "model_page",
+        width: 280
+    });
+
 
 
     var area_tab2 = new Ext.Panel({
@@ -2765,7 +2775,7 @@ Ext.onReady(function() {
         title: 'Analyze',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
-        items: [modelmsg_panel, modelpaneltop, habitat_panel, modelpanelmid],
+        items: [modelmsg_panel, modelpaneltop, modelpage],
         cls: 'help',
         autoScroll: true
     });
@@ -2859,7 +2869,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 1,
+        activeTab: 2,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
@@ -3022,6 +3032,29 @@ Ext.onReady(function() {
         $("#shp_btn").click(upload_shps);
 
     };
+
+    var model_script = function(){
+        // alert("test");
+        $(document).ready(function(){
+            $("#modellink1").click(function(e){
+                e.preventDefault();
+                $("#modelparams1").toggle(500);
+            });
+            $("#modellink2").click(function(e){
+                e.preventDefault();
+                $("#modelparams2").toggle(500);
+            });
+            $("#modellink3").click(function(e){
+                e.preventDefault();
+                $("#modelparams3").toggle(500);
+            });
+            $("#modellink4").click(function(e){
+                e.preventDefault();
+                $("#modelparams4").toggle(500);
+            });
+
+        });
+    }
     // load header page with links and title
     var el = Ext.getCmp("infopage");
     var mgr = el.getUpdater();
@@ -3037,5 +3070,11 @@ Ext.onReady(function() {
     });
     mgr2.on("update", page_script);
 
+    var el3 = Ext.getCmp("model_page");
+    var mgr3 = el3.getUpdater();
+    mgr3.update({
+        url: HOST_NAME + "pages/area.html"
+    });
+    mgr3.on("update", model_script);
 
 });

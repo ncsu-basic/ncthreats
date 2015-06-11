@@ -1,21 +1,41 @@
-<h3>Create an area of interest</h3>
 
-<div id="input_div">
-	<label for="custom">custom</label>
-	<input type="radio" name="aoitype" id="custom" value="custom" />
-	<label for="predefined">predefined</label>
-	<input type="radio" name="aoitype" id="predefined" value="predefined" checked="checked" />
-	<select id="area_select">
-		<option value=""  selected="selected">no selection</option>
-		<option value="nchuc2" >Huc 2</option>
-		<option value="nchuc4" >Huc 4</option>
-		<option value="nchuc6">Huc 6</option>
-		<option value="nchuc8" >Huc 8</option>
-		<option value="nchuc10" >Huc 10</option>
-		<option value="nchuc12" >Huc 12</option>
-		<option value="counties" >County</option>
-		<option value="ncbcr" >Bird Cons. Reg.</option>
+	<p>Upland Forest: <input type="checkbox"/><a href='' id='modellink1'>parameters</a></p>
+	<div id="modelparams1" style="display: none;">
+		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
+		<p>Set lower limit of threat</p>
+		<input type="text" value="50" size="10"/><br>
+		<button>fit1</button>
+		<button>fit2</button>
+		<button>fit3</button>
+	</div>
+	<p>Wet Forest: <input type="checkbox"/><a href='' id='modellink2'>parameters</a></p>
+	<div id="modelparams2" style="display: none;">
+		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
+		<p>Set lower limit of threat</p>
+		<input type="text" value="50" size="10"/><br>
+		<button>fit1</button>
+		<button>fit2</button>
+		<button>fit3</button>
+	</div>
+	<p>Open: <input type="checkbox"/><a href='' id='modellink3'>parameters</a></p>
+	<div id="modelparams3" style="display: none;">
+		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
+		<p>Set lower limit of threat</p>
+		<input type="text" value="50" size="10"/><br>
+		<button>fit1</button>
+		<button>fit2</button>
+		<button>fit3</button>
+	</div>
+	<p>Wet Herbaceous: <input type="checkbox"/><a href='' id='modellink4'>parameters</a></p>
+	<div id="modelparams4" style="display: none;">
+		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
+		<p>Set lower limit of threat</p>
+		<input type="text" value="50" size="10"/><br>
+		<button>fit1</button>
+		<button>fit2</button>
+		<button>fit3</button>
+	</div>
 
-	</select>
-</div>
+
+
 

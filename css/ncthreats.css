@@ -112,3 +112,14 @@ div.olControlMousePosition {
 	margin: 10p;
 
 }*/
+/*#model_page{
+	padding: 20px;
+}*/
+#model_page img {
+	height: 100px;
+	width: 100px;
+	/*padding-left: 50px;*/
+}
+#model_page input{
+	/*margin-left: 20px;*/
+}
