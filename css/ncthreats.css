@@ -131,11 +131,11 @@ div.olControlMousePosition {
 }
 .param_container{
 	clear: left;
-	/*border: solid red 1px;*/
-	padding-bottom: 10px;
+	border-top: solid #DDDDDD 1px;
+	/*padding-bottom: 10px;*/
 
 	/*margin-top: 15px;*/
 }
-.param_container > img{
-	clear: left;
+.param_container div{
+	clear: both;
 }
