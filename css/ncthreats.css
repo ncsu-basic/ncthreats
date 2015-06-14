@@ -122,25 +122,36 @@ div.olControlMousePosition {
 	/*margin-left: 20px;*/
 }
 .model_param {
-	width: 140px;
+	width: 130px;
 	float: left;
 	text-align: right;
+	padding-left: 10px;
 	/*border: solid red 1px;*/
 	/*height: 30px;*/
 
 }
 .param_container{
 	clear: left;
-	/*border-top: solid #DDDDDD 1px;*/
+	border-top: solid #DDDDDD 1px;
 	/*padding-bottom: 10px;*/
 
 	/*margin-top: 15px;*/
 }
 .param_container div{
 	clear: both;
+	font-family: sans-serif;
+	font-size: smaller;
+	line-height: 1.5;
+	/*padding-left: 20px;*/
 }
 
 .pressed {
 	/*color: blue;*/
 	background-color: #AAAAFF;
+}
+
+.default_params {
+	display: none;
+	padding-left: 20px;
+	font-family: sans-serif;
 }

@@ -1,26 +1,29 @@
 <div class="param_container">
 <p>
-	<div class="model_param" >Upland Forest:</div>
+	<div class="model_param" >Upland Forest</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink1'>parameters</a>
 </p>
-<div id="modelparams1" style="display: none;">
+<div id="modelparams1"  class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
-	<input type="text" value="50" size="10"/>
-	<br>
+	<input type="text" value="50" size="10" /><br>
+	<!-- <br>
 	<button class='pressed'>fit1</button>
 	<button>fit2</button>
-	<button>fit3</button>
+	<button>fit3</button> -->
+	<input type='radio' name="fit_frst" value="fit1" id="fit1_frst" checked="checked"><label for="fit1_frst">fit 1</label><br>
+	<input type='radio' name="fit_frst" value="fit2" id="fit2_frst"><label for="fit2_frst">fit 2</label><br>
+	<input type='radio' name="fit_frst" value="fit3" id="fit3_frst"><label for="fit3_frst">fit 3</label>
 </div>
 </div>
 <div class="param_container">
 <p>
-	<div class="model_param" >Wet Forest:</div>
+	<div class="model_param" >Wet Forest</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink2'>parameters</a>
 </p>
-<div id="modelparams2" style="display: none;">
+<div id="modelparams2" class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
 	<input type="text" value="50" size="10"/>
@@ -32,11 +35,11 @@
 </div>
 <div class="param_container">
 <p>
-	<div class="model_param" >Open:</div>
+	<div class="model_param" >Open</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink3'>parameters</a>
 </p>
-<div id="modelparams3" style="display: none;">
+<div id="modelparams3" class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
 	<input type="text" value="50" size="10"/>
@@ -48,11 +51,11 @@
 </div>
 <div class="param_container">
 <p>
-	<div class="model_param" >Wet Herbaceous:</div>
+	<div class="model_param" >Wet Herbaceous</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink4'>parameters</a>
 </p>
-<div id="modelparams4" style="display: none;">
+<div id="modelparams4" class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
 	<input type="text" value="50" size="10"/>
@@ -64,11 +67,11 @@
 </div>
 <div class="param_container">
 <p>
-	<div class="model_param" >Scrub-shrub:</div>
+	<div class="model_param" >Scrub-shrub</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink5'>parameters</a>
 </p>
-<div id="modelparams5" style="display: none;">
+<div id="modelparams5" class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
 	<input type="text" value="50" size="10"/>
@@ -78,15 +81,14 @@
 	<button>fit3</button>
 </div>
 </div>
-<hr>
 
 <div class="param_container">
 <p>
-	<div class="model_param" >Urban Growth:</div>
+	<div class="model_param" >Urban Growth</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink6'>parameters</a>
 </p>
-<div id="modelparams6" style="display: none;">
+<div id="modelparams6" class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
 	<input type="text" value="50" size="10"/>
@@ -98,11 +100,11 @@
 </div>
 <div class="param_container">
 <p>
-	<div class="model_param" >Fire Suppression:</div>
+	<div class="model_param" >Fire Suppression</div>
 	<input type="checkbox"/>
 	<a href='' id='modellink7'>parameters</a>
 </p>
-<div id="modelparams7" style="display: none;">
+<div id="modelparams7" class="default_params">
 	<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 	<p>Set lower limit of threat</p>
 	<input type="text" value="50" size="10"/>
@@ -114,11 +116,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Trans. / Div. Hwys:</div>
+		<div class="model_param" >Trans. / Div. Hwys</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink8'>parameters</a>
 	</p>
-	<div id="modelparams8" style="display: none;">
+	<div id="modelparams8" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -130,11 +132,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >SLR / Undevelop. Upland Change:</div>
+		<div class="model_param" >SLR / Undevelop. Upland Change</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink9'>parameters</a>
 	</p>
-	<div id="modelparams9" style="display: none;">
+	<div id="modelparams9" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -146,11 +148,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >SLR / Terrest. Landcover Chg:</div>
+		<div class="model_param" >SLR / Terrest. Landcover Chg</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink10'>parameters</a>
 	</p>
-	<div id="modelparams10" style="display: none;">
+	<div id="modelparams10" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -162,11 +164,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Energy Develop. / Triassic Basin:</div>
+		<div class="model_param" >Energy Develop. / Triassic Basin</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink11'>parameters</a>
 	</p>
-	<div id="modelparams11" style="display: none;">
+	<div id="modelparams11" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -178,11 +180,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Energy Develop. / Wind Power:</div>
+		<div class="model_param" >Energy Develop. /<br> Wind Power</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink12'>parameters</a>
 	</p>
-	<div id="modelparams12" style="display: none;">
+	<div id="modelparams12" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -194,11 +196,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Nutri. Loading / Manure Appl.:</div>
+		<div class="model_param" >Nutri. Loading /<br> Manure Appl.</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink13'>parameters</a>
 	</p>
-	<div id="modelparams13" style="display: none;">
+	<div id="modelparams13" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -210,11 +212,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Nutri. Loading / Syn. Nitrogen:</div>
+		<div class="model_param" >Nutri. Loading /<br> Syn. Nitrogen</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink14'>parameters</a>
 	</p>
-	<div id="modelparams14" style="display: none;">
+	<div id="modelparams14" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -226,11 +228,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Atmosph. Dep. / Total Nitrogen:</div>
+		<div class="model_param" >Atmosph. Dep. /<br> Total Nitrogen</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink15'>parameters</a>
 	</p>
-	<div id="modelparams15" style="display: none;">
+	<div id="modelparams15" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -242,11 +244,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Atmosph. Dep. / Total Sulfur:</div>
+		<div class="model_param" >Atmosph. Dep. /<br> Total Sulfur</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink16'>parameters</a>
 	</p>
-	<div id="modelparams16" style="display: none;">
+	<div id="modelparams16" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -258,11 +260,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Forest Hlth / Insect &amp; Dis. Risk:</div>
+		<div class="model_param" >Forest Hlth /<br> Insect &amp; Dis. Risk</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink17'>parameters</a>
 	</p>
-	<div id="modelparams17" style="display: none;">
+	<div id="modelparams17" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -274,11 +276,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Hydro Alteration / # of Dams:</div>
+		<div class="model_param" >Hydro Alteration /<br> # of Dams</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink18'>parameters</a>
 	</p>
-	<div id="modelparams18" style="display: none;">
+	<div id="modelparams18" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -290,11 +292,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Impaired Waters - Biota:</div>
+		<div class="model_param" >Impaired Waters - Biota</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink19'>parameters</a>
 	</p>
-	<div id="modelparams19" style="display: none;">
+	<div id="modelparams19" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
@@ -306,11 +308,11 @@
 </div>
 <div class="param_container">
 	<p>
-		<div class="model_param" >Impaired Waters - Metal:</div>
+		<div class="model_param" >Impaired Waters - Metal</div>
 		<input type="checkbox"/>
 		<a href='' id='modellink20'>parameters</a>
 	</p>
-	<div id="modelparams20" style="display: none;">
+	<div id="modelparams20" class="default_params">
 		<img src="https://www.mathsisfun.com/data/images/histogram.gif"/>
 		<p>Set lower limit of threat</p>
 		<input type="text" value="50" size="10"/>
