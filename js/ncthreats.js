@@ -1654,246 +1654,267 @@ Ext.onReady(function() {
             listeners: {
                 //'select': form2_chng
             }
+        }, {
+            xtype: 'container',
+            autoEl: 'div',
+            cls: 'mycontent',
+            html: "<p><b>Set bioenergy scenario (optional)</b></p>"
+        }, {
+            xtype: "combo",
+            // itemId: "cmb2",
+            store: comboStorescenarios,
+            name: 'misc',
+            fieldLabel: "Bioenergy Scenario",
+            value: "x",
+            typeAhead: true,
+            mode: "local",
+            triggerAction: "all",
+            valueField: 'layerId',
+            displayField: 'layerName',
+            submitValue: true,
+            hiddenName: 'scenario',
+            listeners: {
+                //'select': form2_chng
+            }
         }]
     });
 
-    var modelpanelmid = new Ext.form.FormPanel({
+    var modelpanelmid = new Ext.Panel({
         title: "",
         width: 280,
-        // height: 500,
-        bodyStyle: "padding:20px; margin-top: 5px;",
+        height: 0,
+        // bodyStyle: "padding:20px; margin-top: 5px;",
         // labelAlign: "top",
         defaults: {
             anchor: "100%"
         },
-        items: [{
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Urban Growth",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'urbangrth',
-            listeners: {
-                //'select': form2_chng
-            }
+        // items: [{
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Urban Growth",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'urbangrth',
+        //     listeners: {
+        //         //'select': form2_chng
+        //     }
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Fire Suppression",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'firesup'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Fire Suppression",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'firesup'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Trans. / Div. Hwys",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'hiway'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Trans. / Div. Hwys",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'hiway'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "SLR / Undevelop. Upland Change",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'slr_up'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "SLR / Undevelop. Upland Change",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'slr_up'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "SLR / Terrest. Landcover Chg",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'slr_lc'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "SLR / Terrest. Landcover Chg",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'slr_lc'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Energy Develop. / Triassic Basin",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'triassic'
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Energy Develop. / Wind Power",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'wind'
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Nutri. Loading / Manure Appl.",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'manure'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Energy Develop. / Triassic Basin",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'triassic'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Energy Develop. / Wind Power",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'wind'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Nutri. Loading / Manure Appl.",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'manure'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Nutri. Loading / Syn. Nitrogen",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'nitrofrt'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Nutri. Loading / Syn. Nitrogen",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'nitrofrt'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Atmosph. Dep. / Total Nitrogen",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'totnitro'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Atmosph. Dep. / Total Nitrogen",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'totnitro'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Atmosph. Dep. / Total Sulfur",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'totsulf'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Atmosph. Dep. / Total Sulfur",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'totsulf'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Forest Hlth / Insect & Dis. Risk",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'insectdisease'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Forest Hlth / Insect & Dis. Risk",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'insectdisease'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Hydro Alteration / # of Dams",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'ndams'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Hydro Alteration / # of Dams",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'ndams'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Impaired Waters - Biota",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'impairbiota'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Impaired Waters - Biota",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'impairbiota'
 
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'miscdata',
-            fieldLabel: "Impaired Waters - Metal",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'impairmetal'
+        // }, {
+        //     xtype: "combo",
+        //     // itemId: "cmb2",
+        //     store: comboStoreweights,
+        //     name: 'miscdata',
+        //     fieldLabel: "Impaired Waters - Metal",
+        //     value: "notinclude",
+        //     typeAhead: true,
+        //     mode: "local",
+        //     triggerAction: "all",
+        //     valueField: 'layerId',
+        //     displayField: 'layerName',
+        //     submitValue: true,
+        //     hiddenName: 'impairmetal'
 
-        }],
-
+        // }],
         buttons: [
             // {
             //     text: "Spreadsheet",
@@ -2775,7 +2796,7 @@ Ext.onReady(function() {
         title: 'Analyze',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
-        items: [modelmsg_panel, modelpaneltop, modelpage],
+        items: [modelmsg_panel, modelpaneltop, modelpage, modelpanelmid],
         cls: 'help',
         autoScroll: true
     });

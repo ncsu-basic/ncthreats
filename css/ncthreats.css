@@ -131,11 +131,16 @@ div.olControlMousePosition {
 }
 .param_container{
 	clear: left;
-	border-top: solid #DDDDDD 1px;
+	/*border-top: solid #DDDDDD 1px;*/
 	/*padding-bottom: 10px;*/
 
 	/*margin-top: 15px;*/
 }
 .param_container div{
 	clear: both;
+}
+
+.pressed {
+	/*color: blue;*/
+	background-color: #AAAAFF;
 }
