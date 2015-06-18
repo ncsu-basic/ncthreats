@@ -94,24 +94,7 @@ Ext.onReady(function() {
     /////////////////////////////////////////////////////////
 
 
-    // var nchuc2 = new OpenLayers.Layer.TMS("NC HUC 2",
-    //     SERVER_URI + "tilecache/", {
-    //         layername: "huc2nc",
-    //         type: "png",
-    //         isBaseLayer: false,
-    //         visibility: false,
-    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-    //     }
-    // );
-    // var nchuc4 = new OpenLayers.Layer.TMS("NC HUC 4",
-    //     SERVER_URI + "tilecache/", {
-    //         layername: "huc4nc",
-    //         type: "png",
-    //         isBaseLayer: false,
-    //         visibility: false,
-    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-    //     }
-    // );
+
     var nchuc6 = new OpenLayers.Layer.TMS("River Basin Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc",
@@ -500,18 +483,7 @@ Ext.onReady(function() {
         composite.setVisibility(false);
     });
 
-    // $.ajax({
-    //     type: "GET",
-    //     url: SERVER_URI + 'wps/individual',
-    //     dataType: "json"
-    // }).done(function(data) {
-    //     var geojson_format = new OpenLayers.Format.GeoJSON({
-    //         'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-    //         'externalProjection': new OpenLayers.Projection("EPSG:4326")
-    //     });
-    //     results.addFeatures(geojson_format.read(data));
-    //     results.setVisibility(true);
-    // });
+
 
     map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
@@ -1170,15 +1142,12 @@ Ext.onReady(function() {
 
 
     var threat_calcs_map = function() {
-        // var form_vals_hab = habitat_panel.getForm().getValues();
-        var form_vals_year = modelpaneltop.getForm().getValues();
-        // var form_vals_misc = modelpanelmid.getForm().getValues();
-        console.log(form_vals_year);
-        // var test = $("#frst_chk").val();
-        var test = document.getElementById('frst_chk').checked;
-        console.log(test);
+        var form_vals_paneltop = modelpaneltop.getForm().getValues();
+        console.log(form_vals_paneltop);
 
         var form_vals_new = {};
+        form_vals_new.year = form_vals_paneltop.year;
+        form_vals_new.scenario = form_vals_paneltop.scenario;
         if (document.getElementById('frst_chk').checked){
             form_vals_new.frst = $("#frst_limit").val();
         } else {
@@ -1607,132 +1576,132 @@ Ext.onReady(function() {
         }]
     };
 
-    var habitat_panel = new Ext.form.FormPanel({
-        title: "",
-        width: 280,
-        // height: 500,
-        bodyStyle: "padding:20px;  margin-top: 5px;",
-        border: true,
-        // labelAlign: "top",
-        defaults: {
-            anchor: "100%"
-        },
-        items: [{
-            // width: 2,
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: "<p><b>Projected habitat loss since 2000</b></p>"
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'misc',
-            fieldLabel: "Upland Forest",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'frst',
-            listeners: {
-                //'select': form2_chng
-            }
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'misc',
-            fieldLabel: "Wet Forest",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'ftwt',
-            listeners: {
-                //'select': form2_chng
-            }
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'misc',
-            fieldLabel: "Open",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'open',
-            listeners: {
-                //'select': form2_chng
-            }
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'misc',
-            fieldLabel: "Wet Herbaceous",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'hbwt',
-            listeners: {
-                //'select': form2_chng
-            }
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStoreweights,
-            name: 'misc',
-            fieldLabel: "Scrub-shrub",
-            value: "notinclude",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'shrb',
-            listeners: {
-                //'select': form2_chng
-            }
-        }, {
-            // width: 2,
-            xtype: 'container',
-            autoEl: 'div',
-            cls: 'mycontent',
-            html: "<p><b>Set bioenergy scenario (optional)</b></p>"
-        }, {
-            xtype: "combo",
-            // itemId: "cmb2",
-            store: comboStorescenarios,
-            name: 'misc',
-            fieldLabel: "Bioenergy Scenario",
-            value: "x",
-            typeAhead: true,
-            mode: "local",
-            triggerAction: "all",
-            valueField: 'layerId',
-            displayField: 'layerName',
-            submitValue: true,
-            hiddenName: 'scenario',
-            listeners: {
-                //'select': form2_chng
-            }
-        }]
-    });
+    // var habitat_panel = new Ext.form.FormPanel({
+    //     title: "",
+    //     width: 280,
+    //     // height: 500,
+    //     bodyStyle: "padding:20px;  margin-top: 5px;",
+    //     border: true,
+    //     // labelAlign: "top",
+    //     defaults: {
+    //         anchor: "100%"
+    //     },
+    //     items: [{
+    //         // width: 2,
+    //         xtype: 'container',
+    //         autoEl: 'div',
+    //         cls: 'mycontent',
+    //         html: "<p><b>Projected habitat loss since 2000</b></p>"
+    //     }, {
+    //         xtype: "combo",
+    //         // itemId: "cmb2",
+    //         store: comboStoreweights,
+    //         name: 'misc',
+    //         fieldLabel: "Upland Forest",
+    //         value: "notinclude",
+    //         typeAhead: true,
+    //         mode: "local",
+    //         triggerAction: "all",
+    //         valueField: 'layerId',
+    //         displayField: 'layerName',
+    //         submitValue: true,
+    //         hiddenName: 'frst',
+    //         listeners: {
+    //             //'select': form2_chng
+    //         }
+    //     }, {
+    //         xtype: "combo",
+    //         // itemId: "cmb2",
+    //         store: comboStoreweights,
+    //         name: 'misc',
+    //         fieldLabel: "Wet Forest",
+    //         value: "notinclude",
+    //         typeAhead: true,
+    //         mode: "local",
+    //         triggerAction: "all",
+    //         valueField: 'layerId',
+    //         displayField: 'layerName',
+    //         submitValue: true,
+    //         hiddenName: 'ftwt',
+    //         listeners: {
+    //             //'select': form2_chng
+    //         }
+    //     }, {
+    //         xtype: "combo",
+    //         // itemId: "cmb2",
+    //         store: comboStoreweights,
+    //         name: 'misc',
+    //         fieldLabel: "Open",
+    //         value: "notinclude",
+    //         typeAhead: true,
+    //         mode: "local",
+    //         triggerAction: "all",
+    //         valueField: 'layerId',
+    //         displayField: 'layerName',
+    //         submitValue: true,
+    //         hiddenName: 'open',
+    //         listeners: {
+    //             //'select': form2_chng
+    //         }
+    //     }, {
+    //         xtype: "combo",
+    //         // itemId: "cmb2",
+    //         store: comboStoreweights,
+    //         name: 'misc',
+    //         fieldLabel: "Wet Herbaceous",
+    //         value: "notinclude",
+    //         typeAhead: true,
+    //         mode: "local",
+    //         triggerAction: "all",
+    //         valueField: 'layerId',
+    //         displayField: 'layerName',
+    //         submitValue: true,
+    //         hiddenName: 'hbwt',
+    //         listeners: {
+    //             //'select': form2_chng
+    //         }
+    //     }, {
+    //         xtype: "combo",
+    //         // itemId: "cmb2",
+    //         store: comboStoreweights,
+    //         name: 'misc',
+    //         fieldLabel: "Scrub-shrub",
+    //         value: "notinclude",
+    //         typeAhead: true,
+    //         mode: "local",
+    //         triggerAction: "all",
+    //         valueField: 'layerId',
+    //         displayField: 'layerName',
+    //         submitValue: true,
+    //         hiddenName: 'shrb',
+    //         listeners: {
+    //             //'select': form2_chng
+    //         }
+    //     }, {
+    //         // width: 2,
+    //         xtype: 'container',
+    //         autoEl: 'div',
+    //         cls: 'mycontent',
+    //         html: "<p><b>Set bioenergy scenario (optional)</b></p>"
+    //     }, {
+    //         xtype: "combo",
+    //         // itemId: "cmb2",
+    //         store: comboStorescenarios,
+    //         name: 'misc',
+    //         fieldLabel: "Bioenergy Scenario",
+    //         value: "x",
+    //         typeAhead: true,
+    //         mode: "local",
+    //         triggerAction: "all",
+    //         valueField: 'layerId',
+    //         displayField: 'layerName',
+    //         submitValue: true,
+    //         hiddenName: 'scenario',
+    //         listeners: {
+    //             //'select': form2_chng
+    //         }
+    //     }]
+    // });
 
     var modelmsg_panel = new Ext.Panel({
         width: 280,
@@ -1805,233 +1774,7 @@ Ext.onReady(function() {
         defaults: {
             anchor: "100%"
         },
-        // items: [{
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Urban Growth",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'urbangrth',
-        //     listeners: {
-        //         //'select': form2_chng
-        //     }
 
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Fire Suppression",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'firesup'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Trans. / Div. Hwys",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'hiway'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "SLR / Undevelop. Upland Change",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'slr_up'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "SLR / Terrest. Landcover Chg",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'slr_lc'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Energy Develop. / Triassic Basin",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'triassic'
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Energy Develop. / Wind Power",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'wind'
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Nutri. Loading / Manure Appl.",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'manure'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Nutri. Loading / Syn. Nitrogen",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'nitrofrt'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Atmosph. Dep. / Total Nitrogen",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'totnitro'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Atmosph. Dep. / Total Sulfur",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'totsulf'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Forest Hlth / Insect & Dis. Risk",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'insectdisease'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Hydro Alteration / # of Dams",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'ndams'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Impaired Waters - Biota",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'impairbiota'
-
-        // }, {
-        //     xtype: "combo",
-        //     // itemId: "cmb2",
-        //     store: comboStoreweights,
-        //     name: 'miscdata',
-        //     fieldLabel: "Impaired Waters - Metal",
-        //     value: "notinclude",
-        //     typeAhead: true,
-        //     mode: "local",
-        //     triggerAction: "all",
-        //     valueField: 'layerId',
-        //     displayField: 'layerName',
-        //     submitValue: true,
-        //     hiddenName: 'impairmetal'
-
-        // }],
         buttons: [
             // {
             //     text: "Spreadsheet",
