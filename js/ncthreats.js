@@ -1360,58 +1360,7 @@ Ext.onReady(function() {
         console.log(frmvals.length);
         var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
         var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
-        // if (habthrts.indexOf(frmvals[0]) !== -1) {
-        //     console.log(frmvals[0]);
-        //     console.log(frmvals[1]);
-        //     console.log(frmvals[2]);
-        //     form_vals = {
-        //         scenario: frmvals[2],
-        //         year: "20" + frmvals[1],
-        //     };
-        //     form_vals[frmvals[0]] = '1.0';
-        // } else if (yearthrts.indexOf(frmvals[0]) !== -1) {
-        //     console.log(frmvals[0]);
-        //     console.log(frmvals[1]);
-        //     form_vals = {
-        //         year: "20" + frmvals[1],
-        //     };
-        //     if (frmvals[0] === 'urban') {
-        //         form_vals.urbangrth = "1.0";
-        //     } else if (frmvals[0] === 'fire') {
-        //         form_vals.firesup = "1.0";
-        //     } else if (frmvals[0] === 'trans') {
-        //         form_vals.hiway = "1.0";
-        //     } else if (frmvals[0] === 'slr_up') {
-        //         form_vals.slr_up = "1.0";
-        //     } else if (frmvals[0] === 'slr_lc') {
-        //         form_vals.slr_lc = "1.0";
-        //     }
-        // } else if (frmvals.length === 2) {
-        //     if (frmvals[1] === 'manu') {
-        //         form_vals.manure = "1.0";
-        //     } else if (frmvals[1] === 'fert') {
-        //         form_vals.nitrofrt = "1.0";
-        //     } else if (frmvals[1] === 'td_s_t') {
-        //         form_vals.totsulf = "1.0";
-        //     } else if (frmvals[1] === 'td_n_t') {
-        //         form_vals.totnitro = "1.0";
-        //     } else if (frmvals[1] === 'NID') {
-        //         form_vals.ndams = "1.0";
-        //     } else if (frmvals[1] === 'bioimplen') {
-        //         form_vals.impairbiota = "1.0";
-        //     } else if (frmvals[1] === 'metimplen') {
-        //         form_vals.impairmetal = "1.0";
-        //     }
 
-        // } else {
-        //     if (frmvals[0] === 'frsthlth') {
-        //         form_vals.insectdisease = "1.0";
-        //     } else if (frmvals[0] === 'energydev') {
-        //         form_vals.triassic = "1.0";
-        //     } else if (frmvals[0] === 'wind') {
-        //         form_vals.wind = "1.0";
-        //     }
-        // }
         form_vals.mode = 'single';
         form_vals = {
             'map': lyrdesc
@@ -1428,59 +1377,178 @@ Ext.onReady(function() {
     };
 
     threat_calcs_report = function() {
-        var form_vals_hab = habitat_panel.getForm().getValues();
-        var form_vals_year = modelpaneltop.getForm().getValues();
-        var form_vals_misc = modelpanelmid.getForm().getValues();
+        // var form_vals_hab = habitat_panel.getForm().getValues();
+        // var form_vals_year = modelpaneltop.getForm().getValues();
+        // var form_vals_misc = modelpanelmid.getForm().getValues();
+
+        var form_vals_paneltop = modelpaneltop.getForm().getValues();
+        console.log(form_vals_paneltop);
+
+        var form_vals_new = {};
+        form_vals_new.year = form_vals_paneltop.year;
+        form_vals_new.scenario = form_vals_paneltop.scenario;
+        if (document.getElementById('frst_chk').checked){
+            form_vals_new.frst = $("#frst_limit").val();
+        } else {
+            form_vals_new.frst = 'notinclude';
+        }
+
+        if (document.getElementById('ftwt_chk').checked){
+            form_vals_new.ftwt = $("#ftwt_limit").val();
+        } else {
+            form_vals_new.ftwt = 'notinclude';
+        }
+        if (document.getElementById('open_chk').checked){
+            form_vals_new.open = $("#open_limit").val();
+        } else {
+            form_vals_new.open = 'notinclude';
+        }
+        if (document.getElementById('hbwt_chk').checked){
+            form_vals_new.hbwt = $("#hbwt_limit").val();
+        } else {
+            form_vals_new.hbwt = 'notinclude';
+        }
+        if (document.getElementById('shrb_chk').checked){
+            form_vals_new.shrb = $("#shrb_limit").val();
+        } else {
+            form_vals_new.shrb = 'notinclude';
+        }
+        if (document.getElementById('urbangrth_chk').checked){
+            form_vals_new.urbangrth = $("#urbangrth_limit").val();
+        } else {
+            form_vals_new.urbangrth = 'notinclude';
+        }
+        if (document.getElementById('firesup_chk').checked){
+            form_vals_new.firesup = $("#firesup_limit").val();
+        } else {
+            form_vals_new.firesup = 'notinclude';
+        }
+        if (document.getElementById('hiway_chk').checked){
+            form_vals_new.hiway = $("#hiway_limit").val();
+        } else {
+            form_vals_new.hiway = 'notinclude';
+        }
+        if (document.getElementById('slr_up_chk').checked){
+            form_vals_new.slr_up = $("#slr_up_limit").val();
+        } else {
+            form_vals_new.slr_up = 'notinclude';
+        }
+        if (document.getElementById('slr_lc_chk').checked){
+            form_vals_new.slr_lc = $("#slr_lc_limit").val();
+        } else {
+            form_vals_new.slr_lc = 'notinclude';
+        }
+        if (document.getElementById('triassic_chk').checked){
+            form_vals_new.triassic = $("#triassic_limit").val();
+        } else {
+            form_vals_new.triassic = 'notinclude';
+        }
+        if (document.getElementById('wind_chk').checked){
+            form_vals_new.wind = $("#wind_limit").val();
+        } else {
+            form_vals_new.wind = 'notinclude';
+        }
+        if (document.getElementById('manure_chk').checked){
+            form_vals_new.manure = $("#manure_limit").val();
+        } else {
+            form_vals_new.manure = 'notinclude';
+        }
+        if (document.getElementById('nitrofrt_chk').checked){
+            form_vals_new.nitrofrt = $("#nitrofrt_limit").val();
+        } else {
+            form_vals_new.nitrofrt = 'notinclude';
+        }
+        if (document.getElementById('totnitro_chk').checked){
+            form_vals_new.totnitro = $("#totnitro_limit").val();
+        } else {
+            form_vals_new.totnitro = 'notinclude';
+        }
+        if (document.getElementById('totsulf_chk').checked){
+            form_vals_new.totsulf = $("#totsulf_limit").val();
+        } else {
+            form_vals_new.totsulf = 'notinclude';
+        }
+        if (document.getElementById('insectdisease_chk').checked){
+            form_vals_new.insectdisease = $("#insectdisease_limit").val();
+        } else {
+            form_vals_new.insectdisease = 'notinclude';
+        }
+        if (document.getElementById('ndams_chk').checked){
+            form_vals_new.ndams = $("#ndams_limit").val();
+        } else {
+            form_vals_new.ndams = 'notinclude';
+        }
+        if (document.getElementById('impairbiota_chk').checked){
+            form_vals_new.impairbiota = $("#impairbiota_limit").val();
+        } else {
+            form_vals_new.impairbiota = 'notinclude';
+        }
+        if (document.getElementById('impairmetal_chk').checked){
+            form_vals_new.impairmetal = $("#impairmetal_limit").val();
+        } else {
+            form_vals_new.impairmetal = 'notinclude';
+        }
+        if (document.getElementById('frst_chk').checked){
+            form_vals_new.frst = $("#frst_limit").val();
+        } else {
+            form_vals_new.frst = 'notinclude';
+        }
+
+
+
+
+        console.log(form_vals_new);
+
         //        var form_vals_water = modelpanelbot.getForm().getValues();
         var form_vals = {
-            impairbiota: form_vals_misc.impairbiota,
-            impairmetal: form_vals_misc.impairmetal,
-            scenario: form_vals_hab.scenario,
-            frst: form_vals_hab.frst,
-            ftwt: form_vals_hab.ftwt,
-            hbwt: form_vals_hab.hbwt,
-            open: form_vals_hab.open,
-            shrb: form_vals_hab.shrb,
-            year: form_vals_year.year,
-            firesup: form_vals_misc.firesup,
-            hiway: form_vals_misc.hiway,
-            insectdisease: form_vals_misc.insectdisease,
-            manure: form_vals_misc.manure,
-            ndams: form_vals_misc.ndams,
-            nitrofrt: form_vals_misc.nitrofrt,
-            totnitro: form_vals_misc.totnitro,
-            totsulf: form_vals_misc.totsulf,
-            triassic: form_vals_misc.triassic,
-            urbangrth: form_vals_misc.urbangrth,
-            slr_up: form_vals_misc.slr_up,
-            slr_lc: form_vals_misc.slr_lc,
-            wind: form_vals_misc.wind,
+            impairbiota: form_vals_new.impairbiota,
+            impairmetal: form_vals_new.impairmetal,
+            scenario: form_vals_new.scenario,
+            frst: form_vals_new.frst,
+            ftwt: form_vals_new.ftwt,
+            hbwt: form_vals_new.hbwt,
+            open: form_vals_new.open,
+            shrb: form_vals_new.shrb,
+            year: form_vals_new.year,
+            firesup: form_vals_new.firesup,
+            hiway: form_vals_new.hiway,
+            insectdisease: form_vals_new.insectdisease,
+            manure: form_vals_new.manure,
+            ndams: form_vals_new.ndams,
+            nitrofrt: form_vals_new.nitrofrt,
+            totnitro: form_vals_new.totnitro,
+            totsulf: form_vals_new.totsulf,
+            triassic: form_vals_new.triassic,
+            urbangrth: form_vals_new.urbangrth,
+            slr_up: form_vals_new.slr_up,
+            slr_lc: form_vals_new.slr_lc,
+            wind: form_vals_new.wind,
             mode: 'model'
         };
 
         var includes_list = {
-            impairbiota: form_vals_misc.impairbiota,
-            impairmetal: form_vals_misc.impairmetal,
+            impairbiota: form_vals_new.impairbiota,
+            impairmetal: form_vals_new.impairmetal,
             // scenario: form_vals_hab.scenario,
-            frst: form_vals_hab.frst,
-            ftwt: form_vals_hab.ftwt,
-            hbwt: form_vals_hab.hbwt,
-            open: form_vals_hab.open,
-            shrb: form_vals_hab.shrb,
+            frst: form_vals_new.frst,
+            ftwt: form_vals_new.ftwt,
+            hbwt: form_vals_new.hbwt,
+            open: form_vals_new.open,
+            shrb: form_vals_new.shrb,
             // year: form_vals_year.year,
-            firesup: form_vals_misc.firesup,
-            hiway: form_vals_misc.hiway,
-            insectdisease: form_vals_misc.insectdisease,
-            manure: form_vals_misc.manure,
-            ndams: form_vals_misc.ndams,
-            nitrofrt: form_vals_misc.nitrofrt,
-            totnitro: form_vals_misc.totnitro,
-            totsulf: form_vals_misc.totsulf,
-            triassic: form_vals_misc.triassic,
-            urbangrth: form_vals_misc.urbangrth,
-            slr_up: form_vals_misc.slr_up,
-            slr_lc: form_vals_misc.slr_lc,
-            wind: form_vals_misc.wind
+            firesup: form_vals_new.firesup,
+            hiway: form_vals_new.hiway,
+            insectdisease: form_vals_new.insectdisease,
+            manure: form_vals_new.manure,
+            ndams: form_vals_new.ndams,
+            nitrofrt: form_vals_new.nitrofrt,
+            totnitro: form_vals_new.totnitro,
+            totsulf: form_vals_new.totsulf,
+            triassic: form_vals_new.triassic,
+            urbangrth: form_vals_new.urbangrth,
+            slr_up: form_vals_new.slr_up,
+            slr_lc: form_vals_new.slr_lc,
+            wind: form_vals_new.wind
         };
 
         // do not submit form if not factors included
@@ -1504,30 +1572,7 @@ Ext.onReady(function() {
     };
 
     // var threat_calcs_ssheet = function() {
-    //     var form_vals_hab = habitat_panel.getForm().getValues();
-    //     var form_vals_year = modelpaneltop.getForm().getValues();
-    //     var form_vals_misc = modelpanelmid.getForm().getValues();
-    //     //        var form_vals_water = modelpanelbot.getForm().getValues();
-    //     var form_vals = {
-    //         impairall: form_vals_misc.impairall,
-    //         scenario: form_vals_hab.scenario,
-    //         habitat: form_vals_hab.habitat,
-    //         habitat_weight: form_vals_hab.habitat_weight,
-    //         year: form_vals_year.year,
-    //         firesup: form_vals_misc.firesup,
-    //         hiway: form_vals_misc.hiway,
-    //         insectdisease: form_vals_misc.insectdisease,
-    //         manure: form_vals_misc.manure,
-    //         ndams: form_vals_misc.ndams,
-    //         nitrofrt: form_vals_misc.nitrofrt,
-    //         totnitro: form_vals_misc.totnitro,
-    //         totsulf: form_vals_misc.totsulf,
-    //         triassic: form_vals_misc.triassic,
-    //         urbangrth: form_vals_misc.urbangrth,
-    //         slr_up: form_vals_misc.slr_up,
-    //         slr_lc: form_vals_misc.slr_lc,
-    //         wind: form_vals_misc.wind
-    //     };
+
     //     var qry_str = $.param(form_vals);
     //     $.ajax({
     //         url: SERVER_URI + 'wps/ssheet?' + qry_str,
@@ -1576,132 +1621,7 @@ Ext.onReady(function() {
         }]
     };
 
-    // var habitat_panel = new Ext.form.FormPanel({
-    //     title: "",
-    //     width: 280,
-    //     // height: 500,
-    //     bodyStyle: "padding:20px;  margin-top: 5px;",
-    //     border: true,
-    //     // labelAlign: "top",
-    //     defaults: {
-    //         anchor: "100%"
-    //     },
-    //     items: [{
-    //         // width: 2,
-    //         xtype: 'container',
-    //         autoEl: 'div',
-    //         cls: 'mycontent',
-    //         html: "<p><b>Projected habitat loss since 2000</b></p>"
-    //     }, {
-    //         xtype: "combo",
-    //         // itemId: "cmb2",
-    //         store: comboStoreweights,
-    //         name: 'misc',
-    //         fieldLabel: "Upland Forest",
-    //         value: "notinclude",
-    //         typeAhead: true,
-    //         mode: "local",
-    //         triggerAction: "all",
-    //         valueField: 'layerId',
-    //         displayField: 'layerName',
-    //         submitValue: true,
-    //         hiddenName: 'frst',
-    //         listeners: {
-    //             //'select': form2_chng
-    //         }
-    //     }, {
-    //         xtype: "combo",
-    //         // itemId: "cmb2",
-    //         store: comboStoreweights,
-    //         name: 'misc',
-    //         fieldLabel: "Wet Forest",
-    //         value: "notinclude",
-    //         typeAhead: true,
-    //         mode: "local",
-    //         triggerAction: "all",
-    //         valueField: 'layerId',
-    //         displayField: 'layerName',
-    //         submitValue: true,
-    //         hiddenName: 'ftwt',
-    //         listeners: {
-    //             //'select': form2_chng
-    //         }
-    //     }, {
-    //         xtype: "combo",
-    //         // itemId: "cmb2",
-    //         store: comboStoreweights,
-    //         name: 'misc',
-    //         fieldLabel: "Open",
-    //         value: "notinclude",
-    //         typeAhead: true,
-    //         mode: "local",
-    //         triggerAction: "all",
-    //         valueField: 'layerId',
-    //         displayField: 'layerName',
-    //         submitValue: true,
-    //         hiddenName: 'open',
-    //         listeners: {
-    //             //'select': form2_chng
-    //         }
-    //     }, {
-    //         xtype: "combo",
-    //         // itemId: "cmb2",
-    //         store: comboStoreweights,
-    //         name: 'misc',
-    //         fieldLabel: "Wet Herbaceous",
-    //         value: "notinclude",
-    //         typeAhead: true,
-    //         mode: "local",
-    //         triggerAction: "all",
-    //         valueField: 'layerId',
-    //         displayField: 'layerName',
-    //         submitValue: true,
-    //         hiddenName: 'hbwt',
-    //         listeners: {
-    //             //'select': form2_chng
-    //         }
-    //     }, {
-    //         xtype: "combo",
-    //         // itemId: "cmb2",
-    //         store: comboStoreweights,
-    //         name: 'misc',
-    //         fieldLabel: "Scrub-shrub",
-    //         value: "notinclude",
-    //         typeAhead: true,
-    //         mode: "local",
-    //         triggerAction: "all",
-    //         valueField: 'layerId',
-    //         displayField: 'layerName',
-    //         submitValue: true,
-    //         hiddenName: 'shrb',
-    //         listeners: {
-    //             //'select': form2_chng
-    //         }
-    //     }, {
-    //         // width: 2,
-    //         xtype: 'container',
-    //         autoEl: 'div',
-    //         cls: 'mycontent',
-    //         html: "<p><b>Set bioenergy scenario (optional)</b></p>"
-    //     }, {
-    //         xtype: "combo",
-    //         // itemId: "cmb2",
-    //         store: comboStorescenarios,
-    //         name: 'misc',
-    //         fieldLabel: "Bioenergy Scenario",
-    //         value: "x",
-    //         typeAhead: true,
-    //         mode: "local",
-    //         triggerAction: "all",
-    //         valueField: 'layerId',
-    //         displayField: 'layerName',
-    //         submitValue: true,
-    //         hiddenName: 'scenario',
-    //         listeners: {
-    //             //'select': form2_chng
-    //         }
-    //     }]
-    // });
+
 
     var modelmsg_panel = new Ext.Panel({
         width: 280,
