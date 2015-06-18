@@ -1170,37 +1170,154 @@ Ext.onReady(function() {
 
 
     var threat_calcs_map = function() {
-        var form_vals_hab = habitat_panel.getForm().getValues();
+        // var form_vals_hab = habitat_panel.getForm().getValues();
         var form_vals_year = modelpaneltop.getForm().getValues();
-        var form_vals_misc = modelpanelmid.getForm().getValues();
-        console.log(form_vals_misc);
+        // var form_vals_misc = modelpanelmid.getForm().getValues();
+        console.log(form_vals_year);
+        // var test = $("#frst_chk").val();
+        var test = document.getElementById('frst_chk').checked;
+        console.log(test);
+
+        var form_vals_new = {};
+        if (document.getElementById('frst_chk').checked){
+            form_vals_new.frst = $("#frst_limit").val();
+        } else {
+            form_vals_new.frst = 'notinclude';
+        }
+
+        if (document.getElementById('ftwt_chk').checked){
+            form_vals_new.ftwt = $("#ftwt_limit").val();
+        } else {
+            form_vals_new.ftwt = 'notinclude';
+        }
+        if (document.getElementById('open_chk').checked){
+            form_vals_new.open = $("#open_limit").val();
+        } else {
+            form_vals_new.open = 'notinclude';
+        }
+        if (document.getElementById('hbwt_chk').checked){
+            form_vals_new.hbwt = $("#hbwt_limit").val();
+        } else {
+            form_vals_new.hbwt = 'notinclude';
+        }
+        if (document.getElementById('shrb_chk').checked){
+            form_vals_new.shrb = $("#shrb_limit").val();
+        } else {
+            form_vals_new.shrb = 'notinclude';
+        }
+        if (document.getElementById('urbangrth_chk').checked){
+            form_vals_new.urbangrth = $("#urbangrth_limit").val();
+        } else {
+            form_vals_new.urbangrth = 'notinclude';
+        }
+        if (document.getElementById('firesup_chk').checked){
+            form_vals_new.firesup = $("#firesup_limit").val();
+        } else {
+            form_vals_new.firesup = 'notinclude';
+        }
+        if (document.getElementById('hiway_chk').checked){
+            form_vals_new.hiway = $("#hiway_limit").val();
+        } else {
+            form_vals_new.hiway = 'notinclude';
+        }
+        if (document.getElementById('slr_up_chk').checked){
+            form_vals_new.slr_up = $("#slr_up_limit").val();
+        } else {
+            form_vals_new.slr_up = 'notinclude';
+        }
+        if (document.getElementById('slr_lc_chk').checked){
+            form_vals_new.slr_lc = $("#slr_lc_limit").val();
+        } else {
+            form_vals_new.slr_lc = 'notinclude';
+        }
+        if (document.getElementById('triassic_chk').checked){
+            form_vals_new.triassic = $("#triassic_limit").val();
+        } else {
+            form_vals_new.triassic = 'notinclude';
+        }
+        if (document.getElementById('wind_chk').checked){
+            form_vals_new.wind = $("#wind_limit").val();
+        } else {
+            form_vals_new.wind = 'notinclude';
+        }
+        if (document.getElementById('manure_chk').checked){
+            form_vals_new.manure = $("#manure_limit").val();
+        } else {
+            form_vals_new.manure = 'notinclude';
+        }
+        if (document.getElementById('nitrofrt_chk').checked){
+            form_vals_new.nitrofrt = $("#nitrofrt_limit").val();
+        } else {
+            form_vals_new.nitrofrt = 'notinclude';
+        }
+        if (document.getElementById('totnitro_chk').checked){
+            form_vals_new.totnitro = $("#totnitro_limit").val();
+        } else {
+            form_vals_new.totnitro = 'notinclude';
+        }
+        if (document.getElementById('totsulf_chk').checked){
+            form_vals_new.totsulf = $("#totsulf_limit").val();
+        } else {
+            form_vals_new.totsulf = 'notinclude';
+        }
+        if (document.getElementById('insectdisease_chk').checked){
+            form_vals_new.insectdisease = $("#insectdisease_limit").val();
+        } else {
+            form_vals_new.insectdisease = 'notinclude';
+        }
+        if (document.getElementById('ndams_chk').checked){
+            form_vals_new.ndams = $("#ndams_limit").val();
+        } else {
+            form_vals_new.ndams = 'notinclude';
+        }
+        if (document.getElementById('impairbiota_chk').checked){
+            form_vals_new.impairbiota = $("#impairbiota_limit").val();
+        } else {
+            form_vals_new.impairbiota = 'notinclude';
+        }
+        if (document.getElementById('impairmetal_chk').checked){
+            form_vals_new.impairmetal = $("#impairmetal_limit").val();
+        } else {
+            form_vals_new.impairmetal = 'notinclude';
+        }
+        if (document.getElementById('frst_chk').checked){
+            form_vals_new.frst = $("#frst_limit").val();
+        } else {
+            form_vals_new.frst = 'notinclude';
+        }
+
+
+
+
+        console.log(form_vals_new);
+
 
         $.ajax({
             url: SERVER_URI + 'wps/map',
             type: 'GET',
             data: {
-                impairbiota: form_vals_misc.impairbiota,
-                impairmetal: form_vals_misc.impairmetal,
-                scenario: form_vals_hab.scenario,
-                frst: form_vals_hab.frst,
-                ftwt: form_vals_hab.ftwt,
-                hbwt: form_vals_hab.hbwt,
-                open: form_vals_hab.open,
-                shrb: form_vals_hab.shrb,
-                year: form_vals_year.year,
-                firesup: form_vals_misc.firesup,
-                hiway: form_vals_misc.hiway,
-                insectdisease: form_vals_misc.insectdisease,
-                manure: form_vals_misc.manure,
-                ndams: form_vals_misc.ndams,
-                nitrofrt: form_vals_misc.nitrofrt,
-                totnitro: form_vals_misc.totnitro,
-                totsulf: form_vals_misc.totsulf,
-                triassic: form_vals_misc.triassic,
-                urbangrth: form_vals_misc.urbangrth,
-                slr_up: form_vals_misc.slr_up,
-                slr_lc: form_vals_misc.slr_lc,
-                wind: form_vals_misc.wind,
+                impairbiota: form_vals_new.impairbiota,
+                impairmetal: form_vals_new.impairmetal,
+                scenario: form_vals_new.scenario,
+                frst: form_vals_new.frst,
+                ftwt: form_vals_new.ftwt,
+                hbwt: form_vals_new.hbwt,
+                open: form_vals_new.open,
+                shrb: form_vals_new.shrb,
+                year: form_vals_new.year,
+                firesup: form_vals_new.firesup,
+                hiway: form_vals_new.hiway,
+                insectdisease: form_vals_new.insectdisease,
+                manure: form_vals_new.manure,
+                ndams: form_vals_new.ndams,
+                nitrofrt: form_vals_new.nitrofrt,
+                totnitro: form_vals_new.totnitro,
+                totsulf: form_vals_new.totsulf,
+                triassic: form_vals_new.triassic,
+                urbangrth: form_vals_new.urbangrth,
+                slr_up: form_vals_new.slr_up,
+                slr_lc: form_vals_new.slr_lc,
+                wind: form_vals_new.wind,
                 mode: 'model'
             },
             dataType: 'json'
