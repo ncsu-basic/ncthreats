@@ -143,24 +143,24 @@ Ext.onReady(function() {
     /////////////////////////////////////////////////////////////////////
     ////TMS label layers overlays
     /////////////////////////////////////////////////////////////////
-    var nchuc2_lbl = new OpenLayers.Layer.TMS("NC HUC 2 Label",
-        SERVER_URI + "tilecache/", {
-            layername: "huc2nc_lbl",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var nchuc4_lbl = new OpenLayers.Layer.TMS("NC HUC 4 Label",
-        SERVER_URI + "tilecache/", {
-            layername: "huc4nc_lbl",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+    // var nchuc2_lbl = new OpenLayers.Layer.TMS("NC HUC 2 Label",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "huc2nc_lbl",
+    //         type: "png",
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
+    // var nchuc4_lbl = new OpenLayers.Layer.TMS("NC HUC 4 Label",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "huc4nc_lbl",
+    //         type: "png",
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
     var nchuc6_lbl = new OpenLayers.Layer.TMS("River Basin Labels",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc_lbl",
@@ -486,7 +486,7 @@ Ext.onReady(function() {
 
 
     map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
-        nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
+        nchuc10, nchuc8, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
         gphy, osm, counties_base
     ]);
@@ -563,55 +563,7 @@ Ext.onReady(function() {
 
     }
 
-    // var featureinfo_format = new OpenLayers.Format.WMSGetFeatureInfo({
-    //     externalProjection: proj_4326,
-    //     internalProjection: proj_900913
-    // });
-
-    // var query_ctl = new OpenLayers.Control.WMSGetFeatureInfo({
-    //     url: SERVER_URI + 'geoserver/wms',
-    //     title: 'Identify features by clicking',
-    //     //layers : [nchuc12],
-    //     queryVisible: false,
-    //     infoFormat: "application/vnd.ogc.gml",
-    //     format: featureinfo_format
-    // });
-
-    // query_ctl.layers = [];
-
-    // // query_ctl.events.register("getfeatureinfo", this, showInfo);
-    // map.addControl(query_ctl);
-
     var selected_hucs = {};
-
-    //function to outline selected predefined areas of interest
-    // function showInfo(evt) {
-    //     console.log(selected_hucs);
-    //     if (evt.features && evt.features.length) {
-    //         for (var i = 0; i < evt.features.length; i++) {
-    //             //if selected feature is on then remove it
-    //             if (selected_hucs[evt.features[i].data[col_name]] === 'on') {
-    //                 selected_hucs[evt.features[i].data[col_name]] = 'off';
-    //                 var selected_features_drawn =
-    //                     map.getLayersByName("AOI Selection")[0].features;
-    //                 console.log(selected_features_drawn);
-    //                 for (var j = 0; j < selected_features_drawn.length; j++) {
-    //                     if (selected_features_drawn[j].data[col_name] ===
-    //                         evt.features[i].data[col_name]) {
-    //                         map.getLayersByName(
-    //                             "AOI Selection"
-    //                         )[0].removeFeatures(selected_features_drawn[j]);
-    //                     }
-    //                 }
-    //                 // else add feature
-    //             } else {
-    //                 selected_hucs[evt.features[i].data[col_name]] = 'on';
-    //                 highlightLayer.addFeatures(evt.features[i]);
-    //             }
-    //         }
-    //         highlightLayer.redraw();
-    //     }
-    // }
 
     //function to outline selected predefined areas of interest
     function showInfo2(evt) {
@@ -673,7 +625,7 @@ Ext.onReady(function() {
         new_selection();
         map.zoomToExtent(map_extent);
         var vis_lyrs = [counties, ncbcr, nchuc6, nchuc12,
-            nchuc10, nchuc8, nchuc2_lbl, nchuc4_lbl, nchuc6_lbl,
+            nchuc10, nchuc8, nchuc6_lbl,
             nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, results
         ];
         for (var i = 0; i < vis_lyrs.length; i++) {
@@ -807,18 +759,7 @@ Ext.onReady(function() {
         highlightLayer.setVisibility(true);
         if (sel_type === 'predefined') {
             switch (selected_predef) {
-                // case 'NC HUC 2':
-                //     // query_ctl.layers = [nchuc2_qry];
-                //     col_name = "huc2";
-                //     nchuc2.setVisibility(true);
-                //     nchuc2_lbl.setVisibility(true);
-                //     break;
-                // case 'NC HUC 4':
-                //     // query_ctl.layers = [nchuc4_qry];
-                //     col_name = "huc4";
-                //     nchuc4.setVisibility(true);
-                //     nchuc4_lbl.setVisibility(true);
-                //     break;
+
                 case 'NC River Basins':
                     // query_ctl.layers = [nchuc6_qry];
                     col_name = "huc6";
@@ -837,12 +778,6 @@ Ext.onReady(function() {
                     nchuc10.setVisibility(true);
                     nchuc10_lbl.setVisibility(true);
                     break;
-                    // case 'NC HUC 12':
-                    //     // query_ctl.layers = [nchuc12_qry];
-                    //     col_name = "huc_12";
-                    //     nchuc12.setVisibility(true);
-                    //     nchuc12_lbl.setVisibility(true);
-                    //     break;
                 case 'NC Counties':
                     // query_ctl.layers = [counties_qry];
                     col_name = "co_num";
@@ -869,8 +804,6 @@ Ext.onReady(function() {
         var selected_predef_new = 'na';
         var point_buffer = {};
         console.log(pts.length);
-
-
 
         if (sel_type !== 'predefined') {
             if (pts.length === 1) {
@@ -1139,8 +1072,6 @@ Ext.onReady(function() {
     ];
     comboStoreweights.loadData(comboData4);
 
-
-
     var threat_calcs_map = function() {
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
         console.log(form_vals_paneltop);
@@ -1148,118 +1079,113 @@ Ext.onReady(function() {
         var form_vals_new = {};
         form_vals_new.year = form_vals_paneltop.year;
         form_vals_new.scenario = form_vals_paneltop.scenario;
-        if (document.getElementById('frst_chk').checked){
+        if (document.getElementById('frst_chk').checked) {
             form_vals_new.frst = $("#frst_limit").val();
         } else {
             form_vals_new.frst = 'notinclude';
         }
 
-        if (document.getElementById('ftwt_chk').checked){
+        if (document.getElementById('ftwt_chk').checked) {
             form_vals_new.ftwt = $("#ftwt_limit").val();
         } else {
             form_vals_new.ftwt = 'notinclude';
         }
-        if (document.getElementById('open_chk').checked){
+        if (document.getElementById('open_chk').checked) {
             form_vals_new.open = $("#open_limit").val();
         } else {
             form_vals_new.open = 'notinclude';
         }
-        if (document.getElementById('hbwt_chk').checked){
+        if (document.getElementById('hbwt_chk').checked) {
             form_vals_new.hbwt = $("#hbwt_limit").val();
         } else {
             form_vals_new.hbwt = 'notinclude';
         }
-        if (document.getElementById('shrb_chk').checked){
+        if (document.getElementById('shrb_chk').checked) {
             form_vals_new.shrb = $("#shrb_limit").val();
         } else {
             form_vals_new.shrb = 'notinclude';
         }
-        if (document.getElementById('urbangrth_chk').checked){
+        if (document.getElementById('urbangrth_chk').checked) {
             form_vals_new.urbangrth = $("#urbangrth_limit").val();
         } else {
             form_vals_new.urbangrth = 'notinclude';
         }
-        if (document.getElementById('firesup_chk').checked){
+        if (document.getElementById('firesup_chk').checked) {
             form_vals_new.firesup = $("#firesup_limit").val();
         } else {
             form_vals_new.firesup = 'notinclude';
         }
-        if (document.getElementById('hiway_chk').checked){
+        if (document.getElementById('hiway_chk').checked) {
             form_vals_new.hiway = $("#hiway_limit").val();
         } else {
             form_vals_new.hiway = 'notinclude';
         }
-        if (document.getElementById('slr_up_chk').checked){
+        if (document.getElementById('slr_up_chk').checked) {
             form_vals_new.slr_up = $("#slr_up_limit").val();
         } else {
             form_vals_new.slr_up = 'notinclude';
         }
-        if (document.getElementById('slr_lc_chk').checked){
+        if (document.getElementById('slr_lc_chk').checked) {
             form_vals_new.slr_lc = $("#slr_lc_limit").val();
         } else {
             form_vals_new.slr_lc = 'notinclude';
         }
-        if (document.getElementById('triassic_chk').checked){
+        if (document.getElementById('triassic_chk').checked) {
             form_vals_new.triassic = $("#triassic_limit").val();
         } else {
             form_vals_new.triassic = 'notinclude';
         }
-        if (document.getElementById('wind_chk').checked){
+        if (document.getElementById('wind_chk').checked) {
             form_vals_new.wind = $("#wind_limit").val();
         } else {
             form_vals_new.wind = 'notinclude';
         }
-        if (document.getElementById('manure_chk').checked){
+        if (document.getElementById('manure_chk').checked) {
             form_vals_new.manure = $("#manure_limit").val();
         } else {
             form_vals_new.manure = 'notinclude';
         }
-        if (document.getElementById('nitrofrt_chk').checked){
+        if (document.getElementById('nitrofrt_chk').checked) {
             form_vals_new.nitrofrt = $("#nitrofrt_limit").val();
         } else {
             form_vals_new.nitrofrt = 'notinclude';
         }
-        if (document.getElementById('totnitro_chk').checked){
+        if (document.getElementById('totnitro_chk').checked) {
             form_vals_new.totnitro = $("#totnitro_limit").val();
         } else {
             form_vals_new.totnitro = 'notinclude';
         }
-        if (document.getElementById('totsulf_chk').checked){
+        if (document.getElementById('totsulf_chk').checked) {
             form_vals_new.totsulf = $("#totsulf_limit").val();
         } else {
             form_vals_new.totsulf = 'notinclude';
         }
-        if (document.getElementById('insectdisease_chk').checked){
+        if (document.getElementById('insectdisease_chk').checked) {
             form_vals_new.insectdisease = $("#insectdisease_limit").val();
         } else {
             form_vals_new.insectdisease = 'notinclude';
         }
-        if (document.getElementById('ndams_chk').checked){
+        if (document.getElementById('ndams_chk').checked) {
             form_vals_new.ndams = $("#ndams_limit").val();
         } else {
             form_vals_new.ndams = 'notinclude';
         }
-        if (document.getElementById('impairbiota_chk').checked){
+        if (document.getElementById('impairbiota_chk').checked) {
             form_vals_new.impairbiota = $("#impairbiota_limit").val();
         } else {
             form_vals_new.impairbiota = 'notinclude';
         }
-        if (document.getElementById('impairmetal_chk').checked){
+        if (document.getElementById('impairmetal_chk').checked) {
             form_vals_new.impairmetal = $("#impairmetal_limit").val();
         } else {
             form_vals_new.impairmetal = 'notinclude';
         }
-        if (document.getElementById('frst_chk').checked){
+        if (document.getElementById('frst_chk').checked) {
             form_vals_new.frst = $("#frst_limit").val();
         } else {
             form_vals_new.frst = 'notinclude';
         }
-
-
-
-
         console.log(form_vals_new);
-
 
         $.ajax({
             url: SERVER_URI + 'wps/map',
@@ -1358,8 +1284,8 @@ Ext.onReady(function() {
         var frmvals = lyrdesc.split(":");
         var form_vals = {};
         console.log(frmvals.length);
-        var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
-        var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
+        // var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
+        // var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
 
         form_vals.mode = 'single';
         form_vals = {
@@ -1387,113 +1313,112 @@ Ext.onReady(function() {
         var form_vals_new = {};
         form_vals_new.year = form_vals_paneltop.year;
         form_vals_new.scenario = form_vals_paneltop.scenario;
-        if (document.getElementById('frst_chk').checked){
+        if (document.getElementById('frst_chk').checked) {
             form_vals_new.frst = $("#frst_limit").val();
         } else {
             form_vals_new.frst = 'notinclude';
         }
 
-        if (document.getElementById('ftwt_chk').checked){
+        if (document.getElementById('ftwt_chk').checked) {
             form_vals_new.ftwt = $("#ftwt_limit").val();
         } else {
             form_vals_new.ftwt = 'notinclude';
         }
-        if (document.getElementById('open_chk').checked){
+        if (document.getElementById('open_chk').checked) {
             form_vals_new.open = $("#open_limit").val();
         } else {
             form_vals_new.open = 'notinclude';
         }
-        if (document.getElementById('hbwt_chk').checked){
+        if (document.getElementById('hbwt_chk').checked) {
             form_vals_new.hbwt = $("#hbwt_limit").val();
         } else {
             form_vals_new.hbwt = 'notinclude';
         }
-        if (document.getElementById('shrb_chk').checked){
+        if (document.getElementById('shrb_chk').checked) {
             form_vals_new.shrb = $("#shrb_limit").val();
         } else {
             form_vals_new.shrb = 'notinclude';
         }
-        if (document.getElementById('urbangrth_chk').checked){
+        if (document.getElementById('urbangrth_chk').checked) {
             form_vals_new.urbangrth = $("#urbangrth_limit").val();
         } else {
             form_vals_new.urbangrth = 'notinclude';
         }
-        if (document.getElementById('firesup_chk').checked){
+        if (document.getElementById('firesup_chk').checked) {
             form_vals_new.firesup = $("#firesup_limit").val();
         } else {
             form_vals_new.firesup = 'notinclude';
         }
-        if (document.getElementById('hiway_chk').checked){
+        if (document.getElementById('hiway_chk').checked) {
             form_vals_new.hiway = $("#hiway_limit").val();
         } else {
             form_vals_new.hiway = 'notinclude';
         }
-        if (document.getElementById('slr_up_chk').checked){
+        if (document.getElementById('slr_up_chk').checked) {
             form_vals_new.slr_up = $("#slr_up_limit").val();
         } else {
             form_vals_new.slr_up = 'notinclude';
         }
-        if (document.getElementById('slr_lc_chk').checked){
+        if (document.getElementById('slr_lc_chk').checked) {
             form_vals_new.slr_lc = $("#slr_lc_limit").val();
         } else {
             form_vals_new.slr_lc = 'notinclude';
         }
-        if (document.getElementById('triassic_chk').checked){
+        if (document.getElementById('triassic_chk').checked) {
             form_vals_new.triassic = $("#triassic_limit").val();
         } else {
             form_vals_new.triassic = 'notinclude';
         }
-        if (document.getElementById('wind_chk').checked){
+        if (document.getElementById('wind_chk').checked) {
             form_vals_new.wind = $("#wind_limit").val();
         } else {
             form_vals_new.wind = 'notinclude';
         }
-        if (document.getElementById('manure_chk').checked){
+        if (document.getElementById('manure_chk').checked) {
             form_vals_new.manure = $("#manure_limit").val();
         } else {
             form_vals_new.manure = 'notinclude';
         }
-        if (document.getElementById('nitrofrt_chk').checked){
+        if (document.getElementById('nitrofrt_chk').checked) {
             form_vals_new.nitrofrt = $("#nitrofrt_limit").val();
         } else {
             form_vals_new.nitrofrt = 'notinclude';
         }
-        if (document.getElementById('totnitro_chk').checked){
+        if (document.getElementById('totnitro_chk').checked) {
             form_vals_new.totnitro = $("#totnitro_limit").val();
         } else {
             form_vals_new.totnitro = 'notinclude';
         }
-        if (document.getElementById('totsulf_chk').checked){
+        if (document.getElementById('totsulf_chk').checked) {
             form_vals_new.totsulf = $("#totsulf_limit").val();
         } else {
             form_vals_new.totsulf = 'notinclude';
         }
-        if (document.getElementById('insectdisease_chk').checked){
+        if (document.getElementById('insectdisease_chk').checked) {
             form_vals_new.insectdisease = $("#insectdisease_limit").val();
         } else {
             form_vals_new.insectdisease = 'notinclude';
         }
-        if (document.getElementById('ndams_chk').checked){
+        if (document.getElementById('ndams_chk').checked) {
             form_vals_new.ndams = $("#ndams_limit").val();
         } else {
             form_vals_new.ndams = 'notinclude';
         }
-        if (document.getElementById('impairbiota_chk').checked){
+        if (document.getElementById('impairbiota_chk').checked) {
             form_vals_new.impairbiota = $("#impairbiota_limit").val();
         } else {
             form_vals_new.impairbiota = 'notinclude';
         }
-        if (document.getElementById('impairmetal_chk').checked){
+        if (document.getElementById('impairmetal_chk').checked) {
             form_vals_new.impairmetal = $("#impairmetal_limit").val();
         } else {
             form_vals_new.impairmetal = 'notinclude';
         }
-        if (document.getElementById('frst_chk').checked){
+        if (document.getElementById('frst_chk').checked) {
             form_vals_new.frst = $("#frst_limit").val();
         } else {
             form_vals_new.frst = 'notinclude';
         }
-
 
 
 
@@ -1593,33 +1518,33 @@ Ext.onReady(function() {
 
     // tree_huc12maps.getRootNode().expand();
 
-    var checkGrouphabitat = {
-        xtype: 'radiogroup',
-        fieldLabel: 'Habitat Type',
-        columns: 1,
-        items: [{
-            boxLabel: 'upland forest',
-            name: 'habitat',
-            inputValue: 'frst',
-            checked: true
-        }, {
-            boxLabel: 'wet forest',
-            name: 'habitat',
-            inputValue: 'ftwt'
-        }, {
-            boxLabel: 'open',
-            name: 'habitat',
-            inputValue: 'open'
-        }, {
-            boxLabel: 'wet herbaceous',
-            name: 'habitat',
-            inputValue: 'hbwt'
-        }, {
-            boxLabel: 'scrub-shrub',
-            name: 'habitat',
-            inputValue: 'shrb'
-        }]
-    };
+    // var checkGrouphabitat = {
+    //     xtype: 'radiogroup',
+    //     fieldLabel: 'Habitat Type',
+    //     columns: 1,
+    //     items: [{
+    //         boxLabel: 'upland forest',
+    //         name: 'habitat',
+    //         inputValue: 'frst',
+    //         checked: true
+    //     }, {
+    //         boxLabel: 'wet forest',
+    //         name: 'habitat',
+    //         inputValue: 'ftwt'
+    //     }, {
+    //         boxLabel: 'open',
+    //         name: 'habitat',
+    //         inputValue: 'open'
+    //     }, {
+    //         boxLabel: 'wet herbaceous',
+    //         name: 'habitat',
+    //         inputValue: 'hbwt'
+    //     }, {
+    //         boxLabel: 'scrub-shrub',
+    //         name: 'habitat',
+    //         inputValue: 'shrb'
+    //     }]
+    // };
 
 
 
@@ -1736,7 +1661,7 @@ Ext.onReady(function() {
 
     };
 
-
+    // function to draw individual thrt maps
     var formhuc12maps_chng = function(radclick) {
         var qry_str = "&map=" + radclick;
         console.log(qry_str);
@@ -1788,6 +1713,55 @@ Ext.onReady(function() {
 
 
 
+        });
+
+    };
+
+    // function called to preview effect of limit setting on threats
+    var preview_map = function(mymap, limit) {
+        // console.log(map, limit);
+        var form_vals_paneltop = modelpaneltop.getForm().getValues();
+        // console.log(form_vals_paneltop);
+
+        // var form_vals_new = {};
+        // form_vals_new.year = form_vals_paneltop.year;
+        // form_vals_new.scenario = form_vals_paneltop.scenario;
+
+        $.ajax({
+            type: "POST",
+            url: SERVER_URI + 'wps/preview_map',
+            data: {
+                map: mymap,
+                limit: limit,
+                scenario: form_vals_paneltop.scenario,
+                year: form_vals_paneltop.year
+            },
+            dataType: "json"
+        }).done(function(data) {
+            composite.setVisibility(false);
+            individual.setVisibility(true);
+            console.log(data);
+            for (var key in data.res) {
+                var thrt = data.res[key];
+
+                try {
+                    map.getLayersByName("Individual Threats")[0].
+                    getFeaturesByAttribute("huc12", key)[0].
+                    attributes.threat = thrt;
+                } catch (err) {
+                    console.log(key);
+                    console.log(thrt);
+
+                }
+            }
+            symbolsLookup["0"].fillColor = "#" + data.colors[0];
+            symbolsLookup["1"].fillColor = "#" + data.colors[1];
+            symbolsLookup["2"].fillColor = "#" + data.colors[2];
+            symbolsLookup["3"].fillColor = "#" + data.colors[3];
+            symbolsLookup["4"].fillColor = "#" + data.colors[4];
+            symbolsLookup["5"].fillColor = "#" + data.colors[5];
+            console.log(symbolsLookup["5"].fillColor);
+            map.getLayersByName("Individual Threats")[0].redraw();
         });
 
     };
@@ -2500,7 +2474,6 @@ Ext.onReady(function() {
     });
 
 
-
     var mapsmsg_top = new Ext.Container({
         width: 296,
         autoEl: 'div',
@@ -2835,94 +2808,103 @@ Ext.onReady(function() {
     };
 
     var model_script = function() {
-            // alert("test");
-            $(document).ready(function() {
-                $("#modellink1").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams1").toggle(500);
-                });
-                $("#modellink2").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams2").toggle(500);
-                });
-                $("#modellink3").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams3").toggle(500);
-                });
-                $("#modellink4").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams4").toggle(500);
-                });
-                $("#modellink5").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams5").toggle(500);
-                });
-                $("#modellink6").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams6").toggle(500);
-                });
-                $("#modellink7").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams7").toggle(500);
-                });
-                $("#modellink8").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams8").toggle(500);
-                });
-                $("#modellink9").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams9").toggle(500);
-                });
-                $("#modellink10").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams10").toggle(500);
-                });
-                $("#modellink11").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams11").toggle(500);
-                });
-                $("#modellink12").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams12").toggle(500);
-                });
-                $("#modellink13").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams13").toggle(500);
-                });
-                $("#modellink14").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams14").toggle(500);
-                });
-                $("#modellink15").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams15").toggle(500);
-                });
-                $("#modellink16").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams16").toggle(500);
-                });
-                $("#modellink17").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams17").toggle(500);
-                });
-                $("#modellink18").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams18").toggle(500);
-                });
-                $("#modellink19").click(function(e) {
-                    e.preventDefault();
-                    $("#modelparams19").toggle(500);
-                });
-
-                $("#modellink20").click(function(e) {
-                    e.preventDefault();
-                    console.log("test");
-                    $("#modelparams20").toggle(500);
-                });
-
+        // alert("test");
+        $(document).ready(function() {
+            $("#modellink1").click(function(e) {
+                e.preventDefault();
+                $("#modelparams1").toggle(500);
             });
-        }
-        // load header page with links and title
+            $("#modellink2").click(function(e) {
+                e.preventDefault();
+                $("#modelparams2").toggle(500);
+            });
+            $("#modellink3").click(function(e) {
+                e.preventDefault();
+                $("#modelparams3").toggle(500);
+            });
+            $("#modellink4").click(function(e) {
+                e.preventDefault();
+                $("#modelparams4").toggle(500);
+            });
+            $("#modellink5").click(function(e) {
+                e.preventDefault();
+                $("#modelparams5").toggle(500);
+            });
+            $("#modellink6").click(function(e) {
+                e.preventDefault();
+                $("#modelparams6").toggle(500);
+            });
+            $("#modellink7").click(function(e) {
+                e.preventDefault();
+                $("#modelparams7").toggle(500);
+            });
+            $("#modellink8").click(function(e) {
+                e.preventDefault();
+                $("#modelparams8").toggle(500);
+            });
+            $("#modellink9").click(function(e) {
+                e.preventDefault();
+                $("#modelparams9").toggle(500);
+            });
+            $("#modellink10").click(function(e) {
+                e.preventDefault();
+                $("#modelparams10").toggle(500);
+            });
+            $("#modellink11").click(function(e) {
+                e.preventDefault();
+                $("#modelparams11").toggle(500);
+            });
+            $("#modellink12").click(function(e) {
+                e.preventDefault();
+                $("#modelparams12").toggle(500);
+            });
+            $("#modellink13").click(function(e) {
+                e.preventDefault();
+                $("#modelparams13").toggle(500);
+            });
+            $("#modellink14").click(function(e) {
+                e.preventDefault();
+                $("#modelparams14").toggle(500);
+            });
+            $("#modellink15").click(function(e) {
+                e.preventDefault();
+                $("#modelparams15").toggle(500);
+            });
+            $("#modellink16").click(function(e) {
+                e.preventDefault();
+                $("#modelparams16").toggle(500);
+            });
+            $("#modellink17").click(function(e) {
+                e.preventDefault();
+                $("#modelparams17").toggle(500);
+            });
+            $("#modellink18").click(function(e) {
+                e.preventDefault();
+                $("#modelparams18").toggle(500);
+            });
+            $("#modellink19").click(function(e) {
+                e.preventDefault();
+                $("#modelparams19").toggle(500);
+            });
+
+            $("#modellink20").click(function(e) {
+                e.preventDefault();
+                console.log("test");
+                $("#modelparams20").toggle(500);
+            });
+            $(".preview").click(function(e) {
+                e.preventDefault();
+                // console.log(e.currentTarget.name);
+                var limit_val_id = e.currentTarget.name;
+                var limit_val = $("#" + limit_val_id).val();
+                preview_map(limit_val_id, limit_val);
+            });
+
+
+
+        });
+    };
+    // load header page with links and title
     var el = Ext.getCmp("infopage");
     var mgr = el.getUpdater();
     mgr.update({
