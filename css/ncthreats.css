@@ -114,9 +114,7 @@ div.olControlMousePosition {
 }*/
 
 #model_page img {
-	height: 100px;
-	width: 100px;
-	/*padding-left: 50px;*/
+	width: 270px;
 }
 
 .model_param {
@@ -153,7 +151,7 @@ div.olControlMousePosition {
 
 .default_params {
 	display: none;
-	padding-left: 20px;
+	/*padding-left: 20px;*/
 	font-family: sans-serif;
 }
 .param_container a{

@@ -9,21 +9,51 @@ drop table lcscen_c_ha;
 drop table lcscen_d_ha;
 drop table lcscen_e_ha;
 drop table lcscen_x_ha;
-
-
-
 drop table energy_dev;
 drop table forest_health;
 drop table transportation;
-
 drop table urban_den;
 drop table urban_ha;
-
-
 drop table legend_data;
 drop table wind_avg;
 drop table slamm_lc_ha;
 drop table slamm_up_ha;
+
+drop table urban;
+drop table fsupp;
+
+create table urban(
+HUC_12 char(12) primary key,
+urb10ha numeric(10),
+urb20ha numeric(10),
+urb30ha numeric(10),
+urb40ha numeric(10),
+urb50ha numeric(10),
+urb10dt numeric(10),
+urb20dt numeric(10),
+urb30dt numeric(10),
+urb40dt numeric(10),
+urb50dt numeric(10),
+urb10ps numeric(10),
+urb20ps numeric(10),
+urb30ps numeric(10),
+urb40ps numeric(10),
+urb50ps numeric(10)
+);
+
+create table fsupp(
+HUC_12 char(12) primary key,
+fsupp10dt numeric(10),
+fsupp20dt numeric(10),
+fsupp30dt numeric(10),
+fsupp40dt numeric(10),
+fsupp50dt numeric(10),
+fsupp10ps numeric(10),
+fsupp20ps numeric(10),
+fsupp30ps numeric(10),
+fsupp40ps numeric(10),
+fsupp50ps numeric(10)
+);
 
 create table legend_data(
 layer_desc varchar(100),
@@ -338,5 +368,8 @@ copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data2.txt' 
 copy transportation from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_mha.txt' with csv header;
 copy slamm_lc_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_lc_ha.txt' with csv header;
 copy slamm_up_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_ha.txt' with csv header;
+
+copy urban from '/home/jim/Desktop/ncthreats_tables/tblUrban.txt' with csv header;
+copy fsupp from '/home/jim/Desktop/ncthreats_tables/tblFSupp.txt' with csv header;
 
 copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data3.csv' with csv header;
