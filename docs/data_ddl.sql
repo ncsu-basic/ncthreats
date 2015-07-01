@@ -56,6 +56,7 @@ drop table slamm_up_ha;
 drop table slamm_up_rnk;
 
 
+
 create  table ea_pol(
 HUC_12 char(12) primary key,
 BNF numeric(10),
