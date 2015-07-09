@@ -246,3 +246,37 @@
     //     id: "print_tab_id",
     //     items: [formPanel]
     // });
+
+    // var nchuc2_lbl = new OpenLayers.Layer.TMS("NC HUC 2 Label",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "huc2nc_lbl",
+    //         type: "png",
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
+    // var nchuc4_lbl = new OpenLayers.Layer.TMS("NC HUC 4 Label",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "huc4nc_lbl",
+    //         type: "png",
+    //         isBaseLayer: false,
+    //         visibility: false,
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
+
+    // var comboStoreweights = new Ext.data.ArrayStore({
+    //     fields: ['layerName', 'layerId']
+    // });
+    // var comboData4 = [
+    //     ["do not include", "notinclude"],
+    //     ["INCLUDE: no limit", '0'],
+    //     ["INCLUDE: >1 limit", '1'],
+    //     ["INCLUDE: >2 limit", '2'],
+    //     ["INCLUDE: >3 limit", '3'],
+    //     ["INCLUDE: >4 limit", '4'],
+    //     ["INCLUDE: >5 limit", '5']
+    //     //        ["INCLUDE: 6.00 weight", '6.00']
+    // ];
+    // comboStoreweights.loadData(comboData4);
