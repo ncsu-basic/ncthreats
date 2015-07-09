@@ -1466,8 +1466,35 @@ Ext.onReady(function() {
 
     };
 
+    var limit_defaults = {
+        frst_limit: 35,
+        ftwt_limit: 30,
+        open_limit: 50,
+        hbwt_limit: 25,
+        shrb_limit: 35,
+        urbangrth_limit: 25,
+        firesup_limit: 40,
+        hiway_limit: 25,
+        slr_up_limit: 25,
+        slr_lc_limit: 30,
+        triassic_limit: 25,
+        wind_limit: 50,
+        manure_limit: 25,
+        nitrofrt_limit: 25,
+        totnitro_limit: 35,
+        totsulf_limit: 25,
+        insectdisease_limit: 10,
+        ndams_limit: 15,
+        impairbiota_limit: 35,
+        impairmetal_limit: 50
+    }
+
     var threat_calcs_reset = function(){
-        console.log("test");
+        var limit;
+        for (limit in limit_defaults){
+            console.log(limit);
+            $("#" + limit).val(limit_defaults[limit]);
+        }
     };
 
 
@@ -2601,6 +2628,7 @@ Ext.onReady(function() {
                 var limit_val = $("#" + limit_val_id).val();
                 preview_map(limit_val_id, limit_val);
             });
+            threat_calcs_reset();
 
 
 
