@@ -143,24 +143,7 @@ Ext.onReady(function() {
     /////////////////////////////////////////////////////////////////////
     ////TMS label layers overlays
     /////////////////////////////////////////////////////////////////
-    // var nchuc2_lbl = new OpenLayers.Layer.TMS("NC HUC 2 Label",
-    //     SERVER_URI + "tilecache/", {
-    //         layername: "huc2nc_lbl",
-    //         type: "png",
-    //         isBaseLayer: false,
-    //         visibility: false,
-    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-    //     }
-    // );
-    // var nchuc4_lbl = new OpenLayers.Layer.TMS("NC HUC 4 Label",
-    //     SERVER_URI + "tilecache/", {
-    //         layername: "huc4nc_lbl",
-    //         type: "png",
-    //         isBaseLayer: false,
-    //         visibility: false,
-    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-    //     }
-    // );
+
     var nchuc6_lbl = new OpenLayers.Layer.TMS("River Basin Labels",
         SERVER_URI + "tilecache/", {
             layername: "huc6nc_lbl",
@@ -1057,20 +1040,7 @@ Ext.onReady(function() {
     ];
     comboStorescenarios.loadData(comboData3);
 
-    var comboStoreweights = new Ext.data.ArrayStore({
-        fields: ['layerName', 'layerId']
-    });
-    var comboData4 = [
-        ["do not include", "notinclude"],
-        ["INCLUDE: no limit", '0'],
-        ["INCLUDE: >1 limit", '1'],
-        ["INCLUDE: >2 limit", '2'],
-        ["INCLUDE: >3 limit", '3'],
-        ["INCLUDE: >4 limit", '4'],
-        ["INCLUDE: >5 limit", '5']
-        //        ["INCLUDE: 6.00 weight", '6.00']
-    ];
-    comboStoreweights.loadData(comboData4);
+
 
     var threat_calcs_map = function() {
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
@@ -1496,56 +1466,42 @@ Ext.onReady(function() {
 
     };
 
-    // var threat_calcs_ssheet = function() {
+    var limit_defaults = {
+        frst_limit: 35,
+        ftwt_limit: 30,
+        open_limit: 50,
+        hbwt_limit: 25,
+        shrb_limit: 35,
+        urbangrth_limit: 25,
+        firesup_limit: 40,
+        hiway_limit: 25,
+        slr_up_limit: 25,
+        slr_lc_limit: 30,
+        triassic_limit: 25,
+        wind_limit: 50,
+        manure_limit: 25,
+        nitrofrt_limit: 25,
+        totnitro_limit: 35,
+        totsulf_limit: 25,
+        insectdisease_limit: 10,
+        ndams_limit: 15,
+        impairbiota_limit: 35,
+        impairmetal_limit: 50
+    }
 
-    //     var qry_str = $.param(form_vals);
-    //     $.ajax({
-    //         url: SERVER_URI + 'wps/ssheet?' + qry_str,
-    //         type: 'GET'
-    //     }).done(function(data, textStatus, jqXHR) {
-    //         if (jqXHR.status === 201) {
-    //             var csvresource = jqXHR.getResponseHeader('Location');
-    //             $('#dnlds').attr('action', csvresource);
-    //             $('#dnlds').submit();
-    //         } else {
-    //             console.log("error" + jqXHR.status);
-    //         }
-    //     });
-    // };
+    var threat_calcs_reset = function(){
+        var limit;
+        for (limit in limit_defaults){
+            console.log(limit);
+            $("#" + limit).val(limit_defaults[limit]);
+        }
+    };
+
 
     var show_legend_flag = true;
     // console.log(habitats);
 
     // tree_huc12maps.getRootNode().expand();
-
-    // var checkGrouphabitat = {
-    //     xtype: 'radiogroup',
-    //     fieldLabel: 'Habitat Type',
-    //     columns: 1,
-    //     items: [{
-    //         boxLabel: 'upland forest',
-    //         name: 'habitat',
-    //         inputValue: 'frst',
-    //         checked: true
-    //     }, {
-    //         boxLabel: 'wet forest',
-    //         name: 'habitat',
-    //         inputValue: 'ftwt'
-    //     }, {
-    //         boxLabel: 'open',
-    //         name: 'habitat',
-    //         inputValue: 'open'
-    //     }, {
-    //         boxLabel: 'wet herbaceous',
-    //         name: 'habitat',
-    //         inputValue: 'hbwt'
-    //     }, {
-    //         boxLabel: 'scrub-shrub',
-    //         name: 'habitat',
-    //         inputValue: 'shrb'
-    //     }]
-    // };
-
 
 
     var modelmsg_panel = new Ext.Panel({
@@ -1621,10 +1577,10 @@ Ext.onReady(function() {
         },
 
         buttons: [
-            // {
-            //     text: "Spreadsheet",
-            //     handler: threat_calcs_ssheet
-            // },
+            {
+                text: "Reset",
+                handler: threat_calcs_reset
+            },
             {
                 text: "Report",
                 handler: threat_calcs_report
@@ -1768,157 +1724,6 @@ Ext.onReady(function() {
 
 
 
-    var open_user_tab = function(firstname, username) {
-        console.log(username);
-        console.log(firstname);
-        var loginmsg = "<p>Hello " + firstname + "</p>";
-        loginmsg += "<p> You are logged in as " + username + "</p>";
-        loginmsg += "<p>Open my <a target='_blank' href='" +
-            SERVER_URI + "wps/user/" + username + "'>page</a>.</p>";
-        $("#login-msg").html(loginmsg);
-        Ext.getCmp('userpanel').expand();
-    };
-
-    var login_form = new Ext.FormPanel({
-        labelWidth: 80,
-        // url: SERVER_URI + "wps/login",
-        frame: true,
-        title: 'Please Login',
-        defaultType: 'textfield',
-        monitorValid: true,
-        items: [{
-            fieldLabel: 'Username',
-            name: 'loginUsername'
-                // allowBlank: false
-        }, {
-            fieldLabel: 'Password',
-            name: 'loginPassword',
-            inputType: 'password'
-                // allowBlank: false
-        }],
-        buttons: [{
-            text: 'Login',
-            handler: function() {
-                console.log(login_form.getForm().getValues());
-                var username = login_form.getForm().getValues().loginUsername;
-                var passwd = login_form.getForm().getValues().loginPassword;
-                $.ajax({
-                    type: "POST",
-                    url: SERVER_URI + "wps/login",
-                    data: {
-                        loginUsername: username,
-                        loginPassword: passwd
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        if (data.success) {
-                            Ext.Msg.alert('Status',
-                                'Login Successful!',
-                                function(btn) {
-                                    if (btn == 'ok') {}
-                                });
-                            open_user_tab(data.firstname, data.username);
-
-                        }
-                    }
-                });
-            }
-        }]
-    });
-
-    var passwdreset = function() {
-        var email = passwdresetPanel.getForm().getValues().email;
-        console.log(email);
-        $.ajax({
-            type: "POST",
-            url: SERVER_URI + "wps/reset",
-            data: {
-                email: email
-            },
-            dataType: "json",
-            success: function(data) {
-                if (data.success) {
-                    Ext.Msg.alert('Status',
-                        data.msg,
-                        function(btn) {
-                            if (btn == 'ok') {}
-                        });
-                }
-            }
-        });
-    };
-
-    var passwdresetPanel = new Ext.FormPanel({
-        labelWidth: 80, // label settings here cascade unless overridden
-        frame: true,
-        title: 'Password reset',
-        // bodyStyle: 'padding:5px 15px 0',
-        // width: 296,
-        defaults: {
-            width: 200
-        },
-        defaultType: 'textfield',
-
-        items: [{
-            fieldLabel: 'email',
-            name: 'email',
-            width: 180
-        }],
-
-        buttons: [{
-            text: 'Submit',
-            handler: passwdreset
-        }]
-    });
-
-    var passwdchng = function() {
-        console.log('changing passwd');
-        var newpasswd = passwdchngPanel.getForm().getValues().passwd;
-        console.log(newpasswd);
-        $.ajax({
-            url: SERVER_URI + "wps/passwdchng",
-            type: "POST",
-            data: {
-                'newpasswd': newpasswd
-            },
-            dataType: "json",
-            success: function(data) {
-                console.log(data);
-                if (data.success) {
-                    Ext.Msg.alert('Status',
-                        'Password changed.',
-                        function(btn) {
-                            if (btn == 'ok') {}
-                        });
-
-                }
-            }
-        });
-    };
-
-    var passwdchngPanel = new Ext.FormPanel({
-        labelWidth: 120, // label settings here cascade unless overridden
-        frame: true,
-        title: 'Password change',
-        // bodyStyle: 'padding:5px 15px 0',
-        // width: 296,
-        defaults: {
-            width: 200
-        },
-        defaultType: 'textfield',
-
-        items: [{
-            fieldLabel: 'new password',
-            name: 'passwd',
-            width: 150
-        }],
-
-        buttons: [{
-            text: 'Submit',
-            handler: passwdchng
-        }]
-    });
-
     /////////////////////////////////////////
     // start GeoExt config
     ///////////////////////////////////////////////
@@ -2016,8 +1821,8 @@ Ext.onReady(function() {
     }).show();
 
     var data = ['dddddd', 'dddddd', 'dddddd', 'dddddd', 'dddddd', 'dddddd'];
-    var width = 420,
-        barHeight = 25;
+    // var width = 420,
+     var barHeight = 25;
 
     var lgd = d3.select("#lgnddiv")
         .attr("height", 220)
@@ -2271,9 +2076,9 @@ Ext.onReady(function() {
             // })
     });
 
-    function tree_listener() {
-        console.log("test");
-    }
+    // function tree_listener() {
+    //     console.log("test");
+    // }
 
     ///////////////////////////////////////////////////////////////
     // data tab
@@ -2556,82 +2361,6 @@ Ext.onReady(function() {
 
 
 
-    var login_html = ["<h2>Registration</h2>",
-        "<p>If you have not registered please visit the",
-        "<a href='",
-        SERVER_URI + 'wps/register',
-        "' target='_blank'> registration</a> page.</p>"
-    ];
-
-    var login_panel = new Ext.Panel({
-        title: 'Login',
-        items: [login_form, {
-                xtype: 'container',
-                autoEl: 'div',
-                cls: 'mycontent',
-                html: login_html.join('')
-            },
-            passwdresetPanel
-            // {
-            //     xtype: 'button',
-            //     text: 'MyPage'
-            // }
-        ],
-        // cls: 'help',
-        autoScroll: true
-    });
-
-    var user_panel = new Ext.Panel({
-        title: 'User',
-        id: 'userpanel',
-        items: [{
-                xtype: 'spacer',
-                height: 60,
-                cls: 'mycontent',
-                id: 'login-msg'
-            },
-            passwdchngPanel
-        ]
-    });
-
-
-
-    function handleActivate(tab) {
-        console.log(tab.title + ' was activated.');
-        $.ajax({
-            url: SERVER_URI + "wps/loginchk",
-            data: {},
-            dataType: "json",
-            success: function(data) {
-                if (data.loggedin) {
-                    console.log(data.username);
-                    open_user_tab(data.firstname, data.username);
-                } else {
-                    console.log('not logged in');
-                }
-            }
-        });
-    }
-
-    var login_accordion = new Ext.Panel({
-        title: 'User',
-        layout: 'accordion',
-        defaults: {
-            // applied to each contained panel
-            //bodyStyle : 'padding:15px'
-        },
-        items: [login_panel, user_panel],
-        listeners: {
-            activate: handleActivate
-        }
-    });
-
-    // var print_tab = new Ext.Panel({
-    //     title: 'Print',
-    //     autoScroll: true,
-    //     id: "print_tab_id",
-    //     items: [formPanel]
-    // });
 
     var print_tab = new Ext.Container({
         autoEl: 'div',
@@ -2899,6 +2628,7 @@ Ext.onReady(function() {
                 var limit_val = $("#" + limit_val_id).val();
                 preview_map(limit_val_id, limit_val);
             });
+            threat_calcs_reset();
 
 
 
