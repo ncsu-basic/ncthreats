@@ -1710,6 +1710,16 @@ Ext.onReady(function() {
 
                 }
             }
+            if (legend_titles1[data.map]) {
+                lgd_title.text(legend_titles1[data.map].split('?')[0]);
+                lgd_title2.text(legend_titles1[data.map].split('?')[1]);
+            } else {
+                lgd_title.text("not set");
+                lgd_title2.text("not set");
+                console.log(data.map);
+            }
+
+
             symbolsLookup["0"].fillColor = "#" + data.colors[0];
             symbolsLookup["1"].fillColor = "#" + data.colors[1];
             symbolsLookup["2"].fillColor = "#" + data.colors[2];
@@ -1718,6 +1728,18 @@ Ext.onReady(function() {
             symbolsLookup["5"].fillColor = "#" + data.colors[5];
             console.log(symbolsLookup["5"].fillColor);
             map.getLayersByName("Individual Threats")[0].redraw();
+
+            lgd_text.text(function(d, i) {
+                return data.lgd_text[i];
+            });
+
+             lgd_color.style("fill", function(d, i) {
+                return "#" + data.colors[i];
+            });
+
+            $('#lgnddiv').css('display', 'block');
+            $('#lgdimg').css('display', 'none');
+
         });
 
     };
