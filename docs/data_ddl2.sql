@@ -858,4 +858,4 @@ copy TDST from '/home/jim/Desktop/threats/tblTDST.txt' with csv header;
 copy Triassic from '/home/jim/Desktop/threats/tblTriassic.txt' with csv header;
 copy WPC from '/home/jim/Desktop/threats/tblWPC.txt' with csv header;
 
-copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data3.csv' with csv header;
+copy legend_data from '/home/jim/Desktop/threats/legend_data3.csv' with csv header;
