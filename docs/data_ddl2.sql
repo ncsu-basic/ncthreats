@@ -1,26 +1,32 @@
 
 
 
-drop table ea_pol;
-drop table ea_h20;
-drop table lcscen_a_ha;
-drop table lcscen_b_ha;
-drop table lcscen_c_ha;
-drop table lcscen_d_ha;
-drop table lcscen_e_ha;
-drop table lcscen_x_ha;
-drop table energy_dev;
-drop table forest_health;
-drop table transportation;
-drop table urban_den;
-drop table urban_ha;
+
+drop table lcscen_a;
+drop table lcscen_b;
+drop table lcscen_c;
+drop table lcscen_d;
+drop table lcscen_e;
+drop table lcscen_x;
+
 drop table legend_data;
-drop table wind_avg;
-drop table slamm_lc_ha;
-drop table slamm_up_ha;
 
 drop table urban;
 drop table fsupp;
+
+drop table BioImpLen;
+drop table DCLRds;
+drop table FHlth;
+drop table Fert;
+drop table Manu;
+drop table MetImpLen;
+drop table NID;
+drop table SLRlc;
+drop table SLRup;
+drop table TDNT;
+drop table TDST;
+drop table Triassic;
+drop table WPC;
 
 create table urban(
 HUC_12 char(12) primary key,
@@ -84,39 +90,12 @@ range6_low numeric(10,3),
 range6_high numeric(10,3)
 );
 
--- start indiv threats data
--- might be replaced later
 
-create  table ea_pol(
+
+
+create  table lcscen_a(
 HUC_12 char(12) primary key,
-BNF real,
-CBNF real,
-MANU real,
-FERT real,
-TD_N_T real,
-TD_S_T real
-);
-
-create  table ea_h20(
-HUC_12 char(12) primary key,
-BioImpLen real,
-MetImpLen real,
-NutImpLen real,
-FishImpLen real,
-HabImpLen real,
-TempImpLen real,
-PolImpLen real,
-OtherLen real,
-TotImpLen real,
-TotalLengt real,
-StreamDens real,
-NID real,
-MGAL real
-);
-
-
-create  table lcscen_a_ha(
-HUC_12 char(12) primary key,
+LCScen text,
 frst10ha real,
 frst20ha real,
 frst30ha real,
@@ -141,11 +120,88 @@ shrb10ha real,
 shrb20ha real,
 shrb30ha real,
 shrb40ha real,
-shrb50ha real
+shrb50ha real,
+frst10pct real,
+frst20pct real,
+frst30pct real,
+frst40pct real,
+frst50pct real,
+ftwt10pct real,
+ftwt20pct real,
+ftwt30pct real,
+ftwt40pct real,
+ftwt50pct real,
+hbwt10pct real,
+hbwt20pct real,
+hbwt30pct real,
+hbwt40pct real,
+hbwt50pct real,
+open10pct real,
+open20pct real,
+open30pct real,
+open40pct real,
+open50pct real,
+shrb10pct real,
+shrb20pct real,
+shrb30pct real,
+shrb40pct real,
+shrb50pct real,
+frst10dt real,
+frst20dt real,
+frst30dt real,
+frst40dt real,
+frst50dt real,
+ftwt10dt real,
+ftwt20dt real,
+ftwt30dt real,
+ftwt40dt real,
+ftwt50dt real,
+hbwt10dt real,
+hbwt20dt real,
+hbwt30dt real,
+hbwt40dt real,
+hbwt50dt real,
+open10dt real,
+open20dt real,
+open30dt real,
+open40dt real,
+open50dt real,
+shrb10dt real,
+shrb20dt real,
+shrb30dt real,
+shrb40dt real,
+shrb50dt real,
+frst10ps real,
+frst20ps real,
+frst30ps real,
+frst40ps real,
+frst50ps real,
+ftwt10ps real,
+ftwt20ps real,
+ftwt30ps real,
+ftwt40ps real,
+ftwt50ps real,
+hbwt10ps real,
+hbwt20ps real,
+hbwt30ps real,
+hbwt40ps real,
+hbwt50ps real,
+open10ps real,
+open20ps real,
+open30ps real,
+open40ps real,
+open50ps real,
+shrb10ps real,
+shrb20ps real,
+shrb30ps real,
+shrb40ps real,
+shrb50ps real
 );
 
-create  table lcscen_b_ha(
+
+create  table lcscen_b(
 HUC_12 char(12) primary key,
+LCScen text,
 frst10ha real,
 frst20ha real,
 frst30ha real,
@@ -170,11 +226,88 @@ shrb10ha real,
 shrb20ha real,
 shrb30ha real,
 shrb40ha real,
-shrb50ha real
+shrb50ha real,
+frst10pct real,
+frst20pct real,
+frst30pct real,
+frst40pct real,
+frst50pct real,
+ftwt10pct real,
+ftwt20pct real,
+ftwt30pct real,
+ftwt40pct real,
+ftwt50pct real,
+hbwt10pct real,
+hbwt20pct real,
+hbwt30pct real,
+hbwt40pct real,
+hbwt50pct real,
+open10pct real,
+open20pct real,
+open30pct real,
+open40pct real,
+open50pct real,
+shrb10pct real,
+shrb20pct real,
+shrb30pct real,
+shrb40pct real,
+shrb50pct real,
+frst10dt real,
+frst20dt real,
+frst30dt real,
+frst40dt real,
+frst50dt real,
+ftwt10dt real,
+ftwt20dt real,
+ftwt30dt real,
+ftwt40dt real,
+ftwt50dt real,
+hbwt10dt real,
+hbwt20dt real,
+hbwt30dt real,
+hbwt40dt real,
+hbwt50dt real,
+open10dt real,
+open20dt real,
+open30dt real,
+open40dt real,
+open50dt real,
+shrb10dt real,
+shrb20dt real,
+shrb30dt real,
+shrb40dt real,
+shrb50dt real,
+frst10ps real,
+frst20ps real,
+frst30ps real,
+frst40ps real,
+frst50ps real,
+ftwt10ps real,
+ftwt20ps real,
+ftwt30ps real,
+ftwt40ps real,
+ftwt50ps real,
+hbwt10ps real,
+hbwt20ps real,
+hbwt30ps real,
+hbwt40ps real,
+hbwt50ps real,
+open10ps real,
+open20ps real,
+open30ps real,
+open40ps real,
+open50ps real,
+shrb10ps real,
+shrb20ps real,
+shrb30ps real,
+shrb40ps real,
+shrb50ps real
 );
 
-create  table lcscen_c_ha(
+
+create  table lcscen_c(
 HUC_12 char(12) primary key,
+LCScen text,
 frst10ha real,
 frst20ha real,
 frst30ha real,
@@ -199,11 +332,88 @@ shrb10ha real,
 shrb20ha real,
 shrb30ha real,
 shrb40ha real,
-shrb50ha real
+shrb50ha real,
+frst10pct real,
+frst20pct real,
+frst30pct real,
+frst40pct real,
+frst50pct real,
+ftwt10pct real,
+ftwt20pct real,
+ftwt30pct real,
+ftwt40pct real,
+ftwt50pct real,
+hbwt10pct real,
+hbwt20pct real,
+hbwt30pct real,
+hbwt40pct real,
+hbwt50pct real,
+open10pct real,
+open20pct real,
+open30pct real,
+open40pct real,
+open50pct real,
+shrb10pct real,
+shrb20pct real,
+shrb30pct real,
+shrb40pct real,
+shrb50pct real,
+frst10dt real,
+frst20dt real,
+frst30dt real,
+frst40dt real,
+frst50dt real,
+ftwt10dt real,
+ftwt20dt real,
+ftwt30dt real,
+ftwt40dt real,
+ftwt50dt real,
+hbwt10dt real,
+hbwt20dt real,
+hbwt30dt real,
+hbwt40dt real,
+hbwt50dt real,
+open10dt real,
+open20dt real,
+open30dt real,
+open40dt real,
+open50dt real,
+shrb10dt real,
+shrb20dt real,
+shrb30dt real,
+shrb40dt real,
+shrb50dt real,
+frst10ps real,
+frst20ps real,
+frst30ps real,
+frst40ps real,
+frst50ps real,
+ftwt10ps real,
+ftwt20ps real,
+ftwt30ps real,
+ftwt40ps real,
+ftwt50ps real,
+hbwt10ps real,
+hbwt20ps real,
+hbwt30ps real,
+hbwt40ps real,
+hbwt50ps real,
+open10ps real,
+open20ps real,
+open30ps real,
+open40ps real,
+open50ps real,
+shrb10ps real,
+shrb20ps real,
+shrb30ps real,
+shrb40ps real,
+shrb50ps real
 );
 
-create  table lcscen_d_ha(
+
+create  table lcscen_d(
 HUC_12 char(12) primary key,
+LCScen text,
 frst10ha real,
 frst20ha real,
 frst30ha real,
@@ -228,11 +438,88 @@ shrb10ha real,
 shrb20ha real,
 shrb30ha real,
 shrb40ha real,
-shrb50ha real
+shrb50ha real,
+frst10pct real,
+frst20pct real,
+frst30pct real,
+frst40pct real,
+frst50pct real,
+ftwt10pct real,
+ftwt20pct real,
+ftwt30pct real,
+ftwt40pct real,
+ftwt50pct real,
+hbwt10pct real,
+hbwt20pct real,
+hbwt30pct real,
+hbwt40pct real,
+hbwt50pct real,
+open10pct real,
+open20pct real,
+open30pct real,
+open40pct real,
+open50pct real,
+shrb10pct real,
+shrb20pct real,
+shrb30pct real,
+shrb40pct real,
+shrb50pct real,
+frst10dt real,
+frst20dt real,
+frst30dt real,
+frst40dt real,
+frst50dt real,
+ftwt10dt real,
+ftwt20dt real,
+ftwt30dt real,
+ftwt40dt real,
+ftwt50dt real,
+hbwt10dt real,
+hbwt20dt real,
+hbwt30dt real,
+hbwt40dt real,
+hbwt50dt real,
+open10dt real,
+open20dt real,
+open30dt real,
+open40dt real,
+open50dt real,
+shrb10dt real,
+shrb20dt real,
+shrb30dt real,
+shrb40dt real,
+shrb50dt real,
+frst10ps real,
+frst20ps real,
+frst30ps real,
+frst40ps real,
+frst50ps real,
+ftwt10ps real,
+ftwt20ps real,
+ftwt30ps real,
+ftwt40ps real,
+ftwt50ps real,
+hbwt10ps real,
+hbwt20ps real,
+hbwt30ps real,
+hbwt40ps real,
+hbwt50ps real,
+open10ps real,
+open20ps real,
+open30ps real,
+open40ps real,
+open50ps real,
+shrb10ps real,
+shrb20ps real,
+shrb30ps real,
+shrb40ps real,
+shrb50ps real
 );
 
-create  table lcscen_e_ha(
+
+create  table lcscen_e(
 HUC_12 char(12) primary key,
+LCScen text,
 frst10ha real,
 frst20ha real,
 frst30ha real,
@@ -257,11 +544,88 @@ shrb10ha real,
 shrb20ha real,
 shrb30ha real,
 shrb40ha real,
-shrb50ha real
+shrb50ha real,
+frst10pct real,
+frst20pct real,
+frst30pct real,
+frst40pct real,
+frst50pct real,
+ftwt10pct real,
+ftwt20pct real,
+ftwt30pct real,
+ftwt40pct real,
+ftwt50pct real,
+hbwt10pct real,
+hbwt20pct real,
+hbwt30pct real,
+hbwt40pct real,
+hbwt50pct real,
+open10pct real,
+open20pct real,
+open30pct real,
+open40pct real,
+open50pct real,
+shrb10pct real,
+shrb20pct real,
+shrb30pct real,
+shrb40pct real,
+shrb50pct real,
+frst10dt real,
+frst20dt real,
+frst30dt real,
+frst40dt real,
+frst50dt real,
+ftwt10dt real,
+ftwt20dt real,
+ftwt30dt real,
+ftwt40dt real,
+ftwt50dt real,
+hbwt10dt real,
+hbwt20dt real,
+hbwt30dt real,
+hbwt40dt real,
+hbwt50dt real,
+open10dt real,
+open20dt real,
+open30dt real,
+open40dt real,
+open50dt real,
+shrb10dt real,
+shrb20dt real,
+shrb30dt real,
+shrb40dt real,
+shrb50dt real,
+frst10ps real,
+frst20ps real,
+frst30ps real,
+frst40ps real,
+frst50ps real,
+ftwt10ps real,
+ftwt20ps real,
+ftwt30ps real,
+ftwt40ps real,
+ftwt50ps real,
+hbwt10ps real,
+hbwt20ps real,
+hbwt30ps real,
+hbwt40ps real,
+hbwt50ps real,
+open10ps real,
+open20ps real,
+open30ps real,
+open40ps real,
+open50ps real,
+shrb10ps real,
+shrb20ps real,
+shrb30ps real,
+shrb40ps real,
+shrb50ps real
 );
 
-create  table lcscen_x_ha(
+
+create  table lcscen_x(
 HUC_12 char(12) primary key,
+LCScen text,
 frst10ha real,
 frst20ha real,
 frst30ha real,
@@ -286,90 +650,212 @@ shrb10ha real,
 shrb20ha real,
 shrb30ha real,
 shrb40ha real,
-shrb50ha real
+shrb50ha real,
+frst10pct real,
+frst20pct real,
+frst30pct real,
+frst40pct real,
+frst50pct real,
+ftwt10pct real,
+ftwt20pct real,
+ftwt30pct real,
+ftwt40pct real,
+ftwt50pct real,
+hbwt10pct real,
+hbwt20pct real,
+hbwt30pct real,
+hbwt40pct real,
+hbwt50pct real,
+open10pct real,
+open20pct real,
+open30pct real,
+open40pct real,
+open50pct real,
+shrb10pct real,
+shrb20pct real,
+shrb30pct real,
+shrb40pct real,
+shrb50pct real,
+frst10dt real,
+frst20dt real,
+frst30dt real,
+frst40dt real,
+frst50dt real,
+ftwt10dt real,
+ftwt20dt real,
+ftwt30dt real,
+ftwt40dt real,
+ftwt50dt real,
+hbwt10dt real,
+hbwt20dt real,
+hbwt30dt real,
+hbwt40dt real,
+hbwt50dt real,
+open10dt real,
+open20dt real,
+open30dt real,
+open40dt real,
+open50dt real,
+shrb10dt real,
+shrb20dt real,
+shrb30dt real,
+shrb40dt real,
+shrb50dt real,
+frst10ps real,
+frst20ps real,
+frst30ps real,
+frst40ps real,
+frst50ps real,
+ftwt10ps real,
+ftwt20ps real,
+ftwt30ps real,
+ftwt40ps real,
+ftwt50ps real,
+hbwt10ps real,
+hbwt20ps real,
+hbwt30ps real,
+hbwt40ps real,
+hbwt50ps real,
+open10ps real,
+open20ps real,
+open30ps real,
+open40ps real,
+open50ps real,
+shrb10ps real,
+shrb20ps real,
+shrb30ps real,
+shrb40ps real,
+shrb50ps real
 );
 
-create  table urban_den(
-HUC_12 char(12) primary key,
-urb10den real,
-urb20den real,
-urb30den real,
-urb40den real,
-urb50den real
+
+
+create table BioImpLen(
+    HUC_12 char(12) primary key,
+    BioImpLen_dt real,
+    BioImpLen_ps real
 );
 
-create  table urban_ha(
-HUC_12 char(12) primary key,
-urb10ha real,
-urb20ha real,
-urb30ha real,
-urb40ha real,
-urb50ha real
+create table DCLRds(
+    HUC_12 char(12) primary key,
+    rds10dt real,
+    rds20dt real,
+    rds30dt real,
+    rds40dt real,
+    rds50dt real,
+    rds10ps real,
+    rds20ps real,
+    rds30ps real,
+    rds40ps real,
+    rds50ps real
 );
 
-create table energy_dev(
-HUC_12 char(12) primary key,
-triassic_ha real,
-triassic_perc real
+create table FHlth(
+    HUC_12 char(12) primary key,
+    FHlth_Ha real,
+    FHlth_dt real,
+    FHlth_ps real
 );
 
-create table forest_health(
-HUC_12 char(12) primary key,
-FHlth_Ha real,
-FHlth_Per real
+create table Fert(
+    HUC_12 char(12) primary key,
+    fert_dt real,
+    fert_ps real
 );
 
-create table transportation(
-HUC_12 char(12) primary key,
-rds10mha real,
-rds20mha real,
-rds30mha real,
-rds40mha real,
-rds50mha real
+create table Manu(
+    HUC_12 char(12) primary key,
+    manu_dt real,
+    manu_ps real
 );
 
-create table wind_avg(
-HUC_12 char(12) primary key,
-WPC_avg real
+create table MetImpLen(
+    HUC_12 char(12) primary key,
+    MetImpLen_dt real,
+    MetImpLen_ps real
 );
 
-create table slamm_lc_ha(
-HUC_12 char(12) primary key,
-lc0010ha smallint,
-lc0020ha smallint,
-lc0030ha smallint,
-lc0040ha smallint,
-lc0050ha smallint
+create table NID(
+    HUC_12 char(12) primary key,
+    nid_dt real,
+    nid_ps real
 );
 
-create table slamm_up_ha(
-HUC_12 char(12) primary key,
-up0010ha smallint,
-up0020ha smallint,
-up0030ha smallint,
-up0040ha smallint,
-up0050ha smallint
+create table SLRlc(
+    HUC_12 char(12) primary key,
+    lc10dt real,
+    lc20dt real,
+    lc30dt real,
+    lc40dt real,
+    lc50dt real,
+    lc10ps real,
+    lc20ps real,
+    lc30ps real,
+    lc40ps real,
+    lc50ps real
 );
 
+create table SLRup(
+    HUC_12 char(12) primary key,
+    up10dt real,
+    up20dt real,
+    up30dt real,
+    up40dt real,
+    up50dt real,
+    up10ps real,
+    up20ps real,
+    up30ps real,
+    up40ps real,
+    up50ps real
+);
 
-copy ea_pol from '/home/jim/Desktop/ncthreats_tables/tblEA_Pol.txt' with csv header;
-copy ea_h20 from '/home/jim/Desktop/ncthreats_tables/tblEA_h2o_SD.txt' with csv header;
-copy lcscen_a_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_A_ha.txt' with csv header;
-copy lcscen_b_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_B_ha.txt' with csv header;
-copy lcscen_c_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_C_ha.txt' with csv header;
-copy lcscen_d_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_D_ha.txt' with csv header;
-copy lcscen_e_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_E_ha.txt' with csv header;
-copy lcscen_x_ha from '/home/jim/Desktop/ncthreats_tables/tblLCScen_X_ha.txt' with csv header;
-copy urban_den from '/home/jim/Desktop/ncthreats_tables/tblUrban_den.txt' with csv header;
-copy urban_ha from '/home/jim/Desktop/ncthreats_tables/tblUrban_ha.txt' with csv header;
-copy wind_avg from '/home/jim/Desktop/ncthreats_tables/tblWPC_avg.txt' with csv header;
-copy energy_dev from '/home/jim/Desktop/ncthreats_tables/tblTriassic_data.txt' with csv header;
-copy forest_health from '/home/jim/Desktop/ncthreats_tables/tblFHlth_data2.txt' with csv header;
-copy transportation from '/home/jim/Desktop/ncthreats_tables/tblDCLRds_mha.txt' with csv header;
-copy slamm_lc_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_lc_ha.txt' with csv header;
-copy slamm_up_ha from '/home/jim/Desktop/ncthreats_tables/tblSlamm_up_ha.txt' with csv header;
+create table TDNT(
+    HUC_12 char(12) primary key,
+    tdnt_dt real,
+    tdnt_ps real
+);
 
-copy urban from '/home/jim/Desktop/ncthreats_tables/tblUrban.txt' with csv header;
-copy fsupp from '/home/jim/Desktop/ncthreats_tables/tblFSupp.txt' with csv header;
+create table TDST(
+    HUC_12 char(12) primary key,
+    tdst_dt real,
+    tdst_ps real
+);
+
+create table Triassic(
+    HUC_12 char(12) primary key,
+    triassic_ha real,
+    triassic_dt real,
+    triassic_ps real
+    );
+
+create table WPC(
+    HUC_12 char(12) primary key,
+    WPC_dt real,
+    WPC_ps real
+);
+
+copy lcscen_a from '/home/jim/Desktop/threats/tblLCScen_A.txt' with csv header;
+copy lcscen_b from '/home/jim/Desktop/threats/tblLCScen_B.txt' with csv header;
+copy lcscen_c from '/home/jim/Desktop/threats/tblLCScen_C.txt' with csv header;
+copy lcscen_d from '/home/jim/Desktop/threats/tblLCScen_D.txt' with csv header;
+copy lcscen_e from '/home/jim/Desktop/threats/tblLCScen_E.txt' with csv header;
+copy lcscen_x from '/home/jim/Desktop/threats/tblLCScen_X.txt' with csv header;
+
+copy urban from '/home/jim/Desktop/threats/tblUrban.txt' with csv header;
+copy fsupp from '/home/jim/Desktop/threats/tblFSupp.txt' with csv header;
+
+copy BioImpLen from '/home/jim/Desktop/threats/tblBioImpLen.txt' with csv header;
+copy DCLRds from '/home/jim/Desktop/threats/tblDCLRds.txt' with csv header;
+copy FHlth from '/home/jim/Desktop/threats/tblFHlth.txt' with csv header;
+copy Fert from '/home/jim/Desktop/threats/tblFert.txt' with csv header;
+copy Manu from '/home/jim/Desktop/threats/tblManu.txt' with csv header;
+copy MetImpLen from '/home/jim/Desktop/threats/tblMetImpLen.txt' with csv header;
+copy NID from '/home/jim/Desktop/threats/tblNID.txt' with csv header;
+copy SLRlc from '/home/jim/Desktop/threats/tblSLRlc.txt' with csv header;
+copy SLRup from '/home/jim/Desktop/threats/tblSLRup.txt' with csv header;
+copy TDNT from '/home/jim/Desktop/threats/tblTDNT.txt' with csv header;
+copy TDST from '/home/jim/Desktop/threats/tblTDST.txt' with csv header;
+copy Triassic from '/home/jim/Desktop/threats/tblTriassic.txt' with csv header;
+copy WPC from '/home/jim/Desktop/threats/tblWPC.txt' with csv header;
 
 copy legend_data from '/home/jim/Desktop/ncthreats_tables/legend_data3.csv' with csv header;
