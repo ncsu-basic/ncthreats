@@ -2659,6 +2659,7 @@ Ext.onReady(function() {
                 $("select").append("<option val='" + val +"'>" + val + "<option")
             });
             threat_calcs_reset();
+            $(".default_params").css("display", "none");
 
 
 
