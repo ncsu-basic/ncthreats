@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1467,33 +1467,35 @@ Ext.onReady(function() {
     };
 
     var limit_defaults = {
-        frst_limit: 35,
-        ftwt_limit: 30,
-        open_limit: 50,
-        hbwt_limit: 25,
-        shrb_limit: 35,
-        urbangrth_limit: 25,
-        firesup_limit: 40,
-        hiway_limit: 25,
-        slr_up_limit: 25,
-        slr_lc_limit: 30,
-        triassic_limit: 25,
-        wind_limit: 50,
-        manure_limit: 25,
-        nitrofrt_limit: 25,
-        totnitro_limit: 35,
-        totsulf_limit: 25,
-        insectdisease_limit: 10,
-        ndams_limit: 15,
-        impairbiota_limit: 35,
-        impairmetal_limit: 50
+        frst_limit: "0.30",
+        ftwt_limit: "0.30",
+        open_limit: "0.30",
+        hbwt_limit: "0.40",
+        shrb_limit: "0.40",
+        urbangrth_limit: "0.40",
+        firesup_limit: "0.40",
+        hiway_limit: "0.40",
+        slr_up_limit: "0.40",
+        slr_lc_limit: "0.40",
+        triassic_limit: "0.40",
+        wind_limit: "0.40",
+        manure_limit: "0.40",
+        nitrofrt_limit: "0.40",
+        totnitro_limit: "0.40",
+        totsulf_limit: "0.40",
+        insectdisease_limit: "0.40",
+        ndams_limit: "0.40",
+        impairbiota_limit: "0.40",
+        impairmetal_limit: "0.40"
     }
 
-    var threat_calcs_reset = function(){
+    var threat_calcs_reset = function() {
         var limit;
-        for (limit in limit_defaults){
+        for (limit in limit_defaults) {
             console.log(limit);
             $("#" + limit).val(limit_defaults[limit]);
+            // $("#" + limit + " option:selected").val(limit_defaults[limit]);
+
         }
     };
 
@@ -1576,19 +1578,16 @@ Ext.onReady(function() {
             anchor: "100%"
         },
 
-        buttons: [
-            {
-                text: "Reset",
-                handler: threat_calcs_reset
-            },
-            {
-                text: "Report",
-                handler: threat_calcs_report
-            }, {
-                text: "Show map",
-                handler: threat_calcs_map
-            }
-        ]
+        buttons: [{
+            text: "Reset",
+            handler: threat_calcs_reset
+        }, {
+            text: "Report",
+            handler: threat_calcs_report
+        }, {
+            text: "Show map",
+            handler: threat_calcs_map
+        }]
 
     });
 
@@ -1733,7 +1732,7 @@ Ext.onReady(function() {
                 return data.lgd_text[i];
             });
 
-             lgd_color.style("fill", function(d, i) {
+            lgd_color.style("fill", function(d, i) {
                 return "#" + data.colors[i];
             });
 
@@ -1844,7 +1843,7 @@ Ext.onReady(function() {
 
     var data = ['dddddd', 'dddddd', 'dddddd', 'dddddd', 'dddddd', 'dddddd'];
     // var width = 420,
-     var barHeight = 25;
+    var barHeight = 25;
 
     var lgd = d3.select("#lgnddiv")
         .attr("height", 220)
@@ -2383,7 +2382,6 @@ Ext.onReady(function() {
 
 
 
-
     var print_tab = new Ext.Container({
         autoEl: 'div',
         title: 'Print',
@@ -2647,8 +2645,18 @@ Ext.onReady(function() {
                 e.preventDefault();
                 // console.log(e.currentTarget.name);
                 var limit_val_id = e.currentTarget.name;
-                var limit_val = $("#" + limit_val_id).val();
+                var limit_val = $("#" + limit_val_id + " option:selected").val();
                 preview_map(limit_val_id, limit_val);
+            });
+
+            var prob_vals = [
+                "0.00", "0.10", "0.20", "0.30", "0.40", "0.50",
+                "0.60", "0.70", "0.80", "0.90", "0.95"
+            ];
+            // console.log(prob_vals);
+            prob_vals.forEach(function(val){
+                console.log(val);
+                $("select").append("<option val='" + val +"'>" + val + "<option")
             });
             threat_calcs_reset();
 
