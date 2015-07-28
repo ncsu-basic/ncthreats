@@ -1467,33 +1467,34 @@ Ext.onReady(function() {
     };
 
     var limit_defaults = {
-        frst_limit: "0.30",
-        ftwt_limit: "0.30",
-        open_limit: "0.30",
-        hbwt_limit: "0.40",
-        shrb_limit: "0.40",
-        urbangrth_limit: "0.40",
-        firesup_limit: "0.40",
-        hiway_limit: "0.40",
-        slr_up_limit: "0.40",
-        slr_lc_limit: "0.40",
-        triassic_limit: "0.40",
-        wind_limit: "0.40",
-        manure_limit: "0.40",
-        nitrofrt_limit: "0.40",
-        totnitro_limit: "0.40",
-        totsulf_limit: "0.40",
-        insectdisease_limit: "0.40",
-        ndams_limit: "0.40",
-        impairbiota_limit: "0.40",
-        impairmetal_limit: "0.40"
+        frst: "0.30",
+        ftwt: "0.30",
+        open: "0.30",
+        hbwt: "0.40",
+        shrb: "0.40",
+        urbangrth: "0.40",
+        firesup: "0.40",
+        hiway: "0.40",
+        slr_up: "0.40",
+        slr_lc: "0.40",
+        triassic: "0.40",
+        wind: "0.40",
+        manure: "0.40",
+        nitrofrt: "0.40",
+        totnitro: "0.40",
+        totsulf: "0.40",
+        insectdisease: "0.40",
+        ndams: "0.40",
+        impairbiota: "0.40",
+        impairmetal: "0.40"
     }
 
     var threat_calcs_reset = function() {
         var limit;
         for (limit in limit_defaults) {
             console.log(limit);
-            $("#" + limit).val(limit_defaults[limit]);
+            $("#" + limit + "_limit").val(limit_defaults[limit]);
+            $("#" + limit + "_default").html(limit_defaults[limit]);
             // $("#" + limit + " option:selected").val(limit_defaults[limit]);
 
         }
