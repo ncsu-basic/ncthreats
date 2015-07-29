@@ -834,28 +834,28 @@ create table WPC(
     WPC_ps real
 );
 
-copy lcscen_a from '/home/jim/Desktop/threats/tblLCScen_A.txt' with csv header;
-copy lcscen_b from '/home/jim/Desktop/threats/tblLCScen_B.txt' with csv header;
-copy lcscen_c from '/home/jim/Desktop/threats/tblLCScen_C.txt' with csv header;
-copy lcscen_d from '/home/jim/Desktop/threats/tblLCScen_D.txt' with csv header;
-copy lcscen_e from '/home/jim/Desktop/threats/tblLCScen_E.txt' with csv header;
-copy lcscen_x from '/home/jim/Desktop/threats/tblLCScen_X.txt' with csv header;
+copy lcscen_a from '/var/www/data/threats/tblLCScen_A.txt' with csv header;
+copy lcscen_b from '/var/www/data/threats/tblLCScen_B.txt' with csv header;
+copy lcscen_c from '/var/www/data/threats/tblLCScen_C.txt' with csv header;
+copy lcscen_d from '/var/www/data/threats/tblLCScen_D.txt' with csv header;
+copy lcscen_e from '/var/www/data/threats/tblLCScen_E.txt' with csv header;
+copy lcscen_x from '/var/www/data/threats/tblLCScen_X.txt' with csv header;
 
-copy urban from '/home/jim/Desktop/threats/tblUrban.txt' with csv header;
-copy fsupp from '/home/jim/Desktop/threats/tblFSupp.txt' with csv header;
+copy urban from '/var/www/data/threats/tblUrban.txt' with csv header;
+copy fsupp from '/var/www/data/threats/tblFSupp.txt' with csv header;
 
-copy BioImpLen from '/home/jim/Desktop/threats/tblBioImpLen.txt' with csv header;
-copy DCLRds from '/home/jim/Desktop/threats/tblDCLRds.txt' with csv header;
-copy FHlth from '/home/jim/Desktop/threats/tblFHlth.txt' with csv header;
-copy Fert from '/home/jim/Desktop/threats/tblFert.txt' with csv header;
-copy Manu from '/home/jim/Desktop/threats/tblManu.txt' with csv header;
-copy MetImpLen from '/home/jim/Desktop/threats/tblMetImpLen.txt' with csv header;
-copy NID from '/home/jim/Desktop/threats/tblNID.txt' with csv header;
-copy SLRlc from '/home/jim/Desktop/threats/tblSLRlc.txt' with csv header;
-copy SLRup from '/home/jim/Desktop/threats/tblSLRup.txt' with csv header;
-copy TDNT from '/home/jim/Desktop/threats/tblTDNT.txt' with csv header;
-copy TDST from '/home/jim/Desktop/threats/tblTDST.txt' with csv header;
-copy Triassic from '/home/jim/Desktop/threats/tblTriassic.txt' with csv header;
-copy WPC from '/home/jim/Desktop/threats/tblWPC.txt' with csv header;
+copy BioImpLen from '/var/www/data/threats/tblBioImpLen.txt' with csv header;
+copy DCLRds from '/var/www/data/threats/tblDCLRds.txt' with csv header;
+copy FHlth from '/var/www/data/threats/tblFHlth.txt' with csv header;
+copy Fert from '/var/www/data/threats/tblFert.txt' with csv header;
+copy Manu from '/var/www/data/threats/tblManu.txt' with csv header;
+copy MetImpLen from '/var/www/data/threats/tblMetImpLen.txt' with csv header;
+copy NID from '/var/www/data/threats/tblNID.txt' with csv header;
+copy SLRlc from '/var/www/data/threats/tblSLRlc.txt' with csv header;
+copy SLRup from '/var/www/data/threats/tblSLRup.txt' with csv header;
+copy TDNT from '/var/www/data/threats/tblTDNT.txt' with csv header;
+copy TDST from '/var/www/data/threats/tblTDST.txt' with csv header;
+copy Triassic from '/var/www/data/threats/tblTriassic.txt' with csv header;
+copy WPC from '/var/www/data/threats/tblWPC.txt' with csv header;
 
-copy legend_data from '/home/jim/Desktop/threats/legend_data3.csv' with csv header;
+copy legend_data from '/var/www/data/threats/legend_data3.csv' with csv header;
