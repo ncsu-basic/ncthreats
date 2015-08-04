@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
 
@@ -1470,23 +1470,23 @@ Ext.onReady(function() {
         frst: "0.60",
         ftwt: "0.90",
         open: "0.80",
-        hbwt: "0.95",
+        hbwt: "0.90",
         shrb: "0.90",
         urbangrth: "0.80",
-        firesup: "0.80",
-        hiway: "0.70",
-        slr_up: "0.90",
-        slr_lc: "0.95",
-        triassic: "0.95",
+        firesup: "0.70",
+        hiway: "0.30",
+        slr_up: "0.70",
+        slr_lc: "0.90",
+        triassic: "0.30",
         wind: "0.90",
         manure: "0.80",
         nitrofrt: "0.70",
-        totnitro: "0.60",
-        totsulf: "0.60",
+        totnitro: "0.70",
+        totsulf: "0.70",
         insectdisease: "0.30",
-        ndams: "0.60",
-        impairbiota: "0.80",
-        impairmetal: "0.80"
+        ndams: "0.90",
+        impairbiota: "0.30",
+        impairmetal: "0.30"
     }
 
     var threat_calcs_reset = function() {
