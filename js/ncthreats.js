@@ -1594,26 +1594,26 @@ Ext.onReady(function() {
 
 
     var legend_titles1 = {
-        frst: 'Forest Habitat (ha)',
-        ftwt: 'Wet Forest Habitat (ha)',
-        hbwt: 'Wet Herbaceous? Habitat (ha)',
-        open: 'Open Habitat (ha)',
-        shrb: 'Scrub/Shrub Habitat (ha)',
-        urban: 'Urban Land Cover (ha)',
-        fire: 'Mean Urban Density? w/in 5 mile radius',
-        trans: 'Mean Length/Area of? Major Highways (m/ha)',
-        "nutrient:manu": "Manure Application? (kg/ha/yr)",
-        "nutrient:fert": "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
+        frst:              'Forest Habitat Loss? Since 2000 (%)',
+        ftwt:              'Wet Forest Habitat Loss? Since 2000 (%)',
+        hbwt:              'Wet Herbaceous Habitat? Loss Since 2000 (%)',
+        open:              'Open Habitat Loss? Since 2000 (%)',
+        shrb:              'Scrub/Shrub Habitat ?Loss Since 2000 (%)',
+        urban:             'Urban Land Cover (%)',
+        fire:              'Mean Urban Density? w/in 5 mile radius',
+        trans:             'Mean Length/Area of? Major Highways (m/ha)',
+        "nutrient:manu":   "Manure Application? (kg/ha/yr)",
+        "nutrient:fert":   "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
         "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha/yr)",
         "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha/yr)",
-        frsthlth: "Forest Insect/Disease Risk? (ha)",
-        energydev: "Triassic basin (ha)",
+        frsthlth:          "Forest Insect/Disease Risk? (%)",
+        energydev:         "Triassic basin (ha)",
         "water:bioimplen": "Biota Impairments? (km*stream density)",
         "water:metimplen": "Metal Impariments? (km*stream density)",
-        "water:NID": "Number of Dams (n)",
-        wind: "Wind Power Class? (mean)",
-        slr_lc: "Terrestrial Landcover? Change (ha)",
-        slr_up: "Undeveloped Upland? Change (ha)"
+        "water:NID":       "Number of Dams (n)",
+        wind:              "Wind Power Class? (mean)",
+        slr_lc:            "Terrestrial Landcover Loss? Since 2000 (ha)",
+        slr_up:            "Undeveloped Upland Loss? Since 2000 (ha)"
 
     };
 
