@@ -149,7 +149,7 @@ margin: 10p;
 	font-family: sans-serif;	/*font-size: 12px;*/
 	line-height: 1.5;
 }
-.param_container select {
+.param_container input {
 	float: right;
 	margin: 5px;
 }
