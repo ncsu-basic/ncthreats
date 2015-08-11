@@ -1487,7 +1487,7 @@ Ext.onReady(function() {
         ndams: "0.90",
         impairbiota: "0.30",
         impairmetal: "0.30"
-    }
+    };
 
     var threat_calcs_reset = function() {
         var limit;
@@ -1594,26 +1594,26 @@ Ext.onReady(function() {
 
 
     var legend_titles1 = {
-        frst:              'Forest Habitat Loss? Since 2000 (%)',
-        ftwt:              'Wet Forest Habitat Loss? Since 2000 (%)',
-        hbwt:              'Wet Herbaceous Habitat? Loss Since 2000 (%)',
-        open:              'Open Habitat Loss? Since 2000 (%)',
-        shrb:              'Scrub/Shrub Habitat ?Loss Since 2000 (%)',
-        urban:             'Urban Land Cover (%)',
-        fire:              'Mean Urban Density? w/in 5 mile radius',
-        trans:             'Mean Length/Area of? Major Highways (m/ha)',
-        "nutrient:manu":   "Manure Application? (kg/ha/yr)",
-        "nutrient:fert":   "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
+        frst: 'Forest Habitat Loss? Since 2000 (%)',
+        ftwt: 'Wet Forest Habitat Loss? Since 2000 (%)',
+        hbwt: 'Wet Herbaceous Habitat? Loss Since 2000 (%)',
+        open: 'Open Habitat Loss? Since 2000 (%)',
+        shrb: 'Scrub/Shrub Habitat ?Loss Since 2000 (%)',
+        urban: 'Urban Land Cover (%)',
+        fire: 'Mean Urban Density? w/in 5 mile radius',
+        trans: 'Mean Length/Area of? Major Highways (m/ha)',
+        "nutrient:manu": "Manure Application? (kg/ha/yr)",
+        "nutrient:fert": "Syn. Nitrogen Fertilizer? Application (kg/ha/yr)",
         "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha/yr)",
         "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha/yr)",
-        frsthlth:          "Forest Insect/Disease Risk? (%)",
-        energydev:         "Triassic basin (ha)",
+        frsthlth: "Forest Insect/Disease Risk? (%)",
+        energydev: "Triassic basin (ha)",
         "water:bioimplen": "Biota Impairments? (km*stream density)",
         "water:metimplen": "Metal Impariments? (km*stream density)",
-        "water:NID":       "Number of Dams (n)",
-        wind:              "Wind Power Class? (mean)",
-        slr_lc:            "Terrestrial Landcover Loss? Since 2000 (ha)",
-        slr_up:            "Undeveloped Upland Loss? Since 2000 (ha)"
+        "water:NID": "Number of Dams (n)",
+        wind: "Wind Power Class? (mean)",
+        slr_lc: "Terrestrial Landcover Loss? Since 2000 (ha)",
+        slr_up: "Undeveloped Upland Loss? Since 2000 (ha)"
 
     };
 
@@ -2644,21 +2644,113 @@ Ext.onReady(function() {
             });
             $(".preview").click(function(e) {
                 e.preventDefault();
-                // console.log(e.currentTarget.name);
                 var limit_val_id = e.currentTarget.name;
-                var limit_val = $("#" + limit_val_id + " option:selected").val();
-                preview_map(limit_val_id, limit_val);
+                var max = dt_limits[limit_val_id].max;
+                var min = dt_limits[limit_val_id].min;
+                var limit_val = $("#" + limit_val_id).val();
+                if (parseFloat(limit_val) > max) {
+                    Ext.MessageBox.alert('Status', 'Input above max.');
+                } else if (parseFloat(limit_val) < min) {
+                    Ext.MessageBox.alert('Status', 'Input below min.');
+                } else {
+                    preview_map(limit_val_id, limit_val);
+                }
+
+
             });
 
-            var prob_vals = [
-                "0.00", "0.10", "0.20", "0.30", "0.40", "0.50",
-                "0.60", "0.70", "0.80", "0.90", "0.95"
-            ];
-            // console.log(prob_vals);
-            prob_vals.forEach(function(val){
-                console.log(val);
-                $("select").append("<option val='" + val +"'>" + val + "<option")
-            });
+            // var prob_vals = [
+            //     "0.00", "0.10", "0.20", "0.30", "0.40", "0.50",
+            //     "0.60", "0.70", "0.80", "0.90", "0.95"
+            // ];
+            // // console.log(prob_vals);
+            // prob_vals.forEach(function(val){
+            //     console.log(val);
+            //     $("select").append("<option val='" + val +"'>" + val + "<option")
+            // });
+
+            var dt_limits = {
+                frst_limit: {
+                    min: 0,
+                    max: 97.94
+                },
+                ftwt_limit: {
+                    min: 0,
+                    max: 52.01
+                },
+                open_limit: {
+                    min: 0,
+                    max: 46.75
+                },
+                hbwt_limit: {
+                    min: 0,
+                    max: 26.78
+                },
+                shrb_limit: {
+                    min: 0,
+                    max: 46.89
+                },
+                urbangrth_limit: {
+                    min: 0.01,
+                    max: 99.84
+                },
+                firesup_limit: {
+                    min: 0.01,
+                    max: 274.34
+                },
+                hiway_limit: {
+                    min: 0,
+                    max: 40.14
+                },
+                slr_up_limit: {
+                    min: 0.09,
+                    max: 7313.58
+                },
+                slr_lc_limit: {
+                    min: 0.09,
+                    max: 1466.73
+                },
+                triassic_limit: {
+                    min: 0.01,
+                    max: 100
+                },
+                wind_limit: {
+                    min: 1,
+                    max: 7
+                },
+                manure_limit: {
+                    min: 0.01,
+                    max: 121.08
+                },
+                nitrofrt_limit: {
+                    min: 0.04,
+                    max: 69.86
+                },
+                totnitro_limit: {
+                    min: 6.1,
+                    max: 26.91
+                },
+                totsulf_limit: {
+                    min: 7.9,
+                    max: 25.3
+                },
+                insectdisease_limit: {
+                    min: 0.1,
+                    max: 100
+                },
+                ndams_limit: {
+                    min: 1,
+                    max: 33
+                },
+                impairbiota_limit: {
+                    min: 0,
+                    max: 49.3
+                },
+                impairmetal_limit: {
+                    min: 0,
+                    max: 93.22
+                }
+            };
             threat_calcs_reset();
             $(".default_params").css("display", "none");
 
