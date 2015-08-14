@@ -52,7 +52,6 @@ create table legend_data(
 
 create  table lcscen_a(
     HUC_12 char(12) primary key,
-    LCScen text,
     frst10ha real,
     frst20ha real,
     frst30ha real,
@@ -183,7 +182,6 @@ create  table lcscen_a(
 
 create  table lcscen_b(
     HUC_12 char(12) primary key,
-    LCScen text,
     frst10ha real,
     frst20ha real,
     frst30ha real,
@@ -313,7 +311,6 @@ create  table lcscen_b(
 
 create  table lcscen_c(
     HUC_12 char(12) primary key,
-    LCScen text,
     frst10ha real,
     frst20ha real,
     frst30ha real,
@@ -443,7 +440,6 @@ create  table lcscen_c(
 
 create  table lcscen_d(
     HUC_12 char(12) primary key,
-    LCScen text,
     frst10ha real,
     frst20ha real,
     frst30ha real,
@@ -573,7 +569,6 @@ create  table lcscen_d(
 
 create  table lcscen_e(
     HUC_12 char(12) primary key,
-    LCScen text,
     frst10ha real,
     frst20ha real,
     frst30ha real,
@@ -703,7 +698,6 @@ create  table lcscen_e(
 
 create  table lcscen_x(
     HUC_12 char(12) primary key,
-    LCScen text,
     frst10ha real,
     frst20ha real,
     frst30ha real,
@@ -970,8 +964,8 @@ create table Fert(
 create table Manu(
     HUC_12 char(12) primary key,
     manu_dt real,
-    fert_ps real,
-    fert_sv real
+    manu_ps real,
+    manu_sv real
 );
 
 create table TDNT(
