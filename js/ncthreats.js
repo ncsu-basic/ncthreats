@@ -933,7 +933,28 @@ Ext.onReady(function() {
                     name: 'aoi_type',
                     inputValue: 'custom',
                     id: 'custom_radio_sel'
-                }],
+                },
+                  {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        items: [
+                            {
+                                xtype: 'radio',
+                                boxLabel: 'Other (Please specify)',
+                                name: 'rb',
+                                inputValue: '3'
+                            },
+                            // {
+                            //     xtype: 'splitter'
+                            // },
+                            {
+                                xtype: 'textfield',
+                                name: 'option3detail',
+                                width: 50
+
+                            }
+                        ]
+                    }],
                 listeners: {
                     change: form2_chng
                 }
