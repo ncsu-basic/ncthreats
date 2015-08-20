@@ -806,6 +806,17 @@ Ext.onReady(function() {
         var sel_type = formPanel2.getForm().getValues().aoi_type;
         var ptradius = formPanel2.getForm().getValues().bufferkm;
         console.log(ptradius);
+        if (isNaN(ptradius)){
+            ptradius = 3;
+        }
+        if (parseFloat(ptradius) < 3.0){
+            ptradius = 3;
+        }
+        if (parseFloat(ptradius) > 50.0){
+            ptradius = 50;
+        }
+
+        console.log(ptradius);
         console.log(sel_type);
         var gml = '';
         var aoi_list = [];
@@ -972,7 +983,7 @@ Ext.onReady(function() {
                     },
                     items: [{
                             xtype: 'radio',
-                            boxLabel: 'custom point buffer<br>Enter buffer radius in km,<br>click on map, then submit:',
+                            boxLabel: 'custom point buffer<br>Enter buffer radius in km (3-50),<br>click on map, then submit:',
                             name: 'aoi_type',
                             inputValue: 'ptbuffer'
                         },
