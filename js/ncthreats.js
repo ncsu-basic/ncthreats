@@ -512,7 +512,7 @@ Ext.onReady(function() {
 
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
-        if (mode.indexOf("custom") !== -1) {
+        if (mode.indexOf("custom") !== -1 ) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
             pts.push(pt);
@@ -523,7 +523,19 @@ Ext.onReady(function() {
                     new OpenLayers.Geometry.Polygon([linearRing]));
             highlightLayer.addFeatures([polygonFeature]);
             highlightLayer.redraw();
-        } else {
+        }  else if (mode.indexOf("ptbuffer") !== -1 ) {
+            lonlat = map.getLonLatFromViewPortPx(e.xy);
+            var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
+            pts = [];
+            pts.push(pt);
+            var linearRing = new OpenLayers.Geometry.LinearRing(pts);
+            highlightLayer.destroyFeatures();
+            var polygonFeature =
+                new OpenLayers.Feature.Vector(
+                    new OpenLayers.Geometry.Polygon([linearRing]));
+            highlightLayer.addFeatures([polygonFeature]);
+            highlightLayer.redraw();
+        }else {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
 
             $.ajax({
@@ -593,6 +605,15 @@ Ext.onReady(function() {
             highlightLayer.destroyFeatures();
             pts = [];
         } else if (mode.indexOf("predefined") !== -1) {
+            // click.deactivate();
+            // query_ctl.activate();
+            click.activate();
+            // query_ctl.deactivate();
+            highlightLayer.destroyFeatures();
+            selected_hucs = {};
+        } else if (mode.indexOf("ptbuffer") !== -1) {
+        console.log(mode);
+
             // click.deactivate();
             // query_ctl.activate();
             click.activate();
@@ -739,6 +760,7 @@ Ext.onReady(function() {
         remove_action();
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
         var sel_type = formPanel2.getForm().getValues().aoi_type;
+        console.log(sel_type);
         highlightLayer.setVisibility(true);
         if (sel_type === 'predefined') {
             switch (selected_predef) {
@@ -931,8 +953,8 @@ Ext.onReady(function() {
                     boxLabel: 'custom polygon<br>Click on map to create ' +
                         'polygon, then Submit:',
                     name: 'aoi_type',
-                    inputValue: 'custom',
-                    id: 'custom_radio_sel'
+                    inputValue: 'custom'
+                    // id: 'custom_radio_sel'
                 }, {
                     xtype: 'container',
                     bodyPadding: 20,
@@ -946,15 +968,12 @@ Ext.onReady(function() {
                     items: [{
                             xtype: 'radio',
                             boxLabel: 'custom point buffer<br>Enter buffer radius in km,<br>click on map, then submit:',
-                            name: 'rb',
-                            inputValue: '3'
+                            name: 'aoi_type',
+                            inputValue: 'ptbuffer'
                         },
-                        // {
-                        //     xtype: 'splitter'
-                        // },
                         {
                             xtype: 'textfield',
-                            name: 'option3detail',
+                            name: 'bufferkm',
                             width: 50,
                             value: '3'
 
