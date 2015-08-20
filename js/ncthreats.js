@@ -512,7 +512,7 @@ Ext.onReady(function() {
 
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
-        if (mode.indexOf("custom") !== -1 ) {
+        if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
             pts.push(pt);
@@ -523,7 +523,7 @@ Ext.onReady(function() {
                     new OpenLayers.Geometry.Polygon([linearRing]));
             highlightLayer.addFeatures([polygonFeature]);
             highlightLayer.redraw();
-        }  else if (mode.indexOf("ptbuffer") !== -1 ) {
+        } else if (mode.indexOf("ptbuffer") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
             pts = [];
@@ -535,7 +535,7 @@ Ext.onReady(function() {
                     new OpenLayers.Geometry.Polygon([linearRing]));
             highlightLayer.addFeatures([polygonFeature]);
             highlightLayer.redraw();
-        }else {
+        } else {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
 
             $.ajax({
@@ -612,7 +612,7 @@ Ext.onReady(function() {
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         } else if (mode.indexOf("ptbuffer") !== -1) {
-        console.log(mode);
+            console.log(mode);
 
             // click.deactivate();
             // query_ctl.activate();
@@ -806,13 +806,13 @@ Ext.onReady(function() {
         var sel_type = formPanel2.getForm().getValues().aoi_type;
         var ptradius = formPanel2.getForm().getValues().bufferkm;
         console.log(ptradius);
-        if (isNaN(ptradius)){
+        if (isNaN(ptradius)) {
             ptradius = 3;
         }
-        if (parseFloat(ptradius) < 3.0){
+        if (parseFloat(ptradius) < 3.0) {
             ptradius = 3;
         }
-        if (parseFloat(ptradius) > 50.0){
+        if (parseFloat(ptradius) > 50.0) {
             ptradius = 50;
         }
 
@@ -970,7 +970,7 @@ Ext.onReady(function() {
                         'polygon, then Submit:',
                     name: 'aoi_type',
                     inputValue: 'custom'
-                    // id: 'custom_radio_sel'
+                        // id: 'custom_radio_sel'
                 }, {
                     xtype: 'container',
                     bodyPadding: 20,
@@ -982,19 +982,17 @@ Ext.onReady(function() {
                         marginTop: '10px',
                     },
                     items: [{
-                            xtype: 'radio',
-                            boxLabel: 'custom point buffer<br>Enter buffer radius in km (3-50),<br>click on map, then submit:',
-                            name: 'aoi_type',
-                            inputValue: 'ptbuffer'
-                        },
-                        {
-                            xtype: 'textfield',
-                            name: 'bufferkm',
-                            width: 50,
-                            value: '3'
+                        xtype: 'radio',
+                        boxLabel: 'custom point buffer<br>Enter buffer radius in km (3-50),<br>click on map, then submit:',
+                        name: 'aoi_type',
+                        inputValue: 'ptbuffer'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'bufferkm',
+                        width: 50,
+                        value: '3'
 
-                        }
-                    ]
+                    }]
                 }],
                 listeners: {
                     change: form2_chng
@@ -1016,12 +1014,14 @@ Ext.onReady(function() {
                         width: 80,
                         text: 'Submit',
                         handler: save_action
+
                     }, {
                         // width: 2,
                         xtype: 'container',
+                        // width: 200,
                         autoEl: 'div',
                         cls: 'mycontent',
-                        html: "<p>View Report of AOI:<br><br></p>"
+                        html: "<hr ><p>View Report of AOI:<br><br></p>"
                     },
 
                     {
