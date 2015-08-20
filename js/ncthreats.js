@@ -896,7 +896,7 @@ Ext.onReady(function() {
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
         width: 296,
-        height: 400,
+        height: 500,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
@@ -928,33 +928,39 @@ Ext.onReady(function() {
                     inputValue: 'predefined',
                     checked: true
                 }, {
-                    boxLabel: 'custom<br>Click on map to create analysis point' +
-                        ' or polygon, then Submit:',
+                    boxLabel: 'custom polygon<br>Click on map to create ' +
+                        'polygon, then Submit:',
                     name: 'aoi_type',
                     inputValue: 'custom',
                     id: 'custom_radio_sel'
-                },
-                  {
-                        xtype: 'container',
-                        layout: 'hbox',
-                        items: [
-                            {
-                                xtype: 'radio',
-                                boxLabel: 'Other (Please specify)',
-                                name: 'rb',
-                                inputValue: '3'
-                            },
-                            // {
-                            //     xtype: 'splitter'
-                            // },
-                            {
-                                xtype: 'textfield',
-                                name: 'option3detail',
-                                width: 50
+                }, {
+                    xtype: 'container',
+                    bodyPadding: 20,
+                    layout: 'hbox',
+                    style: {
+                        // padding: '10px'
+                        width: '95%',
+                        marginBottom: '10px',
+                        marginTop: '10px',
+                    },
+                    items: [{
+                            xtype: 'radio',
+                            boxLabel: 'custom point buffer<br>Enter buffer radius in km,<br>click on map, then submit:',
+                            name: 'rb',
+                            inputValue: '3'
+                        },
+                        // {
+                        //     xtype: 'splitter'
+                        // },
+                        {
+                            xtype: 'textfield',
+                            name: 'option3detail',
+                            width: 50,
+                            value: '3'
 
-                            }
-                        ]
-                    }],
+                        }
+                    ]
+                }],
                 listeners: {
                     change: form2_chng
                 }
