@@ -820,7 +820,8 @@ Ext.onReady(function() {
                 // console.log(lonlatdegrees);
                 point_buffer = {
                     lon: lonlatdegrees.lon,
-                    lat: lonlatdegrees.lat
+                    lat: lonlatdegrees.lat,
+                    ptradius: ptradius
                 };
                 console.log(lonlat);
                 lonlat = {};
