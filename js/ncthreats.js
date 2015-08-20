@@ -804,6 +804,9 @@ Ext.onReady(function() {
     var save_action = function() {
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
         var sel_type = formPanel2.getForm().getValues().aoi_type;
+        var ptradius = formPanel2.getForm().getValues().bufferkm;
+        console.log(ptradius);
+        console.log(sel_type);
         var gml = '';
         var aoi_list = [];
         var selected_predef_new = 'na';
@@ -811,7 +814,7 @@ Ext.onReady(function() {
         console.log(pts.length);
 
         if (sel_type !== 'predefined') {
-            if (pts.length === 1) {
+            if (pts.length === 1 && sel_type === 'ptbuffer') {
                 sel_type = 'point_buffer';
                 var lonlatdegrees = lonlat.transform(proj_900913, proj_4326);
                 // console.log(lonlatdegrees);
@@ -891,7 +894,8 @@ Ext.onReady(function() {
             aoi_list: aoi_list.join(":"),
             predef_type: selected_predef_new,
             sel_type: sel_type,
-            point_buffer: point_buffer
+            point_buffer: point_buffer,
+            ptradius: ptradius
         };
         // console.log(post_data);
 
@@ -1538,7 +1542,7 @@ Ext.onReady(function() {
     var threat_calcs_reset = function() {
         var limit;
         for (limit in limit_defaults) {
-            console.log(limit);
+            // console.log(limit);
             $("#" + limit + "_limit").val(limit_defaults[limit]);
             $("#" + limit + "_default").html(limit_defaults[limit]);
             // $("#" + limit + " option:selected").val(limit_defaults[limit]);
