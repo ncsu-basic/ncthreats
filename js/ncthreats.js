@@ -1005,16 +1005,18 @@ Ext.onReady(function() {
                     align: 'center'
                 },
                 // width: 200,
-                height: 200,
+                height: 300,
                 defaults: {
-                    margins: '0 0 10 0'
+                    // margins: '10 0 10 0'
+                    margins: '5 0 5 0'
                 },
                 items: [{
                         xtype: 'box',
                         width: 200,
                         autoEl: {
                             tag: 'hr'
-                        }
+                        },
+                        margins: '0 0 20 0'
                     },{
                         xtype: 'button',
                         width: 80,
