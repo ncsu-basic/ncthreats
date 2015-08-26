@@ -1010,20 +1010,32 @@ Ext.onReady(function() {
                     margins: '0 0 10 0'
                 },
                 items: [{
+                        xtype: 'box',
+                        width: 200,
+                        autoEl: {
+                            tag: 'hr'
+                        }
+                    },{
                         xtype: 'button',
                         width: 80,
                         text: 'Submit',
-                        handler: save_action
+                        handler: save_action,
 
+
+                    },{
+                        xtype: 'box',
+                        width: 200,
+                        autoEl: {
+                            tag: 'hr'
+                        }
                     }, {
                         // width: 2,
                         xtype: 'container',
                         // width: 200,
                         autoEl: 'div',
                         cls: 'mycontent',
-                        html: "<hr ><p>View Report of AOI:<br><br></p>"
+                        html: "<p>View Report of AOI:<br><br></p>"
                     },
-
                     {
                         xtype: 'button',
                         text: 'Report',
@@ -2455,7 +2467,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 2,
+        activeTab: 4,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
