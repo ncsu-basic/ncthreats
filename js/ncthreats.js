@@ -2535,8 +2535,10 @@ Ext.onReady(function() {
 
     var page_script = function() {
 
-        var shpTonchuc12 = function(shp, prj, shx, btn_id) {
-            console.log(btn_id);
+        var shpTonchuc12 = function(shp, prj, shx, dbf) {
+            // console.log(btn_id);
+            if (dbf === undefined){}
+            console.log(dbf);
 
 
             $.ajax({
@@ -2545,7 +2547,8 @@ Ext.onReady(function() {
                 data: {
                     shp: shp,
                     shx: shx,
-                    prj: prj
+                    prj: prj,
+                    dbf: dbf
                 },
                 dataType: "json",
                 success: function(data) {
@@ -2553,7 +2556,7 @@ Ext.onReady(function() {
                     var geojson_format = new OpenLayers.Format.GeoJSON();
                     var shpfeatures = geojson_format.read(data);
                     console.log(shpfeatures.length);
-                    if (shpfeatures.length > 1 && btn_id === 'shp_btn') {
+                    if (shpfeatures.length > 1 && dbf === undefined) {
                         Ext.Msg.alert("user uploaded multipolygon");
                     } else {
                         highlightLayer.destroyFeatures();
@@ -2567,7 +2570,6 @@ Ext.onReady(function() {
                         Ext.getCmp('aoi_upload_id').collapse();
                         Ext.getCmp('aoi_create_id').expand();
                     }
-
                 }
             });
 
@@ -2591,7 +2593,7 @@ Ext.onReady(function() {
                         handler = function(oFREvent) {
                             shp = oFREvent.target.result;
                             if (shx && prj) {
-                                shpTonchuc12(shp, prj, shx, btn_id);
+                                shpTonchuc12(shp, prj, shx);
                             }
                         };
                         break;
@@ -2599,7 +2601,7 @@ Ext.onReady(function() {
                         handler = function(oFREvent) {
                             shx = oFREvent.target.result;
                             if (shp && prj) {
-                                shpTonchuc12(shp, prj, shx, btn_id);
+                                shpTonchuc12(shp, prj, shx);
                             }
                         };
                         break;
@@ -2607,7 +2609,7 @@ Ext.onReady(function() {
                         handler = function(oFREvent) {
                             prj = oFREvent.target.result;
                             if (shx && shp) {
-                                shpTonchuc12(shp, prj, shx, btn_id);
+                                shpTonchuc12(shp, prj, shx);
                             }
                         };
                         break;
