@@ -986,8 +986,8 @@ Ext.onReady(function() {
                     boxLabel: 'custom polygon<br>Click on map to create ' +
                         'polygon, then Submit:',
                     name: 'aoi_type',
-                    inputValue: 'custom'
-                        // id: 'custom_radio_sel'
+                    inputValue: 'custom',
+                        id: 'custom_radio_sel'
                 }, {
                     xtype: 'container',
                     bodyPadding: 20,
