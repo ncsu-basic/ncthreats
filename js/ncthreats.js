@@ -987,7 +987,7 @@ Ext.onReady(function() {
                         'polygon, then Submit:',
                     name: 'aoi_type',
                     inputValue: 'custom',
-                        id: 'custom_radio_sel'
+                    id: 'custom_radio_sel'
                 }, {
                     xtype: 'container',
                     bodyPadding: 20,
@@ -2581,7 +2581,7 @@ Ext.onReady(function() {
             var files = document.getElementById('file2').files;
             var fileReader = [];
             var parse_filename, result;
-            var shp, prj, shx, prjfile, shxfile, shpfile;
+            var shp, prj, shx, prjfile, shxfile, shpfile, dbf, dbffile;
 
             //try to use closure to create handler, for jshint?
             var create_handler = function(file) {
@@ -2615,26 +2615,74 @@ Ext.onReady(function() {
                 return handler;
             };
 
+             var create_handler2 = function(file) {
+                var handler;
+                switch (file) {
+                    case 'shp':
+                        handler = function(oFREvent) {
+                            shp = oFREvent.target.result;
+                            if (shx && prj) {
+                                shpTonchuc12(shp, prj, shx, btn_id);
+                            }
+                        };
+                        break;
+                    case 'shx':
+                        handler = function(oFREvent) {
+                            shx = oFREvent.target.result;
+                            if (shp && prj) {
+                                shpTonchuc12(shp, prj, shx, btn_id);
+                            }
+                        };
+                        break;
+                    case 'prj':
+                        handler = function(oFREvent) {
+                            prj = oFREvent.target.result;
+                            if (shx && shp) {
+                                shpTonchuc12(shp, prj, shx, btn_id);
+                            }
+                        };
+                        break;
+                }
+                return handler;
+            };
+
             if (files) {
                 for (var i = 0; i < files.length; i++) {
-
+                    console.log(btn_id);
+                    console.log("test");
                     fileReader[i] = new FileReader();
                     fileReader[i].readAsDataURL(files[i]);
-                    parse_filename = /\.(shp|shx|prj)/;
+                    parse_filename = /\.(shp|shx|prj|dbf)/;
                     result = parse_filename.exec(files[i].name);
                     if (result) {
                         switch (result[1]) {
                             case 'shp':
                                 shpfile = true;
-                                fileReader[i].onload = create_handler('shp');
+                                if (btn_id === 'shp_btn') {
+                                    fileReader[i].onload = create_handler('shp');
+                                } else {
+                                    // fileReader[i].onload = create_handler2('shp');
+                                }
                                 break;
                             case 'shx':
                                 shxfile = true;
-                                fileReader[i].onload = create_handler('shx');
+                                if (btn_id === 'shp_btn') {
+                                    fileReader[i].onload = create_handler('shx');
+                                } else {
+                                    // fileReader[i].onload = create_handler2('shp');
+                                }
                                 break;
                             case 'prj':
                                 prjfile = true;
-                                fileReader[i].onload = create_handler('prj');
+                                if (btn_id === 'shp_btn') {
+                                    fileReader[i].onload = create_handler('prj');
+                                } else {
+                                    // fileReader[i].onload = create_handler2('shp');
+                                }
+                                break;
+                            case 'dbf':
+                                dbffile = true;
+                                fileReader[i].onload = create_handler2('dbf');
                                 break;
                         }
                     }
@@ -2642,8 +2690,9 @@ Ext.onReady(function() {
                 if (!(prjfile && shxfile && shpfile)) {
                     //console.log("file shp, prj, or shx missing");
                     $("#upload_msg").html("file shp, prj, or shx missing");
-                } else {
-                    // $("#upload_msg").html("");
+                } else if ((btn_id === 'batch_shp_btn') && !(prjfile && shxfile && shpfile && dbffile)) {
+                    $("#upload_msg").html("file shp, prj, shx or dbf missing");
+
 
                 }
             }
