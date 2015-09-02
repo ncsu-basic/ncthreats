@@ -2648,8 +2648,6 @@ Ext.onReady(function() {
 
             if (files) {
                 for (var i = 0; i < files.length; i++) {
-                    console.log(btn_id);
-                    console.log("test");
                     fileReader[i] = new FileReader();
                     fileReader[i].readAsDataURL(files[i]);
                     parse_filename = /\.(shp|shx|prj|dbf)/;
@@ -2661,7 +2659,7 @@ Ext.onReady(function() {
                                 if (btn_id === 'shp_btn') {
                                     fileReader[i].onload = create_handler('shp');
                                 } else {
-                                    // fileReader[i].onload = create_handler2('shp');
+                                    fileReader[i].onload = create_handler2('shp');
                                 }
                                 break;
                             case 'shx':
@@ -2669,7 +2667,7 @@ Ext.onReady(function() {
                                 if (btn_id === 'shp_btn') {
                                     fileReader[i].onload = create_handler('shx');
                                 } else {
-                                    // fileReader[i].onload = create_handler2('shp');
+                                    fileReader[i].onload = create_handler2('shx');
                                 }
                                 break;
                             case 'prj':
@@ -2677,7 +2675,7 @@ Ext.onReady(function() {
                                 if (btn_id === 'shp_btn') {
                                     fileReader[i].onload = create_handler('prj');
                                 } else {
-                                    // fileReader[i].onload = create_handler2('shp');
+                                    fileReader[i].onload = create_handler2('prj');
                                 }
                                 break;
                             case 'dbf':
