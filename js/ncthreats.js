@@ -51,6 +51,22 @@ Ext.onReady(function() {
     ////////////////////////////////////////////////////////////////////////////
 
     //////Base Layers
+
+    var layeropts = {
+        buffer: 0,
+        displayOutsideMaxExtent: true,
+        isBaseLayer: true
+    };
+
+    var google_physical = new OpenLayers.Layer.Google("Google satellite", {
+        type: google.maps.MapTypeId.SATELLITE,
+        sphericalMercator: true,
+        visibility: true,
+
+        // maxExtent: new OpenLayers.Bounds(-8515941.046, 4392656.005, -8478829.968, 4415896.359),
+        wrapDateLine: false
+    }, layeropts);
+
     var gphy = new OpenLayers.Layer.Google("Google Physical Map", {
         type: google.maps.MapTypeId.TERRAIN,
         MAX_ZOOM_LEVEL: 12,
@@ -1011,64 +1027,62 @@ Ext.onReady(function() {
                     margins: '5 0 5 0'
                 },
                 items: [{
-                        xtype: 'box',
-                        width: 200,
-                        autoEl: {
-                            tag: 'hr'
-                        },
-                        margins: '0 0 20 0'
-                    },{
-                        xtype: 'button',
-                        width: 80,
-                        text: 'Submit',
-                        handler: save_action,
-
-
-                    },{
-                        xtype: 'box',
-                        width: 200,
-                        autoEl: {
-                            tag: 'hr'
-                        }
-                    }, {
-                        // width: 2,
-                        xtype: 'container',
-                        // width: 200,
-                        autoEl: 'div',
-                        cls: 'mycontent',
-                        html: "<p>View Report of AOI:<br><br></p>"
+                    xtype: 'box',
+                    width: 200,
+                    autoEl: {
+                        tag: 'hr'
                     },
-                    {
-                        xtype: 'button',
-                        text: 'Report',
-                        width: 80,
-                        handler: function() {
-                            var is_composite = composite.getVisibility();
-                            var is_indiv = individual.getVisibility();
-                            if (is_composite) {
-                                threat_calcs_map();
-                                threat_calcs_report();
-                            } else if (is_indiv) {
-                                // console.log(indiv_layer);
-                                threat_calcs_report_indiv(indiv_layer);
+                    margins: '0 0 20 0'
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Submit',
+                    handler: save_action,
 
-                            } else {
-                                console.log("no map");
-                            }
-                        },
-                    }, {
-                        xtype: 'button',
-                        width: 80,
-                        text: 'Reset',
-                        handler: remove_action
-                    }, {
-                        xtype: 'button',
-                        width: 80,
-                        text: 'Save',
-                        id: "resource_btn",
-                        handler: aoi_to_file
+
+                }, {
+                    xtype: 'box',
+                    width: 200,
+                    autoEl: {
+                        tag: 'hr'
                     }
-                ]
+                }, {
+                    // width: 2,
+                    xtype: 'container',
+                    // width: 200,
+                    autoEl: 'div',
+                    cls: 'mycontent',
+                    html: "<p>View Report of AOI:<br><br></p>"
+                }, {
+                    xtype: 'button',
+                    text: 'Report',
+                    width: 80,
+                    handler: function() {
+                        var is_composite = composite.getVisibility();
+                        var is_indiv = individual.getVisibility();
+                        if (is_composite) {
+                            threat_calcs_map();
+                            threat_calcs_report();
+                        } else if (is_indiv) {
+                            // console.log(indiv_layer);
+                            threat_calcs_report_indiv(indiv_layer);
+
+                        } else {
+                            console.log("no map");
+                        }
+                    },
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Reset',
+                    handler: remove_action
+                }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'Save',
+                    id: "resource_btn",
+                    handler: aoi_to_file
+                }]
 
             }]
             // buttons: [{
