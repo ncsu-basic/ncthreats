@@ -22,7 +22,7 @@ Ext.onReady(function() {
     map = new OpenLayers.Map({
         displayProjection: new OpenLayers.Projection("EPSG:4326"),
         maxExtent: map_extent,
-        baseLayer: osm,
+        // baseLayer: osm,
         projection: new OpenLayers.Projection("EPSG:900913"),
         resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
         //numZoomLevels: 7,
@@ -61,7 +61,7 @@ Ext.onReady(function() {
     var google_physical = new OpenLayers.Layer.Google("Google satellite", {
         type: google.maps.MapTypeId.SATELLITE,
         sphericalMercator: true,
-        visibility: true,
+        visibility: false,
 
         // maxExtent: new OpenLayers.Bounds(-8515941.046, 4392656.005, -8478829.968, 4415896.359),
         wrapDateLine: false
@@ -73,7 +73,8 @@ Ext.onReady(function() {
         MIN_ZOOM_LEVEL: 6,
         displayInLayerSwitcher: false,
         visibility: false,
-        buffer: 0
+        buffer: 0,
+        isBaseLayer: true
     });
 
     var osm = new OpenLayers.Layer.OSM("Open Street Map", "", {
@@ -96,13 +97,13 @@ Ext.onReady(function() {
         }
     );
 
-    // var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
-    //     SERVER_URI + "tilecache/", {
-    //         layername: "hillshadenc",
-    //         type: "png",
-    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-    //     }
-    // );
+    var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
+        SERVER_URI + "tilecache/", {
+            layername: "hillshadenc",
+            type: "png",
+            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+        }
+    );
 
 
     ////////////////////////////////////////////////////////////
@@ -487,7 +488,7 @@ Ext.onReady(function() {
     map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
-        gphy, osm, counties_base
+        hillshade, osm, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -2483,7 +2484,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 2,
+        activeTab: 0,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
