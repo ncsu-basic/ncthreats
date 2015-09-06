@@ -853,24 +853,22 @@ Ext.onReady(function() {
                 point_buffer: point_buffer
             };
             console.log(post_data);
+            var done_fn = function(aoi_name) {
+                var handler = function(data, textStatus, jqXHR) {
+                    resource = jqXHR.getResponseHeader('Location');
+                    aoi_to_file = getResource(resource);
+                    console.log(resource);
+                    batch[aoi_name] = resource;
+                    console.log(batch);
+                }
+                return handler;
+            }
             $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps",
                 data: post_data,
                 dataType: "json"
-            }).done(function(data, textStatus, jqXHR) {
-                resource = jqXHR.getResponseHeader('Location');
-                aoi_to_file = getResource(resource);
-                console.log(resource);
-                batch[aoi_name] = resource;
-                console.log(batch);
-
-                // Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-                // onExecuted(data.geojson);
-                // var extent = new OpenLayers.Bounds(
-                //     data.extent).transform(proj_4326, proj_900913);
-                // map.zoomToExtent(extent);
-            });
+            }).done(done_fn(aoi_name));
 
         }
 
