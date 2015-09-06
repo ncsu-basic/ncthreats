@@ -2537,19 +2537,28 @@ Ext.onReady(function() {
 
         var shpTonchuc12 = function(shp, prj, shx, dbf) {
             // console.log(btn_id);
-            if (dbf === undefined){}
+            var data;
+            if (dbf === undefined) {
+                data = {
+                    shp: shp,
+                    shx: shx,
+                    prj: prj
+                }
+            } else {
+                data = {
+                    shp: shp,
+                    shx: shx,
+                    prj: prj,
+                    dbf: dbf
+                }
+            }
             console.log(dbf);
 
 
             $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps/shptojson",
-                data: {
-                    shp: shp,
-                    shx: shx,
-                    prj: prj,
-                    dbf: dbf
-                },
+                data: data,
                 dataType: "json",
                 success: function(data) {
 
@@ -2617,30 +2626,38 @@ Ext.onReady(function() {
                 return handler;
             };
 
-             var create_handler2 = function(file) {
+            var create_handler2 = function(file) {
                 var handler;
                 switch (file) {
                     case 'shp':
                         handler = function(oFREvent) {
                             shp = oFREvent.target.result;
-                            if (shx && prj) {
-                                shpTonchuc12(shp, prj, shx, btn_id);
+                            if (shx && prj && dbf) {
+                                shpTonchuc12(shp, prj, shx, dbf);
                             }
                         };
                         break;
                     case 'shx':
                         handler = function(oFREvent) {
                             shx = oFREvent.target.result;
-                            if (shp && prj) {
-                                shpTonchuc12(shp, prj, shx, btn_id);
+                            if (shp && prj && dbf) {
+                                shpTonchuc12(shp, prj, shx, dbf);
                             }
                         };
                         break;
                     case 'prj':
                         handler = function(oFREvent) {
                             prj = oFREvent.target.result;
-                            if (shx && shp) {
-                                shpTonchuc12(shp, prj, shx, btn_id);
+                            if (shx && shp && dbf) {
+                                shpTonchuc12(shp, prj, shx, dbf);
+                            }
+                        };
+                        break;
+                    case 'dbf':
+                        handler = function(oFREvent) {
+                            dbf = oFREvent.target.result;
+                            if (shx && shp && prj) {
+                                shpTonchuc12(shp, prj, shx, dbf);
                             }
                         };
                         break;
