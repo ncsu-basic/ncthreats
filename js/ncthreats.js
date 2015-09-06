@@ -853,6 +853,8 @@ Ext.onReady(function() {
                 point_buffer: point_buffer
             };
             console.log(post_data);
+
+            // need to use closure to create batch dict
             var done_fn = function(aoi_name) {
                 var handler = function(data, textStatus, jqXHR) {
                     resource = jqXHR.getResponseHeader('Location');
