@@ -8,6 +8,7 @@ Ext.onReady(function() {
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
+    var batch_aoi = false;
 
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
@@ -817,8 +818,66 @@ Ext.onReady(function() {
     };
     var aoi_to_file;
 
-    //function to submit defined area
     var save_action = function() {
+        if (batch_aoi === false) {
+            save_action_reource();
+        } else {
+            save_action_batch();
+        }
+    }
+
+    var save_action_batch = function() {
+        var gml;
+        var batch = {};
+        console.log("code for batch ");
+        console.log(highlightLayer.features.length);
+        var gml_writer = new OpenLayers.Format.GML.v3({
+            featureType: 'MultiPolygon',
+            featureNS: 'http://jimserver.net/',
+            geometryName: 'aoi',
+            'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+            'externalProjection': new OpenLayers.Projection("EPSG:4326")
+        });
+        for (var a = 0; a < highlightLayer.features.length; a++) {
+            var aoi_name = highlightLayer.features[a].attributes.Name;
+            var gml = '';
+            gml = gml_writer.write(highlightLayer.features[a]);
+            var aoi_list = [];
+            var selected_predef_new = 'na';
+            var point_buffer = {};
+            var post_data = {
+                gml: gml,
+                aoi_list: aoi_list.join(":"),
+                predef_type: '',
+                sel_type: 'custom',
+                point_buffer: point_buffer
+            };
+            console.log(post_data);
+            $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps",
+                data: post_data,
+                dataType: "json"
+            }).done(function(data, textStatus, jqXHR) {
+                resource = jqXHR.getResponseHeader('Location');
+                aoi_to_file = getResource(resource);
+                console.log(resource);
+                batch[aoi_name] = resource;
+                console.log(batch);
+
+                // Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+                // onExecuted(data.geojson);
+                // var extent = new OpenLayers.Bounds(
+                //     data.extent).transform(proj_4326, proj_900913);
+                // map.zoomToExtent(extent);
+            });
+
+        }
+
+    }
+
+    //function to submit defined area
+    var save_action_reource = function() {
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
         var sel_type = formPanel2.getForm().getValues().aoi_type;
         var ptradius = formPanel2.getForm().getValues().bufferkm;
@@ -926,7 +985,7 @@ Ext.onReady(function() {
             point_buffer: point_buffer,
             ptradius: ptradius
         };
-        // console.log(post_data);
+        console.log(post_data);
 
         $.ajax({
             type: "POST",
@@ -2552,8 +2611,6 @@ Ext.onReady(function() {
                     dbf: dbf
                 }
             }
-            console.log(dbf);
-
 
             $.ajax({
                 type: "POST",
@@ -2573,7 +2630,14 @@ Ext.onReady(function() {
                         map.zoomToExtent(map_extent);
                         highlightLayer.addFeatures(shpfeatures);
                         highlightLayer.setVisibility(true);
-                        console.log(shpfeatures);
+                        if (shpfeatures.length > 1) {
+                            batch_aoi = true;
+                            for (var a = 0; a < shpfeatures.length; a++) {
+                                console.log(shpfeatures[a].attributes.Name)
+                            }
+                        } else {
+                            batch_aoi = false;
+                        }
                         document.getElementById('custom_radio_sel').checked =
                             'checked';
                         Ext.getCmp('aoi_upload_id').collapse();
