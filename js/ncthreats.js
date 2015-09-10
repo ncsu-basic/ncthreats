@@ -530,6 +530,7 @@ Ext.onReady(function() {
 
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
+        console.log(mode);
         if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
