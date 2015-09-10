@@ -9,6 +9,7 @@ Ext.onReady(function() {
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
+    var batch_resource = {};
 
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
@@ -647,6 +648,7 @@ Ext.onReady(function() {
     var remove_action = function() {
         resource = SERVER_URI + "wps/0";
         batch_aoi = false;
+        batch_resource = {};
         new_selection();
         map.zoomToExtent(map_extent);
         var vis_lyrs = [counties, ncbcr, nchuc6, nchuc12,
@@ -670,7 +672,7 @@ Ext.onReady(function() {
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
-        if (!batch_aoi){
+        if (!batch_aoi) {
             results.removeAllFeatures();
         }
 
@@ -830,12 +832,13 @@ Ext.onReady(function() {
         } else {
             save_action_batch();
         }
-    }
+    };
 
     var show_batch = function(resources) {
         console.log(resources);
+        batch_resource = resources;
         Ext.Msg.alert("Batch file resources created.");
-    }
+    };
 
     var save_action_batch = function() {
         var gml;
@@ -850,12 +853,28 @@ Ext.onReady(function() {
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
+        var done_fn = function(aoi_name) {
+            var handler = function(data, textStatus, jqXHR) {
+                onExecuted(data.geojson);
+                resource = jqXHR.getResponseHeader('Location');
+                aoi_to_file = getResource(resource);
+                // console.log(resource);
+                batch[aoi_name] = resource;
+                // console.log(batch);
+                // console.log(++aois_done);
+                if (++aois_done === highlightLayer.features.length) {
+                    show_batch(batch);
+                }
+
+            };
+            return handler;
+        };
         for (var a = 0; a < highlightLayer.features.length; a++) {
             var aoi_name = highlightLayer.features[a].attributes.Name;
             var gml = '';
             gml = gml_writer.write(highlightLayer.features[a]);
             var aoi_list = [];
-            var selected_predef_new = 'na';
+            // var selected_predef_new = 'na';
             var point_buffer = {};
             var post_data = {
                 gml: gml,
@@ -867,32 +886,18 @@ Ext.onReady(function() {
             console.log(post_data);
 
             // need to use closure to create batch dict
-            var done_fn = function(aoi_name) {
-                var handler = function(data, textStatus, jqXHR) {
-                    onExecuted(data.geojson);
-                    resource = jqXHR.getResponseHeader('Location');
-                    aoi_to_file = getResource(resource);
-                    // console.log(resource);
-                    batch[aoi_name] = resource;
-                    // console.log(batch);
-                    // console.log(++aois_done);
-                    if (++aois_done === highlightLayer.features.length) {
-                        show_batch(batch);
-                    }
 
-                }
-                return handler;
-            }
             $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps",
                 data: post_data,
-                dataType: "json"
+                dataType: "json",
+                // async: false,
             }).done(done_fn(aoi_name));
 
         }
 
-    }
+    };
 
     //function to submit defined area
     var save_action_reource = function() {
@@ -1022,7 +1027,9 @@ Ext.onReady(function() {
         });
     };
     var threat_calcs_report;
+    var threat_calcs_report_batch;
     var threat_calcs_report_indiv;
+    var threat_calcs_report_indiv_batch;
     var indiv_layer;
     // new aoi panel
     var formPanel2 = new Ext.form.FormPanel({
@@ -1136,9 +1143,17 @@ Ext.onReady(function() {
                     text: 'Report',
                     width: 80,
                     handler: function() {
+                        console.log(batch_resource);
+                        console.log(Object.keys(batch_resource).length);
                         var is_composite = composite.getVisibility();
                         var is_indiv = individual.getVisibility();
-                        if (is_composite) {
+                        if (Object.keys(batch_resource).length > 0 && is_composite) {
+                            threat_calcs_map();
+                            threat_calcs_report_batch();
+
+                        } else if (Object.keys(batch_resource).length > 0) {
+                            threat_calcs_report_indiv_batch(indiv_layer);
+                        } else if (is_composite) {
                             threat_calcs_map();
                             threat_calcs_report();
                         } else if (is_indiv) {
@@ -1437,6 +1452,30 @@ Ext.onReady(function() {
             var url = resource + '/report_indiv?' + qry_str;
             console.log(url);
             window.open(url);
+        }
+    };
+
+    threat_calcs_report_indiv_batch = function(lyrdesc) {
+        console.log(lyrdesc);
+        var frmvals = lyrdesc.split(":");
+        var form_vals = {};
+        console.log(frmvals.length);
+        // var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
+        // var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
+
+        form_vals.mode = 'single';
+        form_vals = {
+            'map': lyrdesc,
+            batch_resource: batch_resource
+        };
+
+
+        if (!$.isEmptyObject(form_vals)) {
+            var qry_str = $.param(form_vals);
+            // var url = SERVER_URI + 'wps/report?' + qry_str;
+            var url = resource + '/report_indiv_batch?' + qry_str;
+            console.log(url);
+            // window.open(url);
         }
     };
 
@@ -2620,14 +2659,14 @@ Ext.onReady(function() {
                     shp: shp,
                     shx: shx,
                     prj: prj
-                }
+                };
             } else {
                 data = {
                     shp: shp,
                     shx: shx,
                     prj: prj,
                     dbf: dbf
-                }
+                };
             }
 
             $.ajax({
@@ -2651,7 +2690,7 @@ Ext.onReady(function() {
                         if (shpfeatures.length > 1) {
                             batch_aoi = true;
                             for (var a = 0; a < shpfeatures.length; a++) {
-                                console.log(shpfeatures[a].attributes.Name)
+                                console.log(shpfeatures[a].attributes.Name);
                             }
                         } else {
                             batch_aoi = false;
