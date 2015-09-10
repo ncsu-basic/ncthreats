@@ -908,7 +908,7 @@ Ext.onReady(function() {
                 url: SERVER_URI + "wps",
                 data: post_data,
                 dataType: "json",
-                async: false,
+                async: false
             }).done(done_fn(aoi_name));
 
         }
