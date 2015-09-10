@@ -828,7 +828,7 @@ Ext.onReady(function() {
 
     var save_action = function() {
         if (batch_aoi === false) {
-            save_action_reource();
+            save_action_resource();
         } else {
             save_action_batch();
         }
@@ -836,6 +836,22 @@ Ext.onReady(function() {
 
     var show_batch = function(resources) {
         console.log(resources);
+        // var qry_str = $.param(resources);
+        $.ajax({
+            type: "POST",
+            url: SERVER_URI + "wps/batch",
+            data: resources,
+            dataType: "json"
+        }).done(function(data, textStatus, jqXHR) {
+            resource = jqXHR.getResponseHeader('Location');
+            aoi_to_file = getResource(resource);
+            console.log(resource);
+            Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+            // onExecuted(data.geojson);
+            // var extent = new OpenLayers.Bounds(
+            //     data.extent).transform(proj_4326, proj_900913);
+            // map.zoomToExtent(extent);
+        });
         batch_resource = resources;
         Ext.Msg.alert("Batch file resources created.");
     };
@@ -900,7 +916,7 @@ Ext.onReady(function() {
     };
 
     //function to submit defined area
-    var save_action_reource = function() {
+    var save_action_resource = function() {
         var selected_predef = formPanel2.getForm().getValues().predef_selection;
         var sel_type = formPanel2.getForm().getValues().aoi_type;
         var ptradius = formPanel2.getForm().getValues().bufferkm;
