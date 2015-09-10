@@ -669,7 +669,10 @@ Ext.onReady(function() {
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
-        results.removeAllFeatures();
+        if (!batch_aoi){
+            results.removeAllFeatures();
+        }
+
         results.addFeatures(geojson_format.read(aoi));
         results.setVisibility(true);
     };
@@ -865,6 +868,7 @@ Ext.onReady(function() {
             // need to use closure to create batch dict
             var done_fn = function(aoi_name) {
                 var handler = function(data, textStatus, jqXHR) {
+                    onExecuted(data.geojson);
                     resource = jqXHR.getResponseHeader('Location');
                     aoi_to_file = getResource(resource);
                     // console.log(resource);
