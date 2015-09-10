@@ -617,6 +617,7 @@ Ext.onReady(function() {
 
     var new_selection = function() {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
+        console.log(mode);
         if (mode.indexOf("custom") !== -1) {
             click.activate();
             // query_ctl.deactivate();
@@ -630,7 +631,7 @@ Ext.onReady(function() {
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         } else if (mode.indexOf("ptbuffer") !== -1) {
-            console.log(mode);
+
 
             // click.deactivate();
             // query_ctl.activate();
@@ -644,6 +645,7 @@ Ext.onReady(function() {
 
     var remove_action = function() {
         resource = SERVER_URI + "wps/0";
+        batch_aoi = false;
         new_selection();
         map.zoomToExtent(map_extent);
         var vis_lyrs = [counties, ncbcr, nchuc6, nchuc12,
@@ -826,9 +828,15 @@ Ext.onReady(function() {
         }
     }
 
+    var show_batch = function(resources) {
+        console.log(resources);
+        Ext.Msg.alert("Batch file resources created.");
+    }
+
     var save_action_batch = function() {
         var gml;
         var batch = {};
+        var aois_done = 0;
         console.log("code for batch ");
         console.log(highlightLayer.features.length);
         var gml_writer = new OpenLayers.Format.GML.v3({
@@ -859,9 +867,14 @@ Ext.onReady(function() {
                 var handler = function(data, textStatus, jqXHR) {
                     resource = jqXHR.getResponseHeader('Location');
                     aoi_to_file = getResource(resource);
-                    console.log(resource);
+                    // console.log(resource);
                     batch[aoi_name] = resource;
-                    console.log(batch);
+                    // console.log(batch);
+                    // console.log(++aois_done);
+                    if (++aois_done === highlightLayer.features.length) {
+                        show_batch(batch);
+                    }
+
                 }
                 return handler;
             }
@@ -2543,7 +2556,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 0,
+        activeTab: 4,
         // accordion
         items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
         deferredRender: false
