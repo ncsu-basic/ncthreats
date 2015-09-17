@@ -856,6 +856,7 @@ Ext.onReady(function() {
         Ext.Msg.alert("Batch file resources created.");
     };
 
+
     var save_action_batch = function() {
         var gml;
         var batch = {};
@@ -879,7 +880,9 @@ Ext.onReady(function() {
                 // console.log(batch);
                 // console.log(++aois_done);
                 if (++aois_done === highlightLayer.features.length) {
+                    $('body').toggleClass('waiting');
                     show_batch(batch);
+
                 } else {
                     batch_util_fn(highlightLayer.features[aois_done]);
 
@@ -890,31 +893,33 @@ Ext.onReady(function() {
         };
 
         var batch_util_fn = function(feature) {
-                var aoi_name = feature.attributes.Name;
-                var gml = '';
-                gml = gml_writer.write(feature);
-                var aoi_list = [];
-                // var selected_predef_new = 'na';
-                var point_buffer = {};
-                var post_data = {
-                    gml: gml,
-                    aoi_list: aoi_list.join(":"),
-                    predef_type: '',
-                    sel_type: 'custom',
-                    point_buffer: point_buffer
-                };
-                console.log(post_data);
+            var aoi_name = feature.attributes.Name;
+            var gml = '';
+            gml = gml_writer.write(feature);
+            var aoi_list = [];
+            // var selected_predef_new = 'na';
+            var point_buffer = {};
+            var post_data = {
+                gml: gml,
+                aoi_list: aoi_list.join(":"),
+                predef_type: '',
+                sel_type: 'custom',
+                point_buffer: point_buffer
+            };
+            console.log(post_data);
 
-                // need to use closure to create batch dict
+            // need to use closure to create batch dict
 
-                $.ajax({
-                    type: "POST",
-                    url: SERVER_URI + "wps",
-                    data: post_data,
-                    dataType: "json"
-                }).done(done_fn(aoi_name));
-            }
+            $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps",
+                data: post_data,
+                dataType: "json"
+            }).done(done_fn(aoi_name));
+        }
         batch_util_fn(highlightLayer.features[0]);
+        $('body').toggleClass('waiting');
+
     };
 
     //function to submit defined area

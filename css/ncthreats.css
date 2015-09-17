@@ -176,5 +176,8 @@ margin: 10p;
 .clearfix {
 	display: block;
 }
+.waiting * {
+	cursor: wait;
+}
 
 /* close commented backslash hack */
