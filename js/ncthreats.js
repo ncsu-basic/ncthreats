@@ -880,38 +880,69 @@ Ext.onReady(function() {
                 // console.log(++aois_done);
                 if (++aois_done === highlightLayer.features.length) {
                     show_batch(batch);
+                } else {
+                    batch_util_fn(highlightLayer.features[aois_done]);
+
                 }
 
             };
             return handler;
         };
-        for (var a = 0; a < highlightLayer.features.length; a++) {
-            var aoi_name = highlightLayer.features[a].attributes.Name;
-            var gml = '';
-            gml = gml_writer.write(highlightLayer.features[a]);
-            var aoi_list = [];
-            // var selected_predef_new = 'na';
-            var point_buffer = {};
-            var post_data = {
-                gml: gml,
-                aoi_list: aoi_list.join(":"),
-                predef_type: '',
-                sel_type: 'custom',
-                point_buffer: point_buffer
-            };
-            console.log(post_data);
 
-            // need to use closure to create batch dict
+        var batch_util_fn = function(feature) {
+                var aoi_name = feature.attributes.Name;
+                var gml = '';
+                gml = gml_writer.write(feature);
+                var aoi_list = [];
+                // var selected_predef_new = 'na';
+                var point_buffer = {};
+                var post_data = {
+                    gml: gml,
+                    aoi_list: aoi_list.join(":"),
+                    predef_type: '',
+                    sel_type: 'custom',
+                    point_buffer: point_buffer
+                };
+                console.log(post_data);
 
-            $.ajax({
-                type: "POST",
-                url: SERVER_URI + "wps",
-                data: post_data,
-                dataType: "json",
-                async: false
-            }).done(done_fn(aoi_name));
+                // need to use closure to create batch dict
 
-        }
+                $.ajax({
+                    type: "POST",
+                    url: SERVER_URI + "wps",
+                    data: post_data,
+                    dataType: "json"
+                }).done(done_fn(aoi_name));
+            }
+            // for (var a = 0; a < highlightLayer.features.length; a++) {
+        batch_util_fn(highlightLayer.features[0]);
+
+        // var aoi_name = highlightLayer.features[a].attributes.Name;
+        // var gml = '';
+        // gml = gml_writer.write(highlightLayer.features[a]);
+        // var aoi_list = [];
+        // // var selected_predef_new = 'na';
+        // var point_buffer = {};
+        // var post_data = {
+        //     gml: gml,
+        //     aoi_list: aoi_list.join(":"),
+        //     predef_type: '',
+        //     sel_type: 'custom',
+        //     point_buffer: point_buffer
+        // };
+        // console.log(post_data);
+
+        // // need to use closure to create batch dict
+
+        // $.ajax({
+        //     type: "POST",
+        //     url: SERVER_URI + "wps",
+        //     data: post_data,
+        //     dataType: "json",
+        //     async: false
+        // }).done(done_fn(aoi_name));
+
+        // }
 
     };
 
