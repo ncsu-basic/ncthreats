@@ -858,7 +858,7 @@ Ext.onReady(function() {
 
 
     var save_action_batch = function() {
-        var gml;
+        // var gml;
         var batch = {};
         var aois_done = 0;
         console.log("code for batch ");
@@ -898,13 +898,14 @@ Ext.onReady(function() {
             gml = gml_writer.write(feature);
             var aoi_list = [];
             // var selected_predef_new = 'na';
-            var point_buffer = {};
+            // var point_buffer = {};
             var post_data = {
                 gml: gml,
-                aoi_list: aoi_list.join(":"),
+                // aoi_list: aoi_list.join(":"),
+                aoi_list: '',
                 predef_type: '',
                 sel_type: 'custom',
-                point_buffer: point_buffer
+                point_buffer: {}
             };
             console.log(post_data);
 
@@ -916,7 +917,7 @@ Ext.onReady(function() {
                 data: post_data,
                 dataType: "json"
             }).done(done_fn(aoi_name));
-        }
+        };
         batch_util_fn(highlightLayer.features[0]);
         $('body').toggleClass('waiting');
 
@@ -1170,13 +1171,14 @@ Ext.onReady(function() {
                         console.log(Object.keys(batch_resource).length);
                         var is_composite = composite.getVisibility();
                         var is_indiv = individual.getVisibility();
-                        if (Object.keys(batch_resource).length > 0 && is_composite) {
-                            threat_calcs_map();
-                            threat_calcs_report_batch();
+                        // if (Object.keys(batch_resource).length > 0 && is_composite) {
+                        //     threat_calcs_map();
+                        //     threat_calcs_report_batch();
 
-                        } else if (Object.keys(batch_resource).length > 0) {
-                            threat_calcs_report_indiv_batch(indiv_layer);
-                        } else if (is_composite) {
+                        // } else if (Object.keys(batch_resource).length > 0) {
+                        //     console.log(batch_resource);
+                        //     threat_calcs_report_indiv_batch(indiv_layer);
+                        if (is_composite) {
                             threat_calcs_map();
                             threat_calcs_report();
                         } else if (is_indiv) {
@@ -1480,26 +1482,26 @@ Ext.onReady(function() {
 
     threat_calcs_report_indiv_batch = function(lyrdesc) {
         console.log(lyrdesc);
-        var frmvals = lyrdesc.split(":");
-        var form_vals = {};
-        console.log(frmvals.length);
-        // var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
-        // var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
+        // var frmvals = lyrdesc.split(":");
+        // var form_vals = {};
+        // console.log(frmvals.length);
+        // // var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
+        // // var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
 
-        form_vals.mode = 'single';
-        form_vals = {
-            'map': lyrdesc,
-            batch_resource: batch_resource
-        };
+        // form_vals.mode = 'single';
+        // form_vals = {
+        //     'map': lyrdesc
+        //     // batch_resource: batch_resource
+        // };
 
 
-        if (!$.isEmptyObject(form_vals)) {
-            var qry_str = $.param(form_vals);
-            // var url = SERVER_URI + 'wps/report?' + qry_str;
-            var url = resource + '/report_indiv_batch?' + qry_str;
-            console.log(url);
-            // window.open(url);
-        }
+        // if (!$.isEmptyObject(lyrdesc)) {
+        var qry_str = $.param(lyrdesc);
+        // var url = SERVER_URI + 'wps/report?' + qry_str;
+        var url = resource + '/report_indiv?' + qry_str;
+        console.log(url);
+        window.open(url);
+        // }
     };
 
     threat_calcs_report = function() {
