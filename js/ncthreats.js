@@ -668,6 +668,7 @@ Ext.onReady(function() {
     }
 
     var onExecuted = function(aoi) {
+        console.log("on executed");
         var geojson_format = new OpenLayers.Format.GeoJSON({
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
@@ -675,7 +676,7 @@ Ext.onReady(function() {
         if (!batch_aoi) {
             results.removeAllFeatures();
         }
-
+        console.log(aoi);
         results.addFeatures(geojson_format.read(aoi));
         results.setVisibility(true);
     };
@@ -701,15 +702,27 @@ Ext.onReady(function() {
                     data.extent).transform(proj_4326, proj_900913);
                 map.zoomToExtent(extent);
             });
-        // if batch resource
+            // if batch resource
         } else {
             resource = SERVER_URI + 'wps/' + hash.slice(1).replace("_", "/");
             $.ajax({
                 type: "GET",
                 url: resource + '/saved',
-                dataType: "text"
+                dataType: "json"
             }).done(function(data) {
-               console.log(data);
+                console.log(data.geojson.length);
+                var geojson_format = new OpenLayers.Format.GeoJSON({
+                    'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                    'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                });
+                results.removeAllFeatures();
+                for (var i = 0; i < data.geojson.length; i++) {
+                    var aoi = data.geojson[i];
+                    results.addFeatures(geojson_format.read(aoi));
+                }
+                results.setVisibility(true);
+
+
             });
         }
 
@@ -874,6 +887,7 @@ Ext.onReady(function() {
 
 
     var save_action_batch = function() {
+        console.log("save action batch");
         // var gml;
         var batch = {};
         var aois_done = 0;
@@ -886,6 +900,8 @@ Ext.onReady(function() {
             'internalProjection': new OpenLayers.Projection("EPSG:900913"),
             'externalProjection': new OpenLayers.Projection("EPSG:4326")
         });
+        // function uses closure
+        // adds to batch object
         var done_fn = function(aoi_name) {
             var handler = function(data, textStatus, jqXHR) {
                 onExecuted(data.geojson);
@@ -898,12 +914,9 @@ Ext.onReady(function() {
                 if (++aois_done === highlightLayer.features.length) {
                     $('body').toggleClass('waiting');
                     show_batch(batch);
-
                 } else {
                     batch_util_fn(highlightLayer.features[aois_done]);
-
                 }
-
             };
             return handler;
         };
