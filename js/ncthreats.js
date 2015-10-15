@@ -683,20 +683,36 @@ Ext.onReady(function() {
     ////////////////////////////////////////////////////////
     //if hash in url use to load AOI
     ///////////////////////////////////////////////////
+
+    // if sinlge aoi
     if (window.location.hash.slice(1).length !== 0) {
-        resource = SERVER_URI + 'wps/' + window.location.hash.slice(1);
-        $.ajax({
-            type: "GET",
-            url: resource + '/saved',
-            dataType: "json"
-        }).done(function(data) {
-            aoi_to_file = getResource(resource);
-            Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-            onExecuted(data.geojson);
-            var extent = new OpenLayers.Bounds(
-                data.extent).transform(proj_4326, proj_900913);
-            map.zoomToExtent(extent);
-        });
+        var hash = window.location.hash;
+        if (hash.indexOf("_") == -1) {
+            resource = SERVER_URI + 'wps/' + hash.slice(1);
+            $.ajax({
+                type: "GET",
+                url: resource + '/saved',
+                dataType: "json"
+            }).done(function(data) {
+                aoi_to_file = getResource(resource);
+                Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+                onExecuted(data.geojson);
+                var extent = new OpenLayers.Bounds(
+                    data.extent).transform(proj_4326, proj_900913);
+                map.zoomToExtent(extent);
+            });
+        // if batch resource
+        } else {
+            resource = SERVER_URI + 'wps/' + hash.slice(1).replace("_", "/");
+            $.ajax({
+                type: "GET",
+                url: resource + '/saved',
+                dataType: "text"
+            }).done(function(data) {
+               console.log(data);
+            });
+        }
+
     }
     console.log(resource);
 
