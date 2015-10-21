@@ -710,7 +710,7 @@ Ext.onReady(function() {
                 url: resource + '/saved',
                 dataType: "json"
             }).done(function(data) {
-                console.log(data.geojson.length);
+                console.log(data);
                 var geojson_format = new OpenLayers.Format.GeoJSON({
                     'internalProjection': new OpenLayers.Projection("EPSG:900913"),
                     'externalProjection': new OpenLayers.Projection("EPSG:4326")
@@ -721,8 +721,8 @@ Ext.onReady(function() {
                     results.addFeatures(geojson_format.read(aoi));
                 }
                 results.setVisibility(true);
-
-
+                batch_aoi = true;
+                batch_resource = data.resource;
             });
         }
 
