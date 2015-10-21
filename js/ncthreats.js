@@ -1088,7 +1088,7 @@ Ext.onReady(function() {
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
         width: 296,
-        height: 500,
+        height: 560,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
@@ -1219,6 +1219,61 @@ Ext.onReady(function() {
                         }
                     },
                 }, {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'SS1',
+                    handler: function() {
+                        console.log(batch_resource);
+                        console.log(Object.keys(batch_resource).length);
+                        var is_composite = composite.getVisibility();
+                        var is_indiv = individual.getVisibility();
+                        // if (Object.keys(batch_resource).length > 0 && is_composite) {
+                        //     threat_calcs_map();
+                        //     threat_calcs_report_batch();
+
+                        // } else if (Object.keys(batch_resource).length > 0) {
+                        //     console.log(batch_resource);
+                        //     threat_calcs_report_indiv_batch(indiv_layer);
+                        if (is_composite) {
+                            // threat_calcs_map();
+                            threat_calcs_report("ssheet");
+                            console.log("is_composite ss1");
+                        } else if (is_indiv) {
+                            // console.log(indiv_layer);
+                            // threat_calcs_report_indiv(indiv_layer);
+                            console.log("is_indiv ss1");
+
+                        } else {
+                            console.log("no map");
+                        }
+                    }
+                },
+                {
+                    xtype: 'button',
+                    width: 80,
+                    text: 'SS2',
+                    handler: function() {
+                        console.log(batch_resource);
+                        console.log(Object.keys(batch_resource).length);
+                        var is_composite = composite.getVisibility();
+                        var is_indiv = individual.getVisibility();
+
+                        if (is_composite) {
+                            // threat_calcs_map();
+                            // threat_calcs_report();
+                            console.log("is_composite ss2");
+                        } else if (is_indiv) {
+                            // console.log(indiv_layer);
+                            // threat_calcs_report_indiv(indiv_layer);
+                            console.log("is_indiv ss2");
+
+
+                        } else {
+                            console.log("no map");
+                        }
+                    }
+                },
+                {
                     xtype: 'button',
                     width: 80,
                     text: 'Reset',
@@ -1431,7 +1486,7 @@ Ext.onReady(function() {
 
             for (var key in data.res_arr) {
                 thrt = data.res_arr[key][results_col];
-                console.log(thrt);
+                // console.log(thrt);
                 // thrt = Math.ceil(thrt / 2) ;
                 // if (thrt_raw <= 1.66) {
                 //     thrt = 0;
@@ -1533,7 +1588,11 @@ Ext.onReady(function() {
         // }
     };
 
-    threat_calcs_report = function() {
+    threat_calcs_report = function(report_form) {
+        console.log("hello world");
+        // set default parameter as report
+        report_form = typeof report_form !== 'undefined' ?  report_form : "report";
+        console.log(report_form);
         // var form_vals_hab = habitat_panel.getForm().getValues();
         // var form_vals_year = modelpaneltop.getForm().getValues();
         // var form_vals_misc = modelpanelmid.getForm().getValues();
@@ -1718,7 +1777,7 @@ Ext.onReady(function() {
         if (submit_form) {
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
-            var url = resource + '/report?' + qry_str;
+            var url = resource + '/' + report_form + '?' + qry_str;
             console.log(url);
             window.open(url);
         } else {
