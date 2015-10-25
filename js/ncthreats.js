@@ -1236,7 +1236,7 @@ Ext.onReady(function() {
                         //     threat_calcs_report_indiv_batch(indiv_layer);
                         if (is_composite) {
                             // threat_calcs_map();
-                            threat_calcs_report("ssheet");
+                            threat_calcs_report("ssheet1");
                             console.log("is_composite ss1");
                         } else if (is_indiv) {
                             // console.log(indiv_layer);
@@ -1247,8 +1247,7 @@ Ext.onReady(function() {
                             console.log("no map");
                         }
                     }
-                },
-                {
+                }, {
                     xtype: 'button',
                     width: 80,
                     text: 'SS2',
@@ -1261,6 +1260,7 @@ Ext.onReady(function() {
                         if (is_composite) {
                             // threat_calcs_map();
                             // threat_calcs_report();
+                            threat_calcs_report("ssheet2");
                             console.log("is_composite ss2");
                         } else if (is_indiv) {
                             // console.log(indiv_layer);
@@ -1272,8 +1272,7 @@ Ext.onReady(function() {
                             console.log("no map");
                         }
                     }
-                },
-                {
+                }, {
                     xtype: 'button',
                     width: 80,
                     text: 'Reset',
@@ -1591,7 +1590,8 @@ Ext.onReady(function() {
     threat_calcs_report = function(report_form) {
         console.log("hello world");
         // set default parameter as report
-        report_form = typeof report_form !== 'undefined' ?  report_form : "report";
+        report_form = typeof report_form !== 'undefined' ? report_form : "report";
+
         console.log(report_form);
         // var form_vals_hab = habitat_panel.getForm().getValues();
         // var form_vals_year = modelpaneltop.getForm().getValues();
@@ -1778,11 +1778,43 @@ Ext.onReady(function() {
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = resource + '/' + report_form + '?' + qry_str;
-            console.log(url);
-            window.open(url);
+            if (report_form === "report") {
+                console.log(url);
+                window.open(url);
+            } else if (report_form.indexOf("ssheet" != -1)) {
+                $.ajax({
+                    url: url,
+                    type: 'GET'
+                }).done(function(data, textStatus, jqXHR) {
+                    if (jqXHR.status === 201) {
+                        var csvresource = jqXHR.getResponseHeader('Location');
+                        $('#dnlds').attr('action', csvresource);
+                        $('#dnlds').submit();
+                    } else {
+                        console.log("error" + jqXHR.status);
+                    }
+                });
+            }
+
         } else {
             alert("no factors included");
         }
+        // var threat_calcs_ssheet = function() {
+
+        //     var qry_str = $.param(form_vals);
+        //     $.ajax({
+        //         url: SERVER_URI + 'wps/ssheet?' + qry_str,
+        //         type: 'GET'
+        //     }).done(function(data, textStatus, jqXHR) {
+        //         if (jqXHR.status === 201) {
+        //             var csvresource = jqXHR.getResponseHeader('Location');
+        //             $('#dnlds').attr('action', csvresource);
+        //             $('#dnlds').submit();
+        //         } else {
+        //             console.log("error" + jqXHR.status);
+        //         }
+        //     });
+        // };
 
     };
 
