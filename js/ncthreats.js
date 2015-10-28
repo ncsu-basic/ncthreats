@@ -1588,9 +1588,13 @@ Ext.onReady(function() {
     };
 
     threat_calcs_report = function(report_form) {
-        console.log("hello world");
-        // set default parameter as report
-        report_form = typeof report_form !== 'undefined' ? report_form : "report";
+        // console.log("hello world");
+        // // set default parameter as report
+        // report_form = typeof report_form !== 'undefined' ? report_form : "report";
+        if (report_form !== 'ssheet1'){
+            report_form = 'report'
+        }
+
 
         console.log(report_form);
         // var form_vals_hab = habitat_panel.getForm().getValues();
