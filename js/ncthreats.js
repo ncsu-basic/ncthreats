@@ -1221,7 +1221,7 @@ Ext.onReady(function() {
                 }, {
                     xtype: 'button',
                     width: 80,
-                    text: 'SS1',
+                    text: 'Spreadsheet',
                     handler: function() {
                         console.log(batch_resource);
                         console.log(Object.keys(batch_resource).length);
@@ -1247,32 +1247,34 @@ Ext.onReady(function() {
                             console.log("no map");
                         }
                     }
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'SS2',
-                    handler: function() {
-                        console.log(batch_resource);
-                        console.log(Object.keys(batch_resource).length);
-                        var is_composite = composite.getVisibility();
-                        var is_indiv = individual.getVisibility();
+                },
+                // {
+                //     xtype: 'button',
+                //     width: 80,
+                //     text: 'SS2',
+                //     handler: function() {
+                //         console.log(batch_resource);
+                //         console.log(Object.keys(batch_resource).length);
+                //         var is_composite = composite.getVisibility();
+                //         var is_indiv = individual.getVisibility();
 
-                        if (is_composite) {
-                            // threat_calcs_map();
-                            // threat_calcs_report();
-                            threat_calcs_report("ssheet2");
-                            console.log("is_composite ss2");
-                        } else if (is_indiv) {
-                            // console.log(indiv_layer);
-                            // threat_calcs_report_indiv(indiv_layer);
-                            console.log("is_indiv ss2");
+                //         if (is_composite) {
+                //             // threat_calcs_map();
+                //             // threat_calcs_report();
+                //             threat_calcs_report("ssheet2");
+                //             console.log("is_composite ss2");
+                //         } else if (is_indiv) {
+                //             // console.log(indiv_layer);
+                //             // threat_calcs_report_indiv(indiv_layer);
+                //             console.log("is_indiv ss2");
 
 
-                        } else {
-                            console.log("no map");
-                        }
-                    }
-                }, {
+                //         } else {
+                //             console.log("no map");
+                //         }
+                //     }
+                // },
+                {
                     xtype: 'button',
                     width: 80,
                     text: 'Reset',
@@ -1696,8 +1698,6 @@ Ext.onReady(function() {
             form_vals_new.frst = 'notinclude';
         }
 
-
-
         console.log(form_vals_new);
 
         //        var form_vals_water = modelpanelbot.getForm().getValues();
@@ -1765,6 +1765,7 @@ Ext.onReady(function() {
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = resource + '/' + report_form + '?' + qry_str;
             if (report_form === "report") {
+            // if (true) {
                 console.log(url);
                 window.open(url);
             } else if (report_form.indexOf("ssheet" != -1)) {
