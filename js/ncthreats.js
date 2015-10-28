@@ -1574,7 +1574,7 @@ Ext.onReady(function() {
 
     threat_calcs_report = function(report_form) {
         console.log(report_form);
-        if (report_form.trim() !== 'ssheet1' && report_form.trim() !== 'ssheet2'){
+        if (report_form !== 'ssheet1' && report_form !== 'ssheet2'){
             report_form = 'report'
         }
 
