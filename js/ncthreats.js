@@ -1565,36 +1565,18 @@ Ext.onReady(function() {
 
     threat_calcs_report_indiv_batch = function(lyrdesc) {
         console.log(lyrdesc);
-        // var frmvals = lyrdesc.split(":");
-        // var form_vals = {};
-        // console.log(frmvals.length);
-        // // var habthrts = ['frst', 'ftwt', "hbwt", "open", "shrb"];
-        // // var yearthrts = ['urban', 'fire', 'trans', 'slr_up', 'slr_lc'];
 
-        // form_vals.mode = 'single';
-        // form_vals = {
-        //     'map': lyrdesc
-        //     // batch_resource: batch_resource
-        // };
-
-
-        // if (!$.isEmptyObject(lyrdesc)) {
         var qry_str = $.param(lyrdesc);
-        // var url = SERVER_URI + 'wps/report?' + qry_str;
         var url = resource + '/report_indiv?' + qry_str;
         console.log(url);
         window.open(url);
-        // }
     };
 
     threat_calcs_report = function(report_form) {
-        // console.log("hello world");
-        // // set default parameter as report
-        // report_form = typeof report_form !== 'undefined' ? report_form : "report";
-        if (report_form !== 'ssheet1'){
+        console.log(report_form);
+        if (report_form.trim() !== 'ssheet1' && report_form.trim() !== 'ssheet2'){
             report_form = 'report'
         }
-
 
         console.log(report_form);
         // var form_vals_hab = habitat_panel.getForm().getValues();
