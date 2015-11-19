@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
@@ -1806,17 +1806,17 @@ Ext.onReady(function() {
     };
 
     var limit_defaults = {
-        frst: "0.10",
-        ftwt: "0.10",
-        open: "0.10",
-        hbwt: "0.05",
-        shrb: "0.10",
-        urbangrth: "0.30",
+        frst: "10",
+        ftwt: "10",
+        open: "10",
+        hbwt: "5",
+        shrb: "10",
+        urbangrth: "30",
         firesup: "50",
         hiway: "10",
         slr_up: "400",
         slr_lc: "250",
-        triassic: "0.20",
+        triassic: "20",
         wind: "3.0",
         manure: "20",
         nitrofrt: "15",
@@ -1853,7 +1853,7 @@ Ext.onReady(function() {
             xtype: 'container',
             autoEl: 'div',
             cls: 'mycontent',
-            html: "<h2>Analyze Threats</h2><p>Set a target year. Include threat data for analysis. Set threat rank lower limit. Click submit button to view resultant maps and report (scroll down).</p>"
+            html: "<h2>Analyze Multiple Threats to Wildlife Habitat</h2><p>Set a target year. Include threat data for analysis. Set threat rank lower limit. Click submit button to view resultant maps and report (scroll down).</p>"
         }],
         // cls: 'help',
         autoScroll: true
@@ -1946,7 +1946,7 @@ Ext.onReady(function() {
         "nutrient:td_n_t": "Total Nitrogen Deposition? (kg/ha/yr)",
         "nutrient:td_s_t": "Total Sulfur Deposition? (kg/ha/yr)",
         frsthlth: "Forest Insect/Disease Risk? (%)",
-        energydev: "Triassic basin (ha)",
+        energydev: "Triassic Basin (%)",
         "water:bioimplen": "Biota Impairments? (km*stream density)",
         "water:metimplen": "Metal Impariments? (km*stream density)",
         "water:NID": "Number of Dams (n)",
@@ -2498,12 +2498,12 @@ Ext.onReady(function() {
                 cls: "infowindow",
 
                 children: [{
-                    text: 'Manure Application',
+                    text: 'Manure Application (2006)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:manu"
                 }, {
-                    text: 'Synthetic Nitrogen Fertilizer',
+                    text: 'Synthetic Nitrogen Fertilizer (2006)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:fert"
@@ -2516,12 +2516,12 @@ Ext.onReady(function() {
                 hrefTarget: "infowindow",
                 cls: "infowindow",
                 children: [{
-                    text: 'Total Nitrogen Deposition',
+                    text: 'Total Nitrogen Deposition (2003)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:td_n_t"
                 }, {
-                    text: 'Total Sulfur Deposition',
+                    text: 'Total Sulfur Deposition (2006)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "nutrient:td_s_t"
@@ -2534,7 +2534,7 @@ Ext.onReady(function() {
                 hrefTarget: "infowindow",
                 cls: "infowindow",
                 children: [{
-                    text: 'Number of Dams',
+                    text: 'Number of Dams (2013)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "water:NID"
@@ -2600,13 +2600,13 @@ Ext.onReady(function() {
                 cls: "infowindow",
                 expanded: false,
                 children: [{
-                    text: 'Biota Impairments',
+                    text: 'Biota Impairments (2012)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "water:bioimplen"
 
                 }, {
-                    text: 'Metal Impairments',
+                    text: 'Metal Impairments (2012)',
                     qtip: 'view data',
                     leaf: true,
                     myvalue: "water:metimplen"
@@ -2732,9 +2732,9 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 4,
+        activeTab: 0,
         // accordion
-        items: [layers_tab, maps_tab, process_tab, print_tab, aoi_tab],
+        items: [maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
         deferredRender: false
     });
 
