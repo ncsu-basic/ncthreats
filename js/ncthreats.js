@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/ncthreats/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
@@ -1839,6 +1839,16 @@ Ext.onReady(function() {
         }
     };
 
+    var change_images = function(){
+
+        var form_vals_paneltop = modelpaneltop.getForm().getValues();
+        console.log(form_vals_paneltop);
+        var year = form_vals_paneltop.year.substring(2,4);
+        console.log(year);
+        console.log("images/DCLrds" + year + ".png");
+        $("#modelparams8 > img").attr("src", "images/DCLrds" + year + ".png");
+
+    }
 
     var show_legend_flag = true;
     // console.log(habitats);
@@ -1881,7 +1891,7 @@ Ext.onReady(function() {
             valueField: 'layerId',
             displayField: 'layerName',
             listeners: {
-                //'select': form2_chng
+                'select': change_images
             }
         }, {
             xtype: 'container',
@@ -2975,6 +2985,7 @@ Ext.onReady(function() {
 
     var model_script = function() {
         // alert("test");
+        console.log(window.location.pathname);
         $(document).ready(function() {
             $("#modellink1").click(function(e) {
                 e.preventDefault();
