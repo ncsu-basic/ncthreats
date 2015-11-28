@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
@@ -1844,9 +1844,27 @@ Ext.onReady(function() {
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
         console.log(form_vals_paneltop);
         var year = form_vals_paneltop.year.substring(2,4);
-        console.log(year);
-        console.log("images/DCLrds" + year + ".png");
-        $("#modelparams8 > img").attr("src", "images/DCLrds" + year + ".png");
+	console.log(year);
+        console.log("images/HabFrstX" + year + "_360.png");
+        $("#modelparams1 > img").attr("src", "images/HabFrstX" + year + "_360.png");
+        console.log("images/HabFtwtX" + year + "_360.png");
+        $("#modelparams2 > img").attr("src", "images/HabFtwtX" + year + "_360.png");
+        console.log("images/HabOpenX" + year + "_360.png");
+        $("#modelparams3 > img").attr("src", "images/HabOpenX" + year + "_360.png");
+        console.log("images/HabHbwtX" + year + "_360.png");
+        $("#modelparams4 > img").attr("src", "images/HabHbwtX" + year + "_360.png");
+        console.log("images/HabShrbX" + year + "_360.png");
+        $("#modelparams5 > img").attr("src", "images/HabShrbX" + year + "_360.png");
+        console.log("images/Urb" + year + "_360.png");
+        $("#modelparams6 > img").attr("src", "images/Urb" + year + "_360.png");
+        console.log("images/FSupp" + year + "_360.png");
+        $("#modelparams7 > img").attr("src", "images/FSupp" + year + "_360.png");
+        console.log("images/DCLRds" + year + "_360.png");
+        $("#modelparams8 > img").attr("src", "images/DCLRds" + year + "_360.png");
+        console.log("images/SlammUP" + year + "_360.png");
+        $("#modelparams9 > img").attr("src", "images/SlammUP" + year + "_360.png");
+        console.log("images/SlammLC" + year + "_360.png");
+        $("#modelparams10 > img").attr("src", "images/SlammLC" + year + "_360.png");
 
     }
 
