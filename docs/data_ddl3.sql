@@ -870,6 +870,11 @@ create table fsupp(
 
 create table SLRlc(
     HUC_12 char(12) primary key,
+    lc10ha real,
+    lc20ha real,
+    lc30ha real,
+    lc40ha real,
+    lc50ha real,
     lc10dt real,
     lc20dt real,
     lc30dt real,
@@ -889,6 +894,11 @@ create table SLRlc(
 
 create table SLRup(
     HUC_12 char(12) primary key,
+    lc10ha real,
+    lc20ha real,
+    lc30ha real,
+    lc40ha real,
+    lc50ha real,
     up10dt real,
     up20dt real,
     up30dt real,
