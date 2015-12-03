@@ -1814,8 +1814,8 @@ Ext.onReady(function() {
         urbangrth: "30",
         firesup: "50",
         hiway: "10",
-        slr_up: "400",
-        slr_lc: "250",
+        slr_up: "5",
+        slr_lc: "1",
         triassic: "20",
         wind: "3.0",
         manure: "20",
@@ -3149,11 +3149,11 @@ Ext.onReady(function() {
                 },
                 slr_up_limit: {
                     min: 0.09,
-                    max: 7313.58
+                    max: 100
                 },
                 slr_lc_limit: {
                     min: 0.09,
-                    max: 1466.73
+                    max: 100
                 },
                 triassic_limit: {
                     min: 0.01,
