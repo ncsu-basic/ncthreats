@@ -2843,30 +2843,63 @@ Ext.onReady(function() {
                 data: data,
                 dataType: "json",
                 success: function(data) {
-
                     var geojson_format = new OpenLayers.Format.GeoJSON();
                     var shpfeatures = geojson_format.read(data);
                     console.log(shpfeatures.length);
                     if (shpfeatures.length > 1 && dbf === undefined) {
                         Ext.Msg.alert("user uploaded multipolygon");
-                    } else {
-                        highlightLayer.destroyFeatures();
-                        results.removeAllFeatures();
-                        map.zoomToExtent(map_extent);
-                        highlightLayer.addFeatures(shpfeatures);
-                        highlightLayer.setVisibility(true);
-                        if (shpfeatures.length > 1) {
-                            batch_aoi = true;
-                            for (var a = 0; a < shpfeatures.length; a++) {
-                                console.log(shpfeatures[a].attributes.Name);
+                    } else if (shpfeatures.length == 1 && dbf !== undefined) {
+                        Ext.Msg.alert("user uploaded simple polygon for batch");
+                    } else if (shpfeatures.length > 1 && dbf !== undefined) {
+                        console.log("submit batch");
+                        Ext.MessageBox.confirm('Confirm', 'This will create a batch AOI, continue?', function(e) {
+                            console.log(e);
+                            console.log(shpfeatures.length);
+                            if (e == 'yes') {
+                                highlightLayer.destroyFeatures();
+                                results.removeAllFeatures();
+                                map.zoomToExtent(map_extent);
+                                highlightLayer.addFeatures(shpfeatures);
+                                highlightLayer.setVisibility(true);
+                                batch_aoi = true;
+                                document.getElementById('custom_radio_sel').checked = 'checked';
+                                Ext.getCmp('aoi_upload_id').collapse();
+                                Ext.getCmp('aoi_create_id').expand();
                             }
-                        } else {
+                        });
+
+                    } else if (shpfeatures.length === 1 && dbf == undefined) {
+                        console.log("submit simple");
+                        Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', function(e) {
+                            highlightLayer.destroyFeatures();
+                            results.removeAllFeatures();
+                            map.zoomToExtent(map_extent);
+                            highlightLayer.addFeatures(shpfeatures);
+                            highlightLayer.setVisibility(true);
                             batch_aoi = false;
-                        }
-                        document.getElementById('custom_radio_sel').checked =
-                            'checked';
-                        Ext.getCmp('aoi_upload_id').collapse();
-                        Ext.getCmp('aoi_create_id').expand();
+                            document.getElementById('custom_radio_sel').checked = 'checked';
+                            Ext.getCmp('aoi_upload_id').collapse();
+                            Ext.getCmp('aoi_create_id').expand();
+                        });
+
+                    } else {
+                        // highlightLayer.destroyFeatures();
+                        // results.removeAllFeatures();
+                        // map.zoomToExtent(map_extent);
+                        // highlightLayer.addFeatures(shpfeatures);
+                        // highlightLayer.setVisibility(true);
+                        // if (shpfeatures.length > 1) {
+                        //     batch_aoi = true;
+                        //     for (var a = 0; a < shpfeatures.length; a++) {
+                        //         console.log(shpfeatures[a].attributes.Name);
+                        //     }
+                        // } else {
+                        //     batch_aoi = false;
+                        // }
+                        // document.getElementById('custom_radio_sel').checked =
+                        //     'checked';
+                        // Ext.getCmp('aoi_upload_id').collapse();
+                        // Ext.getCmp('aoi_create_id').expand();
                     }
                 }
             });
@@ -2881,48 +2914,49 @@ Ext.onReady(function() {
             $("#dbf_input").val("");
 
             for (var i = 0, f; f = files[i]; i++) {
-                if (f.name.indexOf(".shp") != -1){
+                if (f.name.indexOf(".shp") != -1) {
                     $("#shp_input").val(f.name);
                 }
-                if (f.name.indexOf(".shx") != -1){
+                if (f.name.indexOf(".shx") != -1) {
                     $("#shx_input").val(f.name);
                 }
-                if (f.name.indexOf(".prj") != -1){
+                if (f.name.indexOf(".prj") != -1) {
                     $("#prj_input").val(f.name);
                 }
-                if (f.name.indexOf(".dbf") != -1){
+                if (f.name.indexOf(".dbf") != -1) {
                     $("#dbf_input").val(f.name);
                 }
             }
         }
         document.getElementById('file2').addEventListener('change', handleFileSelect, false);
-        var confirm_simple = function(e){
+        var confirm_simple = function(e) {
             console.log(e);
-            if (e == 'yes'){
+            if (e == 'yes') {
                 upload_shps("shp_btn");
             }
         }
-         var confirm_batch = function(e){
+        var confirm_batch = function(e) {
             console.log(e);
-            if (e == 'yes'){
+            if (e == 'yes') {
                 upload_shps("batch_shp_btn");
             }
         }
 
-        var check_upload = function(){
+        var check_upload = function() {
             var shp = $("#shp_input").val().length;
             var shx = $("#shx_input").val().length;
             var prj = $("#prj_input").val().length;
             var dbf = $("#dbf_input").val().length;
 
-            if (shp === 0 || shx === 0 || prj === 0){
+            if (shp === 0 || shx === 0 || prj === 0) {
                 Ext.MessageBox.alert('Status', 'shp, shx, or prj is missing');
-            } else if (dbf === 0){
+            } else if (dbf === 0) {
                 // Ext.MessageBox.alert('Status', 'creating single polygon');
-                Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', confirm_simple);
+                // Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', confirm_simple);
+                upload_shps("shp_btn");
             } else {
-                Ext.MessageBox.confirm('Confirm', 'This will create a batch AOI, continue?', confirm_batch);
-
+                // Ext.MessageBox.confirm('Confirm', 'This will create a batch AOI, continue?', confirm_batch);
+                upload_shps("batch_shp_btn");
             }
 
         }
