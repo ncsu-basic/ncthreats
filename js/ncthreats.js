@@ -2877,33 +2877,57 @@ Ext.onReady(function() {
             var files = evt.target.files; // FileList object
 
             for (var i = 0, f; f = files[i]; i++) {
-                console.log(f.name);
                 if (f.name.indexOf(".shp") != -1){
-                    console.log("test");
                     $("#shp_input").val(f.name);
                 }
                 if (f.name.indexOf(".shx") != -1){
-                    console.log("test");
                     $("#shx_input").val(f.name);
                 }
                 if (f.name.indexOf(".prj") != -1){
-                    console.log("test");
                     $("#prj_input").val(f.name);
                 }
                 if (f.name.indexOf(".dbf") != -1){
-                    console.log("test");
                     $("#dbf_input").val(f.name);
                 }
-
             }
         }
         document.getElementById('file2').addEventListener('change', handleFileSelect, false);
+        var confirm_simple = function(e){
+            console.log(e);
+            if (e == 'yes'){
+                upload_shps("shp_btn");
+            }
+        }
+         var confirm_batch = function(e){
+            console.log(e);
+            if (e == 'yes'){
+                upload_shps("batch_shp_btn");
+            }
+        }
+
+        var check_upload = function(){
+            var shp = $("#shp_input").val().length;
+            var shx = $("#shx_input").val().length;
+            var prj = $("#prj_input").val().length;
+            var dbf = $("#dbf_input").val().length;
+
+            if (shp === 0 || shx === 0 || prj === 0){
+                Ext.MessageBox.alert('Status', 'shp, shx, or prj is missing');
+            } else if (dbf === 0){
+                // Ext.MessageBox.alert('Status', 'creating single polygon');
+                Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', confirm_simple);
+            } else {
+                Ext.MessageBox.confirm('Confirm', 'This will create a batch AOI, continue?', confirm_batch);
+
+            }
+
+        }
 
         //this function processes shapefile upload
-        var upload_shps = function() {
+        var upload_shps = function(btn_id) {
 
             // console.log($(this).attr('id'));
-            var btn_id = $(this).attr('id');
+            // var btn_id = $(this).attr('id');
             var files = document.getElementById('file2').files;
             var fileReader = [];
             var parse_filename, result;
@@ -3031,8 +3055,9 @@ Ext.onReady(function() {
             }
         };
 
-        $("#shp_btn").click(upload_shps);
-        $("#batch_shp_btn").click(upload_shps);
+        // $("#shp_btn").click(upload_shps);
+        // $("#batch_shp_btn").click(upload_shps);
+        $("#check_shp_btn").click(check_upload);
 
     };
 
