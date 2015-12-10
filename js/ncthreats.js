@@ -1165,127 +1165,128 @@ Ext.onReady(function() {
                     margins: '5 0 5 0'
                 },
                 items: [{
-                    xtype: 'box',
-                    width: 200,
-                    autoEl: {
-                        tag: 'hr'
-                    },
-                    margins: '0 0 20 0'
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Submit',
-                    handler: save_action,
+                        xtype: 'box',
+                        width: 200,
+                        autoEl: {
+                            tag: 'hr'
+                        },
+                        margins: '0 0 20 0'
+                    }, {
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Submit',
+                        handler: save_action,
 
 
-                }, {
-                    xtype: 'box',
-                    width: 200,
-                    autoEl: {
-                        tag: 'hr'
-                    }
-                }, {
-                    // width: 2,
-                    xtype: 'container',
-                    // width: 200,
-                    autoEl: 'div',
-                    cls: 'mycontent',
-                    html: "<p>View Report of AOI:<br><br></p>"
-                }, {
-                    xtype: 'button',
-                    text: 'Report',
-                    width: 80,
-                    handler: function() {
-                        console.log(batch_resource);
-                        console.log(Object.keys(batch_resource).length);
-                        var is_composite = composite.getVisibility();
-                        var is_indiv = individual.getVisibility();
-                        // if (Object.keys(batch_resource).length > 0 && is_composite) {
-                        //     threat_calcs_map();
-                        //     threat_calcs_report_batch();
+                    }, {
+                        xtype: 'box',
+                        width: 200,
+                        autoEl: {
+                            tag: 'hr'
+                        }
+                    }, {
+                        // width: 2,
+                        xtype: 'container',
+                        // width: 200,
+                        autoEl: 'div',
+                        cls: 'mycontent',
+                        html: "<p>View Report of AOI:<br><br></p>"
+                    }, {
+                        xtype: 'button',
+                        text: 'Report',
+                        width: 80,
+                        handler: function() {
+                            console.log(batch_resource);
+                            console.log(Object.keys(batch_resource).length);
+                            var is_composite = composite.getVisibility();
+                            var is_indiv = individual.getVisibility();
+                            // if (Object.keys(batch_resource).length > 0 && is_composite) {
+                            //     threat_calcs_map();
+                            //     threat_calcs_report_batch();
 
-                        // } else if (Object.keys(batch_resource).length > 0) {
-                        //     console.log(batch_resource);
-                        //     threat_calcs_report_indiv_batch(indiv_layer);
-                        if (is_composite) {
-                            threat_calcs_map();
-                            threat_calcs_report();
-                        } else if (is_indiv) {
-                            // console.log(indiv_layer);
-                            threat_calcs_report_indiv(indiv_layer);
+                            // } else if (Object.keys(batch_resource).length > 0) {
+                            //     console.log(batch_resource);
+                            //     threat_calcs_report_indiv_batch(indiv_layer);
+                            if (is_composite) {
+                                threat_calcs_map();
+                                threat_calcs_report();
+                            } else if (is_indiv) {
+                                // console.log(indiv_layer);
+                                threat_calcs_report_indiv(indiv_layer);
 
-                        } else {
-                            console.log("no map");
+                            } else {
+                                console.log("no map");
+                            }
+                        },
+                    }, {
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Spreadsheet',
+                        handler: function() {
+                            console.log(batch_resource);
+                            console.log(Object.keys(batch_resource).length);
+                            var is_composite = composite.getVisibility();
+                            var is_indiv = individual.getVisibility();
+                            // if (Object.keys(batch_resource).length > 0 && is_composite) {
+                            //     threat_calcs_map();
+                            //     threat_calcs_report_batch();
+
+                            // } else if (Object.keys(batch_resource).length > 0) {
+                            //     console.log(batch_resource);
+                            //     threat_calcs_report_indiv_batch(indiv_layer);
+                            if (is_composite) {
+                                // threat_calcs_map();
+                                threat_calcs_report("ssheet1");
+                                console.log("is_composite ss1");
+                            } else if (is_indiv) {
+                                // console.log(indiv_layer);
+                                // threat_calcs_report_indiv(indiv_layer);
+                                console.log("is_indiv ss1");
+
+                            } else {
+                                console.log("no map");
+                            }
                         }
                     },
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Spreadsheet',
-                    handler: function() {
-                        console.log(batch_resource);
-                        console.log(Object.keys(batch_resource).length);
-                        var is_composite = composite.getVisibility();
-                        var is_indiv = individual.getVisibility();
-                        // if (Object.keys(batch_resource).length > 0 && is_composite) {
-                        //     threat_calcs_map();
-                        //     threat_calcs_report_batch();
+                    // {
+                    //     xtype: 'button',
+                    //     width: 80,
+                    //     text: 'SS2',
+                    //     handler: function() {
+                    //         console.log(batch_resource);
+                    //         console.log(Object.keys(batch_resource).length);
+                    //         var is_composite = composite.getVisibility();
+                    //         var is_indiv = individual.getVisibility();
 
-                        // } else if (Object.keys(batch_resource).length > 0) {
-                        //     console.log(batch_resource);
-                        //     threat_calcs_report_indiv_batch(indiv_layer);
-                        if (is_composite) {
-                            // threat_calcs_map();
-                            threat_calcs_report("ssheet1");
-                            console.log("is_composite ss1");
-                        } else if (is_indiv) {
-                            // console.log(indiv_layer);
-                            // threat_calcs_report_indiv(indiv_layer);
-                            console.log("is_indiv ss1");
+                    //         if (is_composite) {
+                    //             // threat_calcs_map();
+                    //             // threat_calcs_report();
+                    //             threat_calcs_report("ssheet2");
+                    //             console.log("is_composite ss2");
+                    //         } else if (is_indiv) {
+                    //             // console.log(indiv_layer);
+                    //             // threat_calcs_report_indiv(indiv_layer);
+                    //             console.log("is_indiv ss2");
 
-                        } else {
-                            console.log("no map");
-                        }
+
+                    //         } else {
+                    //             console.log("no map");
+                    //         }
+                    //     }
+                    // },
+                    {
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Reset',
+                        handler: remove_action
+                    }, {
+                        xtype: 'button',
+                        width: 80,
+                        text: 'Save',
+                        id: "resource_btn",
+                        handler: aoi_to_file
                     }
-                },
-                // {
-                //     xtype: 'button',
-                //     width: 80,
-                //     text: 'SS2',
-                //     handler: function() {
-                //         console.log(batch_resource);
-                //         console.log(Object.keys(batch_resource).length);
-                //         var is_composite = composite.getVisibility();
-                //         var is_indiv = individual.getVisibility();
-
-                //         if (is_composite) {
-                //             // threat_calcs_map();
-                //             // threat_calcs_report();
-                //             threat_calcs_report("ssheet2");
-                //             console.log("is_composite ss2");
-                //         } else if (is_indiv) {
-                //             // console.log(indiv_layer);
-                //             // threat_calcs_report_indiv(indiv_layer);
-                //             console.log("is_indiv ss2");
-
-
-                //         } else {
-                //             console.log("no map");
-                //         }
-                //     }
-                // },
-                {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Reset',
-                    handler: remove_action
-                }, {
-                    xtype: 'button',
-                    width: 80,
-                    text: 'Save',
-                    id: "resource_btn",
-                    handler: aoi_to_file
-                }]
+                ]
 
             }]
             // buttons: [{
@@ -1576,7 +1577,7 @@ Ext.onReady(function() {
 
     threat_calcs_report = function(report_form) {
         console.log(report_form);
-        if (report_form !== 'ssheet1' && report_form !== 'ssheet2'){
+        if (report_form !== 'ssheet1' && report_form !== 'ssheet2') {
             report_form = 'report'
         }
 
@@ -1765,7 +1766,7 @@ Ext.onReady(function() {
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = resource + '/' + report_form + '?' + qry_str;
             if (report_form === "report") {
-            // if (true) {
+                // if (true) {
                 console.log(url);
                 window.open(url);
             } else if (report_form.indexOf("ssheet" != -1)) {
@@ -1839,12 +1840,12 @@ Ext.onReady(function() {
         }
     };
 
-    var change_images = function(){
+    var change_images = function() {
 
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
         console.log(form_vals_paneltop);
-        var year = form_vals_paneltop.year.substring(2,4);
-	console.log(year);
+        var year = form_vals_paneltop.year.substring(2, 4);
+        console.log(year);
         console.log("images/HabFrstX" + year + "_360.png");
         $("#modelparams1 > img").attr("src", "images/HabFrstX" + year + "_360.png");
         console.log("images/HabFtwtX" + year + "_360.png");
@@ -2733,9 +2734,18 @@ Ext.onReady(function() {
             // applied to each contained panel
             //bodyStyle : 'padding:15px'
         },
+        collapseFirst: true,
+        layoutConfig: {
+            // layout-specific configs go here
+            titleCollapse: false,
+            animate: true,
+            activeOnTop: false
+        },
         // area_tab2, area_tab,
         items: [area_tab2, area_tab]
     });
+    // Ext.getCmp('aoi_upload_id').expand();
+    // Ext.getCmp('aoi_create_id').collapse();
 
     ///////////////////////////////////////////////////////////
 
@@ -2747,8 +2757,6 @@ Ext.onReady(function() {
         cls: 'help',
         autoScroll: true
     });
-
-
 
     var print_tab = new Ext.Container({
         autoEl: 'div',
