@@ -2873,6 +2873,18 @@ Ext.onReady(function() {
 
         };
 
+        function handleFileSelect(evt) {
+            var files = evt.target.files; // FileList object
+
+            // files is a FileList of File objects. List some properties.
+            var output = [];
+            for (var i = 0, f; f = files[i]; i++) {
+                console.log(f.name)
+            }
+            document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+        }
+        document.getElementById('file2').addEventListener('change', handleFileSelect, false);
+
         //this function processes shapefile upload
         var upload_shps = function() {
 
@@ -2958,6 +2970,7 @@ Ext.onReady(function() {
                 for (var i = 0; i < files.length; i++) {
                     fileReader[i] = new FileReader();
                     fileReader[i].readAsDataURL(files[i]);
+                    console.log(files[i].name);
                     parse_filename = /\.(shp|shx|prj|dbf)/;
                     result = parse_filename.exec(files[i].name);
                     if (result) {
