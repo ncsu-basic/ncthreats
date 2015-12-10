@@ -3222,7 +3222,7 @@ Ext.onReady(function() {
     var el2 = Ext.getCmp("aoi_upload_id");
     var mgr2 = el2.getUpdater();
     mgr2.update({
-        url: HOST_NAME + "pages/upload.html"
+        url: HOST_NAME + "pages/upload2.html"
     });
     mgr2.on("update", page_script);
 
