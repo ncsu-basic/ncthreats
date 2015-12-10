@@ -2876,12 +2876,26 @@ Ext.onReady(function() {
         function handleFileSelect(evt) {
             var files = evt.target.files; // FileList object
 
-            // files is a FileList of File objects. List some properties.
-            var output = [];
             for (var i = 0, f; f = files[i]; i++) {
-                console.log(f.name)
+                console.log(f.name);
+                if (f.name.indexOf(".shp") != -1){
+                    console.log("test");
+                    $("#shp_input").val(f.name);
+                }
+                if (f.name.indexOf(".shx") != -1){
+                    console.log("test");
+                    $("#shx_input").val(f.name);
+                }
+                if (f.name.indexOf(".prj") != -1){
+                    console.log("test");
+                    $("#prj_input").val(f.name);
+                }
+                if (f.name.indexOf(".dbf") != -1){
+                    console.log("test");
+                    $("#dbf_input").val(f.name);
+                }
+
             }
-            document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
         }
         document.getElementById('file2').addEventListener('change', handleFileSelect, false);
 
