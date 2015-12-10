@@ -2871,15 +2871,17 @@ Ext.onReady(function() {
                     } else if (shpfeatures.length === 1 && dbf == undefined) {
                         console.log("submit simple");
                         Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', function(e) {
-                            highlightLayer.destroyFeatures();
-                            results.removeAllFeatures();
-                            map.zoomToExtent(map_extent);
-                            highlightLayer.addFeatures(shpfeatures);
-                            highlightLayer.setVisibility(true);
-                            batch_aoi = false;
-                            document.getElementById('custom_radio_sel').checked = 'checked';
-                            Ext.getCmp('aoi_upload_id').collapse();
-                            Ext.getCmp('aoi_create_id').expand();
+                            if (e == 'yes') {
+                                highlightLayer.destroyFeatures();
+                                results.removeAllFeatures();
+                                map.zoomToExtent(map_extent);
+                                highlightLayer.addFeatures(shpfeatures);
+                                highlightLayer.setVisibility(true);
+                                batch_aoi = false;
+                                document.getElementById('custom_radio_sel').checked = 'checked';
+                                Ext.getCmp('aoi_upload_id').collapse();
+                                Ext.getCmp('aoi_create_id').expand();
+                            }
                         });
 
                     } else {
