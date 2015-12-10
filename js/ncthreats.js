@@ -259,51 +259,54 @@ Ext.onReady(function() {
     var resultsStyleMap = new OpenLayers.StyleMap({});
     var resultsStyleMap_model = new OpenLayers.StyleMap({});
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
+
+    //edit fillOpacity for inividual legend transparency
     var symbolsLookup = {
         0: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0
         },
         1: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0.5
         },
         2: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0.5
         },
         3: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0.5
         },
         4: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0.5
         },
         5: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0.5
         }
     };
 
+    //edit fillOpacity for model legend transparency
     var symbolsLookup_model = {
         0: {
             strokeColor: "#CCCCCC",
