@@ -490,7 +490,7 @@ Ext.onReady(function() {
     map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
-        hillshade, osm, counties_base
+         osm, hillshade, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
