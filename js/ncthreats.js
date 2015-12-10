@@ -2742,7 +2742,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [area_tab2, area_tab]
+        items: [area_tab, area_tab2]
     });
     // Ext.getCmp('aoi_upload_id').expand();
     // Ext.getCmp('aoi_create_id').collapse();
@@ -2774,6 +2774,7 @@ Ext.onReady(function() {
         deferredRender: false
     });
 
+
     var infopanel = new Ext.Panel({
         region: 'north',
         height: 100,
@@ -2797,6 +2798,8 @@ Ext.onReady(function() {
         items: [mapPanel, left, infopanel]
 
     });
+    Ext.getCmp('aoi_upload_id').collapse();
+    Ext.getCmp('aoi_create_id').expand();
 
     // var test = mapPanel.getTopToolbar();
     // console.log(test);
