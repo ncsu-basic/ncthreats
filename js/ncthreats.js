@@ -2875,6 +2875,10 @@ Ext.onReady(function() {
 
         function handleFileSelect(evt) {
             var files = evt.target.files; // FileList object
+            $("#shp_input").val("");
+            $("#shx_input").val("");
+            $("#prj_input").val("");
+            $("#dbf_input").val("");
 
             for (var i = 0, f; f = files[i]; i++) {
                 if (f.name.indexOf(".shp") != -1){
