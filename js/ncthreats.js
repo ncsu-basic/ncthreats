@@ -925,7 +925,12 @@ Ext.onReady(function() {
         };
 
         var batch_util_fn = function(feature) {
-            var aoi_name = feature.attributes.Name;
+            if (feature.attributes.Name){
+                var aoi_name = feature.attributes.Name;
+            } else {
+                var aoi_name = feature.attributes.name;
+            }
+
             var gml = '';
             gml = gml_writer.write(feature);
             var aoi_list = [];
