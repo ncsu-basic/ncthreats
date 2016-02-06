@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -123,6 +123,14 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+    nchuc6 = new OpenLayers.Layer.XYZ(
+        "River Basin Boundaries", ["http://a.tiles.mapbox.com/v4/basic99.4904ykrt/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            numZoomLevels: 10
+        });
+
+
     var nchuc8 = new OpenLayers.Layer.TMS("Subbasin Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc8nc",
@@ -493,7 +501,7 @@ Ext.onReady(function() {
     map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
-         osm, hillshade, counties_base
+        osm, hillshade, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -925,7 +933,7 @@ Ext.onReady(function() {
         };
 
         var batch_util_fn = function(feature) {
-            if (feature.attributes.Name){
+            if (feature.attributes.Name) {
                 var aoi_name = feature.attributes.Name;
             } else {
                 var aoi_name = feature.attributes.name;
