@@ -127,7 +127,8 @@ Ext.onReady(function() {
         "River Basin Boundaries", ["http://a.tiles.mapbox.com/v4/basic99.4904ykrt/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
-            numZoomLevels: 10
+            numZoomLevels: 10,
+            defaultStyle: "mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p"
         });
 
 
