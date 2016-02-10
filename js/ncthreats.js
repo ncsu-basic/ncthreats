@@ -123,6 +123,7 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+    // http://www.macwright.org/2012/01/12/openlayers.html
     nchuc6 = new OpenLayers.Layer.XYZ(
         "River Basin Boundaries", ["http://a.tiles.mapbox.com/v4/basic99.4904ykrt/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
