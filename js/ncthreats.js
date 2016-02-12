@@ -123,13 +123,68 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+
+    var mapbox_style = new OpenLayers.StyleMap({
+            "version": 8,
+            "name": "Empty",
+            "center": [-79.83563246217255,
+                35.0045956888748
+            ],
+            "zoom": 7,
+            "bearing": 0,
+            "pitch": 0,
+            "sources": {
+                "mapbox://basic99.4904ykrt": {
+                    "url": "mapbox://basic99.4904ykrt",
+                    "type": "vector"
+                }
+            },
+            "sprite": "mapbox://sprites/basic99/cikg7p7p3002qapm5zsom050p",
+            "glyphs": "mapbox://fonts/basic99/{fontstack}/{range}.pbf",
+            "layers": [{
+                "id": "background",
+                "type": "background",
+                "paint": {
+                    "background-color": "rgba(0,0,0,0)"
+                },
+                "interactive": true
+            }, {
+                "minzoom": 6,
+                "layout": {
+                    "visibility": "visible"
+                },
+                "type": "line",
+                "source": "mapbox://basic99.4904ykrt",
+                "id": "original",
+                "paint": {
+                    "line-width": 2,
+                    "line-color": "rgba(26,46,219,1)"
+                },
+                "source-layer": "original",
+                "interactive": true
+            }, {
+                "id": "original (1)",
+                "paint": {},
+                "interactive": true,
+                "ref": "original"
+            }],
+            "created": "2016-02-10T02:23:13.033Z",
+            "id": "cikg7p7p3002qapm5zsom050p",
+            "modified": "2016-02-10T02:52:23.643Z",
+            "owner": "basic99",
+            "draft": false
+        }
+
+    );
     // http://www.macwright.org/2012/01/12/openlayers.html
     nchuc6 = new OpenLayers.Layer.XYZ(
         "River Basin Boundaries", ["http://a.tiles.mapbox.com/v4/basic99.4904ykrt/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             numZoomLevels: 10,
-            defaultStyle: "mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p"
+            // styleMap: mapbox_style
+            defaultStyle: "js/huc6.json"
+                // defaultStyle: "mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p"
         });
 
 
