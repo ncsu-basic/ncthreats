@@ -124,68 +124,16 @@ Ext.onReady(function() {
         }
     );
 
-    var mapbox_style = new OpenLayers.StyleMap({
-            "version": 8,
-            "name": "Empty",
-            "center": [-79.83563246217255,
-                35.0045956888748
-            ],
-            "zoom": 7,
-            "bearing": 0,
-            "pitch": 0,
-            "sources": {
-                "mapbox://basic99.4904ykrt": {
-                    "url": "mapbox://basic99.4904ykrt",
-                    "type": "vector"
-                }
-            },
-            "sprite": "mapbox://sprites/basic99/cikg7p7p3002qapm5zsom050p",
-            "glyphs": "mapbox://fonts/basic99/{fontstack}/{range}.pbf",
-            "layers": [{
-                "id": "background",
-                "type": "background",
-                "paint": {
-                    "background-color": "rgba(0,0,0,0)"
-                },
-                "interactive": true
-            }, {
-                "minzoom": 6,
-                "layout": {
-                    "visibility": "visible"
-                },
-                "type": "line",
-                "source": "mapbox://basic99.4904ykrt",
-                "id": "original",
-                "paint": {
-                    "line-width": 2,
-                    "line-color": "rgba(26,46,219,1)"
-                },
-                "source-layer": "original",
-                "interactive": true
-            }, {
-                "id": "original (1)",
-                "paint": {},
-                "interactive": true,
-                "ref": "original"
-            }],
-            "created": "2016-02-10T02:23:13.033Z",
-            "id": "cikg7p7p3002qapm5zsom050p",
-            "modified": "2016-02-10T02:52:23.643Z",
-            "owner": "basic99",
-            "draft": false
-        }
 
-    );
     // http://www.macwright.org/2012/01/12/openlayers.html
-    nchuc6 = new OpenLayers.Layer.XYZ(
-        "River Basin Boundaries", ["http://a.tiles.mapbox.com/v4/basic99.4904ykrt/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
-            sphericalMercator: true,
-            wrapDateLine: true,
-            numZoomLevels: 10,
-            // styleMap: mapbox_style
-            defaultStyle: "js/huc6.json"
-                // defaultStyle: "mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p"
-        });
+    // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
+    // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
+    // nchuc6 = new OpenLayers.Layer.XYZ(
+    //     "River Basin Boundaries", ["https://api.mapbox.com/styles/v1/basic99/cikg7p7p3002qapm5zsom050p/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+    //         sphericalMercator: true,
+    //         wrapDateLine: true,
+    //         numZoomLevels: 10
+    //     });
 
 
     var nchuc8 = new OpenLayers.Layer.TMS("Subbasin Boundaries",
