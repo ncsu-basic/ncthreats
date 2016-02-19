@@ -82,3 +82,7 @@ update  huc6nc_lbl set wkb_geometry = ST_GeomFromText('POINT(-77.5 35.72)', 4326
 
 
 sudo apt-add-repository ppa:developmentseed/mapbox
+
+tilemill
+https://www.youtube.com/watch?v=X9aeV65K83M
+http://carte-libre.fr/map/mbtiles-server-php-demo/mbtiles-server.php.txt
