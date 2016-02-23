@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
@@ -17,7 +17,8 @@ Ext.onReady(function() {
     ////////////////////////////////////////////
     //initialize map
     ///////////////////////////////////////////////////
-    var map_extent = new OpenLayers.Bounds(-9406496, 4001978, -8382357, 4397372);
+    //var map_extent = new OpenLayers.Bounds(-9406496, 4001978, -8382357, 4397372);
+    var map_extent = new OpenLayers.Bounds(-9406496, 3901978, -8382357, 4297372);
     var proj_4326 = new OpenLayers.Projection('EPSG:4326');
     var proj_900913 = new OpenLayers.Projection('EPSG:900913');
 
@@ -155,7 +156,7 @@ Ext.onReady(function() {
             layername: "counties",
             type: "png",
             isBaseLayer: false,
-            visibility: false,
+            visibility: true,
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
@@ -266,44 +267,44 @@ Ext.onReady(function() {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
-            strokeOpacity: 1,
+            strokeOpacity: 0.7,
             fillOpacity: 0
         },
         1: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 0.5
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         2: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 0.5
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         3: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 0.5
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         4: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 0.5
-        },
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+       },
         5: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 0.5
-        }
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+       }
     };
 
     //edit fillOpacity for model legend transparency
@@ -313,112 +314,112 @@ Ext.onReady(function() {
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 1,
-            fillOpacity: 1
+            fillOpacity: 0
         },
         1: {
             strokeColor: "#CCCCCC",
             fillColor: "#FFFF7F",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         2: {
             strokeColor: "#CCCCCC",
             fillColor: "#C4F75D",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         3: {
             strokeColor: "#CCCCCC",
             fillColor: "#86ED3D",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         4: {
             strokeColor: "#CCCCCC",
             fillColor: "#44E214",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         5: {
             strokeColor: "#CCCCCC",
             fillColor: "#3DCC41",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         6: {
             strokeColor: "#CCCCCC",
             fillColor: "#3AB272",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         7: {
             strokeColor: "#CCCCCC",
             fillColor: "#33A587",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         8: {
             strokeColor: "#CCCCCC",
             fillColor: "#26999B",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+       },
         9: {
             strokeColor: "#CCCCCC",
             fillColor: "#1A8CA8",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
-        },
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+       },
         10: {
             strokeColor: "#CCCCCC",
             fillColor: "#2073A0",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         11: {
             strokeColor: "#CCCCCC",
             fillColor: "#215D99",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         12: {
             strokeColor: "#CCCCCC",
             fillColor: "#1F4991",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         13: {
             strokeColor: "#CCCCCC",
             fillColor: "#1C3689",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         14: {
             strokeColor: "#CCCCCC",
             fillColor: "#15227F",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         },
         15: {
             strokeColor: "#CCCCCC",
             fillColor: "#0D1077",
             strokeWidth: 1,
-            strokeOpacity: 1,
-            fillOpacity: 1
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         }
     };
 
@@ -1826,7 +1827,7 @@ Ext.onReady(function() {
         slr_up: "5",
         slr_lc: "1",
         triassic: "20",
-        wind: "3.0",
+        wind: "2.0",
         manure: "20",
         nitrofrt: "15",
         totnitro: "12",
@@ -1962,7 +1963,7 @@ Ext.onReady(function() {
             text: "Report",
             handler: threat_calcs_report
         }, {
-            text: "Show map",
+            text: "Run",
             handler: threat_calcs_map
         }]
 
@@ -1988,8 +1989,8 @@ Ext.onReady(function() {
         "water:metimplen": "Metal Impariments? (km*stream density)",
         "water:NID": "Number of Dams (n)",
         wind: "Wind Power Class? (mean)",
-        slr_lc: "Terrestrial Landcover Loss? Since 2000 (ha)",
-        slr_up: "Undeveloped Upland Loss? Since 2000 (ha)"
+        slr_lc: "Terrestrial Landcover Loss? Since 2000 (%)",
+        slr_up: "Undeveloped Upland Loss? Since 2000 (%)"
 
     };
 
@@ -2353,7 +2354,7 @@ Ext.onReady(function() {
         layerStore: mapPanel.layers,
         text: 'NC Counties',
         leaf: false,
-        expanded: false,
+        expanded: true,
         loader: {
             filter: function(record) {
                 return record.get("layer").name.indexOf("County") !== -1;

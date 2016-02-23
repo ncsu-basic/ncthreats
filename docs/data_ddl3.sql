@@ -1007,7 +1007,7 @@ create table WPC(
     WPC_sv real
 );
 
-copy legend_data from '/var/www/data/threats/legend_data3.csv' with csv header;
+copy legend_data from '/var/www/data/threats/legend_data4.csv' with csv header;
 copy lcscen_a from '/var/www/data/threats/tblLCScen_A.txt' with csv header;
 copy lcscen_b from '/var/www/data/threats/tblLCScen_B.txt' with csv header;
 copy lcscen_c from '/var/www/data/threats/tblLCScen_C.txt' with csv header;
