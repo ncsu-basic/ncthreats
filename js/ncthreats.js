@@ -61,8 +61,8 @@ Ext.onReady(function() {
         isBaseLayer: true
     };
 
-    var google_physical = new OpenLayers.Layer.Google("Google satellite", {
-        type: google.maps.MapTypeId.SATELLITE,
+    var google_physical = new OpenLayers.Layer.Google("Google physical", {
+        type: google.maps.MapTypeId.TERRAIN,
         sphericalMercator: true,
         visibility: false,
 
@@ -72,8 +72,7 @@ Ext.onReady(function() {
 
     var gphy = new OpenLayers.Layer.Google("Google Physical Map", {
         type: google.maps.MapTypeId.TERRAIN,
-        MAX_ZOOM_LEVEL: 12,
-        MIN_ZOOM_LEVEL: 6,
+
         displayInLayerSwitcher: false,
         visibility: false,
         buffer: 0,
@@ -130,11 +129,19 @@ Ext.onReady(function() {
     // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
     // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
     nchuc6 = new OpenLayers.Layer.XYZ(
-        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.3ubn9llw/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.drka3tzg/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
             isBaseLayer: false
+        });
+
+    var satellite = new OpenLayers.Layer.XYZ(
+        "Satellite", ["https://api.mapbox.com/v4/mapbox.satellite/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            isBaseLayer: true
         });
 
 
@@ -512,7 +519,7 @@ Ext.onReady(function() {
     // ]);
 
      map.addLayers([individual, composite, results, nonelayer, highlightLayer,  nchuc6,
-        osm
+        osm, satellite
     ]);
 
     //////////////////////////////////////////////////////////////////////////
