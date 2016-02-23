@@ -90,3 +90,7 @@ http://carte-libre.fr/map/mbtiles-server-php-demo/mbtiles-server.php.txt
 
 https://github.com/bmcbride/PHP-MBTiles-Server/blob/master/openlayers.html
 https://github.com/bmcbride/PHP-MBTiles-Server
+
+sudo add-apt-repository ppa:developmentseed/mapbox
+sudo apt-get update
+sudo apt-get install tilemill libmapnik nodejs
