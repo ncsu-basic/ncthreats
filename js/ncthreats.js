@@ -27,8 +27,8 @@ Ext.onReady(function() {
         maxExtent: map_extent,
         // baseLayer: osm,
         projection: new OpenLayers.Projection("EPSG:900913"),
-        resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
-        //numZoomLevels: 7,
+        // resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
+        // numZoomLevels: 7,
         //maxResolution: 2445.984,
         //minResolution: 4.777,
         controls: [new OpenLayers.Control.Navigation({
@@ -81,15 +81,15 @@ Ext.onReady(function() {
     });
 
     var osm = new OpenLayers.Layer.OSM("Open Street Map", "", {
-        resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
-        serverResolutions: [156543.03390625, 78271.516953125, 39135.7584765625,
-            19567.87923828125, 9783.939619140625, 4891.9698095703125,
-            2445.9849047851562, 1222.9924523925781, 611.4962261962891,
-            305.74811309814453, 152.87405654907226, 76.43702827453613,
-            38.218514137268066, 19.109257068634033, 9.554628534317017,
-            4.777314267158508, 2.388657133579254, 1.194328566789627,
-            0.5971642833948135
-        ]
+        // resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
+        // serverResolutions: [156543.03390625, 78271.516953125, 39135.7584765625,
+        //     19567.87923828125, 9783.939619140625, 4891.9698095703125,
+        //     2445.9849047851562, 1222.9924523925781, 611.4962261962891,
+        //     305.74811309814453, 152.87405654907226, 76.43702827453613,
+        //     38.218514137268066, 19.109257068634033, 9.554628534317017,
+        //     4.777314267158508, 2.388657133579254, 1.194328566789627,
+        //     0.5971642833948135
+        // ]
     });
 
     var counties_base = new OpenLayers.Layer.TMS("None",
@@ -130,10 +130,11 @@ Ext.onReady(function() {
     // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
     // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
     nchuc6 = new OpenLayers.Layer.XYZ(
-        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.4qfdepyk/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.3ubn9llw/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
-            numZoomLevels: 10
+            // numZoomLevels: 10,
+            isBaseLayer: false
         });
 
 
@@ -504,10 +505,14 @@ Ext.onReady(function() {
 
 
 
-    map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
-        nchuc10, nchuc8, nchuc6_lbl,
-        nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
-        osm, hillshade, counties_base
+    // map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
+    //     nchuc10, nchuc8, nchuc6_lbl,
+    //     nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
+    //     osm, hillshade, counties_base
+    // ]);
+
+     map.addLayers([individual, composite, results, nonelayer, highlightLayer,  nchuc6,
+        osm
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -516,6 +521,7 @@ Ext.onReady(function() {
     function console_on_zoom() {
         console.log("resolution is", map.getResolution());
         console.log("scale is", map.getScale());
+        console.log("zoom is", map.getZoom());
     }
     map.events.register('zoomend', map, console_on_zoom);
 
