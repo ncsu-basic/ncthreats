@@ -129,12 +129,12 @@ Ext.onReady(function() {
     // http://www.macwright.org/2012/01/12/openlayers.html
     // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
     // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
-    // nchuc6 = new OpenLayers.Layer.XYZ(
-    //     "River Basin Boundaries", ["https://api.mapbox.com/styles/v1/basic99/cikg7p7p3002qapm5zsom050p/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
-    //         sphericalMercator: true,
-    //         wrapDateLine: true,
-    //         numZoomLevels: 10
-    //     });
+    nchuc6 = new OpenLayers.Layer.XYZ(
+        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.4qfdepyk/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            numZoomLevels: 10
+        });
 
 
     var nchuc8 = new OpenLayers.Layer.TMS("Subbasin Boundaries",
