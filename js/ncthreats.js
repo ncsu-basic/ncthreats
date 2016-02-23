@@ -17,8 +17,8 @@ Ext.onReady(function() {
     ////////////////////////////////////////////
     //initialize map
     ///////////////////////////////////////////////////
-    //var map_extent = new OpenLayers.Bounds(-9406496, 4001978, -8382357, 4397372);
-    var map_extent = new OpenLayers.Bounds(-9406496, 3901978, -8382357, 4297372);
+    var map_extent = new OpenLayers.Bounds(-9406496, 4001978, -8382357, 4397372);
+    //var map_extent = new OpenLayers.Bounds(-9406496, 3901978, -8382357, 4297372);
     var proj_4326 = new OpenLayers.Projection('EPSG:4326');
     var proj_900913 = new OpenLayers.Projection('EPSG:900913');
 
@@ -124,6 +124,19 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+
+
+    // http://www.macwright.org/2012/01/12/openlayers.html
+    // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
+    // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
+    // nchuc6 = new OpenLayers.Layer.XYZ(
+    //     "River Basin Boundaries", ["https://api.mapbox.com/styles/v1/basic99/cikg7p7p3002qapm5zsom050p/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+    //         sphericalMercator: true,
+    //         wrapDateLine: true,
+    //         numZoomLevels: 10
+    //     });
+
+
     var nchuc8 = new OpenLayers.Layer.TMS("Subbasin Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc8nc",
@@ -494,7 +507,7 @@ Ext.onReady(function() {
     map.addLayers([individual, composite, results, nonelayer, highlightLayer, ncbounds, ecoregions, counties, ncbcr, nchuc6, nchuc12,
         nchuc10, nchuc8, nchuc6_lbl,
         nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl,
-         osm, hillshade, counties_base
+        osm, hillshade, counties_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -926,7 +939,7 @@ Ext.onReady(function() {
         };
 
         var batch_util_fn = function(feature) {
-            if (feature.attributes.Name){
+            if (feature.attributes.Name) {
                 var aoi_name = feature.attributes.Name;
             } else {
                 var aoi_name = feature.attributes.name;
