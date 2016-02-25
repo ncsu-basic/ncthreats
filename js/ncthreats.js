@@ -129,7 +129,7 @@ Ext.onReady(function() {
     // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
     // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
     nchuc6 = new OpenLayers.Layer.XYZ(
-        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.drka3tzg/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.bj2z0eie/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
@@ -181,6 +181,14 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+
+     counties = new OpenLayers.Layer.XYZ(
+        "counties", ["https://api.mapbox.com/v4/basic99.1y5ponyk/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            isBaseLayer: false
+        });
     /////////////////////////////////////////////////////////////////////
     ////TMS label layers overlays
     /////////////////////////////////////////////////////////////////
@@ -518,7 +526,8 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-     map.addLayers([individual, composite, results, nonelayer, highlightLayer,  nchuc6,
+     map.addLayers([individual, composite, results, nonelayer, highlightLayer,
+       nchuc6, counties,
         osm, satellite
     ]);
 
