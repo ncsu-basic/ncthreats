@@ -154,6 +154,15 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+
+     nchuc8 = new OpenLayers.Layer.XYZ(
+        "Subbasin Boundaries", ["https://api.mapbox.com/v4/basic99.a36g6y78/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            isBaseLayer: false
+        });
+
     var nchuc10 = new OpenLayers.Layer.TMS("Watershed Boundaries",
         SERVER_URI + "tilecache/", {
             layername: "huc10nc",
@@ -529,7 +538,7 @@ Ext.onReady(function() {
     // ]);
 
     map.addLayers([individual, composite, results, nonelayer, highlightLayer,
-        nchuc6, counties,
+        nchuc6, nchuc8, counties,
         osm, satellite
     ]);
 
@@ -2464,7 +2473,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6]
+        layers: [counties, nchuc6, nchuc8]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
