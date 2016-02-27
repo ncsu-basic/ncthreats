@@ -132,6 +132,7 @@ Ext.onReady(function() {
         "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.bj2z0eie/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
+            visibility: false,
             // numZoomLevels: 10,
             isBaseLayer: false
         });
@@ -159,6 +160,7 @@ Ext.onReady(function() {
         "Subbasin Boundaries", ["https://api.mapbox.com/v4/basic99.a36g6y78/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
+            visibility: false,
             // numZoomLevels: 10,
             isBaseLayer: false
         });
@@ -172,6 +174,16 @@ Ext.onReady(function() {
             tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
         }
     );
+
+    nchuc10 = new OpenLayers.Layer.XYZ(
+        "Watershed Boundaries", ["https://api.mapbox.com/v4/basic99.2q4vtx68/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            visibility: false,
+            // numZoomLevels: 10,
+            isBaseLayer: false
+        });
+
     var nchuc12 = new OpenLayers.Layer.TMS("NC HUC 12",
         SERVER_URI + "tilecache/", {
             layername: "huc12nc",
@@ -538,7 +550,7 @@ Ext.onReady(function() {
     // ]);
 
     map.addLayers([individual, composite, results, nonelayer, highlightLayer,
-        nchuc6, nchuc8, counties,
+        nchuc6, nchuc8, nchuc10, counties,
         osm, satellite
     ]);
 
@@ -2473,7 +2485,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8]
+        layers: [counties, nchuc6, nchuc8, nchuc10]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
