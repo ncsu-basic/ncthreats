@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/";
+    var HOST_NAME = "http://localhost/ncthreats/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -182,11 +182,13 @@ Ext.onReady(function() {
         }
     );
 
-     counties = new OpenLayers.Layer.XYZ(
+    counties = new OpenLayers.Layer.XYZ(
         "counties", ["https://api.mapbox.com/v4/basic99.1y5ponyk/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
+            visibility: false,
+            displayInLayerSwitcher: true,
             isBaseLayer: false
         });
     /////////////////////////////////////////////////////////////////////
@@ -326,14 +328,14 @@ Ext.onReady(function() {
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
-       },
+        },
         5: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
-       }
+        }
     };
 
     //edit fillOpacity for model legend transparency
@@ -400,14 +402,14 @@ Ext.onReady(function() {
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
-       },
+        },
         9: {
             strokeColor: "#CCCCCC",
             fillColor: "#1A8CA8",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
-       },
+        },
         10: {
             strokeColor: "#CCCCCC",
             fillColor: "#2073A0",
@@ -526,8 +528,8 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-     map.addLayers([individual, composite, results, nonelayer, highlightLayer,
-       nchuc6, counties,
+    map.addLayers([individual, composite, results, nonelayer, highlightLayer,
+        nchuc6, counties,
         osm, satellite
     ]);
 
@@ -2460,13 +2462,26 @@ Ext.onReady(function() {
         }
     });
 
+    var store = new GeoExt.data.LayerStore({
+        // map: map,
+        layers: [counties, nchuc6]
+    });
+
+    var layerList12 = new GeoExt.tree.LayerContainer({
+        layerStore: mapPanel.layers,
+        text: 'Overlays',
+        leaf: false,
+        expanded: true,
+        layerStore: store
+
+    });
+
     var tree = new Ext.tree.TreePanel({
         region: 'west',
         bodyStyle: "padding:10px; margin: 10px;",
         root: {
             nodeType: "async",
-            children: [layerList2, layerList7, layerList6, layerList8,
-                layerList3, layerList4, layerList5, layerList9, layerList11, layerList10
+            children: [  layerList9, layerList11, layerList12, layerList10
 
             ]
         },
@@ -2812,7 +2827,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 0,
+        activeTab: 4,
         // accordion
         items: [maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
         deferredRender: false
