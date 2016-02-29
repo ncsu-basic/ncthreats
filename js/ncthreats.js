@@ -61,23 +61,23 @@ Ext.onReady(function() {
         isBaseLayer: true
     };
 
-    var google_physical = new OpenLayers.Layer.Google("Google physical", {
-        type: google.maps.MapTypeId.TERRAIN,
-        sphericalMercator: true,
-        visibility: false,
+    // var google_physical = new OpenLayers.Layer.Google("Google physical", {
+    //     type: google.maps.MapTypeId.TERRAIN,
+    //     sphericalMercator: true,
+    //     visibility: false,
 
-        // maxExtent: new OpenLayers.Bounds(-8515941.046, 4392656.005, -8478829.968, 4415896.359),
-        wrapDateLine: false
-    }, layeropts);
+    //     // maxExtent: new OpenLayers.Bounds(-8515941.046, 4392656.005, -8478829.968, 4415896.359),
+    //     wrapDateLine: false
+    // }, layeropts);
 
-    var gphy = new OpenLayers.Layer.Google("Google Physical Map", {
-        type: google.maps.MapTypeId.TERRAIN,
+    // var gphy = new OpenLayers.Layer.Google("Google Physical Map", {
+    //     type: google.maps.MapTypeId.TERRAIN,
 
-        displayInLayerSwitcher: false,
-        visibility: false,
-        buffer: 0,
-        isBaseLayer: true
-    });
+    //     displayInLayerSwitcher: false,
+    //     visibility: false,
+    //     buffer: 0,
+    //     isBaseLayer: true
+    // });
 
     var osm = new OpenLayers.Layer.OSM("Open Street Map", "", {
         // resolutions: [2445.984, 1222.99, 611.496, 305.748, 152.874, 76.437, 38.218],
@@ -91,21 +91,30 @@ Ext.onReady(function() {
         // ]
     });
 
-    var counties_base = new OpenLayers.Layer.TMS("None",
-        SERVER_URI + "tilecache/", {
-            layername: "counties",
-            type: "png",
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+    // var counties_base = new OpenLayers.Layer.TMS("None",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "counties",
+    //         type: "png",
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
 
-    var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
-        SERVER_URI + "tilecache/", {
-            layername: "hillshadenc",
-            type: "png",
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+    // var hillshade = new OpenLayers.Layer.TMS("NC Hillshade",
+    //     SERVER_URI + "tilecache/", {
+    //         layername: "hillshadenc",
+    //         type: "png",
+    //         tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
+    //     }
+    // );
+
+    var bounds_base = new OpenLayers.Layer.XYZ(
+        "No background", ["https://api.mapbox.com/v4/basic99.3lwn4pdl/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            visibility: false,
+            // numZoomLevels: 10,
+            isBaseLayer: true
+        });
 
 
     ////////////////////////////////////////////////////////////
@@ -114,21 +123,13 @@ Ext.onReady(function() {
 
 
 
-    var nchuc6 = new OpenLayers.Layer.TMS("River Basin Boundaries",
-        SERVER_URI + "tilecache/", {
-            layername: "huc6nc",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+
 
 
     // http://www.macwright.org/2012/01/12/openlayers.html
     // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
     // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
-    nchuc6 = new OpenLayers.Layer.XYZ(
+    var nchuc6 = new OpenLayers.Layer.XYZ(
         "River Basin Boundaries", ["https://api.mapbox.com/v4/basic99.bj2z0eie/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
@@ -146,17 +147,7 @@ Ext.onReady(function() {
         });
 
 
-    var nchuc8 = new OpenLayers.Layer.TMS("Subbasin Boundaries",
-        SERVER_URI + "tilecache/", {
-            layername: "huc8nc",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-
-     nchuc8 = new OpenLayers.Layer.XYZ(
+    var nchuc8 = new OpenLayers.Layer.XYZ(
         "Subbasin Boundaries", ["https://api.mapbox.com/v4/basic99.a36g6y78/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
@@ -165,17 +156,9 @@ Ext.onReady(function() {
             isBaseLayer: false
         });
 
-    var nchuc10 = new OpenLayers.Layer.TMS("Watershed Boundaries",
-        SERVER_URI + "tilecache/", {
-            layername: "huc10nc",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
 
-    nchuc10 = new OpenLayers.Layer.XYZ(
+
+    var nchuc10 = new OpenLayers.Layer.XYZ(
         "Watershed Boundaries", ["https://api.mapbox.com/v4/basic99.2q4vtx68/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
@@ -184,27 +167,8 @@ Ext.onReady(function() {
             isBaseLayer: false
         });
 
-    var nchuc12 = new OpenLayers.Layer.TMS("NC HUC 12",
-        SERVER_URI + "tilecache/", {
-            layername: "huc12nc",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var counties = new OpenLayers.Layer.TMS("County Boundaries",
-        SERVER_URI + "tilecache/", {
-            layername: "counties",
-            type: "png",
-            isBaseLayer: false,
-            visibility: true,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-
-    counties = new OpenLayers.Layer.XYZ(
-        "counties", ["https://api.mapbox.com/v4/basic99.1y5ponyk/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+    var counties = new OpenLayers.Layer.XYZ(
+        "Counties", ["https://api.mapbox.com/v4/basic99.1y5ponyk/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
@@ -212,85 +176,39 @@ Ext.onReady(function() {
             displayInLayerSwitcher: true,
             isBaseLayer: false
         });
-    /////////////////////////////////////////////////////////////////////
-    ////TMS label layers overlays
-    /////////////////////////////////////////////////////////////////
 
-    var nchuc6_lbl = new OpenLayers.Layer.TMS("River Basin Labels",
-        SERVER_URI + "tilecache/", {
-            layername: "huc6nc_lbl",
-            type: "png",
-            isBaseLayer: false,
+   var  ncbcr =  new OpenLayers.Layer.XYZ(
+        "Bird Conservation Region Boundaries", ["https://api.mapbox.com/v4/basic99.d1zhazaq/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
             visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var nchuc8_lbl = new OpenLayers.Layer.TMS("Subbasin Labels",
-        SERVER_URI + "tilecache/", {
-            layername: "huc8nc_lbl",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var nchuc10_lbl = new OpenLayers.Layer.TMS("Watershed Labels",
-        SERVER_URI + "tilecache/", {
-            layername: "huc10nc_lbl",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var nchuc12_lbl = new OpenLayers.Layer.TMS("NC HUC 12 Label",
-        SERVER_URI + "tilecache/", {
-            layername: "huc12nc_lbl",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
-    var counties_lbl = new OpenLayers.Layer.TMS("County Labels",
-        SERVER_URI + "tilecache/", {
-            layername: "counties_lbl",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
 
-    var ncbcr = new OpenLayers.Layer.TMS("Bird Conservation Region Boundaries",
-        SERVER_URI + "tilecache/", {
-            layername: "ncbcr",
-            type: "png",
-            isBaseLayer: false,
-            visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
 
-    var ncbounds = new OpenLayers.Layer.TMS("State Boundary",
-        SERVER_URI + "tilecache/", {
-            layername: "ncbounds",
-            type: "png",
-            isBaseLayer: false,
+    var ncbounds =  new OpenLayers.Layer.XYZ(
+        "State Boundary", ["https://api.mapbox.com/v4/basic99.andgjbjs/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
             visibility: true,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
 
-    var ecoregions = new OpenLayers.Layer.TMS("Ecoegion Boundaries",
-        SERVER_URI + "tilecache/", {
-            layername: "ecoregions",
-            type: "png",
-            isBaseLayer: false,
+
+
+    var ecoregions =  new OpenLayers.Layer.XYZ(
+        "Ecoegion Boundaries", ["https://api.mapbox.com/v4/basic99.52s4j5j4/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
             visibility: false,
-            tileOrigin: new OpenLayers.LonLat(-9462455, 3963396)
-        }
-    );
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
 
 
     ///////////////////////////////////////////////////////////
@@ -550,8 +468,8 @@ Ext.onReady(function() {
     // ]);
 
     map.addLayers([individual, composite, results, nonelayer, highlightLayer,
-        nchuc6, nchuc8, nchuc10, counties,
-        osm, satellite
+        nchuc6, nchuc8, nchuc10, counties, ncbcr, ncbounds, ecoregions,
+        osm, satellite, bounds_base
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -2485,7 +2403,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8, nchuc10]
+        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, ncbounds]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
@@ -2502,7 +2420,7 @@ Ext.onReady(function() {
         bodyStyle: "padding:10px; margin: 10px;",
         root: {
             nodeType: "async",
-            children: [  layerList9, layerList11, layerList12, layerList10
+            children: [layerList9, layerList11, layerList12, layerList10
 
             ]
         },
