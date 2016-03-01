@@ -1501,6 +1501,7 @@ Ext.onReady(function() {
                 }
             }
             composite.setVisibility(true);
+            individual.setVisibility(false);
             map.getLayersByName("Composite Threats")[0].redraw();
 
             var composite_colors = ["ffffff", "ffffbe", "ffdb59", "e69b00", "cc3d00", "730000"];
