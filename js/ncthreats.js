@@ -159,7 +159,7 @@ Ext.onReady(function() {
 
 
     var nchuc10 = new OpenLayers.Layer.XYZ(
-        "Watershed Boundaries", ["https://api.mapbox.com/v4/basic99.2q4vtx68/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "Watershed Boundaries", ["https://api.mapbox.com/v4/basic99.75y696se/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             visibility: false,
