@@ -468,7 +468,7 @@ Ext.onReady(function() {
     // ]);
 
     map.addLayers([individual, composite, results, nonelayer, highlightLayer,
-        nchuc6, nchuc8, nchuc10, counties, ncbcr, ncbounds, ecoregions,
+        nchuc10, nchuc8, nchuc6, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base
     ]);
 
