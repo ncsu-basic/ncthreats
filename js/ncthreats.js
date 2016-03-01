@@ -2260,95 +2260,7 @@ Ext.onReady(function() {
 
 
 
-    // var layerList = new GeoExt.tree.LayerContainer({
-    //     layerStore: mapPanel.layers,
-    //     text: 'HUC 2',
-    //     leaf: false,
-    //     expanded: false,
-    //     loader: {
-    //         filter: function(record) {
-    //             return record.get("layer").name.indexOf("NC HUC 2") !== -1;
-    //         }
-    //     }
-    // });
-    var layerList2 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC State',
-        leaf: false,
-        expanded: true,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("State Boundary") !== -1;
-            }
-        }
-    });
-    var layerList3 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC River Basins',
-        leaf: false,
-        expanded: false,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("River Basin") !== -1;
-            }
-        }
-    });
-    var layerList4 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC River Subbasins',
-        leaf: false,
-        expanded: false,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("Subbasin") !== -1;
-            }
-        }
-    });
-    var layerList5 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC Watersheds',
-        leaf: false,
-        expanded: false,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("Watershed") !== -1;
-            }
-        }
-    });
-    var layerList6 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC Ecoregions',
-        leaf: false,
-        expanded: false,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("Ecoegion") !== -1;
-            }
-        }
-    });
-    var layerList7 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC Counties',
-        leaf: false,
-        expanded: true,
-        loader: {
-            filter: function(record) {
-                return record.get("layer").name.indexOf("County") !== -1;
-            }
-        }
-    });
-    var layerList8 = new GeoExt.tree.LayerContainer({
-        layerStore: mapPanel.layers,
-        text: 'NC Bird Conservation Regions',
-        leaf: false,
-        expanded: false,
-        loader: {
-            filter: function(record) {
 
-                return record.get("layer").name.indexOf("Bird Conservation") !== -1;
-            }
-        }
-    });
 
     var layerList9 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
@@ -2766,7 +2678,7 @@ Ext.onReady(function() {
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
-        activeTab: 4,
+        activeTab: 0,
         // accordion
         items: [maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
         deferredRender: false
