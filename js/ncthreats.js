@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://localhost/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -2408,7 +2408,7 @@ Ext.onReady(function() {
 
     var layerList12 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
-        text: 'Overlays',
+        text: 'Boundaries',
         leaf: false,
         expanded: true,
         layerStore: store
