@@ -631,9 +631,8 @@ Ext.onReady(function() {
         batch_resource = {};
         new_selection();
         map.zoomToExtent(map_extent);
-        var vis_lyrs = [counties, ncbcr, nchuc6, nchuc12,
-            nchuc10, nchuc8, nchuc6_lbl,
-            nchuc12_lbl, nchuc10_lbl, nchuc8_lbl, counties_lbl, results
+        var vis_lyrs = [counties, ncbcr, nchuc6,
+            nchuc10, nchuc8, results
         ];
         for (var i = 0; i < vis_lyrs.length; i++) {
             vis_lyrs[i].setVisibility(false);
@@ -804,25 +803,25 @@ Ext.onReady(function() {
                     // query_ctl.layers = [nchuc6_qry];
                     col_name = "huc6";
                     nchuc6.setVisibility(true);
-                    nchuc6_lbl.setVisibility(true);
+                    // nchuc6_lbl.setVisibility(true);
                     break;
                 case 'NC River Subbasins':
                     // query_ctl.layers = [nchuc8_qry];
                     col_name = "huc8";
                     nchuc8.setVisibility(true);
-                    nchuc8_lbl.setVisibility(true);
+                 // nchuc8_lbl.setVisibility(true);
                     break;
                 case 'NC Watersheds':
                     // query_ctl.layers = [nchuc10_qry];
                     col_name = "huc10";
                     nchuc10.setVisibility(true);
-                    nchuc10_lbl.setVisibility(true);
+                    // nchuc10_lbl.setVisibility(true);
                     break;
                 case 'NC Counties':
                     // query_ctl.layers = [counties_qry];
                     col_name = "co_num";
                     counties.setVisibility(true);
-                    counties_lbl.setVisibility(true);
+                    // counties_lbl.setVisibility(true);
                     break;
                 case 'NC BCR':
                     // query_ctl.layers = [ncbcr];
