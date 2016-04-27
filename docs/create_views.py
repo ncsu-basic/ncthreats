@@ -34,17 +34,25 @@ for mymap in mymaps:
         for scenario in scenarios:
             # print (mymap, year, scenario)
             view_name = "%s%sdt_%s" % (mymap, year, scenario)
+            cur.execute("drop view  if exists %s" % view_name)
+
             col_name = "%s%sdt" % (mymap, year)
-            qry = qry_tmpl % (view_name, scenario, col_name, scenario, scenario)
+            qry = qry_tmpl % (
+                view_name, scenario, col_name, scenario, scenario
+            )
             print qry
-            cur.execute(qry)
-# year = '10'
-# scenario = 'x'
+            # cur.execute(qry)
 
-# query1 = "select huc_12, %s%sdt from lcscen_%s" % (
-#     mymap, year, scenario
-# )
+qry_tmpl = """
+create view urb%sdt as \
+select urban.urb%sdt as dt, huc12nc.* \
+from urban, huc12nc \
+WHERE urban.huc_12 = huc12nc.huc_12
+"""
+for year in years:
+    qry = qry_tmpl % (year, year)
+    cur.execute("drop view if exists urb%sdt" % year)
 
-# cur.execute(qry)
+
 
 conn.commit()
