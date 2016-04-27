@@ -1,8 +1,8 @@
-curl -v -u admin:geoserver -XPOST -H "Content-type: text/xml" \
-  -d "<featureType><name>frst10dt_tst</name></featureType>" \
+curl -v -u admin: -XPOST -H "Content-type: text/xml" \
+  -d "<featureType><name>frst10dt_tst</name> <title>theNewTitle</title></featureType>" \
   http://tecumseh.zo.ncsu.edu/geoserver/rest/workspaces/basic/datastores/threats_db/featuretypes
 
- curl -v -u admin:geoserver -XGET "http://tecumseh.zo.ncsu.edu/geoserver/rest/layers/basic:frst10dt_tst"
+ curl -v -u admin: -XGET "http://tecumseh.zo.ncsu.edu/geoserver/rest/layers/basic:frst10dt_tst"
 
  curl -v -u admin:geoserver -XPUT -H 'Content-type: text/xml' \
   -d '<layer><defaultStyle><name>forest_habitat_loss</name><workspace>basic</workspace></defaultStyle></layer>' \
