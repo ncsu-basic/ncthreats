@@ -46,5 +46,8 @@ for row in cur:
     template = template.replace("range6_high", str(row["range6_high"]))
     template = template.replace("range6_low", str(row["range6_low"]))
 
+    save_name = "/home/jim/Desktop/styles/wms_%s.xml" % row["layer_str"].replace(":", "_")
+    with open(save_name, "wb") as fp:
+        fp.write(template)
 
-print template
+
