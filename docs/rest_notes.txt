@@ -5,5 +5,5 @@ curl -v -u admin:geoserver -XPOST -H "Content-type: text/xml" \
  curl -v -u admin:geoserver -XGET "http://localhost/geoserver/rest/layers/basic:bioimplendt"
 
  curl -v -u admin:geoserver -XPUT -H 'Content-type: text/xml' \
-  -d '<layer><defaultStyle><name>forest_habitat_loss</name><workspace>basic</workspace></defaultStyle></layer>' \
+  -d '<layer><defaultStyle><name>wms_water_bioimplen</name><workspace>wms</workspace></defaultStyle></layer>' \
   http://localhost/geoserver/rest/layers/basic:bioimplendt
