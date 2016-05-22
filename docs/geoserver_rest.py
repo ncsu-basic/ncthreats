@@ -41,7 +41,8 @@ for mymap in mymaps:
             view_name = "%s%sdt_%s" % (mymap, year, scenario)
             title = legend_data[mymap] + " Loss Since 2000 (pct) 20%s" % year
             title = title.replace("pct", "%")
-            style = "wms_%s.xml" % mymap
+            style = "wms_%s" % mymap
+
             print view_name
             print title
             print style
