@@ -50,10 +50,35 @@ for mymap in mymaps:
 
 for year in years:
     view_name = "urb%sdt" % year
-    title = "Urban Growth Loss Since 2000 (pct) 20%s" % year
-    title = title.replace("pct", "%")
+    title = "Urban Land Cover (%)"
     style = "wms_%s" % "urban"
     print view_name
     print title
     print style
     create_layer(view_name, title, style)
+
+for year in years:
+    view_name = "fsupp%sdt" % year
+    title = "Mean Urban Density w/in 5 mile radius"
+    style = "wms_%s" % "fire"
+    print view_name
+    print title
+    print style
+    create_layer(view_name, title, style)
+
+for year in years:
+    view_name = "rds%sdt" % year
+    title = "Mean Length/Area of Major Highways (m/ha)"
+    style = "wms_%s" % "trans"
+    print view_name
+    print title
+    print style
+    create_layer(view_name, title, style)
+
+view_name = "manudt"
+title = "Manure Application (kg/ha/yr)"
+style = "wms_%s" % "nutrient_manu"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)

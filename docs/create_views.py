@@ -88,6 +88,16 @@ print qry
 cur.execute(qry)
 
 qry = """
+create view manudt as \
+select manu.manu_dt as dt, huc12nc.* \
+from manu, huc12nc \
+WHERE manu.huc_12 = huc12nc.huc_12
+"""
+cur.execute("drop view if exists manudt")
+print qry
+cur.execute(qry)
+
+qry = """
 create view tdntdt as \
 select tdnt.tdnt_dt as dt, huc12nc.* \
 from tdnt, huc12nc \
