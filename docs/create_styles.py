@@ -15,10 +15,11 @@ cur.execute(query)
 
 template_file = "/home/jim/Desktop/styles/style.xml"
 with open(template_file)as fp:
-    template = fp.read()
+    template_empty = fp.read()
 
 
 for row in cur:
+    template = template_empty
     template = template.replace("layer_str", row["layer_str"])
     template = template.replace("layer_desc", row["layer_desc"])
     template = template.replace("color1", row["color1"])
