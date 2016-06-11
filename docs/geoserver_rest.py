@@ -22,10 +22,10 @@ def create_layer(name, title, style):
     headers = {'Content-type': 'text/xml'}
     data = "<featureType><name>%s</name><title>%s</title></featureType>" % (view_name, title)
 
-    url = "http://localhost/geoserver/rest/workspaces/basic/datastores/threats_db/featuretypes"
+    url = "http://localhost/geoserver/rest/workspaces/wms/datastores/db/featuretypes"
     requests.post(url, data=data, headers=headers, auth=auth)
 
-    url = "http://localhost/geoserver/rest/layers/basic:%s" % view_name
+    url = "http://localhost/geoserver/rest/layers/wms:%s" % view_name
     data = "<layer><defaultStyle><name>%s</name><workspace>wms</workspace></defaultStyle></layer>" % style
     requests.put(url, data=data, headers=headers, auth=auth)
 
@@ -59,7 +59,7 @@ for year in years:
 
 for year in years:
     view_name = "fsupp%sdt" % year
-    title = "Mean Urban Density w/in 5 mile radius"
+    title = "Mean Urban Density w/in 500 mile radius"
     style = "wms_%s" % "fire"
     print view_name
     print title

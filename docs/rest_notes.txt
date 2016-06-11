@@ -1,14 +1,18 @@
 curl -v -u admin:geoserver -XPOST -H "Content-type: text/xml" \
   -d "<featureType><name>bioimplendt</name> <title>theNewTitle</title></featureType>" \
-  http://localhost/geoserver/rest/workspaces/wms/datastores/db/featuretypes
+  http://localhost/geoserver/rest/workspaces/basic/datastores/db/featuretypes
 
  curl -v -u admin:geoserver -XDELETE "http://localhost/geoserver/rest/layers/wms:bioimplendt"
- curl -v -u admin:geoserver -XGET "http://localhost/geoserver/rest/layers/wms:bioimplendt"
+ curl -v -u admin:geoserver -XGET "http://localhost/geoserver/rest/layers/basic:bioimplendt"
 
  curl -v -u admin:geoserver -XPUT -H 'Content-type: text/xml' \
-  -d '<layer><defaultStyle><name>wms_water_bioimplen</name><workspace>wms</workspace></defaultStyle></layer>' \
+  -d '<layer><defaultStyle><name>wms_water_bioimplen</name><workspace></workspace></defaultStyle></layer>' \
   http://localhost/geoserver/rest/layers/basic:bioimplendt
 
 
 http://docs.geoserver.org/stable/en/user/rest/
+
+curl -v -u admin:geoserver -XPUT -H 'Content-type: text/xml' \
+ -d "<layer><title>theNewTitle</title></layer>" \
+   http://localhost/geoserver/rest/layers/basic:bioimplendt
 
