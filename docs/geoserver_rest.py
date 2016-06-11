@@ -22,12 +22,12 @@ def create_layer(name, title, style):
     headers = {'Content-type': 'text/xml'}
     data = "<featureType><name>%s</name><title>%s</title></featureType>" % (view_name, title)
 
-    url = "http://localhost/geoserver/rest/workspaces/wms/datastores/db/featuretypes"
-    requests.post(url, data=data, headers=headers, auth=auth)
+    url = "http://localhost/geoserver/rest/workspaces/basic/datastores/db/featuretypes"
+    print requests.post(url, data=data, headers=headers, auth=auth)
 
-    url = "http://localhost/geoserver/rest/layers/wms:%s" % view_name
+    url = "http://localhost/geoserver/rest/layers/basic:%s" % view_name
     data = "<layer><defaultStyle><name>%s</name><workspace>wms</workspace></defaultStyle></layer>" % style
-    requests.put(url, data=data, headers=headers, auth=auth)
+    print requests.put(url, data=data, headers=headers, auth=auth)
 
 create_layer(view_name, title, style)
 
@@ -48,23 +48,23 @@ for mymap in mymaps:
             # print style
             # create_layer(view_name, title, style)
 
-for year in years:
-    view_name = "urb%sdt" % year
-    title = "Urban Land Cover (%)"
-    style = "wms_%s" % "urban"
-    print view_name
-    print title
-    print style
-    create_layer(view_name, title, style)
+# for year in years:
+#     view_name = "urb%sdt" % year
+#     title = "Urban Land Cover (%)"
+#     style = "wms_%s" % "urban"
+#     print view_name
+#     print title
+#     print style
+#     create_layer(view_name, title, style)
 
-for year in years:
-    view_name = "fsupp%sdt" % year
-    title = "Mean Urban Density w/in 500 mile radius"
-    style = "wms_%s" % "fire"
-    print view_name
-    print title
-    print style
-    create_layer(view_name, title, style)
+# for year in years:
+#     view_name = "fsupp%sdt" % year
+#     title = "Mean Urban Density w/in 500 mile radius"
+#     style = "wms_%s" % "fire"
+#     print view_name
+#     print title
+#     print style
+#     create_layer(view_name, title, style)
 
 for year in years:
     view_name = "rds%sdt" % year
@@ -78,6 +78,30 @@ for year in years:
 view_name = "manudt"
 title = "Manure Application (kg/ha/yr)"
 style = "wms_%s" % "nutrient_manu"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+view_name = "fertdt"
+title = "Syn. Nitrogen Fertilizer Application (kg/ha/yr)"
+style = "wms_%s" % "nutrient_fert"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+view_name = "tdntdt"
+title = "Total Nitrogen Deposition (kg/ha/yr)"
+style = "wms_%s" % "nutrient_td_n_t"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+view_name = "tdstdt"
+title = "Total Sulfur Deposition (kg/ha/yr)"
+style = "wms_%s" % "nutrient_td_s_t"
 print view_name
 print title
 print style
