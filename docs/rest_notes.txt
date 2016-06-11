@@ -1,6 +1,6 @@
 curl -v -u admin:geoserver -XPOST -H "Content-type: text/xml" \
   -d "<featureType><name>bioimplendt</name> <title>theNewTitle</title></featureType>" \
-  http://localhost/geoserver/rest/workspaces/basic/datastores/threats_db/featuretypes
+  http://localhost/geoserver/rest/workspaces/wms/datastores/threats_db/featuretypes
 
  curl -v -u admin:geoserver -XGET "http://localhost/geoserver/rest/layers/basic:bioimplendt"
 
