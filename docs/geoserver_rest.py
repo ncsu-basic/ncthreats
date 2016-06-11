@@ -1,6 +1,12 @@
 import requests
 import csv
 
+"""
+to change title delete layers in gui and rerun script with new title.
+curl delete does not work, haven't figured out update.
+
+"""
+
 legend_data = {}
 with open("legend_data4.csv") as fp:
     reader = csv.reader(fp)
