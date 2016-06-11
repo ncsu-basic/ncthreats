@@ -4,6 +4,7 @@ import csv
 """
 to change title delete layers in gui and rerun script with new title.
 curl delete does not work, haven't figured out update.
+all layers and styles in workspace basic
 
 """
 
@@ -112,3 +113,22 @@ print view_name
 print title
 print style
 create_layer(view_name, title, style)
+
+view_name = "fhlthdt"
+title = "Forest Insect/Disease Risk (%)"
+style = "wms_%s" % "frsthlth"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+view_name = "triassicdt"
+title = "Triassic Basin (%)"
+style = "wms_%s" % "energydev"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+
+
