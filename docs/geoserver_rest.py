@@ -164,3 +164,19 @@ for year in years:
     print title
     print style
     create_layer(view_name, title, style)
+
+view_name = "bioimplendt"
+title = "Biota Impairments (km*stream density)"
+style = "wms_%s" % "water_bioimplen"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+view_name = "metimplendt"
+title = "Metal Impariments (km*stream density)"
+style = "wms_%s" % "water_metimplen"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
