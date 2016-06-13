@@ -131,4 +131,27 @@ print style
 create_layer(view_name, title, style)
 
 
+view_name = "niddt"
+title = "Number of Dams (n)"
+style = "wms_%s" % "water_NID"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
 
+view_name = "wpcdt"
+title = "Wind Power Class (mean)"
+style = "wms_%s" % "wind"
+print view_name
+print title
+print style
+create_layer(view_name, title, style)
+
+for year in years:
+    view_name = "up%sdt" % year
+    title = "Undeveloped Upland Loss Since 2000 (%)"
+    style = "wms_%s" % "slr_up"
+    print view_name
+    print title
+    print style
+    create_layer(view_name, title, style)

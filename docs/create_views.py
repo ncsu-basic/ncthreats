@@ -179,4 +179,14 @@ cur.execute("drop view if exists metimplendt")
 print qry
 cur.execute(qry)
 
+cur.execute("drop view if exists niddt ")
+qry = """
+create view niddt as \
+select nid.nid_dt as dt, huc12nc.* \
+from nid, huc12nc \
+WHERE nid.huc_12 = huc12nc.huc_12
+"""
+print qry
+cur.execute(qry)
+
 conn.commit()
