@@ -14,9 +14,6 @@ with open("legend_data4.csv") as fp:
     for line in reader:
         legend_data[line[1]] = line[0]
 # print legend_data
-
-
-
 # requests.packages.urllib3.disable_warnings()
 
 view_name = "bioimplendt"
@@ -33,7 +30,7 @@ def create_layer(name, title, style):
     print requests.post(url, data=data, headers=headers, auth=auth)
 
     url = "http://localhost/geoserver/rest/layers/basic:%s" % view_name
-    data = "<layer><defaultStyle><name>%s</name><workspace>wms</workspace></defaultStyle></layer>" % style
+    data = "<layer><defaultStyle><name>%s</name><workspace>basic</workspace></defaultStyle></layer>" % style
     print requests.put(url, data=data, headers=headers, auth=auth)
 
 create_layer(view_name, title, style)
@@ -50,28 +47,28 @@ for mymap in mymaps:
             title = title.replace("pct", "%")
             style = "wms_%s" % mymap
 
-            # print view_name
-            # print title
-            # print style
-            # create_layer(view_name, title, style)
+            print view_name
+            print title
+            print style
+            create_layer(view_name, title, style)
 
-# for year in years:
-#     view_name = "urb%sdt" % year
-#     title = "Urban Land Cover (%)"
-#     style = "wms_%s" % "urban"
-#     print view_name
-#     print title
-#     print style
-#     create_layer(view_name, title, style)
+for year in years:
+    view_name = "urb%sdt" % year
+    title = "Urban Land Cover (%)"
+    style = "wms_%s" % "urban"
+    print view_name
+    print title
+    print style
+    create_layer(view_name, title, style)
 
-# for year in years:
-#     view_name = "fsupp%sdt" % year
-#     title = "Mean Urban Density w/in 500 mile radius"
-#     style = "wms_%s" % "fire"
-#     print view_name
-#     print title
-#     print style
-#     create_layer(view_name, title, style)
+for year in years:
+    view_name = "fsupp%sdt" % year
+    title = "Mean Urban Density w/in 500 mile radius"
+    style = "wms_%s" % "fire"
+    print view_name
+    print title
+    print style
+    create_layer(view_name, title, style)
 
 for year in years:
     view_name = "rds%sdt" % year
