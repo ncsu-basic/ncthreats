@@ -159,6 +159,18 @@ for year in years:
     print qry
     cur.execute(qry)
 
+qry_tmpl = """
+create view lc%sdt as \
+select slrlc.lc%sdt as dt, huc12nc.* \
+from slrlc, huc12nc \
+WHERE slrlc.huc_12 = huc12nc.huc_12
+"""
+for year in years:
+    qry = qry_tmpl % (year, year)
+    cur.execute("drop view if exists lc%sdt" % year)
+    print qry
+    cur.execute(qry)
+
 qry = """
 create view bioimplendt as \
 select bioimplen.bioimplen_dt as dt, huc12nc.* \

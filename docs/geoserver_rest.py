@@ -155,3 +155,12 @@ for year in years:
     print title
     print style
     create_layer(view_name, title, style)
+
+for year in years:
+    view_name = "lc%sdt" % year
+    title = "Terrestrial Landcover Loss Since 2000 (%)"
+    style = "wms_%s" % "slr_lc"
+    print view_name
+    print title
+    print style
+    create_layer(view_name, title, style)
