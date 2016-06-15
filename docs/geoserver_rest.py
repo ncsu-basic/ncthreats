@@ -35,16 +35,36 @@ def create_layer(name, title, style):
 
 create_layer(view_name, title, style)
 
-mymaps = ["frst", 'ftwt', 'hbwt', 'open', 'shrb']
+mymaps = {
+    "frst": "Forest",
+    'ftwt': "Wet Forest",
+    'hbwt': " Wet Herb.",
+    'open': "Open",
+    'shrb': "Scrub/Shrub"
+}
 years = [10, 20, 30, 40, 50]
-scenarios = ['x', "a", "b", "c", "d", "e"]
+scenarios = {
+    'x': "No Bioenergy Production",
+    "a": "Conventional Bioenergy",
+    "b": "Conv. + Marginal Agriculture",
+    "c": "Conv. + Marg. Agri. & Forests",
+    "d": "Marginal Agri. & Forests Only",
+    "e": "Marginal Agriculture Only"
+}
+
+# "Hab. Loss 2000-20%s (_pct_): %s - %s"
 
 for mymap in mymaps:
     for year in years:
         for scenario in scenarios:
             view_name = "%s%sdt_%s" % (mymap, year, scenario)
-            title = legend_data[mymap] + " Loss Since 2000 (pct) 20%s" % year
-            title = title.replace("pct", "%")
+            # title = legend_data[mymap] + " Loss Since 2000 (pct) 20%s" % year
+            title = "Hab. Loss 2000-20%s (_pct_): %s - %s" % (
+                year,
+                mymaps[mymap],
+                scenarios[scenario]
+            )
+            title = title.replace("_pct_", "%")
             style = "wms_%s" % mymap
 
             print view_name
