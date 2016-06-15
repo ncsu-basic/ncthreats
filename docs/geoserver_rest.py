@@ -83,7 +83,7 @@ for year in years:
 
 for year in years:
     view_name = "fsupp%sdt" % year
-    title = "Mean Urban Density w/in 500 mile radius"
+    title = "Fire Suppression: Mean Urban Density 20" + str(year)
     style = "wms_%s" % "fire"
     print view_name
     print title
@@ -92,7 +92,7 @@ for year in years:
 
 for year in years:
     view_name = "rds%sdt" % year
-    title = "Mean Length/Area of Major Highways (m/ha)"
+    title = "Transportation Corridors: Major Highways 20%s (m/ha)" % year
     style = "wms_%s" % "trans"
     print view_name
     print title
@@ -100,7 +100,7 @@ for year in years:
     create_layer(view_name, title, style)
 
 view_name = "manudt"
-title = "Manure Application (kg/ha/yr)"
+title = "Nutrient Loading: Manure Application (kg/ha/yr)"
 style = "wms_%s" % "nutrient_manu"
 print view_name
 print title
@@ -108,7 +108,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "fertdt"
-title = "Syn. Nitrogen Fertilizer Application (kg/ha/yr)"
+title = "Nutrient Loading: Syn. Fertilizer Application (kg/ha/yr)"
 style = "wms_%s" % "nutrient_fert"
 print view_name
 print title
@@ -116,7 +116,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "tdntdt"
-title = "Total Nitrogen Deposition (kg/ha/yr)"
+title = "Atmospheric Deposition: Total Nitrogen (kg/ha/yr)"
 style = "wms_%s" % "nutrient_td_n_t"
 print view_name
 print title
@@ -124,7 +124,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "tdstdt"
-title = "Total Sulfur Deposition (kg/ha/yr)"
+title = "Atmospheric Deposition: Total Sulfur (kg/ha/yr)"
 style = "wms_%s" % "nutrient_td_s_t"
 print view_name
 print title
@@ -132,7 +132,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "fhlthdt"
-title = "Forest Insect/Disease Risk (%)"
+title = "Forest Health: Insect/Disease Risk (%)"
 style = "wms_%s" % "frsthlth"
 print view_name
 print title
@@ -140,7 +140,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "triassicdt"
-title = "Triassic Basin (%)"
+title = "Energy Development: Triassic Basin (%)"
 style = "wms_%s" % "energydev"
 print view_name
 print title
@@ -149,7 +149,7 @@ create_layer(view_name, title, style)
 
 
 view_name = "niddt"
-title = "Number of Dams (n)"
+title = "Hydrologic Alteration: Number of Dams (n)"
 style = "wms_%s" % "water_NID"
 print view_name
 print title
@@ -157,7 +157,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "wpcdt"
-title = "Wind Power Class (mean)"
+title = "Energy Development: Wind Power Class (mean)"
 style = "wms_%s" % "wind"
 print view_name
 print title
@@ -166,7 +166,7 @@ create_layer(view_name, title, style)
 
 for year in years:
     view_name = "up%sdt" % year
-    title = "Undeveloped Upland Loss Since 2000 (%)"
+    title = "Sea Level Rise 2000-20" + str(year) + ": Undeveloped Upland Loss (%)"
     style = "wms_%s" % "slr_up"
     print view_name
     print title
@@ -175,7 +175,7 @@ for year in years:
 
 for year in years:
     view_name = "lc%sdt" % year
-    title = "Terrestrial Landcover Loss Since 2000 (%)"
+    title = "Sea Level Rise 2000-20" + str(year) + ": Terrestrial Landcover Loss (%)"
     style = "wms_%s" % "slr_lc"
     print view_name
     print title
@@ -183,7 +183,7 @@ for year in years:
     create_layer(view_name, title, style)
 
 view_name = "bioimplendt"
-title = "Biota Impairments (km*stream density)"
+title = "Impaired Waters: Biota (km*stream density)"
 style = "wms_%s" % "water_bioimplen"
 print view_name
 print title
@@ -191,7 +191,7 @@ print style
 create_layer(view_name, title, style)
 
 view_name = "metimplendt"
-title = "Metal Impariments (km*stream density)"
+title = "Impaired Waters: Metal (km*stream density)"
 style = "wms_%s" % "water_metimplen"
 print view_name
 print title
