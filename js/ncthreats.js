@@ -123,9 +123,6 @@ Ext.onReady(function() {
 
 
 
-
-
-
     // http://www.macwright.org/2012/01/12/openlayers.html
     // mapbox://styles/basic99/cikg7p7p3002qapm5zsom050p
     // https://api.mapbox.com/styles/v1/mapbox/streets-v8/tiles/1/1/0?access_token=access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpamVuY3cxbzAwMG12ZGx4cGljbGtqMGUifQ.vpDqms08MBqoRgp667Yz5Q
@@ -177,7 +174,7 @@ Ext.onReady(function() {
             isBaseLayer: false
         });
 
-   var  ncbcr =  new OpenLayers.Layer.XYZ(
+    var ncbcr = new OpenLayers.Layer.XYZ(
         "Bird Conservation Region Boundaries", ["https://api.mapbox.com/v4/basic99.d1zhazaq/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
@@ -188,7 +185,7 @@ Ext.onReady(function() {
         });
 
 
-    var ncbounds =  new OpenLayers.Layer.XYZ(
+    var ncbounds = new OpenLayers.Layer.XYZ(
         "State Boundary", ["https://api.mapbox.com/v4/basic99.andgjbjs/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
@@ -200,7 +197,7 @@ Ext.onReady(function() {
 
 
 
-    var ecoregions =  new OpenLayers.Layer.XYZ(
+    var ecoregions = new OpenLayers.Layer.XYZ(
         "Ecoegion Boundaries", ["https://api.mapbox.com/v4/basic99.52s4j5j4/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
@@ -809,7 +806,7 @@ Ext.onReady(function() {
                     // query_ctl.layers = [nchuc8_qry];
                     col_name = "huc8";
                     nchuc8.setVisibility(true);
-                 // nchuc8_lbl.setVisibility(true);
+                    // nchuc8_lbl.setVisibility(true);
                     break;
                 case 'NC Watersheds':
                     // query_ctl.layers = [nchuc10_qry];
@@ -2260,8 +2257,6 @@ Ext.onReady(function() {
 
 
 
-
-
     var layerList9 = new GeoExt.tree.LayerContainer({
         layerStore: mapPanel.layers,
         text: 'Data Layers',
@@ -2383,7 +2378,7 @@ Ext.onReady(function() {
     ///////////////////////////////////////////////////////////////
     // data tab
     ////////////////////////////////////////////////////////////////
-
+    var infowindow;
     var tree_huc12maps = new Ext.tree.TreePanel({
         bodyStyle: "padding:10px; margin: 10px;",
         // renderTo: 'tree-div',
@@ -2400,41 +2395,41 @@ Ext.onReady(function() {
                 text: 'Habitat Loss',
                 expanded: false,
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_habitat.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_habitat.html',
                 // iconCls: 'tree_image'
 
                 // defined in file functions.js
-                children: habitats,
-                hrefTarget: "infowindow",
-                cls: "infowindow"
+                children: habitats
+                    // hrefTarget: "infowindow",
+                    // cls: "infowindow"
             }, {
                 text: 'Urban Growth',
                 qtip: 'more info',
                 children: urban_tree,
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_urban.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow"
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_urban.html'
+                    // hrefTarget: "infowindow",
+                    // cls: "infowindow"
             }, {
                 text: 'Fire Suppression',
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_firesupp.html',
-                children: fire_tree,
-                hrefTarget: "infowindow",
-                cls: "infowindow"
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_firesupp.html',
+                children: fire_tree
+                    // hrefTarget: "infowindow",
+                    // cls: "infowindow"
             }, {
                 text: 'Transportation Corridors',
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_trans_dcl.html',
-                children: trans_tree,
-                hrefTarget: "infowindow",
-                cls: "infowindow"
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_trans_dcl.html',
+                children: trans_tree
+                    // hrefTarget: "infowindow",
+                    // cls: "infowindow"
             }, {
                 text: 'Nutrient Loading',
                 expanded: false,
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_nl.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_nl.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
 
                 children: [{
                     text: 'Manure Application (2006)',
@@ -2451,9 +2446,9 @@ Ext.onReady(function() {
                 text: 'Annual Atmospheric Deposition',
                 expanded: false,
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_aad.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_aad.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
                 children: [{
                     text: 'Total Nitrogen Deposition (2003)',
                     qtip: 'view data',
@@ -2469,9 +2464,9 @@ Ext.onReady(function() {
                 text: 'Hydrologic Alteration',
                 expanded: false,
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_nid.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_nid.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
                 children: [{
                     text: 'Number of Dams (2013)',
                     qtip: 'view data',
@@ -2482,9 +2477,9 @@ Ext.onReady(function() {
                 text: 'Forest Health',
                 expanded: false,
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_forest_health.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_forest_health.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
                 children: [{
                     text: 'Forest Insect/Disease Risk ',
                     qtip: 'view data',
@@ -2495,9 +2490,9 @@ Ext.onReady(function() {
                 text: 'Energy Development',
                 expanded: false,
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_energy.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_energy.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
                 children: [{
                     text: 'Triassic Basin',
                     qtip: 'view data',
@@ -2512,31 +2507,31 @@ Ext.onReady(function() {
             }, {
                 text: 'Sea Level Rise',
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
                 expanded: false,
                 children: [{
                     text: 'Undeveloped Upland Change',
                     qtip: 'more info',
-                    href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
-                    hrefTarget: "infowindow",
-                    cls: "infowindow",
+                    myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                    // hrefTarget: "infowindow",
+                    // cls: "infowindow",
                     children: slr_up
                 }, {
                     text: 'Terrestrial Landcover Change',
                     qtip: 'more info',
-                    href: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
-                    hrefTarget: "infowindow",
-                    cls: "infowindow",
+                    myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                    // hrefTarget: "infowindow",
+                    // cls: "infowindow",
                     children: slr_lc
                 }]
             }, {
                 text: 'Impaired Waters - 303(d)',
                 qtip: 'more info',
-                href: 'http://tecumseh.zo.ncsu.edu/pages/info_imp_h2o.html',
-                hrefTarget: "infowindow",
-                cls: "infowindow",
+                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_imp_h2o.html',
+                // hrefTarget: "infowindow",
+                // cls: "infowindow",
                 expanded: false,
                 children: [{
                     text: 'Biota Impairments (2012)',
@@ -2556,9 +2551,12 @@ Ext.onReady(function() {
         listeners: {
             click: function(n) {
                 console.log(n);
-                if (n.attributes.cls && n.attributes.cls === 'infowindow') {
-                    var strWindowFeatures = "height=400,width=400,top=100,left=100";
-                    window.open(n.attributes.href, '', strWindowFeatures);
+                if (n.attributes.myhref) {
+                    var strWindowFeatures = "height=400,width=400,top=100,left=300";
+                    try {
+                        infowindow.close();
+                    } catch (e) {}
+                    infowindow = window.open(n.attributes.myhref, '', strWindowFeatures);
                 }
                 // console.log(formPanelhuc12maps.getForm().getValues(true));
                 if (n.attributes.myvalue) {
