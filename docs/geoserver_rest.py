@@ -74,7 +74,7 @@ for mymap in mymaps:
 
 for year in years:
     view_name = "urb%sdt" % year
-    title = "Urban Land Cover (%)"
+    title = "Urban Growth: Urban Land Cover (%) 20" + str(year)
     style = "wms_%s" % "urban"
     print view_name
     print title
