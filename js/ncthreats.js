@@ -2555,10 +2555,10 @@ Ext.onReady(function() {
         }),
         listeners: {
             click: function(n) {
-                console.log(n.attributes.cls);
+                console.log(n);
                 if (n.attributes.cls && n.attributes.cls === 'infowindow') {
                     var strWindowFeatures = "height=400,width=400,top=100,left=100";
-                    window.open("", 'infowindow', strWindowFeatures);
+                    window.open(n.attributes.href, '', strWindowFeatures);
                 }
                 // console.log(formPanelhuc12maps.getForm().getValues(true));
                 if (n.attributes.myvalue) {
