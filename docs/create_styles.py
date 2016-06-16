@@ -13,7 +13,7 @@ cur.execute(query)
 # for x in cur:
 #     print x['layer_desc']
 
-template_file = "/home/jim/Desktop/styles/style.xml"
+template_file = "style.xml"
 with open(template_file)as fp:
     template_empty = fp.read()
 
