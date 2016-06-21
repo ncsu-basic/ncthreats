@@ -23,10 +23,10 @@
                 <ogc:PropertyName>dt</ogc:PropertyName>
                 <ogc:Literal>0</ogc:Literal>
               </ogc:PropertyIsGreaterThanOrEqualTo>
-              <ogc:PropertyIsLessThan>
+              <ogc:PropertyIsLessThanOrEqualTo>
                 <ogc:PropertyName>dt</ogc:PropertyName>
                 <ogc:Literal>range1_high</ogc:Literal>
-              </ogc:PropertyIsLessThan>
+              </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
           </ogc:Filter>
           <PolygonSymbolizer>
@@ -39,14 +39,14 @@
           <Title>range2_title</Title>
           <ogc:Filter>
             <ogc:And>
-              <ogc:PropertyIsGreaterThanOrEqualTo>
+              <ogc:PropertyIsGreaterThan>
                 <ogc:PropertyName>dt</ogc:PropertyName>
                 <ogc:Literal>range1_high</ogc:Literal>
-              </ogc:PropertyIsGreaterThanOrEqualTo>
-              <ogc:PropertyIsLessThan>
+              </ogc:PropertyIsGreaterThan>
+              <ogc:PropertyIsLessThanOrEqualTo>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range3_low</ogc:Literal>
-              </ogc:PropertyIsLessThan>
+                <ogc:Literal>range2_high</ogc:Literal>
+              </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
           </ogc:Filter>
           <PolygonSymbolizer>
@@ -59,14 +59,14 @@
           <Title>range3_title</Title>
           <ogc:Filter>
             <ogc:And>
-              <ogc:PropertyIsGreaterThanOrEqualTo>
+              <ogc:PropertyIsGreaterThan>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range3_low</ogc:Literal>
-              </ogc:PropertyIsGreaterThanOrEqualTo>
-              <ogc:PropertyIsLessThan>
+                <ogc:Literal>range2_high</ogc:Literal>
+              </ogc:PropertyIsGreaterThan>
+              <ogc:PropertyIsLessThanOrEqualTo>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range4_low</ogc:Literal>
-              </ogc:PropertyIsLessThan>
+                <ogc:Literal>range3_high</ogc:Literal>
+              </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
           </ogc:Filter>
           <PolygonSymbolizer>
@@ -79,14 +79,14 @@
           <Title>range4_title</Title>
           <ogc:Filter>
             <ogc:And>
-              <ogc:PropertyIsGreaterThanOrEqualTo>
+              <ogc:PropertyIsGreaterThan>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range4_low</ogc:Literal>
-              </ogc:PropertyIsGreaterThanOrEqualTo>
-              <ogc:PropertyIsLessThan>
+                <ogc:Literal>range3_high</ogc:Literal>
+              </ogc:PropertyIsGreaterThan>
+              <ogc:PropertyIsLessThanOrEqualTo>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range5_low</ogc:Literal>
-              </ogc:PropertyIsLessThan>
+                <ogc:Literal>range4_high</ogc:Literal>
+              </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
           </ogc:Filter>
           <PolygonSymbolizer>
@@ -99,14 +99,14 @@
           <Title>range5_title</Title>
           <ogc:Filter>
             <ogc:And>
-              <ogc:PropertyIsGreaterThanOrEqualTo>
+              <ogc:PropertyIsGreaterThan>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range5_low</ogc:Literal>
-              </ogc:PropertyIsGreaterThanOrEqualTo>
-              <ogc:PropertyIsLessThan>
+                <ogc:Literal>range4_high</ogc:Literal>
+              </ogc:PropertyIsGreaterThan>
+              <ogc:PropertyIsLessThanOrEqualTo>
                 <ogc:PropertyName>dt</ogc:PropertyName>
-                <ogc:Literal>range6_low</ogc:Literal>
-              </ogc:PropertyIsLessThan>
+                <ogc:Literal>range5_high</ogc:Literal>
+              </ogc:PropertyIsLessThanOrEqualTo>
             </ogc:And>
           </ogc:Filter>
           <PolygonSymbolizer>
@@ -118,10 +118,10 @@
         <Rule>
           <Title>range6_title</Title>
           <ogc:Filter>
-            <ogc:PropertyIsGreaterThanOrEqualTo>
+            <ogc:PropertyIsGreaterThan>
               <ogc:PropertyName>dt</ogc:PropertyName>
-              <ogc:Literal>range6_low</ogc:Literal>
-            </ogc:PropertyIsGreaterThanOrEqualTo>
+              <ogc:Literal>range5_high</ogc:Literal>
+            </ogc:PropertyIsGreaterThan>
           </ogc:Filter>
           <PolygonSymbolizer>
             <Fill>
