@@ -94,3 +94,5 @@ https://github.com/bmcbride/PHP-MBTiles-Server
 sudo add-apt-repository ppa:developmentseed/mapbox
 sudo apt-get update
 sudo apt-get install tilemill libmapnik nodejs
+
+http://docs.geoserver.org/stable/en/user/security/passwd.html#security-passwd-encryption

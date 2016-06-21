@@ -22,18 +22,18 @@ style = "wms_water_bioimplen"
 
 
 def create_layer(name, title, style):
-    auth = ("admin", "geoserver")
+    auth = ("admin", "")
     headers = {'Content-type': 'text/xml'}
     data = "<featureType><name>%s</name><title>%s</title></featureType>" % (view_name, title)
 
-    url = "http://localhost/geoserver/rest/workspaces/basic/datastores/db/featuretypes"
+    url = "http://tecumseh.zo.ncsu.edu:8080/geoserver/rest/workspaces/basic/datastores/db/featuretypes"
     print requests.post(url, data=data, headers=headers, auth=auth)
 
-    url = "http://localhost/geoserver/rest/layers/basic:%s" % view_name
+    url = "http://tecumseh.zo.ncsu.edu:8080/geoserver/rest/layers/basic:%s" % view_name
     data = "<layer><defaultStyle><name>%s</name><workspace>basic</workspace></defaultStyle></layer>" % style
     print requests.put(url, data=data, headers=headers, auth=auth)
 
-create_layer(view_name, title, style)
+# create_layer(view_name, title, style)
 
 mymaps = {
     "frst": "Forest",
