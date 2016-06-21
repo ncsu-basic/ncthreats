@@ -900,9 +900,12 @@ Ext.onReady(function() {
         var batch_util_fn = function(feature) {
             if (feature.attributes.Name) {
                 var aoi_name = feature.attributes.Name;
-            } else {
+            } else if (feature.attributes.name) {
                 var aoi_name = feature.attributes.name;
+            } else {
+                var aoi_name = feature.attributes.NAME;
             }
+            console.log(aoi_name);
 
             var gml = '';
             gml = gml_writer.write(feature);
