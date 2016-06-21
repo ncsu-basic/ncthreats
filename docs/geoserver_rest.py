@@ -47,8 +47,8 @@ scenarios = {
     'x': "No Bioenergy Production",
     "a": "Conventional Bioenergy",
     "b": "Conv. + Marginal Agriculture",
-    "c": "Conv. + Marg. Agri. & Forests",
-    "d": "Marginal Agri. & Forests Only",
+    "c": "Conv. + Marg. Agri. &amp; Forests",
+    "d": "Marginal Agri. &amp;Forests Only",
     "e": "Marginal Agriculture Only"
 }
 
