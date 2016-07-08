@@ -735,6 +735,7 @@ Ext.onReady(function() {
             handler: function() {
                 var form_vals = formPanel.getForm().getValues();
                 var htmlseg = $('#ncthreatsMapPanel .olMap').html();
+                var htmlseg_lgd = "<svg height=\"220\" width=\"220\">" + $('#lgnddiv').html() + "</svg>";
                 var ht = $('#ncthreatsMapPanel .olMap').height();
                 var wd = $('#ncthreatsMapPanel .olMap').width();
                 var start_tag = '<div style="width: ' + wd +
@@ -747,6 +748,7 @@ Ext.onReady(function() {
                     url: SERVER_URI + "wps/pdf",
                     data: {
                         htmlseg: pdf_hdr + htmlseg,
+                        htmlseg_lgd: htmlseg_lgd,
                         text: form_vals.comment
                     }
                 }).done(function(data, textStatus, jqXHR) {
