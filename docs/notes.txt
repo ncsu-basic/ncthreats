@@ -96,3 +96,5 @@ sudo apt-get update
 sudo apt-get install tilemill libmapnik nodejs
 
 http://docs.geoserver.org/stable/en/user/security/passwd.html#security-passwd-encryption
+
+inkscape --export-background-opacity=0.5 --export-png=manu.png manu.svg

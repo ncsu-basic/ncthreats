@@ -735,7 +735,7 @@ Ext.onReady(function() {
             handler: function() {
                 var form_vals = formPanel.getForm().getValues();
                 var htmlseg = $('#ncthreatsMapPanel .olMap').html();
-                var htmlseg_lgd = "<svg height=\"220\" width=\"220\">" + $('#lgnddiv').html() + "</svg>";
+                var htmlseg_lgd = "<svg height=\"230\" width=\"220\">" + $('#lgnddiv').html() + "</svg>";
                 var ht = $('#ncthreatsMapPanel .olMap').height();
                 var wd = $('#ncthreatsMapPanel .olMap').width();
                 var start_tag = '<div style="width: ' + wd +
