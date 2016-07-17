@@ -1331,6 +1331,7 @@ Ext.onReady(function() {
     var threat_calcs_map = function() {
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
         console.log(form_vals_paneltop);
+        legend_print = "model";
 
 
         var form_vals_new = {};
@@ -2575,6 +2576,7 @@ Ext.onReady(function() {
 
                     console.log(n.attributes.myvalue);
                     indiv_layer = n.attributes.myvalue;
+                    legend_print = "individual";
 
                     formhuc12maps_chng(n.attributes.myvalue);
                     individual.setVisibility(true);
