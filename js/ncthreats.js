@@ -743,8 +743,8 @@ Ext.onReady(function() {
                     'px; height: ' + ht + 'px;">';
                 var end_tag = '</div>';
                 var pdf_hdr = "<h3>" + form_vals.comment + "</h3>";
-                var is_composite = composite.getVisibility();
-                var is_indiv = individual.getVisibility();
+                // var is_composite = composite.getVisibility();
+                // var is_indiv = individual.getVisibility();
                 htmlseg = start_tag + htmlseg + end_tag;
                 $.ajax({
                     type: "POST",
@@ -754,7 +754,6 @@ Ext.onReady(function() {
                         indiv_layer: indiv_layer,
                         text: form_vals.comment,
                         htmlseg_lgd: htmlseg_lgd,
-                        is_composite: is_composite,
                         legend_print: legend_print
                     }
                 }).done(function(data, textStatus, jqXHR) {
