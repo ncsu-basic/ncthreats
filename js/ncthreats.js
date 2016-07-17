@@ -13,6 +13,7 @@ Ext.onReady(function() {
 
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
+    var legend_print = "none";
 
     ////////////////////////////////////////////
     //initialize map
@@ -735,13 +736,15 @@ Ext.onReady(function() {
             handler: function() {
                 var form_vals = formPanel.getForm().getValues();
                 var htmlseg = $('#ncthreatsMapPanel .olMap').html();
-                // var htmlseg_lgd = "<svg height=\"230\" width=\"220\">" + $('#lgnddiv').html() + "</svg>";
+                var htmlseg_lgd = "<svg height=\"230\" width=\"220\">" + $('#lgnddiv').html() + "</svg>";
                 var ht = $('#ncthreatsMapPanel .olMap').height();
                 var wd = $('#ncthreatsMapPanel .olMap').width();
                 var start_tag = '<div style="width: ' + wd +
                     'px; height: ' + ht + 'px;">';
                 var end_tag = '</div>';
                 var pdf_hdr = "<h3>" + form_vals.comment + "</h3>";
+                var is_composite = composite.getVisibility();
+                var is_indiv = individual.getVisibility();
                 htmlseg = start_tag + htmlseg + end_tag;
                 $.ajax({
                     type: "POST",
@@ -749,7 +752,10 @@ Ext.onReady(function() {
                     data: {
                         htmlseg: pdf_hdr + htmlseg,
                         indiv_layer: indiv_layer,
-                        text: form_vals.comment
+                        text: form_vals.comment,
+                        htmlseg_lgd: htmlseg_lgd,
+                        is_composite: is_composite,
+                        legend_print: legend_print
                     }
                 }).done(function(data, textStatus, jqXHR) {
                     if (jqXHR.status === 201) {
@@ -1325,6 +1331,7 @@ Ext.onReady(function() {
     var threat_calcs_map = function() {
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
         console.log(form_vals_paneltop);
+
 
         var form_vals_new = {};
         form_vals_new.year = form_vals_paneltop.year;
