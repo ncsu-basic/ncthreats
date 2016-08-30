@@ -2407,7 +2407,7 @@ Ext.onReady(function() {
                 text: 'Habitat Loss',
                 expanded: false,
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_habitat.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_habitat.html',
                 // iconCls: 'tree_image'
 
                 // defined in file functions.js
@@ -2418,20 +2418,20 @@ Ext.onReady(function() {
                 text: 'Urban Growth',
                 qtip: 'more info',
                 children: urban_tree,
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_urban.html'
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_urban.html'
                     // hrefTarget: "infowindow",
                     // cls: "infowindow"
             }, {
                 text: 'Fire Suppression',
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_firesupp.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_firesupp.html',
                 children: fire_tree
                     // hrefTarget: "infowindow",
                     // cls: "infowindow"
             }, {
                 text: 'Transportation Corridors',
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_trans_dcl.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_trans_dcl.html',
                 children: trans_tree
                     // hrefTarget: "infowindow",
                     // cls: "infowindow"
@@ -2439,7 +2439,7 @@ Ext.onReady(function() {
                 text: 'Nutrient Loading',
                 expanded: false,
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_nl.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_nl.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
 
@@ -2458,7 +2458,7 @@ Ext.onReady(function() {
                 text: 'Annual Atmospheric Deposition',
                 expanded: false,
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_aad.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_aad.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
                 children: [{
@@ -2476,7 +2476,7 @@ Ext.onReady(function() {
                 text: 'Hydrologic Alteration',
                 expanded: false,
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_nid.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_nid.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
                 children: [{
@@ -2489,7 +2489,7 @@ Ext.onReady(function() {
                 text: 'Forest Health',
                 expanded: false,
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_forest_health.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_forest_health.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
                 children: [{
@@ -2502,7 +2502,7 @@ Ext.onReady(function() {
                 text: 'Energy Development',
                 expanded: false,
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_energy.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_energy.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
                 children: [{
@@ -2519,21 +2519,21 @@ Ext.onReady(function() {
             }, {
                 text: 'Sea Level Rise',
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_slr.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
                 expanded: false,
                 children: [{
                     text: 'Undeveloped Upland Change',
                     qtip: 'more info',
-                    myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                    myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_slr.html',
                     // hrefTarget: "infowindow",
                     // cls: "infowindow",
                     children: slr_up
                 }, {
                     text: 'Terrestrial Landcover Change',
                     qtip: 'more info',
-                    myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_slr.html',
+                    myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_slr.html',
                     // hrefTarget: "infowindow",
                     // cls: "infowindow",
                     children: slr_lc
@@ -2541,7 +2541,7 @@ Ext.onReady(function() {
             }, {
                 text: 'Impaired Waters - 303(d)',
                 qtip: 'more info',
-                myhref: 'http://tecumseh.zo.ncsu.edu/pages/info_imp_h2o.html',
+                myhref: 'http://tecumseh.zo.ncsu.edu/threats/pages/info_imp_h2o.html',
                 // hrefTarget: "infowindow",
                 // cls: "infowindow",
                 expanded: false,
