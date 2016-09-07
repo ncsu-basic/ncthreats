@@ -2728,9 +2728,9 @@ Ext.onReady(function() {
     var panelid1 = Ext.get(area_tab.getEl().dom.children[0]).id;
     var panelid2 = Ext.get(area_tab2.getEl().dom.children[0]).id;
     // var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
-    Ext.get(panelid1).applyStyles("background-image: url(/images/dark-green-hd.gif)");
+    Ext.get(panelid1).applyStyles("background-image: url(images/dark-green-hd.gif)");
     Ext.get(panelid1).applyStyles("color: white");
-    Ext.get(panelid2).applyStyles("background-image: url(/images/dark-red-hd.gif)");
+    Ext.get(panelid2).applyStyles("background-image: url(images/dark-red-hd.gif)");
     Ext.get(panelid2).applyStyles("color: white");
     // Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
     // Ext.get(panelid3).applyStyles("color: white");
