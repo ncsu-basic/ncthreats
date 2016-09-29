@@ -9,12 +9,12 @@
 	height: 24px !important;
 }
 .nc_zoom {
-	background-image: url('images/nc.png');
+	background-image: url('../images/nc.png');
 	width: 24px !important;
 	height: 24px !important;
 }
 .legend_win {
-	background-image: url('images/legend_btn.png');
+	background-image: url('../images/legend_btn.png');
 	width: 24px !important;
 	height: 24px !important;
 }
