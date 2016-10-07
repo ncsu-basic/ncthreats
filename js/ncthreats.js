@@ -441,6 +441,14 @@ Ext.onReady(function() {
         renderers: ["SVG"],
         visibility: false
     });
+console.log(HOST_NAME + 'js/threat_sv2dt.csv');
+     $.ajax({
+        type: "GET",
+        url: HOST_NAME + 'js/threat_sv2dt.csv',
+        dataType: "text"
+    }).done(function(data) {
+        console.log(data);
+    });
 
     $.ajax({
         type: "GET",
