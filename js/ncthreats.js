@@ -447,7 +447,7 @@ console.log(HOST_NAME + 'js/threat_sv2dt.csv');
         url: HOST_NAME + 'js/threat_sv2dt.csv',
         dataType: "text"
     }).done(function(data) {
-        console.log(data);
+        // console.log(data);
     });
 
     $.ajax({
