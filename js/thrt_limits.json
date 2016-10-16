@@ -1,0 +1,102 @@
+[
+  {
+    "ThreatName": "Bio",
+    "DTLimit": 3.39,
+    "SVLimit": 0.3
+  },
+  {
+    "ThreatName": "DCLrds",
+    "DTLimit": 10.6,
+    "SVLimit": 0.8
+  },
+  {
+    "ThreatName": "Fert",
+    "DTLimit": 15.82,
+    "SVLimit": 0.7
+  },
+  {
+    "ThreatName": "FHlth",
+    "DTLimit": 23.61,
+    "SVLimit": 0.3
+  },
+  {
+    "ThreatName": "FSupp",
+    "DTLimit": 45.95,
+    "SVLimit": 0.7
+  },
+  {
+    "ThreatName": "HabFrst",
+    "DTLimit": 10.2,
+    "SVLimit": 0.6
+  },
+  {
+    "ThreatName": "HabFtWt",
+    "DTLimit": 6.28,
+    "SVLimit": 0.9
+  },
+  {
+    "ThreatName": "HabHbWt",
+    "DTLimit": 4.42,
+    "SVLimit": 0.9
+  },
+  {
+    "ThreatName": "HabOpen",
+    "DTLimit": 10.31,
+    "SVLimit": 0.8
+  },
+  {
+    "ThreatName": "HabShrb",
+    "DTLimit": 8.14,
+    "SVLimit": 0.8
+  },
+  {
+    "ThreatName": "Manu",
+    "DTLimit": 16.03,
+    "SVLimit": 0.8
+  },
+  {
+    "ThreatName": "Met",
+    "DTLimit": 1.92,
+    "SVLimit": 0.3
+  },
+  {
+    "ThreatName": "NID",
+    "DTLimit": 8,
+    "SVLimit": 0.9
+  },
+  {
+    "ThreatName": "SLRlc",
+    "DTLimit": 2.54,
+    "SVLimit": 0.9
+  },
+  {
+    "ThreatName": "SLRup",
+    "DTLimit": 2.5,
+    "SVLimit": 0.6
+  },
+  {
+    "ThreatName": "TDNT",
+    "DTLimit": 11.66,
+    "SVLimit": 0.7
+  },
+  {
+    "ThreatName": "TNST",
+    "DTLimit": 11.68,
+    "SVLimit": 0.8
+  },
+  {
+    "ThreatName": "Triassic",
+    "DTLimit": 19.32,
+    "SVLimit": 0.3
+  },
+  {
+    "ThreatName": "Urban",
+    "DTLimit": 29.05,
+    "SVLimit": 0.8
+  },
+  {
+    "ThreatName": "WPC",
+    "DTLimit": 2.66,
+    "SVLimit": 0.9
+  }
+]
