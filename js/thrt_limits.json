@@ -1,101 +1,101 @@
 [
   {
-    "ThreatName": "Bio",
+    "ThreatName": "impairbiota",
     "DTLimit": 3.39,
     "SVLimit": 0.3
   },
   {
-    "ThreatName": "DCLrds",
+    "ThreatName": "hiway",
     "DTLimit": 10.6,
     "SVLimit": 0.8
   },
   {
-    "ThreatName": "Fert",
+    "ThreatName": "nitrofrt",
     "DTLimit": 15.82,
     "SVLimit": 0.7
   },
   {
-    "ThreatName": "FHlth",
+    "ThreatName": "insectdisease",
     "DTLimit": 23.61,
     "SVLimit": 0.3
   },
   {
-    "ThreatName": "FSupp",
+    "ThreatName": "firesup",
     "DTLimit": 45.95,
     "SVLimit": 0.7
   },
   {
-    "ThreatName": "HabFrst",
+    "ThreatName": "frst",
     "DTLimit": 10.2,
     "SVLimit": 0.6
   },
   {
-    "ThreatName": "HabFtWt",
+    "ThreatName": "ftwt",
     "DTLimit": 6.28,
     "SVLimit": 0.9
   },
   {
-    "ThreatName": "HabHbWt",
+    "ThreatName": "hbwt",
     "DTLimit": 4.42,
     "SVLimit": 0.9
   },
   {
-    "ThreatName": "HabOpen",
+    "ThreatName": "open",
     "DTLimit": 10.31,
     "SVLimit": 0.8
   },
   {
-    "ThreatName": "HabShrb",
+    "ThreatName": "shrb",
     "DTLimit": 8.14,
     "SVLimit": 0.8
   },
   {
-    "ThreatName": "Manu",
+    "ThreatName": "manure",
     "DTLimit": 16.03,
     "SVLimit": 0.8
   },
   {
-    "ThreatName": "Met",
+    "ThreatName": "impairmetal",
     "DTLimit": 1.92,
     "SVLimit": 0.3
   },
   {
-    "ThreatName": "NID",
+    "ThreatName": "ndams",
     "DTLimit": 8,
     "SVLimit": 0.9
   },
   {
-    "ThreatName": "SLRlc",
+    "ThreatName": "slr_lc",
     "DTLimit": 2.54,
     "SVLimit": 0.9
   },
   {
-    "ThreatName": "SLRup",
+    "ThreatName": "slr_up",
     "DTLimit": 2.5,
     "SVLimit": 0.6
   },
   {
-    "ThreatName": "TDNT",
+    "ThreatName": "totnitro",
     "DTLimit": 11.66,
     "SVLimit": 0.7
   },
   {
-    "ThreatName": "TNST",
+    "ThreatName": "totsulf",
     "DTLimit": 11.68,
     "SVLimit": 0.8
   },
   {
-    "ThreatName": "Triassic",
+    "ThreatName": "triassic",
     "DTLimit": 19.32,
     "SVLimit": 0.3
   },
   {
-    "ThreatName": "Urban",
+    "ThreatName": "urbangrth",
     "DTLimit": 29.05,
     "SVLimit": 0.8
   },
   {
-    "ThreatName": "WPC",
+    "ThreatName": "wind",
     "DTLimit": 2.66,
     "SVLimit": 0.9
   }
