@@ -1834,7 +1834,7 @@ console.log(HOST_NAME + 'js/threat_sv2dt.csv');
     var threat_calcs_reset = function() {
         var limit;
         for (limit in limit_defaults) {
-            // console.log(limit);
+            console.log(limit);
             $("#" + limit + "_limit").val(limit_defaults[limit]);
             $("#" + limit + "_default").html(limit_defaults[limit]);
             // $("#" + limit + " option:selected").val(limit_defaults[limit]);
