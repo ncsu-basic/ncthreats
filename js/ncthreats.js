@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/ncthreats/";
+    var HOST_NAME = "http://localhost/threats/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -3150,8 +3150,12 @@ Ext.onReady(function() {
 
             });
             $("input").change(function(e){
-                console.log(this);
+                // console.log(this);
+                // var test = $(this).attr("id");
+                // console.log(test);
                 console.log(e.target.value);
+                console.log(e.target.id.slice(0, -5));
+                $("#" + e.target.id.slice(0, -5)).val(e.target.value / 10)
             })
 
             // var prob_vals = [
