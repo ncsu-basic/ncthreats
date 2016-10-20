@@ -1847,7 +1847,7 @@ Ext.onReady(function() {
                 var thtdt = data[i].DTLimit;
                 var thtsv = data[i].SVLimit;
                 var thtsv_sldr = thtsv * 10;
-                $("#" + thtname + "_limit_dt").val(thtdt);
+                $("#" + thtname + "_limit").val(thtdt);
                 $("#" + thtname + "_limit_sv").val(thtsv);
                 $("#" + thtname + "_limit_sv_sldr").val(thtsv_sldr);
             }
@@ -3178,7 +3178,7 @@ Ext.onReady(function() {
                 console.log(e.target.value);
                 console.log(thrt);
                 $("#" + thrt + "_limit_sv").val(e.target.value / 10)
-                $("#" + thrt + "_limit_dt").val(sv2dt_dict[thrt][e.target.value]);
+                $("#" + thrt + "_limit").val(sv2dt_dict[thrt][e.target.value]);
             })
 
             // var prob_vals = [
