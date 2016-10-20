@@ -1858,10 +1858,7 @@ Ext.onReady(function() {
     // in fn model_script
     var sv2dt_dict = {}
     $.get("js/threat_sv2dt.json", function(data) {
-        console.log(data[0]);
-
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i].sv);
             var thrt = data[i].sv;
             sv2dt_dict[thrt] = {
                 "0": data[i]['0'],
@@ -1877,8 +1874,6 @@ Ext.onReady(function() {
                 "10": data[i]['1']
             }
         }
-        console.log(sv2dt_dict);
-
     });
 
 
