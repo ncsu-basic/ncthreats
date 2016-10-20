@@ -1832,14 +1832,14 @@ Ext.onReady(function() {
     };
 
     var threat_calcs_reset = function() {
-        var limit;
-        for (limit in limit_defaults) {
-            console.log(limit);
-            $("#" + limit + "_limit").val(limit_defaults[limit]);
-            $("#" + limit + "_default").html(limit_defaults[limit]);
-            // $("#" + limit + " option:selected").val(limit_defaults[limit]);
+        // var limit;
+        // for (limit in limit_defaults) {
+        //     console.log(limit);
+        //     $("#" + limit + "_limit").val(limit_defaults[limit]);
+        //     $("#" + limit + "_default").html(limit_defaults[limit]);
+        //     // $("#" + limit + " option:selected").val(limit_defaults[limit]);
 
-        }
+        // }
         $.get("js/thrt_limits.json", function(data) {
             console.log(data[0]);
             for (var i = 0; i < data.length; i++) {
@@ -1853,6 +1853,10 @@ Ext.onReady(function() {
             }
         });
     };
+
+     $.get("js/threat_sv2dt.json", function(data) {
+        console.log(data[0]);
+     });
 
 
 
