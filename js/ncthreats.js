@@ -1853,6 +1853,9 @@ Ext.onReady(function() {
             }
         });
     };
+
+    // create lookup for slider to set dt values
+    // in fn model_script
     var sv2dt_dict = {}
     $.get("js/threat_sv2dt.json", function(data) {
         console.log(data[0]);
