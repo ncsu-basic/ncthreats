@@ -3149,6 +3149,10 @@ Ext.onReady(function() {
 
 
             });
+            $("input").change(function(e){
+                console.log(this);
+                console.log(e.target.value);
+            })
 
             // var prob_vals = [
             //     "0.00", "0.10", "0.20", "0.30", "0.40", "0.50",
