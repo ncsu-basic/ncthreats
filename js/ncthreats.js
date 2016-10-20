@@ -1856,6 +1856,11 @@ Ext.onReady(function() {
 
      $.get("js/threat_sv2dt.json", function(data) {
         console.log(data[0]);
+        var sv2dt_dict = {}
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]);
+        }
+
      });
 
 
