@@ -1853,10 +1853,10 @@ Ext.onReady(function() {
             }
         });
     };
-
+    var sv2dt_dict = {}
     $.get("js/threat_sv2dt.json", function(data) {
         console.log(data[0]);
-        var sv2dt_dict = {}
+
         for (var i = 0; i < data.length; i++) {
             console.log(data[i].sv);
             var thrt = data[i].sv;
@@ -3176,10 +3176,11 @@ Ext.onReady(function() {
             $("input").change(function(e) {
                 // console.log(this);
                 // var test = $(this).attr("id");
-                // console.log(test);
+                var thrt = e.target.id.slice(0, -14)
                 console.log(e.target.value);
-                console.log(e.target.id.slice(0, -5));
-                $("#" + e.target.id.slice(0, -5)).val(e.target.value / 10)
+                console.log(thrt);
+                $("#" + thrt + "_limit_sv").val(e.target.value / 10)
+                $("#" + thrt + "_limit_dt").val(sv2dt_dict[thrt][e.target.value]);
             })
 
             // var prob_vals = [
