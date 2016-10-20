@@ -1846,10 +1846,10 @@ Ext.onReady(function() {
                 var thtname = data[i].ThreatName;
                 var thtdt = data[i].DTLimit;
                 var thtsv = data[i].SVLimit;
+                var thtsv_sldr = thtsv * 10;
                 $("#" + thtname + "_limit_dt").val(thtdt);
                 $("#" + thtname + "_limit_sv").val(thtsv);
-
-
+                $("#" + thtname + "_limit_sv_sldr").val(thtsv_sldr);
             }
         });
     };
