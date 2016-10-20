@@ -1858,8 +1858,11 @@ Ext.onReady(function() {
         console.log(data[0]);
         var sv2dt_dict = {}
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]);
+            console.log(data[i].sv);
+            var thrt = data[i].sv;
+            sv2dt_dict[thrt] = {}
         }
+        console.log(sv2dt_dict);
 
      });
 
