@@ -1854,17 +1854,29 @@ Ext.onReady(function() {
         });
     };
 
-     $.get("js/threat_sv2dt.json", function(data) {
+    $.get("js/threat_sv2dt.json", function(data) {
         console.log(data[0]);
         var sv2dt_dict = {}
         for (var i = 0; i < data.length; i++) {
             console.log(data[i].sv);
             var thrt = data[i].sv;
-            sv2dt_dict[thrt] = {}
+            sv2dt_dict[thrt] = {
+                "0": data[i]['0'],
+                "1": data[i]['0.1'],
+                "2": data[i]['0.2'],
+                "3": data[i]['0.3'],
+                "4": data[i]['0.4'],
+                "5": data[i]['0.5'],
+                "6": data[i]['0.6'],
+                "7": data[i]['0.7'],
+                "8": data[i]['0.8'],
+                "9": data[i]['0.9'],
+                "10": data[i]['1']
+            }
         }
         console.log(sv2dt_dict);
 
-     });
+    });
 
 
 
@@ -3161,7 +3173,7 @@ Ext.onReady(function() {
 
 
             });
-            $("input").change(function(e){
+            $("input").change(function(e) {
                 // console.log(this);
                 // var test = $(this).attr("id");
                 // console.log(test);
