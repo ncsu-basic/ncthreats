@@ -2233,7 +2233,7 @@ Ext.onReady(function() {
         cls: 'pages',
         autoScroll: true,
         id: "legendpnlid",
-        html: "<h3>Layer Opacity</h3><input type='range' value='7' min='0' max='10' id='legend_opac_sldr' ><svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
+        html: "<svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'><h3>Layer Opacity</h3><input type='range' value='7' min='0' max='10' id='legend_opac_sldr' >"
 
     });
     // $("#legend_opac_sldr").change(function(e) {
@@ -3191,8 +3191,24 @@ Ext.onReady(function() {
                 symbolsLookup["3"].fillOpacity = opac / 10.0;
                 symbolsLookup["4"].fillOpacity = opac / 10.0;
                 symbolsLookup["5"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["1"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["2"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["3"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["4"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["5"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["6"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["7"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["8"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["9"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["10"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["11"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["12"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["13"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["14"].fillOpacity = opac / 10.0;
+                symbolsLookup_model["15"].fillOpacity = opac / 10.0;
                 console.log(symbolsLookup["5"].fillOpacity);
                 map.getLayersByName("Individual Threats")[0].redraw();
+                map.getLayersByName("Composite Threats")[0].redraw();
                 console.log(data);
             }
             $("input.range").change(function(e) {
