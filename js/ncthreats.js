@@ -2233,7 +2233,7 @@ Ext.onReady(function() {
         cls: 'pages',
         autoScroll: true,
         id: "legendpnlid",
-        html: "<h3>Legend Opacity</h3><input type='range' min='0' max='10' id='legend_opac_sldr' ><svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
+        html: "<h3>Layer Opacity</h3><input type='range' min='0' max='10' id='legend_opac_sldr' ><svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
 
     });
     // $("#legend_opac_sldr").change(function(e) {
@@ -2243,7 +2243,7 @@ Ext.onReady(function() {
     // });
     var float_win = new Ext.Window({
         title: "Legend ",
-        height: 320,
+        height: 330,
         width: 260,
         layout: "fit",
         x: 320,
