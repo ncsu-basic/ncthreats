@@ -182,5 +182,9 @@ margin: 10p;
 .range {
 
 }
+#legend_opac_sldr {
+	display: block;
+	margin: 0px auto 0px;
+}
 
 /* close commented backslash hack */

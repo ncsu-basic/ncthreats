@@ -1876,8 +1876,6 @@ Ext.onReady(function() {
         }
     });
 
-
-
     var change_images = function() {
 
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
@@ -2229,17 +2227,23 @@ Ext.onReady(function() {
     /////////////////////////////////////////////////
     // legend config
     //////////////////////////////////////////////////////
+
     var legend_panel = new Ext.Panel({
         // title: 'legend panel',
         cls: 'pages',
         autoScroll: true,
         id: "legendpnlid",
-        html: "<svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
+        html: "<h3>Legend Opacity</h3><input type='range' min='0' max='10' id='legend_opac_sldr' ><svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
 
     });
+    // $("#legend_opac_sldr").change(function(e) {
+    //     var test = $("#legend_opac_sldr").val();
+    //     console.log(test);
+
+    // });
     var float_win = new Ext.Window({
         title: "Legend ",
-        height: 270,
+        height: 320,
         width: 260,
         layout: "fit",
         x: 320,
@@ -3171,7 +3175,15 @@ Ext.onReady(function() {
 
 
             });
-            $("input").change(function(e) {
+            // $("#legend_opac_sldr").change(function(e) {
+            //     var test = $("#legend_opac_sldr").val();
+            //     console.log(test);
+            // });
+            $("#legend_opac_sldr").change(function(e) {
+                var test = $("#legend_opac_sldr").val();
+                console.log(test);
+            });
+            $("input.range").change(function(e) {
                 // console.log(this);
                 // var test = $(this).attr("id");
                 var thrt = e.target.id.slice(0, -14)
