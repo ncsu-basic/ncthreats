@@ -3180,9 +3180,12 @@ Ext.onReady(function() {
             //     console.log(test);
             // });
             $("#legend_opac_sldr").change(function(e) {
-                var test = $("#legend_opac_sldr").val();
-                console.log(test);
+                var opac = $("#legend_opac_sldr").val();
+                set_layer_opacity(opac);
             });
+            var set_layer_opacity = function(opac){
+                console.log(opac);
+            }
             $("input.range").change(function(e) {
                 // console.log(this);
                 // var test = $(this).attr("id");
