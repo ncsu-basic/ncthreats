@@ -3183,8 +3183,17 @@ Ext.onReady(function() {
                 var opac = $("#legend_opac_sldr").val();
                 set_layer_opacity(opac);
             });
-            var set_layer_opacity = function(opac){
+            var set_layer_opacity = function(opac) {
                 console.log(opac);
+                symbolsLookup["0"].fillOpacity = 0;
+                symbolsLookup["1"].fillOpacity = opac / 10.0;
+                symbolsLookup["2"].fillOpacity = opac / 10.0;
+                symbolsLookup["3"].fillOpacity = opac / 10.0;
+                symbolsLookup["4"].fillOpacity = opac / 10.0;
+                symbolsLookup["5"].fillOpacity = opac / 10.0;
+                console.log(symbolsLookup["5"].fillOpacity);
+                map.getLayersByName("Individual Threats")[0].redraw();
+                console.log(data);
             }
             $("input.range").change(function(e) {
                 // console.log(this);
