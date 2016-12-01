@@ -432,6 +432,19 @@ NS_SW_4_3_9 numeric(10,3),
 UR_SW_4_3_9 numeric(10,3)
 );
 
+drop table coa_KeyList;
+create table coa_KeyList(
+KeyCode varchar(),
+Region varchar(),
+Type varchar(),
+CommunityKey varchar(),
+CommunityName varchar(),
+NSppGAP_All integer,
+NSppWRC_All integer,
+NSppGAP_SGCN integer,
+NSppWRC_SGCN integer
+);
+
 
 copy coa_UnprRatioAllSpp from '/var/www/html/coa/docs/coa/tblUnprRatioAllSpp.csv' with csv header;
 copy UnprRatioSGCNSpp from '/var/www/html/coa/docs/coa/tblUnprRatioSGCNSpp.csv' with csv header;
