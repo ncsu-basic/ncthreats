@@ -2734,15 +2734,36 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
-       var mountainspage = new Ext.Panel({
+    var mountainspage = new Ext.Panel({
         // title: 'model',
         cls: 'pages',
         autoScroll: true,
         id: "mountainspage",
         width: 280
     });
+    var piedmontpage = new Ext.Panel({
+        // title: 'model',
+        cls: 'pages',
+        autoScroll: true,
+        id: "piedmontpage",
+        width: 280
+    });
+    var sandhillsspage = new Ext.Panel({
+        // title: 'model',
+        cls: 'pages',
+        autoScroll: true,
+        id: "sandhillsspage",
+        width: 280
+    });
+    var coastalpage = new Ext.Panel({
+        // title: 'model',
+        cls: 'pages',
+        autoScroll: true,
+        id: "coastalpage",
+        width: 280
+    });
 
-     var coa_tab = new Ext.Panel({
+    var coa_tab = new Ext.Panel({
         title: 'coa',
         layout: 'accordion',
         defaults: {
@@ -2757,7 +2778,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [mountainspage]
+        items: [mountainspage, coastalpage ]
     });
 
     var left = new Ext.TabPanel({
@@ -3354,24 +3375,41 @@ Ext.onReady(function() {
     });
 
     // load shapefile upload page
-    var el2 = Ext.getCmp("aoi_upload_id");
-    var mgr2 = el2.getUpdater();
-    mgr2.update({
+    // var el2 = Ext.getCmp("aoi_upload_id");
+    // mgr = el2.getUpdater();
+    el = Ext.getCmp("aoi_upload_id");
+    mgr = el.getUpdater();
+    mgr.update({
         url: HOST_NAME + "pages/upload2.html"
     });
-    mgr2.on("update", page_script);
+    mgr.on("update", page_script);
 
-    var el3 = Ext.getCmp("model_page");
-    var mgr3 = el3.getUpdater();
-    mgr3.update({
+    el = Ext.getCmp("model_page");
+    mgr = el.getUpdater();
+    mgr.update({
         url: HOST_NAME + "pages/area.html"
     });
-    mgr3.on("update", model_script);
+    mgr.on("update", model_script);
 
-    var el = Ext.getCmp("mountainspage");
-    var mgr = el.getUpdater();
+    el = Ext.getCmp("mountainspage");
+    mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/mountains.php"
+    });
+    el = Ext.getCmp("coastalpage");
+    mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/coastal.php"
+    });
+    el = Ext.getCmp("sandhillsspage");
+    mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/sandhillss.php"
+    });
+    el = Ext.getCmp("piedmontpage");
+    mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/piedmont.php"
     });
 
 });
