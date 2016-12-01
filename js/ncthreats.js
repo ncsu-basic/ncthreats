@@ -2778,7 +2778,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [mountainspage, coastalpage, piedmontpage ]
+        items: [mountainspage,  piedmontpage, sandhillsspage , coastalpage ]
     });
 
     var left = new Ext.TabPanel({
@@ -3404,7 +3404,7 @@ Ext.onReady(function() {
     el = Ext.getCmp("sandhillsspage");
     mgr = el.getUpdater();
     mgr.update({
-        url: HOST_NAME + "pages/sandhillss.php"
+        url: HOST_NAME + "pages/sandhills.php"
     });
     el = Ext.getCmp("piedmontpage");
     mgr = el.getUpdater();
