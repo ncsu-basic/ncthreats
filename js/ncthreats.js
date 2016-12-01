@@ -2734,12 +2734,30 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
+     var coa_tab = new Ext.Panel({
+        title: 'coa',
+        layout: 'accordion',
+        defaults: {
+            // applied to each contained panel
+            //bodyStyle : 'padding:15px'
+        },
+        collapseFirst: true,
+        layoutConfig: {
+            // layout-specific configs go here
+            titleCollapse: false,
+            animate: true,
+            activeOnTop: false
+        },
+        // area_tab2, area_tab,
+        items: []
+    });
+
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
         activeTab: 0,
         // accordion
-        items: [maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
+        items: [coa_tab, maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
         deferredRender: false
     });
 
