@@ -2756,7 +2756,7 @@ Ext.onReady(function() {
         width: 280
     });
     var coastalpage = new Ext.Panel({
-        title: 'Coastal Plains',
+        title: 'Coastal Plain',
         cls: 'pages',
         autoScroll: true,
         id: "coastalpage",
@@ -2778,7 +2778,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [mountainspage,  piedmontpage, sandhillsspage , coastalpage ]
+        items: [mountainspage, piedmontpage, sandhillsspage, coastalpage]
     });
 
     var left = new Ext.TabPanel({
@@ -2827,6 +2827,24 @@ Ext.onReady(function() {
     Ext.get(panelid1).applyStyles("color: white");
     Ext.get(panelid2).applyStyles("background-image: url(images/dark-red-hd.gif)");
     Ext.get(panelid2).applyStyles("color: white");
+
+    // mountainspage, piedmontpage, sandhillsspage, coastalpage
+
+    var panelid3 = Ext.get(mountainspage.getEl().dom.children[0]).id;
+    var panelid4 = Ext.get(piedmontpage.getEl().dom.children[0]).id;
+    var panelid5 = Ext.get(sandhillsspage.getEl().dom.children[0]).id;
+    var panelid6 = Ext.get(coastalpage.getEl().dom.children[0]).id;
+    // var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
+    Ext.get(panelid3).applyStyles("background-image: url(images/brown-hd.gif)");
+    Ext.get(panelid3).applyStyles("color: white");
+    Ext.get(panelid4).applyStyles("background-image: url(images/dark-green-hd.gif)");
+    Ext.get(panelid4).applyStyles("color: white");
+
+    // var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
+    Ext.get(panelid5).applyStyles("background-image: url(images/dark-blue-hd.gif)");
+    Ext.get(panelid5).applyStyles("color: white");
+    Ext.get(panelid6).applyStyles("background-image: url(images/dark-red-hd.gif)");
+    Ext.get(panelid6).applyStyles("color: white");
     // Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
     // Ext.get(panelid3).applyStyles("color: white");
 
