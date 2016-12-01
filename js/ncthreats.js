@@ -4,7 +4,7 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://localhost/threats/";
+    var HOST_NAME = "http://localhost/coa/";
     var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
@@ -3341,5 +3341,11 @@ Ext.onReady(function() {
         url: HOST_NAME + "pages/area.html"
     });
     mgr3.on("update", model_script);
+
+    var el = Ext.getCmp("mountains");
+    var mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/mountains.php"
+    });
 
 });
