@@ -2735,28 +2735,28 @@ Ext.onReady(function() {
     });
 
     var mountainspage = new Ext.Panel({
-        // title: 'model',
+        title: 'Mountains',
         cls: 'pages',
         autoScroll: true,
         id: "mountainspage",
         width: 280
     });
     var piedmontpage = new Ext.Panel({
-        // title: 'model',
+        title: 'Piedmont',
         cls: 'pages',
         autoScroll: true,
         id: "piedmontpage",
         width: 280
     });
     var sandhillsspage = new Ext.Panel({
-        // title: 'model',
+        title: 'Sandhills',
         cls: 'pages',
         autoScroll: true,
         id: "sandhillsspage",
         width: 280
     });
     var coastalpage = new Ext.Panel({
-        // title: 'model',
+        title: 'Coastal Plains',
         cls: 'pages',
         autoScroll: true,
         id: "coastalpage",
@@ -2778,7 +2778,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [mountainspage, coastalpage ]
+        items: [mountainspage, coastalpage, piedmontpage ]
     });
 
     var left = new Ext.TabPanel({
