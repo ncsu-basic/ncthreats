@@ -1,0 +1,107 @@
+KeyCode,Region,Type,CommunityKey,CommunityName,NSppGAP_All,NSppWRC_All,NSppGAP_SGCN,NSppWRC_SGCN
+CA_4.2.10c,Coastal Plain,Aquatic,4.2.10c,Large River Systems - Warm,31,31,18,18
+CA_4.2.11c,Coastal Plain,Aquatic,4.2.11c,Stream Swamps - Warm,36,36,28,28
+CA_4.2.12,Coastal Plain,Aquatic,4.2.12,Natural Lakes,48,48,31,31
+CA_4.2.13c,Coastal Plain,Aquatic,4.2.13c,Reservoirs & Impoundments - Warm,30,30,13,13
+CA_4.2.14,Coastal Plain,Aquatic,4.2.14,Estuarine Aquatic Communities,34,34,26,26
+CA_4.2.6a,Coastal Plain,Aquatic,4.2.6a,"Groundwater, Springs, Caves - Cold",2,2,0,0
+CA_4.2.7c,Coastal Plain,Aquatic,4.2.7c,"Headwater Streams, Small Creeks - Warm",6,6,1,1
+CA_4.2.8c,Coastal Plain,Aquatic,4.2.8c,"Small River Systems, Large Creeks - Warm",18,18,10,10
+CA_4.2.9c,Coastal Plain,Aquatic,4.2.9c,Medium River Systems - Warm,11,11,4,4
+CT_4.4.1,Coastal Plain,Terrestrial,4.4.1,Caves & Mines,2,2,2,2
+CT_4.4.11,Coastal Plain,Terrestrial,4.4.11,"Mixed Hardwood Pine Forest, Managed Timberland",22,22,14,14
+CT_4.4.13,Coastal Plain,Terrestrial,4.4.13,Dry Longleaf Pine Forests,32,33,26,27
+CT_4.4.14u,Coastal Plain,Terrestrial,4.4.14u,Maritime Upland Forests,30,31,23,24
+CT_4.4.15,Coastal Plain,Terrestrial,4.4.15,Maritime Grasslands,34,34,33,33
+CT_4.4.16,Coastal Plain,Terrestrial,4.4.16,"Sand, Shell, and Wrack Line Beach Zones",36,36,30,30
+CT_4.4.17h,Coastal Plain,Terrestrial,4.4.17h,Successional Communities - Herb,37,38,29,29
+CT_4.4.17s,Coastal Plain,Terrestrial,4.4.17s,Successional Communities - Shrub,32,32,25,25
+CT_4.4.17w,Coastal Plain,Terrestrial,4.4.17w,Successional Communities - Woody,16,16,11,11
+CT_4.4.18,Coastal Plain,Terrestrial,4.4.18,"Sparsely Settled, Mixed Habitats",19,19,13,13
+CT_4.4.8,Coastal Plain,Terrestrial,4.4.8,"Low Elevation Flatrocks, Cliffs & Rock Outcrops",2,2,2,2
+CT_4.4.9,Coastal Plain,Terrestrial,4.4.9,Mesic Forests,31,31,21,21
+CW_4.3.10,Coastal Plain,Wetland,4.3.10,Upland Seepages & Spray Cliffs,11,11,4,4
+CW_4.3.11,Coastal Plain,Wetland,4.3.11,Wet Pine Savannas,33,33,26,26
+CW_4.3.2,Coastal Plain,Wetland,4.3.2,Estuarine Wetlands,74,74,62,62
+CW_4.3.3,Coastal Plain,Wetland,4.3.3,Blackwater Floodplains,41,41,29,29
+CW_4.3.4,Coastal Plain,Wetland,4.3.4,Brownwater Floodplains,40,40,27,27
+CW_4.3.6,Coastal Plain,Wetland,4.3.6,Freshwater Tidal Wetlands,40,40,27,27
+CW_4.3.7,Coastal Plain,Wetland,4.3.7,Nonalluvial Mineral Wetlands,29,29,21,21
+CW_4.3.8,Coastal Plain,Wetland,4.3.8,Pocosins,28,29,17,17
+CW_4.3.9,Coastal Plain,Wetland,4.3.9,Upland Pools & Depressions,24,25,17,17
+CW_4.4.14w,Coastal Plain,Wetland,4.4.14w,Maritime Wetland Forests,14,14,9,9
+MA_4.2.13a,Mountains,Aquatic,4.2.13a,Reservoirs & Impoundments - Cold,8,8,5,5
+MA_4.2.13b,Mountains,Aquatic,4.2.13b,Reservoirs & Impoundments - Cool,10,10,5,5
+MA_4.2.13c,Mountains,Aquatic,4.2.13c,Reservoirs & Impoundments - Warm,9,9,4,4
+MA_4.2.6a,Mountains,Aquatic,4.2.6a,"Groundwater, Springs, Caves - Cold",3,3,2,2
+MA_4.2.7a,Mountains,Aquatic,4.2.7a,"Headwater Streams, Small Creeks - Cold",16,16,11,11
+MA_4.2.7b,Mountains,Aquatic,4.2.7b,"Headwater Streams, Small Creeks - Cool",16,16,11,11
+MA_4.2.7c,Mountains,Aquatic,4.2.7c,"Headwater Streams, Small Creeks - Warm",7,7,3,3
+MA_4.2.8a,Mountains,Aquatic,4.2.8a,"Small River Systems, Large Creeks - Cold",14,14,9,9
+MA_4.2.8b,Mountains,Aquatic,4.2.8b,"Small River Systems, Large Creeks - Cool",14,14,9,9
+MA_4.2.8c,Mountains,Aquatic,4.2.8c,"Small River Systems, Large Creeks - Warm",8,8,4,4
+MA_4.2.9a,Mountains,Aquatic,4.2.9a,Medium River Systems - Cold,17,17,14,14
+MA_4.2.9b,Mountains,Aquatic,4.2.9b,Medium River Systems - Cool,18,18,14,14
+MA_4.2.9c,Mountains,Aquatic,4.2.9c,Medium River Systems - Warm,12,12,9,9
+MT_4.4.1,Mountains,Terrestrial,4.4.1,Caves & Mines,16,16,16,16
+MT_4.4.10,Mountains,Terrestrial,4.4.10,Dry Coniferous Woodlands,26,26,22,22
+MT_4.4.11,Mountains,Terrestrial,4.4.11,"Mixed Hardwood Pine Forest, Managed Timberland",52,53,33,34
+MT_4.4.12,Mountains,Terrestrial,4.4.12,Montane Oak Forest,60,61,43,44
+MT_4.4.17h,Mountains,Terrestrial,4.4.17h,Successional Communities - Herb,31,31,23,23
+MT_4.4.17s,Mountains,Terrestrial,4.4.17s,Successional Communities - Shrub,24,24,20,20
+MT_4.4.17w,Mountains,Terrestrial,4.4.17w,Successional Communities - Woody,17,17,11,11
+MT_4.4.18,Mountains,Terrestrial,4.4.18,"Sparsely Settled, Mixed Habitats",14,14,9,9
+MT_4.4.2,Mountains,Terrestrial,4.4.2,Spruce-Fir Forest,34,35,20,21
+MT_4.4.3,Mountains,Terrestrial,4.4.3,Northern Hardwood Forest,55,56,33,34
+MT_4.4.4,Mountains,Terrestrial,4.4.4,Cove Forest,53,54,36,37
+MT_4.4.5,Mountains,Terrestrial,4.4.5,Mafic Glades & Barrens,1,1,1,1
+MT_4.4.6,Mountains,Terrestrial,4.4.6,Grass & Heath Balds,7,7,6,6
+MT_4.4.7,Mountains,Terrestrial,4.4.7,High Elevation Cliffs & Rock Outcrops,14,14,13,13
+MT_4.4.8,Mountains,Terrestrial,4.4.8,"Low Elevation Flatrocks, Cliffs & Rock Outcrops",19,19,17,17
+MW_4.3.1,Mountains,Wetland,4.3.1,Bogs & Fens,17,17,10,10
+MW_4.3.10,Mountains,Wetland,4.3.10,Upland Seepages & Spray Cliffs,9,9,5,5
+MW_4.3.5,Mountains,Wetland,4.3.5,Inland Floodplains,34,34,23,23
+MW_4.3.9,Mountains,Wetland,4.3.9,Upland Pools & Depressions,12,12,6,6
+PA_4.2.13b,Piedmont,Aquatic,4.2.13b,Reservoirs & Impoundments - Cool,29,29,16,16
+PA_4.2.13c,Piedmont,Aquatic,4.2.13c,Reservoirs & Impoundments - Warm,32,32,17,17
+PA_4.2.6a,Piedmont,Aquatic,4.2.6a,"Groundwater, Springs, Caves - Cold",2,2,0,0
+PA_4.2.7b,Piedmont,Aquatic,4.2.7b,"Headwater Streams, Small Creeks - Cool",11,11,6,6
+PA_4.2.7c,Piedmont,Aquatic,4.2.7c,"Headwater Streams, Small Creeks - Warm",14,14,6,6
+PA_4.2.8b,Piedmont,Aquatic,4.2.8b,"Small River Systems, Large Creeks - Cool",11,11,6,6
+PA_4.2.8c,Piedmont,Aquatic,4.2.8c,"Small River Systems, Large Creeks - Warm",14,14,6,6
+PA_4.2.9b,Piedmont,Aquatic,4.2.9b,Medium River Systems - Cool,14,14,8,8
+PA_4.2.9c,Piedmont,Aquatic,4.2.9c,Medium River Systems - Warm,16,16,8,8
+PT_4.4.1,Piedmont,Terrestrial,4.4.1,Caves & Mines,2,2,2,2
+PT_4.4.10,Piedmont,Terrestrial,4.4.10,Dry Coniferous Woodlands,11,11,4,4
+PT_4.4.11,Piedmont,Terrestrial,4.4.11,"Mixed Hardwood Pine Forest, Managed Timberland",34,34,20,20
+PT_4.4.13,Piedmont,Terrestrial,4.4.13,Dry Longleaf Pine Forests,12,12,7,7
+PT_4.4.17h,Piedmont,Terrestrial,4.4.17h,Successional Communities - Herb,24,24,18,18
+PT_4.4.17s,Piedmont,Terrestrial,4.4.17s,Successional Communities - Shrub,23,23,19,19
+PT_4.4.17w,Piedmont,Terrestrial,4.4.17w,Successional Communities - Woody,13,13,7,7
+PT_4.4.18,Piedmont,Terrestrial,4.4.18,"Sparsely Settled, Mixed Habitats",16,16,9,9
+PT_4.4.5,Piedmont,Terrestrial,4.4.5,Mafic Glades & Barrens,1,1,1,1
+PT_4.4.8,Piedmont,Terrestrial,4.4.8,"Low Elevation Flatrocks, Cliffs & Rock Outcrops",3,3,3,3
+PT_4.4.9,Piedmont,Terrestrial,4.4.9,Mesic Forests,26,26,13,13
+PW_4.3.10,Piedmont,Wetland,4.3.10,Upland Seepages & Spray Cliffs,12,12,6,6
+PW_4.3.5,Piedmont,Wetland,4.3.5,Inland Floodplains,35,35,23,23
+PW_4.3.9,Piedmont,Wetland,4.3.9,Upland Pools & Depressions,21,21,10,10
+SA_4.2.13c,Sandhills,Aquatic,4.2.13c,Reservoirs & Impoundments - Warm,17,17,1,1
+SA_4.2.6a,Sandhills,Aquatic,4.2.6a,"Groundwater, Springs, Caves - Cold",2,2,0,0
+SA_4.2.7c,Sandhills,Aquatic,4.2.7c,"Headwater Streams, Small Creeks - Warm",7,7,2,2
+SA_4.2.8c,Sandhills,Aquatic,4.2.8c,"Small River Systems, Large Creeks - Warm",12,12,4,4
+SA_4.2.9c,Sandhills,Aquatic,4.2.9c,Medium River Systems - Warm,11,11,1,1
+ST_4.4.1,Sandhills,Terrestrial,4.4.1,Caves & Mines,1,1,1,1
+ST_4.4.11,Sandhills,Terrestrial,4.4.11,"Mixed Hardwood Pine Forest, Managed Timberland",18,18,11,11
+ST_4.4.13,Sandhills,Terrestrial,4.4.13,Dry Longleaf Pine Forests,25,25,19,19
+ST_4.4.17h,Sandhills,Terrestrial,4.4.17h,Successional Communities - Herb,17,17,14,14
+ST_4.4.17s,Sandhills,Terrestrial,4.4.17s,Successional Communities - Shrub,17,17,12,12
+ST_4.4.17w,Sandhills,Terrestrial,4.4.17w,Successional Communities - Woody,10,10,6,6
+ST_4.4.18,Sandhills,Terrestrial,4.4.18,"Sparsely Settled, Mixed Habitats",13,13,7,7
+ST_4.4.9,Sandhills,Terrestrial,4.4.9,Mesic Forests,7,7,1,1
+SW_4.3.10,Sandhills,Wetland,4.3.10,Upland Seepages & Spray Cliffs,3,3,0,0
+SW_4.3.11,Sandhills,Wetland,4.3.11,Wet Pine Savannas,13,13,7,7
+SW_4.3.4,Sandhills,Wetland,4.3.4,Brownwater Floodplains,14,14,7,7
+SW_4.3.5,Sandhills,Wetland,4.3.5,Inland Floodplains,9,9,2,2
+SW_4.3.7,Sandhills,Wetland,4.3.7,Nonalluvial Mineral Wetlands,13,13,5,5
+SW_4.3.8,Sandhills,Wetland,4.3.8,Pocosins,13,13,2,2
+SW_4.3.9,Sandhills,Wetland,4.3.9,Upland Pools & Depressions,6,6,1,1
