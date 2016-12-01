@@ -2734,6 +2734,14 @@ Ext.onReady(function() {
         autoScroll: true
     });
 
+       var mountainspage = new Ext.Panel({
+        // title: 'model',
+        cls: 'pages',
+        autoScroll: true,
+        id: "mountainspage",
+        width: 280
+    });
+
      var coa_tab = new Ext.Panel({
         title: 'coa',
         layout: 'accordion',
@@ -2749,7 +2757,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: []
+        items: [mountainspage]
     });
 
     var left = new Ext.TabPanel({
@@ -3360,7 +3368,7 @@ Ext.onReady(function() {
     });
     mgr3.on("update", model_script);
 
-    var el = Ext.getCmp("mountains");
+    var el = Ext.getCmp("mountainspage");
     var mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/mountains.php"
