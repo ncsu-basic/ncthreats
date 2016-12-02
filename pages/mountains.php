@@ -19,7 +19,7 @@ echo "<table>";
 foreach ($result as $key => $value) {
     // print $key;
 
-    if ($value['region'] == 'Coastal Plain' && $value['type'] == 'Aquatic') {
+    if ($value['region'] == 'Mountains' && $value['type'] == 'Aquatic') {
         // print_r($value);
         // print "<br>";
         // print "<br>";
@@ -40,7 +40,7 @@ echo "<table>";
 foreach ($result as $key => $value) {
     // print $key;
 
-    if ($value['region'] == 'Coastal Plain' && $value['type'] == 'Terrestrial') {
+    if ($value['region'] == 'Mountains' && $value['type'] == 'Terrestrial') {
         echo "<tr>";
         echo "<td class='coatables'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
@@ -59,7 +59,7 @@ echo "<table>";
 foreach ($result as $key => $value) {
     // print $key;
 
-    if ($value['region'] == 'Coastal Plain' && $value['type'] == 'Wetland') {
+    if ($value['region'] == 'Mountains' && $value['type'] == 'Wetland') {
         echo "<tr>";
         echo "<td class='coatables'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
