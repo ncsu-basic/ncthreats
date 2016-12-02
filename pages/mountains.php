@@ -1,20 +1,24 @@
 <?php
 
-    echo "<p>mountains in php</p>";
-    $dbname = "ncthreats";
-    $host = "localhost";
-    $dbuser = "postgres";
+echo "<p>mountains in php</p>";
+$dbname = "ncthreats";
+$host = "localhost";
+$dbuser = "postgres";
 
-    $dbh = new PDO("pgsql:dbname=$dbname;host=$host", $dbuser);
+$dbh = new PDO("pgsql:dbname=$dbname;host=$host", $dbuser);
 
-    echo $dbh;
+$query = "select * from coa_keylist";
 
-    $query = "select * from coa_keylist";
+$stmt = $dbh->prepare($query);
+$stmt->execute();
+$result = $stmt->fetchAll();
 
-    $dbh->query($query);
+foreach ($result as $key => $value) {
+    // print $key;
 
-    while($result = $sql-> fetch(PDO_FETCH_ASSOC)  ) {
-               print_r($result);
+    if ($value['region'] == 'Coastal Plain' && $value['type'] == 'Aquatic') {
+        print_r($value);
+        print "<br>";
+        print "<br>";
     }
-
-
+}
