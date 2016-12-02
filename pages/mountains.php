@@ -23,7 +23,7 @@ foreach ($result as $key => $value) {
         // print_r($value);
         // print "<br>";
         // print "<br>";
-        echo "<tr><td>{$value['communityname']}</td></tr>";
+        echo "<tr><td class='coatables'>{$value['communityname']}</td></tr>";
     }
 }
 echo "</table>";

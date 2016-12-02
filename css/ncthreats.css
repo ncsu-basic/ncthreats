@@ -186,5 +186,8 @@ margin: 10p;
 	display: block;
 	margin: 0px auto 0px;
 }
+.coatables {
+	font-size: smaller;
+}
 
 /* close commented backslash hack */
