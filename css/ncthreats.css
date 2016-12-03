@@ -206,7 +206,10 @@ th.coatables {
 
 	/*border: solid red 1px;*/
 }
+h4.coatables {
+	font-family: sans-serif;
 
+}
 
 
 /* close commented backslash hack */
