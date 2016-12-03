@@ -25,7 +25,7 @@ foreach ($result as $key => $value) {
         // print "<br>";
         // print "<br>";
         echo "<tr>";
-        echo "<td class='coatables'>{$value['communityname']}</td>";
+        echo "<td class='coatables1'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
@@ -44,7 +44,7 @@ foreach ($result as $key => $value) {
 
     if ($value['region'] == 'Mountains' && $value['type'] == 'Terrestrial') {
         echo "<tr>";
-        echo "<td class='coatables'>{$value['communityname']}</td>";
+        echo "<td class='coatables1'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
@@ -64,7 +64,7 @@ foreach ($result as $key => $value) {
 
     if ($value['region'] == 'Mountains' && $value['type'] == 'Wetland') {
         echo "<tr>";
-        echo "<td class='coatables'>{$value['communityname']}</td>";
+        echo "<td class='coatables1'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";

@@ -192,6 +192,13 @@ td.coatables {
 	/*border: solid red 1px;*/
 	text-align: center;
 }
+td.coatables1 {
+	font-size: smaller;
+	font-family: sans-serif;
+	padding-left: 10px;
+	/*border: solid red 1px;*/
+	/*text-align: center;*/
+}
 th.coatables {
 	/*font-size: smaller;*/
 	font-family: sans-serif;
