@@ -2852,9 +2852,7 @@ Ext.onReady(function() {
     //start scripting for panel html pages
     ///////////////////////////////////////////////////////////////////////
 
-    $("input").click(function(e) {
-        alert("clicked");
-    });
+
 
     var page_script = function() {
 
@@ -3391,8 +3389,19 @@ Ext.onReady(function() {
     var coa_script = function() {
         $("input").click(function(e) {
             // alert("clicked");
-            console.log(e);
-            console.log(this);
+            console.log(e.currentTarget.value);
+            var keycode = e.currentTarget.value;
+             $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps/coa_map",
+                data: {keycode: keycode},
+                dataType: "json",
+                success: function(data) {
+
+                }
+            });
+
+            // console.log(this);
         });
     };
     // load header page with links and title
