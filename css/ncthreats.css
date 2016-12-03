@@ -186,9 +186,20 @@ margin: 10p;
 	display: block;
 	margin: 0px auto 0px;
 }
-.coatables {
+td.coatables {
 	font-size: smaller;
 	font-family: sans-serif;
+	/*border: solid red 1px;*/
+	text-align: center;
 }
+th.coatables {
+	/*font-size: smaller;*/
+	font-family: sans-serif;
+	border-bottom: solid black 1px;
+
+	/*border: solid red 1px;*/
+}
+
+
 
 /* close commented backslash hack */
