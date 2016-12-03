@@ -2852,7 +2852,9 @@ Ext.onReady(function() {
     //start scripting for panel html pages
     ///////////////////////////////////////////////////////////////////////
 
-
+    $("input").click(function(e) {
+        alert("clicked");
+    });
 
     var page_script = function() {
 
@@ -3385,6 +3387,14 @@ Ext.onReady(function() {
 
         });
     };
+
+    var coa_script = function() {
+        $("input").click(function(e) {
+            // alert("clicked");
+            console.log(e);
+            console.log(this);
+        });
+    };
     // load header page with links and title
     var el = Ext.getCmp("infopage");
     var mgr = el.getUpdater();
@@ -3414,20 +3424,25 @@ Ext.onReady(function() {
     mgr.update({
         url: HOST_NAME + "pages/mountains.php"
     });
+    // mgr.on("update", coa_script);
+
     el = Ext.getCmp("coastalpage");
     mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/coastal.php"
     });
+    // mgr.on("update", coa_script);
     el = Ext.getCmp("sandhillsspage");
     mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/sandhills.php"
     });
+    // mgr.on("update", coa_script);
     el = Ext.getCmp("piedmontpage");
     mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/piedmont.php"
     });
+    mgr.on("update", coa_script);
 
 });
