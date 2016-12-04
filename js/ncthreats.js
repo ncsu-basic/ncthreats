@@ -3418,8 +3418,12 @@ Ext.onReady(function() {
                             console.log(key);
                         }
                     }
+                    composite.setVisibility(true);
+                    individual.setVisibility(false);
+                    map.getLayersByName("Composite Threats")[0].redraw();
 
                 }
+
             });
 
             // console.log(this);
