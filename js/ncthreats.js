@@ -1486,6 +1486,7 @@ Ext.onReady(function() {
             console.log(data.col_hdrs.length);
             var results_col = data.col_hdrs.length;
             var thrt;
+            console.log(data);
 
             for (var key in data.res_arr) {
                 thrt = data.res_arr[key][results_col];
@@ -3391,12 +3392,32 @@ Ext.onReady(function() {
             // alert("clicked");
             console.log(e.currentTarget.value);
             var keycode = e.currentTarget.value;
-             $.ajax({
+            var thrt;
+            $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps/coa_map",
-                data: {keycode: keycode},
+                data: {
+                    keycode: keycode
+                },
                 dataType: "json",
                 success: function(data) {
+                    console.log(data);
+                    for (var key in data.huc12_cats) {
+                        thrt = data.huc12_cats[key];
+                        // console.log(thrt);
+
+
+                        if (!symbolsLookup_model.hasOwnProperty(thrt)) {
+                            console.log("not valid lever", thrt);
+                        }
+                        try {
+                            map.getLayersByName("Composite Threats")[0].
+                            getFeaturesByAttribute("huc12", key)[0].
+                            attributes.threat = thrt;
+                        } catch (err) {
+                            console.log(key);
+                        }
+                    }
 
                 }
             });
