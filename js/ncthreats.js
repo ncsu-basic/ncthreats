@@ -3387,7 +3387,7 @@ Ext.onReady(function() {
     };
 
     var coa_script = function() {
-        $("input").click(function(e) {
+        $("input[name='reg_com']").click(function(e) {
             // alert("clicked");
             console.log(e.currentTarget.value);
             var keycode = e.currentTarget.value;
