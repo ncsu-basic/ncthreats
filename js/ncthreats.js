@@ -3431,10 +3431,21 @@ Ext.onReady(function() {
                             attributes.threat = thrt;
                         } catch (err) {
                             console.log(key);
+
+
                         }
                     }
-                    for (var cnt=0; cnt < data.top_five.length; cnt++) {
+                    for (var cnt = 0; cnt < data.top_five.length; cnt++) {
                         console.log(data.top_five[cnt]);
+                        var key = data.top_five[cnt];
+                        var test = map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style;
+                        console.log(test);
+                        map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style = styleMaphuc12s;
+
+
+
                     }
                     composite.setVisibility(true);
                     individual.setVisibility(false);
