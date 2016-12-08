@@ -2226,13 +2226,7 @@ Ext.onReady(function() {
 
     action = new Ext.Action({
         handler: function() {
-            // map.zoomToExtent(map_extent);
-            // console.log(float_win);
-            // float_win.open();
-            console.log(float_win);
-
-            float_win.show();
-            // legend_panel.body.update("hello world");
+            console.log("test");
 
         },
         tooltip: "create aois for coa",

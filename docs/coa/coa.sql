@@ -437,8 +437,15 @@ NSppGAP_SGCN integer,
 NSppWRC_SGCN integer
 );
 
+drop table coa_ecohuc;
+create table coa_ecohuc(
+    Ecoregion char(1),
+    Huc12 char(12)
+);
+
 
 copy coa_UnprRatioAllSpp from '/var/www/html/coa/docs/coa/tblUnprRatioAllSpp.csv' with csv header;
 copy coa_UnprRatioSGCNSpp from '/var/www/html/coa/docs/coa/tblUnprRatioSGCNSpp.csv' with csv header;
 copy coa_KeyList from '/var/www/html/coa/docs/coa/tblKeyList.csv' with csv header;
+copy coa_ecohuc from '/var/www/html/coa/docs/coa/tblEcoHuc.txt' with csv header;
 
