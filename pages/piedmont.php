@@ -16,7 +16,7 @@ $stmt->execute();
 $result = $stmt->fetchAll();
 
 echo "<table>";
-echo "<tr><th class='coatables'>Community Name</th><th></th><th class='coatables'>All Spp</th><th class='coatables'>SGCN Spp</th></tr>";
+echo "<tr><th class='coatables'>Community Name</th><th></th><th class='coatables'>SGCN Spp</th></tr>";
 echo "<tr><td><h4 class='coatables'>Aquatic</h4></td></tr>";
 
 foreach ($result as $key => $value) {
@@ -29,7 +29,7 @@ foreach ($result as $key => $value) {
         echo "<tr>";
         echo "<td class='coatables1'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
-        echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
+        // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_sgcn']}</td>";
 
@@ -48,7 +48,7 @@ foreach ($result as $key => $value) {
         echo "<tr>";
         echo "<td class='coatables1'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
-        echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
+        // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_sgcn']}</td>";
 
@@ -68,7 +68,7 @@ foreach ($result as $key => $value) {
         echo "<tr>";
         echo "<td class='coatables1'>{$value['communityname']}</td>";
         echo "<td class='coatables'><input name='reg_com'  value='{$value['keycode']}' type='radio' /></td>";
-        echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
+        // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_sgcn']}</td>";
 
