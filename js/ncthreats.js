@@ -2220,6 +2220,26 @@ Ext.onReady(function() {
         iconCls: "legend_win",
         allowDepress: true
     });
+
+    actions.next = action;
+    toolbarItems.push(action);
+
+    action = new Ext.Action({
+        handler: function() {
+            // map.zoomToExtent(map_extent);
+            // console.log(float_win);
+            // float_win.open();
+            console.log(float_win);
+
+            float_win.show();
+            // legend_panel.body.update("hello world");
+
+        },
+        tooltip: "create aois for coa",
+        iconCls: "coa_aois",
+        allowDepress: true
+    });
+
     actions.next = action;
     toolbarItems.push(action);
 
