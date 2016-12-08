@@ -3433,6 +3433,9 @@ Ext.onReady(function() {
                             console.log(key);
                         }
                     }
+                    for (var cnt=0; cnt < data.top_five.length; cnt++) {
+                        console.log(data.top_five[cnt]);
+                    }
                     composite.setVisibility(true);
                     individual.setVisibility(false);
                     map.getLayersByName("Composite Threats")[0].redraw();
