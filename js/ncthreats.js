@@ -3390,6 +3390,7 @@ Ext.onReady(function() {
     var coa_script = function() {
         $("input[name='reg_com']").click(function(e) {
             // alert("clicked");
+            ecoregions.setVisibility(true);
             console.log(e.currentTarget.value);
             var keycode = e.currentTarget.value;
             var thrt;
