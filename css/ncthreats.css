@@ -18,6 +18,11 @@
 	width: 24px !important;
 	height: 24px !important;
 }
+.coa_aois {
+	background-image: url('../images/coan.png');
+	width: 24px !important;
+	height: 24px !important;
+}
 div.olControlMousePosition {
 
 	/* right: 100px !important;
