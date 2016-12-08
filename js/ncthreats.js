@@ -3403,6 +3403,13 @@ Ext.onReady(function() {
 
     var coa_script = function() {
         $("input[name='reg_com']").click(function(e) {
+
+            var mystyle = {
+                strokeColor: "red",
+                strokeWidth: 2,
+                strokeOpacity: 1,
+                fillOpacity: 0
+            };
             // alert("clicked");
             ecoregions.setVisibility(true);
             console.log(e.currentTarget.value);
@@ -3429,6 +3436,8 @@ Ext.onReady(function() {
                             map.getLayersByName("Composite Threats")[0].
                             getFeaturesByAttribute("huc12", key)[0].
                             attributes.threat = thrt;
+                            map.getLayersByName("Composite Threats")[0].
+                            getFeaturesByAttribute("huc12", key)[0].style = null;
                         } catch (err) {
                             console.log(key);
 
@@ -3438,11 +3447,12 @@ Ext.onReady(function() {
                     for (var cnt = 0; cnt < data.top_five.length; cnt++) {
                         console.log(data.top_five[cnt]);
                         var key = data.top_five[cnt];
-                        var test = map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style;
-                        console.log(test);
+
                         map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style = styleMaphuc12s;
+                        getFeaturesByAttribute("huc12", key)[0].style = mystyle;
+                        var test = map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0];
+                        console.log(test);
 
 
 
