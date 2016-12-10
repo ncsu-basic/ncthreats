@@ -3408,7 +3408,20 @@ Ext.onReady(function() {
                 strokeColor: "red",
                 strokeWidth: 2,
                 strokeOpacity: 1,
-                fillOpacity: 0
+                fillOpacity: 0.7
+            };
+            var thrt_clors = {
+                1: "#FFFF7F",
+                2: "#C4F75D",
+                3: "#86ED3D",
+                4: "#44E214",
+                5: "#3DCC41",
+                6: "#3AB272",
+                7: "#33A587",
+                8: "#26999B",
+                9: "#1A8CA8",
+                10: "#2073A0",
+                11: "#215D99"
             };
             // alert("clicked");
             ecoregions.setVisibility(true);
@@ -3445,14 +3458,18 @@ Ext.onReady(function() {
                         }
                     }
                     for (var cnt = 0; cnt < data.top_five.length; cnt++) {
-                        console.log(data.top_five[cnt]);
-                        var key = data.top_five[cnt];
+                        // console.log(data.top_five[cnt]);
+                        var key = data.top_five[cnt][0];
+                        var thrt = data.top_five[cnt][1];
+                        // console.log(thrt_clors[thrt]);
+                        mystyle.fillColor = thrt_clors[thrt];
+                        // console.log(mystyle);
 
                         map.getLayersByName("Composite Threats")[0].
                         getFeaturesByAttribute("huc12", key)[0].style = mystyle;
                         var test = map.getLayersByName("Composite Threats")[0].
                         getFeaturesByAttribute("huc12", key)[0];
-                        console.log(test);
+                        // console.log(test);
 
 
 
