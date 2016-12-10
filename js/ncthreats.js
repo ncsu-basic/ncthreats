@@ -2226,7 +2226,7 @@ Ext.onReady(function() {
 
     action = new Ext.Action({
         handler: function() {
-            console.log("test");
+            console.log(top_five);
 
         },
         tooltip: "create aois for coa",
@@ -3400,7 +3400,7 @@ Ext.onReady(function() {
 
         });
     };
-
+    var top_five;
     var coa_script = function() {
         $("input[name='reg_com']").click(function(e) {
 
@@ -3437,6 +3437,7 @@ Ext.onReady(function() {
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
+                    top_five = data.top_five;
                     for (var key in data.huc12_cats) {
                         thrt = data.huc12_cats[key];
                         // console.log(thrt);
@@ -3462,8 +3463,8 @@ Ext.onReady(function() {
                         var key = data.top_five[cnt][0];
                         var thrt = data.top_five[cnt][1];
                         // console.log(thrt_clors[thrt]);
-                        var fillColor = thrt_clors[thrt];
-                        console.log(fillColor);
+                        // var fillColor = thrt_clors[thrt];
+                        // console.log(fillColor);
 
                         map.getLayersByName("Composite Threats")[0].
                         getFeaturesByAttribute("huc12", key)[0].style = {};
@@ -3488,10 +3489,9 @@ Ext.onReady(function() {
                         getFeaturesByAttribute("huc12", key)[0].style.
                         fillOpacity = 0.7;
 
-                        var test = map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style;
-                        console.log(test);
-
+                        // var test = map.getLayersByName("Composite Threats")[0].
+                        // getFeaturesByAttribute("huc12", key)[0].style;
+                        // console.log(test);
 
 
 
