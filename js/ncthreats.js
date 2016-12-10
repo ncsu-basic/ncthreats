@@ -2149,6 +2149,36 @@ Ext.onReady(function() {
 
     };
 
+    var save_coa = function(top_five){
+        console.log(top_five);
+        var huc12 = top_five[0][0];
+         var post_data = {
+            gml: '',
+            aoi_list: huc12,
+            predef_type: 'HUC',
+            sel_type: 'predefined',
+            ptradius: 3
+        };
+        console.log(post_data);
+
+        $.ajax({
+            type: "POST",
+            url: SERVER_URI + "wps",
+            data: post_data,
+            dataType: "json"
+        }).done(function(data, textStatus, jqXHR) {
+            resource = jqXHR.getResponseHeader('Location');
+            aoi_to_file = getResource(resource);
+            console.log(resource);
+            Ext.getCmp("resource_btn").setHandler(aoi_to_file);
+            onExecuted(data.geojson);
+            var extent = new OpenLayers.Bounds(
+                data.extent).transform(proj_4326, proj_900913);
+            map.zoomToExtent(extent);
+        });
+
+    }
+
 
 
     /////////////////////////////////////////
@@ -2226,7 +2256,7 @@ Ext.onReady(function() {
 
     action = new Ext.Action({
         handler: function() {
-            console.log(top_five);
+            save_coa(top_five);
 
         },
         tooltip: "create aois for coa",
