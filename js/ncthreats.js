@@ -3405,7 +3405,7 @@ Ext.onReady(function() {
         $("input[name='reg_com']").click(function(e) {
 
             var mystyle = {
-                strokeColor: "red",
+                strokeColor: "black",
                 strokeWidth: 2,
                 strokeOpacity: 1,
                 fillOpacity: 0.7
@@ -3462,14 +3462,36 @@ Ext.onReady(function() {
                         var key = data.top_five[cnt][0];
                         var thrt = data.top_five[cnt][1];
                         // console.log(thrt_clors[thrt]);
-                        mystyle.fillColor = thrt_clors[thrt];
-                        // console.log(mystyle);
+                        var fillColor = thrt_clors[thrt];
+                        console.log(fillColor);
 
                         map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style = mystyle;
+                        getFeaturesByAttribute("huc12", key)[0].style = {};
+
+                        map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style.
+                        fillColor = thrt_clors[thrt];
+
+                        map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style.
+                        strokeWidth = 2;
+
+                        map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style.
+                        strokeColor = 'red';
+
+                        map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style.
+                        strokeOpacity = 1;
+
+                        map.getLayersByName("Composite Threats")[0].
+                        getFeaturesByAttribute("huc12", key)[0].style.
+                        fillOpacity = 0.7;
+
                         var test = map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0];
-                        // console.log(test);
+                        getFeaturesByAttribute("huc12", key)[0].style;
+                        console.log(test);
+
 
 
 
