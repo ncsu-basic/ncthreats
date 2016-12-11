@@ -2160,14 +2160,18 @@ Ext.onReady(function() {
         var post_data;
 
         // closure to catch correct huc12 name
-        var done_fn = function(aoi_name) {
+        var done_fn = function(aoi_name, cnt) {
             var handler = function(data, textStatus, jqXHR) {
-                // onExecuted(data.geojson);
+                onExecuted(data.geojson);
                 resource = jqXHR.getResponseHeader('Location');
                 aoi_to_file = getResource(resource);
                 // console.log(resource);
                 batch[aoi_name] = resource;
                 console.log(batch);
+                if (cnt == 4){
+                    show_batch(batch);
+                }
+
                 // console.log(++aois_done);
                 // if (++aois_done === highlightLayer.features.length) {
                 //     $('body').toggleClass('waiting');
@@ -2195,7 +2199,7 @@ Ext.onReady(function() {
                 url: SERVER_URI + "wps",
                 data: post_data,
                 dataType: "json"
-            }).done(done_fn(huc12));
+            }).done(done_fn(huc12, cnt));
         }
 
 
