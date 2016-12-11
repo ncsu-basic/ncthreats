@@ -2149,33 +2149,56 @@ Ext.onReady(function() {
 
     };
 
-    var save_coa = function(top_five){
+    var save_coa = function(top_five) {
         console.log(top_five);
-        var huc12 = top_five[0][0];
-         var post_data = {
-            gml: '',
-            aoi_list: huc12,
-            predef_type: 'HUC',
-            sel_type: 'predefined',
-            ptradius: 3
-        };
-        console.log(post_data);
+        // resource = jqXHR.getResponseHeader('Location');
+        // aoi_to_file = getResource(resource);
+        // // console.log(resource);
+        // batch[aoi_name] = resource;
+        var batch = {};
+        var huc12;
+        var post_data;
 
-        $.ajax({
-            type: "POST",
-            url: SERVER_URI + "wps",
-            data: post_data,
-            dataType: "json"
-        }).done(function(data, textStatus, jqXHR) {
-            resource = jqXHR.getResponseHeader('Location');
-            aoi_to_file = getResource(resource);
-            console.log(resource);
-            Ext.getCmp("resource_btn").setHandler(aoi_to_file);
-            onExecuted(data.geojson);
-            var extent = new OpenLayers.Bounds(
-                data.extent).transform(proj_4326, proj_900913);
-            map.zoomToExtent(extent);
-        });
+        // closure to catch correct huc12 name
+        var done_fn = function(aoi_name) {
+            var handler = function(data, textStatus, jqXHR) {
+                // onExecuted(data.geojson);
+                resource = jqXHR.getResponseHeader('Location');
+                aoi_to_file = getResource(resource);
+                // console.log(resource);
+                batch[aoi_name] = resource;
+                console.log(batch);
+                // console.log(++aois_done);
+                // if (++aois_done === highlightLayer.features.length) {
+                //     $('body').toggleClass('waiting');
+                //     show_batch(batch);
+                // } else {
+                //     batch_util_fn(highlightLayer.features[aois_done]);
+                // }
+            };
+            return handler;
+        };
+
+        for (var cnt = 0; cnt < 5; cnt++) {
+            huc12 = top_five[cnt][0];
+            post_data = {
+                gml: '',
+                aoi_list: huc12,
+                predef_type: 'HUC',
+                sel_type: 'predefined',
+                ptradius: 3
+            };
+            console.log(post_data);
+
+            $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps",
+                data: post_data,
+                dataType: "json"
+            }).done(done_fn(huc12));
+        }
+
+
 
     }
 
