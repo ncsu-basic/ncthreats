@@ -661,7 +661,7 @@ Ext.onReady(function() {
         if (!batch_aoi) {
             results.removeAllFeatures();
         }
-        console.log(aoi);
+        // console.log(aoi);
         results.addFeatures(geojson_format.read(aoi));
         results.setVisibility(true);
     };
@@ -2169,7 +2169,7 @@ Ext.onReady(function() {
                 aoi_to_file = getResource(resource);
                 // console.log(resource);
                 batch[aoi_name] = resource;
-                console.log(batch);
+                // console.log(batch);
                 if (cnt == 4){
                     show_batch(batch);
                 }
@@ -2194,7 +2194,7 @@ Ext.onReady(function() {
                 sel_type: 'predefined',
                 ptradius: 3
             };
-            console.log(post_data);
+            // console.log(post_data);
 
             $.ajax({
                 type: "POST",
