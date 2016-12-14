@@ -2225,7 +2225,26 @@ Ext.onReady(function() {
                 document.getElementById('frst_chk').checked = true;
             } else {
                 document.getElementById('frst_chk').checked = false;
-
+            }
+            if(data.row.habftwt === 1){
+                document.getElementById('ftwt_chk').checked = true;
+            } else {
+                document.getElementById('ftwt_chk').checked = false;
+            }
+            if(data.row.habhbwt === 1){
+                document.getElementById('hbwt_chk').checked = true;
+            } else {
+                document.getElementById('hbwt_chk').checked = false;
+            }
+            if(data.row.habopen === 1){
+                document.getElementById('open_chk').checked = true;
+            } else {
+                document.getElementById('open_chk').checked = false;
+            }
+            if(data.row.habshrb === 1){
+                document.getElementById('shrb_chk').checked = true;
+            } else {
+                document.getElementById('shrb_chk').checked = false;
             }
 
         });
