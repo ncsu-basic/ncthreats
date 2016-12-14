@@ -2247,79 +2247,79 @@ Ext.onReady(function() {
                 document.getElementById('shrb_chk').checked = false;
             }
             if(data.row.urban === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('urbangrth_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('urbangrth_chk').checked = false;
             }
             if(data.row.fsupp === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('firesup_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('firesup_chk').checked = false;
             }
             if(data.row.dclrds === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('hiway_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('hiway_chk').checked = false;
             }
             if(data.row.slrup === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('slr_up_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('slr_up_chk').checked = false;
             }
             if(data.row.slrlc === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('slr_lc_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('slr_lc_chk').checked = false;
             }
             if(data.row.triassic === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('triassic_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('triassic_chk').checked = false;
             }
             if(data.row.wpc === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('wind_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('wind_chk').checked = false;
             }
             if(data.row.manu === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('manure_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('manure_chk').checked = false;
             }
             if(data.row.fert === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('nitrofrt_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('nitrofrt_chk').checked = false;
             }
             if(data.row.tdnt === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('totnitro_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('totnitro_chk').checked = false;
             }
             if(data.row.tdst === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('totsulf_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('totsulf_chk').checked = false;
             }
             if(data.row.fhlth === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('insectdisease_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('insectdisease_chk').checked = false;
             }
             if(data.row.nid === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('ndams_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('ndams_chk').checked = false;
             }
             if(data.row.bio === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('impairbiota_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('impairbiota_chk').checked = false;
             }
             if(data.row.met === 1){
-                document.getElementById('').checked = true;
+                document.getElementById('mpairmetal_chk').checked = true;
             } else {
-                document.getElementById('').checked = false;
+                document.getElementById('mpairmetal_chk').checked = false;
             }
 
         });
