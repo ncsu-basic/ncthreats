@@ -443,9 +443,39 @@ create table coa_ecohuc(
     Huc12 char(12)
 );
 
+drop table coa_keythreats;
+create table coa_keythreats(
+    KeyCode varchar,
+    Region varchar,
+    Type varchar,
+    CommunityKey varchar,
+    CommunityName varchar,
+    HabFrst integer,
+    HabFtWt integer,
+    HabHbWt integer,
+    HabOpen integer,
+    HabShrb integer,
+    Urban integer,
+    Fsupp integer,
+    DCLrds integer,
+    SLRup integer,
+    SLRlc integer,
+    Triassic integer,
+    WPC integer,
+    Manu integer,
+    Fert integer,
+    TDNT integer,
+    TDST integer,
+    FHlth integer,
+    NID integer,
+    Bio integer,
+    Met integer
+);
+
 
 copy coa_UnprRatioAllSpp from '/var/www/html/coa/docs/coa/tblUnprRatioAllSpp.csv' with csv header;
 copy coa_UnprRatioSGCNSpp from '/var/www/html/coa/docs/coa/tblUnprRatioSGCNSpp.csv' with csv header;
 copy coa_KeyList from '/var/www/html/coa/docs/coa/tblKeyList.csv' with csv header;
 copy coa_ecohuc from '/var/www/html/coa/docs/coa/tblEcoHuc.txt' with csv header;
+copy coa_keythreats from '/var/www/html/coa/docs/coa/tblKeyThreats.csv' with csv header;
 

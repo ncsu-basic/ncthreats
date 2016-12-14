@@ -1,0 +1,107 @@
+KeyCode,Region,Type,CommunityKey,CommunityName,HabFrst,HabFtWt,HabHbWt,HabOpen,HabShrb,Urban,Fsupp,DCLrds,SLRup,SLRlc,Triassic,WPC,Manu,Fert,TDNT,TDST,FHlth,NID,Bio,Met
+"CA_4.2.10c","Coastal Plain","Aquatic","4.2.10c","Large River Systems - Warm",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CA_4.2.11c","Coastal Plain","Aquatic","4.2.11c","Stream Swamps - Warm",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CA_4.2.12","Coastal Plain","Aquatic","4.2.12","Natural Lakes",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.13a","Mountains","Aquatic","4.2.13a","Reservoirs & Impoundments - Cold",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.13b","Mountains","Aquatic","4.2.13b","Reservoirs & Impoundments - Cool",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.13b","Piedmont","Aquatic","4.2.13b","Reservoirs & Impoundments - Cool",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CA_4.2.13c","Coastal Plain","Aquatic","4.2.13c","Reservoirs & Impoundments - Warm",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.13c","Mountains","Aquatic","4.2.13c","Reservoirs & Impoundments - Warm",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.13c","Piedmont","Aquatic","4.2.13c","Reservoirs & Impoundments - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SA_4.2.13c","Sandhills","Aquatic","4.2.13c","Reservoirs & Impoundments - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CA_4.2.14","Coastal Plain","Aquatic","4.2.14","Estuarine Aquatic Communities",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CA_4.2.6a","Coastal Plain","Aquatic","4.2.6a","Groundwater, Springs, Caves - Cold",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.6a","Mountains","Aquatic","4.2.6a","Groundwater, Springs, Caves - Cold",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.6a","Piedmont","Aquatic","4.2.6a","Groundwater, Springs, Caves - Cold",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SA_4.2.6a","Sandhills","Aquatic","4.2.6a","Groundwater, Springs, Caves - Cold",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MA_4.2.7a","Mountains","Aquatic","4.2.7a","Headwater Streams, Small Creeks - Cold",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.7b","Mountains","Aquatic","4.2.7b","Headwater Streams, Small Creeks - Cool",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.7b","Piedmont","Aquatic","4.2.7b","Headwater Streams, Small Creeks - Cool",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CA_4.2.7c","Coastal Plain","Aquatic","4.2.7c","Headwater Streams, Small Creeks - Warm",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.7c","Mountains","Aquatic","4.2.7c","Headwater Streams, Small Creeks - Warm",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.7c","Piedmont","Aquatic","4.2.7c","Headwater Streams, Small Creeks - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SA_4.2.7c","Sandhills","Aquatic","4.2.7c","Headwater Streams, Small Creeks - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MA_4.2.8a","Mountains","Aquatic","4.2.8a","Small River Systems, Large Creeks - Cold",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.8b","Mountains","Aquatic","4.2.8b","Small River Systems, Large Creeks - Cool",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.8b","Piedmont","Aquatic","4.2.8b","Small River Systems, Large Creeks - Cool",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CA_4.2.8c","Coastal Plain","Aquatic","4.2.8c","Small River Systems, Large Creeks - Warm",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.8c","Mountains","Aquatic","4.2.8c","Small River Systems, Large Creeks - Warm",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.8c","Piedmont","Aquatic","4.2.8c","Small River Systems, Large Creeks - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SA_4.2.8c","Sandhills","Aquatic","4.2.8c","Small River Systems, Large Creeks - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MA_4.2.9a","Mountains","Aquatic","4.2.9a","Medium River Systems - Cold",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.9b","Mountains","Aquatic","4.2.9b","Medium River Systems - Cool",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.9b","Piedmont","Aquatic","4.2.9b","Medium River Systems - Cool",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CA_4.2.9c","Coastal Plain","Aquatic","4.2.9c","Medium River Systems - Warm",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MA_4.2.9c","Mountains","Aquatic","4.2.9c","Medium River Systems - Warm",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PA_4.2.9c","Piedmont","Aquatic","4.2.9c","Medium River Systems - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SA_4.2.9c","Sandhills","Aquatic","4.2.9c","Medium River Systems - Warm",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MW_4.3.1","Mountains","Wetland","4.3.1","Bogs & Fens",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"CW_4.3.10","Coastal Plain","Wetland","4.3.10","Upland Seepages & Spray Cliffs",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MW_4.3.10","Mountains","Wetland","4.3.10","Upland Seepages & Spray Cliffs",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PW_4.3.10","Piedmont","Wetland","4.3.10","Upland Seepages & Spray Cliffs",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SW_4.3.10","Sandhills","Wetland","4.3.10","Upland Seepages & Spray Cliffs",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CW_4.3.11","Coastal Plain","Wetland","4.3.11","Wet Pine Savannas",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"SW_4.3.11","Sandhills","Wetland","4.3.11","Wet Pine Savannas",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CW_4.3.2","Coastal Plain","Wetland","4.3.2","Estuarine Wetlands",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CW_4.3.3","Coastal Plain","Wetland","4.3.3","Blackwater Floodplains",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CW_4.3.4","Coastal Plain","Wetland","4.3.4","Brownwater Floodplains",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"SW_4.3.4","Sandhills","Wetland","4.3.4","Brownwater Floodplains",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MW_4.3.5","Mountains","Wetland","4.3.5","Inland Floodplains",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PW_4.3.5","Piedmont","Wetland","4.3.5","Inland Floodplains",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SW_4.3.5","Sandhills","Wetland","4.3.5","Inland Floodplains",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CW_4.3.6","Coastal Plain","Wetland","4.3.6","Freshwater Tidal Wetlands",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CW_4.3.7","Coastal Plain","Wetland","4.3.7","Nonalluvial Mineral Wetlands",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"SW_4.3.7","Sandhills","Wetland","4.3.7","Nonalluvial Mineral Wetlands",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CW_4.3.8","Coastal Plain","Wetland","4.3.8","Pocosins",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"SW_4.3.8","Sandhills","Wetland","4.3.8","Pocosins",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CW_4.3.9","Coastal Plain","Wetland","4.3.9","Upland Pools & Depressions",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MW_4.3.9","Mountains","Wetland","4.3.9","Upland Pools & Depressions",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PW_4.3.9","Piedmont","Wetland","4.3.9","Upland Pools & Depressions",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"SW_4.3.9","Sandhills","Wetland","4.3.9","Upland Pools & Depressions",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.1","Coastal Plain","Terrestrial","4.4.1","Caves & Mines",1,1,1,1,1,1,1,1,0,0,0,1,0,0,1,1,1,1,1,1
+"MT_4.4.1","Mountains","Terrestrial","4.4.1","Caves & Mines",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.1","Piedmont","Terrestrial","4.4.1","Caves & Mines",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.1","Sandhills","Terrestrial","4.4.1","Caves & Mines",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MT_4.4.10","Mountains","Terrestrial","4.4.10","Dry Coniferous Woodlands",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.10","Piedmont","Terrestrial","4.4.10","Dry Coniferous Woodlands",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.11","Coastal Plain","Terrestrial","4.4.11","Mixed Hardwood Pine Forest, Managed Timberland",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.11","Mountains","Terrestrial","4.4.11","Mixed Hardwood Pine Forest, Managed Timberland",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.11","Piedmont","Terrestrial","4.4.11","Mixed Hardwood Pine Forest, Managed Timberland",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.11","Sandhills","Terrestrial","4.4.11","Mixed Hardwood Pine Forest, Managed Timberland",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MT_4.4.12","Mountains","Terrestrial","4.4.12","Montane Oak Forest",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"CT_4.4.13","Coastal Plain","Terrestrial","4.4.13","Dry Longleaf Pine Forests",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.13","Piedmont","Terrestrial","4.4.13","Dry Longleaf Pine Forests",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.13","Sandhills","Terrestrial","4.4.13","Dry Longleaf Pine Forests",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.14u","Coastal Plain","Terrestrial","4.4.14u","Maritime Upland Forests",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CW_4.4.14w","Coastal Plain","Wetland","4.4.14w","Maritime Wetland Forests",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CT_4.4.15","Coastal Plain","Terrestrial","4.4.15","Maritime Grasslands",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CT_4.4.16","Coastal Plain","Terrestrial","4.4.16","Sand, Shell, and Wrack Line Beach Zones",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"CT_4.4.17h","Coastal Plain","Terrestrial","4.4.17h","Successional Communities - Herb",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.17h","Mountains","Terrestrial","4.4.17h","Successional Communities - Herb",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.17h","Piedmont","Terrestrial","4.4.17h","Successional Communities - Herb",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.17h","Sandhills","Terrestrial","4.4.17h","Successional Communities - Herb",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.17s","Coastal Plain","Terrestrial","4.4.17s","Successional Communities - Shrub",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.17s","Mountains","Terrestrial","4.4.17s","Successional Communities - Shrub",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.17s","Piedmont","Terrestrial","4.4.17s","Successional Communities - Shrub",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.17s","Sandhills","Terrestrial","4.4.17s","Successional Communities - Shrub",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.17w","Coastal Plain","Terrestrial","4.4.17w","Successional Communities - Woody",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.17w","Mountains","Terrestrial","4.4.17w","Successional Communities - Woody",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.17w","Piedmont","Terrestrial","4.4.17w","Successional Communities - Woody",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.17w","Sandhills","Terrestrial","4.4.17w","Successional Communities - Woody",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.18","Coastal Plain","Terrestrial","4.4.18","Sparsely Settled, Mixed Habitats",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.18","Mountains","Terrestrial","4.4.18","Sparsely Settled, Mixed Habitats",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.18","Piedmont","Terrestrial","4.4.18","Sparsely Settled, Mixed Habitats",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.18","Sandhills","Terrestrial","4.4.18","Sparsely Settled, Mixed Habitats",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MT_4.4.2","Mountains","Terrestrial","4.4.2","Spruce-Fir Forest",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.3","Mountains","Terrestrial","4.4.3","Northern Hardwood Forest",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.4","Mountains","Terrestrial","4.4.4","Cove Forest",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.5","Mountains","Terrestrial","4.4.5","Mafic Glades & Barrens",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.5","Piedmont","Terrestrial","4.4.5","Mafic Glades & Barrens",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"MT_4.4.6","Mountains","Terrestrial","4.4.6","Grass & Heath Balds",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.7","Mountains","Terrestrial","4.4.7","High Elevation Cliffs & Rock Outcrops",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"CT_4.4.8","Coastal Plain","Terrestrial","4.4.8","Low Elevation Flatrocks, Cliffs & Rock Outcrops",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"MT_4.4.8","Mountains","Terrestrial","4.4.8","Low Elevation Flatrocks, Cliffs & Rock Outcrops",1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.8","Piedmont","Terrestrial","4.4.8","Low Elevation Flatrocks, Cliffs & Rock Outcrops",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"CT_4.4.9","Coastal Plain","Terrestrial","4.4.9","Mesic Forests",1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1
+"PT_4.4.9","Piedmont","Terrestrial","4.4.9","Mesic Forests",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
+"ST_4.4.9","Sandhills","Terrestrial","4.4.9","Mesic Forests",1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,1,1,1
