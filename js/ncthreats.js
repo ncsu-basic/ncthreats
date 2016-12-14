@@ -2158,10 +2158,12 @@ Ext.onReady(function() {
         var batch = {};
         var huc12;
         var post_data;
+        results.removeAllFeatures();
 
         // closure to catch correct huc12 name
         var done_fn = function(aoi_name, cnt) {
             var handler = function(data, textStatus, jqXHR) {
+                batch_aoi = true;
                 onExecuted(data.geojson);
                 resource = jqXHR.getResponseHeader('Location');
                 aoi_to_file = getResource(resource);
