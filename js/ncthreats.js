@@ -3517,6 +3517,7 @@ Ext.onReady(function() {
 
                         }
                     }
+                    save_coa(top_five);
                     // for (var cnt = 0; cnt < data.top_five.length; cnt++) {
                     //     // console.log(data.top_five[cnt]);
                     //     var key = data.top_five[cnt][0];
