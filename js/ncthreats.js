@@ -3515,44 +3515,44 @@ Ext.onReady(function() {
 
                         }
                     }
-                    for (var cnt = 0; cnt < data.top_five.length; cnt++) {
-                        // console.log(data.top_five[cnt]);
-                        var key = data.top_five[cnt][0];
-                        var thrt = data.top_five[cnt][1];
-                        // console.log(thrt_clors[thrt]);
-                        // var fillColor = thrt_clors[thrt];
-                        // console.log(fillColor);
+                    // for (var cnt = 0; cnt < data.top_five.length; cnt++) {
+                    //     // console.log(data.top_five[cnt]);
+                    //     var key = data.top_five[cnt][0];
+                    //     var thrt = data.top_five[cnt][1];
+                    //     // console.log(thrt_clors[thrt]);
+                    //     // var fillColor = thrt_clors[thrt];
+                    //     // console.log(fillColor);
 
-                        map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style = {};
+                    //     map.getLayersByName("Composite Threats")[0].
+                    //     getFeaturesByAttribute("huc12", key)[0].style = {};
 
-                        map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style.
-                        fillColor = thrt_clors[thrt];
+                    //     map.getLayersByName("Composite Threats")[0].
+                    //     getFeaturesByAttribute("huc12", key)[0].style.
+                    //     fillColor = thrt_clors[thrt];
 
-                        map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style.
-                        strokeWidth = 2;
+                    //     map.getLayersByName("Composite Threats")[0].
+                    //     getFeaturesByAttribute("huc12", key)[0].style.
+                    //     strokeWidth = 2;
 
-                        map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style.
-                        strokeColor = 'red';
+                    //     map.getLayersByName("Composite Threats")[0].
+                    //     getFeaturesByAttribute("huc12", key)[0].style.
+                    //     strokeColor = 'red';
 
-                        map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style.
-                        strokeOpacity = 1;
+                    //     map.getLayersByName("Composite Threats")[0].
+                    //     getFeaturesByAttribute("huc12", key)[0].style.
+                    //     strokeOpacity = 1;
 
-                        map.getLayersByName("Composite Threats")[0].
-                        getFeaturesByAttribute("huc12", key)[0].style.
-                        fillOpacity = 0.7;
+                    //     map.getLayersByName("Composite Threats")[0].
+                    //     getFeaturesByAttribute("huc12", key)[0].style.
+                    //     fillOpacity = 0.7;
 
-                        // var test = map.getLayersByName("Composite Threats")[0].
-                        // getFeaturesByAttribute("huc12", key)[0].style;
-                        // console.log(test);
+                    //     // var test = map.getLayersByName("Composite Threats")[0].
+                    //     // getFeaturesByAttribute("huc12", key)[0].style;
+                    //     // console.log(test);
 
 
 
-                    }
+                    // }
                     composite.setVisibility(true);
                     individual.setVisibility(false);
                     map.getLayersByName("Composite Threats")[0].redraw();
