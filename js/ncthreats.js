@@ -1,11 +1,11 @@
 var map;
 
 Ext.onReady(function() {
-    "use strict";
+    //"use strict";
 
 
-    var HOST_NAME = "http://localhost/threats/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/threats/";
+    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
