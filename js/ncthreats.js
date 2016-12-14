@@ -10,6 +10,8 @@ Ext.onReady(function() {
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
     var batch_resource = {};
+    // keycode for coa community name
+    var keycode;
 
 
     var lgd_text, lgd_title, lgd_title2, lgd_color;
@@ -2206,7 +2208,8 @@ Ext.onReady(function() {
     }
 
     var coa_model = function(){
-        console.log("coa_model");
+        // console.log("coa_model");
+        console.log(keycode);
     }
 
 
@@ -3487,7 +3490,7 @@ Ext.onReady(function() {
             // alert("clicked");
             ecoregions.setVisibility(true);
             console.log(e.currentTarget.value);
-            var keycode = e.currentTarget.value;
+            keycode = e.currentTarget.value;
             var thrt;
             $.ajax({
                 type: "POST",
