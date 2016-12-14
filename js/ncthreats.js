@@ -2246,6 +2246,81 @@ Ext.onReady(function() {
             } else {
                 document.getElementById('shrb_chk').checked = false;
             }
+            if(data.row.urban === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.fsupp === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.dclrds === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.slrup === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.slrlc === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.triassic === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.wpc === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.manu === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.fert === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.tdnt === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.tdst === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.fhlth === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.nid === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.bio === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
+            if(data.row.met === 1){
+                document.getElementById('').checked = true;
+            } else {
+                document.getElementById('').checked = false;
+            }
 
         });
     }
