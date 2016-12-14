@@ -2203,9 +2203,10 @@ Ext.onReady(function() {
                 dataType: "json"
             }).done(done_fn(huc12, cnt));
         }
+    }
 
-
-
+    var coa_model = function(){
+        console.log("coa_model");
     }
 
 
@@ -2285,7 +2286,8 @@ Ext.onReady(function() {
 
     action = new Ext.Action({
         handler: function() {
-            save_coa(top_five);
+            // save_coa(top_five);
+            coa_model();
 
         },
         tooltip: "create aois for coa",
