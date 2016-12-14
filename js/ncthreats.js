@@ -2209,7 +2209,8 @@ Ext.onReady(function() {
 
     var coa_model = function() {
         // console.log("coa_model");
-        console.log(keycode);
+        document.getElementById('frst_chk').checked = true;
+
         var post_data = {
             keycode: keycode
         }
@@ -2219,7 +2220,14 @@ Ext.onReady(function() {
             data: post_data,
             dataType: "json"
         }).done(function(data){
-            console.log(data);
+            console.log(data.row.habfrst);
+            if(data.row.habfrst === 1){
+                document.getElementById('frst_chk').checked = true;
+            } else {
+                document.getElementById('frst_chk').checked = false;
+
+            }
+
         });
     }
 
