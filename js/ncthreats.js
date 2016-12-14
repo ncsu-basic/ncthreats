@@ -2210,6 +2210,7 @@ Ext.onReady(function() {
     var coa_model = function() {
         // console.log("coa_model");
         document.getElementById('frst_chk').checked = true;
+        left.setActiveTab(2);
 
         var post_data = {
             keycode: keycode
