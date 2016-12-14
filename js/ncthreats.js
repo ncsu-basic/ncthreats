@@ -2172,7 +2172,7 @@ Ext.onReady(function() {
                 // console.log(resource);
                 batch[aoi_name] = resource;
                 // console.log(batch);
-                if (cnt == 4){
+                if (cnt == 4) {
                     show_batch(batch);
                 }
 
@@ -2207,9 +2207,20 @@ Ext.onReady(function() {
         }
     }
 
-    var coa_model = function(){
+    var coa_model = function() {
         // console.log("coa_model");
         console.log(keycode);
+        var post_data = {
+            keycode: keycode
+        }
+        $.ajax({
+            type: "POST",
+            url: SERVER_URI + "wps/coa_model",
+            data: post_data,
+            dataType: "json"
+        }).done(function(data){
+            console.log(data);
+        });
     }
 
 
