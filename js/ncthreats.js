@@ -2220,7 +2220,7 @@ Ext.onReady(function() {
             data: post_data,
             dataType: "json"
         }).done(function(data){
-            console.log(data.row.habfrst);
+            console.log(data.row);
             if(data.row.habfrst === 1){
                 document.getElementById('frst_chk').checked = true;
             } else {
@@ -2317,9 +2317,9 @@ Ext.onReady(function() {
                 document.getElementById('impairbiota_chk').checked = false;
             }
             if(data.row.met === 1){
-                document.getElementById('mpairmetal_chk').checked = true;
+                document.getElementById('impairmetal_chk').checked = true;
             } else {
-                document.getElementById('mpairmetal_chk').checked = false;
+                document.getElementById('impairmetal_chk').checked = false;
             }
 
         });
