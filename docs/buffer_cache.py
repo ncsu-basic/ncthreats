@@ -41,9 +41,9 @@ with conn.cursor() as cur:
             # print "%s %s" % (row1[0], row2[0])
             cur.execute(query3, (row1[0], row2[0]))
             distance = cur.fetchone()[0]
-            if distance < 5000 and distance > 0:
+            if distance < 5000 and (row1[0] != row2[0]):
                 cache_5k[str(row1[0])].append(row2[0])
-            if distance < 12000 and distance > 0:
+            if distance < 12000 and (row1[0] != row2[0]):
                 cache_12k[str(row1[0])].append(row2[0])
         print len(cache_5k[str(row1[0])])
         print len(cache_12k[str(row1[0])])
