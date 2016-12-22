@@ -3631,7 +3631,7 @@ Ext.onReady(function() {
                             map.getLayersByName("Composite Threats")[0].
                             getFeaturesByAttribute("huc12", key)[0].style = null;
                         } catch (err) {
-                            console.log(key);
+                            // console.log(key);
 
 
                         }
