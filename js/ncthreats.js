@@ -2220,104 +2220,104 @@ Ext.onReady(function() {
             url: SERVER_URI + "wps/coa_model",
             data: post_data,
             dataType: "json"
-        }).done(function(data){
+        }).done(function(data) {
             console.log(data.row);
-            if(data.row.habfrst === 1){
+            if (data.row.habfrst === 1) {
                 document.getElementById('frst_chk').checked = true;
             } else {
                 document.getElementById('frst_chk').checked = false;
             }
-            if(data.row.habftwt === 1){
+            if (data.row.habftwt === 1) {
                 document.getElementById('ftwt_chk').checked = true;
             } else {
                 document.getElementById('ftwt_chk').checked = false;
             }
-            if(data.row.habhbwt === 1){
+            if (data.row.habhbwt === 1) {
                 document.getElementById('hbwt_chk').checked = true;
             } else {
                 document.getElementById('hbwt_chk').checked = false;
             }
-            if(data.row.habopen === 1){
+            if (data.row.habopen === 1) {
                 document.getElementById('open_chk').checked = true;
             } else {
                 document.getElementById('open_chk').checked = false;
             }
-            if(data.row.habshrb === 1){
+            if (data.row.habshrb === 1) {
                 document.getElementById('shrb_chk').checked = true;
             } else {
                 document.getElementById('shrb_chk').checked = false;
             }
-            if(data.row.urban === 1){
+            if (data.row.urban === 1) {
                 document.getElementById('urbangrth_chk').checked = true;
             } else {
                 document.getElementById('urbangrth_chk').checked = false;
             }
-            if(data.row.fsupp === 1){
+            if (data.row.fsupp === 1) {
                 document.getElementById('firesup_chk').checked = true;
             } else {
                 document.getElementById('firesup_chk').checked = false;
             }
-            if(data.row.dclrds === 1){
+            if (data.row.dclrds === 1) {
                 document.getElementById('hiway_chk').checked = true;
             } else {
                 document.getElementById('hiway_chk').checked = false;
             }
-            if(data.row.slrup === 1){
+            if (data.row.slrup === 1) {
                 document.getElementById('slr_up_chk').checked = true;
             } else {
                 document.getElementById('slr_up_chk').checked = false;
             }
-            if(data.row.slrlc === 1){
+            if (data.row.slrlc === 1) {
                 document.getElementById('slr_lc_chk').checked = true;
             } else {
                 document.getElementById('slr_lc_chk').checked = false;
             }
-            if(data.row.triassic === 1){
+            if (data.row.triassic === 1) {
                 document.getElementById('triassic_chk').checked = true;
             } else {
                 document.getElementById('triassic_chk').checked = false;
             }
-            if(data.row.wpc === 1){
+            if (data.row.wpc === 1) {
                 document.getElementById('wind_chk').checked = true;
             } else {
                 document.getElementById('wind_chk').checked = false;
             }
-            if(data.row.manu === 1){
+            if (data.row.manu === 1) {
                 document.getElementById('manure_chk').checked = true;
             } else {
                 document.getElementById('manure_chk').checked = false;
             }
-            if(data.row.fert === 1){
+            if (data.row.fert === 1) {
                 document.getElementById('nitrofrt_chk').checked = true;
             } else {
                 document.getElementById('nitrofrt_chk').checked = false;
             }
-            if(data.row.tdnt === 1){
+            if (data.row.tdnt === 1) {
                 document.getElementById('totnitro_chk').checked = true;
             } else {
                 document.getElementById('totnitro_chk').checked = false;
             }
-            if(data.row.tdst === 1){
+            if (data.row.tdst === 1) {
                 document.getElementById('totsulf_chk').checked = true;
             } else {
                 document.getElementById('totsulf_chk').checked = false;
             }
-            if(data.row.fhlth === 1){
+            if (data.row.fhlth === 1) {
                 document.getElementById('insectdisease_chk').checked = true;
             } else {
                 document.getElementById('insectdisease_chk').checked = false;
             }
-            if(data.row.nid === 1){
+            if (data.row.nid === 1) {
                 document.getElementById('ndams_chk').checked = true;
             } else {
                 document.getElementById('ndams_chk').checked = false;
             }
-            if(data.row.bio === 1){
+            if (data.row.bio === 1) {
                 document.getElementById('impairbiota_chk').checked = true;
             } else {
                 document.getElementById('impairbiota_chk').checked = false;
             }
-            if(data.row.met === 1){
+            if (data.row.met === 1) {
                 document.getElementById('impairmetal_chk').checked = true;
             } else {
                 document.getElementById('impairmetal_chk').checked = false;
