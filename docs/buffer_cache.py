@@ -1,5 +1,6 @@
 import psycopg2
 import json
+import re
 """
 SELECT ST_Distance(
             ST_Transform((select wkb_geometry from huc6nc where huc6 = '030102'),32119),
@@ -9,12 +10,12 @@ SELECT ST_Distance(
 """
 
 
-query1 = "select huc10 from huc10nc order by huc10"
+query1 = "select huc6 from huc6nc order by huc6"
 query2 = "select huc12 from huc12nc order by huc12"
 
 query3 = """
 SELECT ST_Distance(
-            ST_Transform((select wkb_geometry from huc12nc where huc12 = %s),32119),
+            ST_Transform((select wkb_geometry from huc6nc where huc6 = %s),32119),
             ST_Transform((select wkb_geometry from huc12nc where huc_12 = %s),32119)
         );
 
@@ -22,7 +23,7 @@ SELECT ST_Distance(
 
 conn = psycopg2.connect("dbname=ncthreats user=postgres")
 with conn.cursor() as cur:
-    cur.execute(query2)
+    cur.execute(query1)
     res1 = cur.fetchall()
 
 with conn.cursor() as cur:
@@ -38,12 +39,18 @@ with conn.cursor() as cur:
         print row1[0]
 
         for row2 in res2:
+            test = re.match(row1[0], row2[0])
+            if test is not None:
+                # print row1[0]
+                # print row2[0]
+                continue
+
             # print "%s %s" % (row1[0], row2[0])
             cur.execute(query3, (row1[0], row2[0]))
             distance = cur.fetchone()[0]
-            if distance < 5000 and (row1[0] != row2[0]):
+            if distance < 5000 :
                 cache_5k[str(row1[0])].append(row2[0])
-            if distance < 12000 and (row1[0] != row2[0]):
+            if distance < 12000:
                 cache_12k[str(row1[0])].append(row2[0])
         print len(cache_5k[str(row1[0])])
         print len(cache_12k[str(row1[0])])
@@ -51,9 +58,9 @@ with conn.cursor() as cur:
 
 
 json_str_5k = json.dumps(cache_5k)
-with open("/var/www/wsgi/wps-server/data/huc12cache_5k.json", 'w')as fp:
+with open("/var/www/wsgi/wps-server/data/huc6cache_5k.json", 'w')as fp:
     fp.write(json_str_5k)
 
 json_str_12k = json.dumps(cache_12k)
-with open("/var/www/wsgi/wps-server/data/huc12cache_12k.json", 'w')as fp:
+with open("/var/www/wsgi/wps-server/data/huc6cache_12k.json", 'w')as fp:
     fp.write(json_str_12k)
