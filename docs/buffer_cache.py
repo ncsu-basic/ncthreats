@@ -10,12 +10,12 @@ SELECT ST_Distance(
 """
 
 
-query1 = "select huc6 from huc6nc order by huc6"
+query1 = "select huc10 from huc10nc order by huc10"
 query2 = "select huc12 from huc12nc order by huc12"
 
 query3 = """
 SELECT ST_Distance(
-            ST_Transform((select wkb_geometry from huc6nc where huc6 = %s),32119),
+            ST_Transform((select wkb_geometry from huc10nc where huc10 = %s),32119),
             ST_Transform((select wkb_geometry from huc12nc where huc_12 = %s),32119)
         );
 
@@ -58,9 +58,9 @@ with conn.cursor() as cur:
 
 
 json_str_5k = json.dumps(cache_5k)
-with open("/var/www/wsgi/wps-server/data/huc6cache_5k.json", 'w')as fp:
+with open("/var/www/wsgi/wps-server/data/huc10cache_5k.json", 'w')as fp:
     fp.write(json_str_5k)
 
 json_str_12k = json.dumps(cache_12k)
-with open("/var/www/wsgi/wps-server/data/huc6cache_12k.json", 'w')as fp:
+with open("/var/www/wsgi/wps-server/data/huc10cache_12k.json", 'w')as fp:
     fp.write(json_str_12k)
