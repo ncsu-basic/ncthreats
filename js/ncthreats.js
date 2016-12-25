@@ -2150,6 +2150,7 @@ Ext.onReady(function() {
         });
 
     };
+    var batch = {};
 
     var save_coa = function(top_five) {
         console.log(top_five);
@@ -2157,7 +2158,7 @@ Ext.onReady(function() {
         // aoi_to_file = getResource(resource);
         // // console.log(resource);
         // batch[aoi_name] = resource;
-        var batch = {};
+        // var batch = {};
         var huc12;
         var post_data;
         results.removeAllFeatures();
@@ -2172,9 +2173,9 @@ Ext.onReady(function() {
                 // console.log(resource);
                 batch[aoi_name] = resource;
                 // console.log(batch);
-                if (cnt == 4) {
-                    show_batch(batch);
-                }
+                // if (cnt == 4) {
+                //     show_batch(batch);
+                // }
 
                 // console.log(++aois_done);
                 // if (++aois_done === highlightLayer.features.length) {
@@ -2208,7 +2209,9 @@ Ext.onReady(function() {
     }
 
     var coa_model = function() {
-        // console.log("coa_model");
+        console.log(batch);
+        show_batch(batch);
+
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
 
