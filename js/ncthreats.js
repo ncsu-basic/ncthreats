@@ -882,7 +882,7 @@ Ext.onReady(function() {
     var save_action_batch = function() {
         console.log("save action batch");
         // var gml;
-        var batch = {};
+        batch = {};
         var aois_done = 0;
         console.log("code for batch ");
         console.log(highlightLayer.features.length);
@@ -2150,7 +2150,7 @@ Ext.onReady(function() {
         });
 
     };
-    var batch = {};
+    var batch;
 
     var save_coa = function(top_five) {
         console.log(top_five);
@@ -2158,7 +2158,7 @@ Ext.onReady(function() {
         // aoi_to_file = getResource(resource);
         // // console.log(resource);
         // batch[aoi_name] = resource;
-        // var batch = {};
+        batch = {};
         var huc12;
         var post_data;
         results.removeAllFeatures();
