@@ -1938,7 +1938,7 @@ Ext.onReady(function() {
         },
         items: [{
             xtype: "combo",
-            // itemId: "cmb2",
+            itemId: "cmb2",
             store: comboStoreyears,
             name: 'year',
             fieldLabel: "Target year",
@@ -2211,6 +2211,7 @@ Ext.onReady(function() {
     var coa_model = function() {
         console.log(batch);
         show_batch(batch);
+         modelpaneltop.getComponent("cmb2").setValue("50");
 
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
