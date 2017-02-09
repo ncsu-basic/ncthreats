@@ -3739,7 +3739,7 @@ Ext.onReady(function() {
                             map.getLayersByName("COA Map")[0].
                             getFeaturesByAttribute("huc12", key)[0].
                             attributes.threat = thrt;
-                            // map.getLayersByName("Composite Threats")[0].
+                            // map.getLayersByName("COA Map")[0].
                             // getFeaturesByAttribute("huc12", key)[0].style = null;
                         } catch (err) {
                             // console.log(key);
