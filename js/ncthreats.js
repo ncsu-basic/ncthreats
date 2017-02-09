@@ -1610,6 +1610,7 @@ Ext.onReady(function() {
                 }
             }
             composite.setVisibility(true);
+            coa_map.setVisibility(false);
             individual.setVisibility(false);
             map.getLayersByName("Composite Threats")[0].redraw();
 
@@ -2125,6 +2126,7 @@ Ext.onReady(function() {
         }).done(function(data) {
             composite.setVisibility(false);
             individual.setVisibility(true);
+            coa_map.setVisibility(false);
             for (var key in data.res) {
                 var thrt = data.res[key];
                 try {
@@ -2193,6 +2195,7 @@ Ext.onReady(function() {
         }).done(function(data) {
             composite.setVisibility(false);
             individual.setVisibility(true);
+            coa_map.setVisibility(false);
             console.log(data);
             for (var key in data.res) {
                 var thrt = data.res[key];
