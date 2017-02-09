@@ -3581,6 +3581,7 @@ Ext.onReady(function() {
                 symbolsLookup_coa["8"].fillOpacity = opac / 10.0;
                 symbolsLookup_coa["9"].fillOpacity = opac / 10.0;
                 symbolsLookup_coa["10"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["11"].fillOpacity = opac / 10.0;
 
                 map.getLayersByName("Individual Threats")[0].redraw();
                 map.getLayersByName("Composite Threats")[0].redraw();
