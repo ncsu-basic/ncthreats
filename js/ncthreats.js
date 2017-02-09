@@ -2975,7 +2975,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [mountainspage, piedmontpage, sandhillsspage, coastalpage]
+        items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
     var left = new Ext.TabPanel({
