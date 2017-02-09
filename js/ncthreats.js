@@ -1633,6 +1633,7 @@ Ext.onReady(function() {
             }
             $('#lgnddiv').css('display', 'none');
             $('#lgdimg').css('display', 'block');
+            $('#lgdimg').attr("src", "images/threat_legend.png");
 
             // onExecuted(data.results);
             // "<svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
