@@ -404,105 +404,70 @@ Ext.onReady(function() {
         },
         1: {
             strokeColor: "#CCCCCC",
-            fillColor: "#FFFF7F",
+            fillColor: "#FFFFBF",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         2: {
             strokeColor: "#CCCCCC",
-            fillColor: "#C4F75D",
+            fillColor: "#E6EBAB",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         3: {
             strokeColor: "#CCCCCC",
-            fillColor: "#86ED3D",
+            fillColor: "#CDD898",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         4: {
             strokeColor: "#CCCCCC",
-            fillColor: "#44E214",
+            fillColor: "#B5C584",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         5: {
             strokeColor: "#CCCCCC",
-            fillColor: "#3DCC41",
+            fillColor: "#9CB171",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         6: {
             strokeColor: "#CCCCCC",
-            fillColor: "#3AB272",
+            fillColor: "#849E5D",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         7: {
             strokeColor: "#CCCCCC",
-            fillColor: "#33A587",
+            fillColor: "#6B8B4A",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         8: {
             strokeColor: "#CCCCCC",
-            fillColor: "#26999B",
+            fillColor: "#537736",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         9: {
             strokeColor: "#CCCCCC",
-            fillColor: "#1A8CA8",
+            fillColor: "#3A6423",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
         },
         10: {
             strokeColor: "#CCCCCC",
-            fillColor: "#2073A0",
-            strokeWidth: 1,
-            strokeOpacity: 0.7,
-            fillOpacity: 0.7
-        },
-        11: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#215D99",
-            strokeWidth: 1,
-            strokeOpacity: 0.7,
-            fillOpacity: 0.7
-        },
-        12: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#1F4991",
-            strokeWidth: 1,
-            strokeOpacity: 0.7,
-            fillOpacity: 0.7
-        },
-        13: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#1C3689",
-            strokeWidth: 1,
-            strokeOpacity: 0.7,
-            fillOpacity: 0.7
-        },
-        14: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#15227F",
-            strokeWidth: 1,
-            strokeOpacity: 0.7,
-            fillOpacity: 0.7
-        },
-        15: {
-            strokeColor: "#CCCCCC",
-            fillColor: "#0D1077",
+            fillColor: "#225110",
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
