@@ -417,7 +417,13 @@ Ext.onReady(function() {
         renderers: ["SVG"]
     });
 
-
+    var coa_map = new OpenLayers.Layer.Vector("COA Map", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: resultsStyleMap_model,
+        renderers: ["SVG"]
+    });
 
     var individual = new OpenLayers.Layer.Vector("Individual Threats", {
         displayInLayerSwitcher: false,
@@ -465,6 +471,8 @@ Ext.onReady(function() {
         individual.setVisibility(false);
         composite.addFeatures(geojson_format.read(data));
         composite.setVisibility(false);
+        coa_map.addFeatures(geojson_format.read(data));
+        coa_map.setVisibility(false);
     });
 
 
@@ -475,7 +483,7 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-    map.addLayers([individual, composite, results, nonelayer, highlightLayer,
+    map.addLayers([individual, composite, coa_map, results, nonelayer, highlightLayer,
         nchuc10, nchuc8, nchuc6, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base
     ]);
@@ -3586,25 +3594,25 @@ Ext.onReady(function() {
     var coa_script = function() {
         $("input[name='reg_com']").click(function(e) {
 
-            var mystyle = {
-                strokeColor: "black",
-                strokeWidth: 2,
-                strokeOpacity: 1,
-                fillOpacity: 0.7
-            };
-            var thrt_clors = {
-                1: "#FFFF7F",
-                2: "#C4F75D",
-                3: "#86ED3D",
-                4: "#44E214",
-                5: "#3DCC41",
-                6: "#3AB272",
-                7: "#33A587",
-                8: "#26999B",
-                9: "#1A8CA8",
-                10: "#2073A0",
-                11: "#215D99"
-            };
+            // var mystyle = {
+            //     strokeColor: "black",
+            //     strokeWidth: 2,
+            //     strokeOpacity: 1,
+            //     fillOpacity: 0.7
+            // };
+            // var thrt_clors = {
+            //     1: "#FFFF7F",
+            //     2: "#C4F75D",
+            //     3: "#86ED3D",
+            //     4: "#44E214",
+            //     5: "#3DCC41",
+            //     6: "#3AB272",
+            //     7: "#33A587",
+            //     8: "#26999B",
+            //     9: "#1A8CA8",
+            //     10: "#2073A0",
+            //     11: "#215D99"
+            // };
             // alert("clicked");
             ecoregions.setVisibility(true);
             console.log(e.currentTarget.value);
@@ -3629,11 +3637,11 @@ Ext.onReady(function() {
                             console.log("not valid lever", thrt);
                         }
                         try {
-                            map.getLayersByName("Composite Threats")[0].
+                            map.getLayersByName("COA Map")[0].
                             getFeaturesByAttribute("huc12", key)[0].
                             attributes.threat = thrt;
-                            map.getLayersByName("Composite Threats")[0].
-                            getFeaturesByAttribute("huc12", key)[0].style = null;
+                            // map.getLayersByName("Composite Threats")[0].
+                            // getFeaturesByAttribute("huc12", key)[0].style = null;
                         } catch (err) {
                             // console.log(key);
 
@@ -3679,9 +3687,10 @@ Ext.onReady(function() {
 
 
                     // }
-                    composite.setVisibility(true);
+                    composite.setVisibility(false);
                     individual.setVisibility(false);
-                    map.getLayersByName("Composite Threats")[0].redraw();
+                    coa_map.setVisibility(true);
+                    map.getLayersByName("COA Map")[0].redraw();
 
                 }
 
