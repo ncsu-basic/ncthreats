@@ -229,6 +229,7 @@ Ext.onReady(function() {
 
     var resultsStyleMap = new OpenLayers.StyleMap({});
     var resultsStyleMap_model = new OpenLayers.StyleMap({});
+    var resultsStyleMap_coa = new OpenLayers.StyleMap({});
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
 
     //edit fillOpacity for inividual legend transparency
@@ -514,6 +515,7 @@ Ext.onReady(function() {
 
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
     resultsStyleMap_model.addUniqueValueRules('default', 'threat', symbolsLookup_model);
+    resultsStyleMap_coa.addUniqueValueRules('default', 'threat', symbolsLookup_coa);
 
     var nonelayer = new OpenLayers.Layer.Vector("None", {
         displayInLayerSwitcher: false,
@@ -536,7 +538,7 @@ Ext.onReady(function() {
         displayInLayerSwitcher: false,
         isBaseLayer: false,
         projection: proj_4326,
-        styleMap: resultsStyleMap_model,
+        styleMap: resultsStyleMap_coa,
         renderers: ["SVG"]
     });
 
