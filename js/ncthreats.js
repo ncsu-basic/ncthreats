@@ -3547,6 +3547,7 @@ Ext.onReady(function() {
                 symbolsLookup["3"].fillOpacity = opac / 10.0;
                 symbolsLookup["4"].fillOpacity = opac / 10.0;
                 symbolsLookup["5"].fillOpacity = opac / 10.0;
+
                 symbolsLookup_model["1"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["2"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["3"].fillOpacity = opac / 10.0;
@@ -3562,9 +3563,21 @@ Ext.onReady(function() {
                 symbolsLookup_model["13"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["14"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["15"].fillOpacity = opac / 10.0;
-                console.log(symbolsLookup["5"].fillOpacity);
+
+                symbolsLookup_coa["1"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["2"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["3"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["4"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["5"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["6"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["7"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["8"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["9"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["10"].fillOpacity = opac / 10.0;
+
                 map.getLayersByName("Individual Threats")[0].redraw();
                 map.getLayersByName("Composite Threats")[0].redraw();
+                map.getLayersByName("COA Map")[0].redraw();
                 console.log(data);
             }
             $("input.range").change(function(e) {
