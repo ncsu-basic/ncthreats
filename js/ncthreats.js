@@ -742,6 +742,7 @@ Ext.onReady(function() {
         for (var i = 0; i < vis_lyrs.length; i++) {
             vis_lyrs[i].setVisibility(false);
         }
+        click.deactivate();
     };
 
     function getResource(url) {
