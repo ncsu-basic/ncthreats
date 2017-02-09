@@ -229,6 +229,7 @@ Ext.onReady(function() {
 
     var resultsStyleMap = new OpenLayers.StyleMap({});
     var resultsStyleMap_model = new OpenLayers.StyleMap({});
+    var resultsStyleMap_coa = new OpenLayers.StyleMap({});
     // ['f5f57a', 'e8b655', 'd68036', 'c3491a', 'a80000']
 
     //edit fillOpacity for inividual legend transparency
@@ -393,12 +394,93 @@ Ext.onReady(function() {
         }
     };
 
+    var symbolsLookup_coa = {
+        0: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#ffffff",
+            strokeWidth: 1,
+            strokeOpacity: 1,
+            fillOpacity: 0
+        },
+        1: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#FFFFBF",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        2: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#E6EBAB",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        3: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#CDD898",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        4: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#B5C584",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        5: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#9CB171",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        6: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#849E5D",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        7: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#6B8B4A",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        8: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#537736",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        9: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#3A6423",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        },
+        10: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#225110",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
+        }
+    };
+
 
 
     symbolsLookup["0"].fillColor = "#ffffff";
 
     resultsStyleMap.addUniqueValueRules('default', 'threat', symbolsLookup);
     resultsStyleMap_model.addUniqueValueRules('default', 'threat', symbolsLookup_model);
+    resultsStyleMap_coa.addUniqueValueRules('default', 'threat', symbolsLookup_coa);
 
     var nonelayer = new OpenLayers.Layer.Vector("None", {
         displayInLayerSwitcher: false,
@@ -417,7 +499,13 @@ Ext.onReady(function() {
         renderers: ["SVG"]
     });
 
-
+    var coa_map = new OpenLayers.Layer.Vector("COA Map", {
+        displayInLayerSwitcher: false,
+        isBaseLayer: false,
+        projection: proj_4326,
+        styleMap: resultsStyleMap_coa,
+        renderers: ["SVG"]
+    });
 
     var individual = new OpenLayers.Layer.Vector("Individual Threats", {
         displayInLayerSwitcher: false,
@@ -465,6 +553,8 @@ Ext.onReady(function() {
         individual.setVisibility(false);
         composite.addFeatures(geojson_format.read(data));
         composite.setVisibility(false);
+        coa_map.addFeatures(geojson_format.read(data));
+        coa_map.setVisibility(false);
     });
 
 
@@ -475,7 +565,7 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-    map.addLayers([individual, composite, results, nonelayer, highlightLayer,
+    map.addLayers([individual, composite, coa_map, results, nonelayer, highlightLayer,
         nchuc10, nchuc8, nchuc6, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base
     ]);
@@ -1520,6 +1610,7 @@ Ext.onReady(function() {
                 }
             }
             composite.setVisibility(true);
+            coa_map.setVisibility(false);
             individual.setVisibility(false);
             map.getLayersByName("Composite Threats")[0].redraw();
 
@@ -1542,6 +1633,7 @@ Ext.onReady(function() {
             }
             $('#lgnddiv').css('display', 'none');
             $('#lgdimg').css('display', 'block');
+            $('#lgdimg').attr("src", "images/threat_legend.png");
 
             // onExecuted(data.results);
             // "<svg id='lgnddiv'></svg><img id='lgdimg' style='display: none;' src='images/threat_legend.png'>"
@@ -2035,6 +2127,7 @@ Ext.onReady(function() {
         }).done(function(data) {
             composite.setVisibility(false);
             individual.setVisibility(true);
+            coa_map.setVisibility(false);
             for (var key in data.res) {
                 var thrt = data.res[key];
                 try {
@@ -2103,6 +2196,7 @@ Ext.onReady(function() {
         }).done(function(data) {
             composite.setVisibility(false);
             individual.setVisibility(true);
+            coa_map.setVisibility(false);
             console.log(data);
             for (var key in data.res) {
                 var thrt = data.res[key];
@@ -2211,7 +2305,7 @@ Ext.onReady(function() {
     var coa_model = function() {
         console.log(batch);
         show_batch(batch);
-         modelpaneltop.getComponent("cmb2").setValue("50");
+        modelpaneltop.getComponent("cmb2").setValue("50");
 
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
@@ -2961,7 +3055,7 @@ Ext.onReady(function() {
     });
 
     var coa_tab = new Ext.Panel({
-        title: 'coa',
+        title: 'COA',
         layout: 'accordion',
         defaults: {
             // applied to each contained panel
@@ -2975,7 +3069,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [mountainspage, piedmontpage, sandhillsspage, coastalpage]
+        items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
     var left = new Ext.TabPanel({
@@ -3453,6 +3547,7 @@ Ext.onReady(function() {
                 symbolsLookup["3"].fillOpacity = opac / 10.0;
                 symbolsLookup["4"].fillOpacity = opac / 10.0;
                 symbolsLookup["5"].fillOpacity = opac / 10.0;
+
                 symbolsLookup_model["1"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["2"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["3"].fillOpacity = opac / 10.0;
@@ -3468,9 +3563,21 @@ Ext.onReady(function() {
                 symbolsLookup_model["13"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["14"].fillOpacity = opac / 10.0;
                 symbolsLookup_model["15"].fillOpacity = opac / 10.0;
-                console.log(symbolsLookup["5"].fillOpacity);
+
+                symbolsLookup_coa["1"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["2"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["3"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["4"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["5"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["6"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["7"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["8"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["9"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["10"].fillOpacity = opac / 10.0;
+
                 map.getLayersByName("Individual Threats")[0].redraw();
                 map.getLayersByName("Composite Threats")[0].redraw();
+                map.getLayersByName("COA Map")[0].redraw();
                 console.log(data);
             }
             $("input.range").change(function(e) {
@@ -3586,25 +3693,25 @@ Ext.onReady(function() {
     var coa_script = function() {
         $("input[name='reg_com']").click(function(e) {
 
-            var mystyle = {
-                strokeColor: "black",
-                strokeWidth: 2,
-                strokeOpacity: 1,
-                fillOpacity: 0.7
-            };
-            var thrt_clors = {
-                1: "#FFFF7F",
-                2: "#C4F75D",
-                3: "#86ED3D",
-                4: "#44E214",
-                5: "#3DCC41",
-                6: "#3AB272",
-                7: "#33A587",
-                8: "#26999B",
-                9: "#1A8CA8",
-                10: "#2073A0",
-                11: "#215D99"
-            };
+            // var mystyle = {
+            //     strokeColor: "black",
+            //     strokeWidth: 2,
+            //     strokeOpacity: 1,
+            //     fillOpacity: 0.7
+            // };
+            // var thrt_clors = {
+            //     1: "#FFFF7F",
+            //     2: "#C4F75D",
+            //     3: "#86ED3D",
+            //     4: "#44E214",
+            //     5: "#3DCC41",
+            //     6: "#3AB272",
+            //     7: "#33A587",
+            //     8: "#26999B",
+            //     9: "#1A8CA8",
+            //     10: "#2073A0",
+            //     11: "#215D99"
+            // };
             // alert("clicked");
             ecoregions.setVisibility(true);
             console.log(e.currentTarget.value);
@@ -3629,11 +3736,11 @@ Ext.onReady(function() {
                             console.log("not valid lever", thrt);
                         }
                         try {
-                            map.getLayersByName("Composite Threats")[0].
+                            map.getLayersByName("COA Map")[0].
                             getFeaturesByAttribute("huc12", key)[0].
                             attributes.threat = thrt;
-                            map.getLayersByName("Composite Threats")[0].
-                            getFeaturesByAttribute("huc12", key)[0].style = null;
+                            // map.getLayersByName("Composite Threats")[0].
+                            // getFeaturesByAttribute("huc12", key)[0].style = null;
                         } catch (err) {
                             // console.log(key);
 
@@ -3679,9 +3786,14 @@ Ext.onReady(function() {
 
 
                     // }
-                    composite.setVisibility(true);
+                    composite.setVisibility(false);
                     individual.setVisibility(false);
-                    map.getLayersByName("Composite Threats")[0].redraw();
+                    coa_map.setVisibility(true);
+                    map.getLayersByName("COA Map")[0].redraw();
+
+                    $('#lgnddiv').css('display', 'none');
+                    $('#lgdimg').css('display', 'block');
+                    $('#lgdimg').attr("src", "images/UnpRatio_legend.png");
 
                 }
 
