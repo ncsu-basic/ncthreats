@@ -471,6 +471,13 @@ Ext.onReady(function() {
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
+        },
+        11: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#225110",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         }
     };
 
