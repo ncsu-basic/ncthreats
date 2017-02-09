@@ -394,7 +394,7 @@ Ext.onReady(function() {
         }
     };
 
-     var symbolsLookup_coa = {
+    var symbolsLookup_coa = {
         0: {
             strokeColor: "#CCCCCC",
             fillColor: "#ffffff",
@@ -2304,7 +2304,7 @@ Ext.onReady(function() {
     var coa_model = function() {
         console.log(batch);
         show_batch(batch);
-         modelpaneltop.getComponent("cmb2").setValue("50");
+        modelpaneltop.getComponent("cmb2").setValue("50");
 
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
@@ -3776,6 +3776,10 @@ Ext.onReady(function() {
                     individual.setVisibility(false);
                     coa_map.setVisibility(true);
                     map.getLayersByName("COA Map")[0].redraw();
+
+                    $('#lgnddiv').css('display', 'none');
+                    $('#lgdimg').css('display', 'block');
+                    $('#lgdimg').attr("src", "images/UnpRatio_legend.png");
 
                 }
 
