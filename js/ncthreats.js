@@ -2961,7 +2961,7 @@ Ext.onReady(function() {
     });
 
     var coa_tab = new Ext.Panel({
-        title: 'coa',
+        title: 'COA',
         layout: 'accordion',
         defaults: {
             // applied to each contained panel
