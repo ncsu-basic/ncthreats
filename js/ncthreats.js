@@ -644,7 +644,7 @@ Ext.onReady(function() {
         } else if (mode.indexOf("coa") !== -1) {
             console.log("coa");
             lonlat = map.getLonLatFromViewPortPx(e.xy);
-                     $.ajax({
+            $.ajax({
                 type: "GET",
                 url: SERVER_URI + "wps/pttojson",
                 data: {
@@ -656,7 +656,7 @@ Ext.onReady(function() {
             }).done(function(data, textStatus, jqXHR) {
                 if (jqXHR.status === 200) {
                     console.log(data);
-                    showInfo2(data);
+                    showInfo2(data, "coa");
                 }
             });
 
@@ -676,7 +676,7 @@ Ext.onReady(function() {
             }).done(function(data, textStatus, jqXHR) {
                 if (jqXHR.status === 200) {
                     console.log(data);
-                    showInfo2(data);
+                    showInfo2(data, "aoi");
                 }
             });
 
@@ -687,34 +687,66 @@ Ext.onReady(function() {
     var selected_hucs = {};
 
     //function to outline selected predefined areas of interest
-    function showInfo2(evt) {
+    function showInfo2(evt, lyr) {
         if (evt.the_geom) {
             console.log(evt);
             // for (var i = 0; i < evt.features.length; i++) {
             //if selected feature is on then remove it
-            if (selected_hucs[evt.the_huc] === 'on') {
-                selected_hucs[evt.the_huc] = 'off';
-                var selected_features_drawn =
-                    map.getLayersByName("AOI Selection")[0].features;
-                for (var j = 0; j < selected_features_drawn.length; j++) {
-                    if (selected_features_drawn[j].data.name ===
-                        evt.the_huc) {
-                        map.getLayersByName(
-                            "AOI Selection"
-                        )[0].removeFeatures(selected_features_drawn[j]);
+            if (lyr == 'aoi') {
+                console.log(lyr);
+                console.log(selected_hucs);
+                if (selected_hucs[evt.the_huc] === 'on') {
+                    selected_hucs[evt.the_huc] = 'off';
+                    var selected_features_drawn =
+                        map.getLayersByName("AOI Selection")[0].features;
+                    for (var j = 0; j < selected_features_drawn.length; j++) {
+                        if (selected_features_drawn[j].data.name ===
+                            evt.the_huc) {
+                            map.getLayersByName(
+                                "AOI Selection"
+                            )[0].removeFeatures(selected_features_drawn[j]);
+                        }
                     }
+                    // else add feature
+                } else {
+                    selected_hucs[evt.the_huc] = 'on';
+                    var format = new OpenLayers.Format.GeoJSON({
+                        'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                        'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                    });
+                    highlightLayer.addFeatures(format.read(evt.the_geom));
                 }
-                // else add feature
+                // }
+                highlightLayer.redraw();
             } else {
-                selected_hucs[evt.the_huc] = 'on';
-                var format = new OpenLayers.Format.GeoJSON({
-                    'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-                    'externalProjection': new OpenLayers.Projection("EPSG:4326")
-                });
-                highlightLayer.addFeatures(format.read(evt.the_geom));
+                console.log(lyr);
+                console.log(selected_hucs);
+                if (selected_hucs[evt.the_huc] === 'on') {
+                    selected_hucs[evt.the_huc] = 'off';
+                    var selected_features_drawn =
+                        map.getLayersByName("COA Map")[0].features;
+                    for (var j = 0; j < selected_features_drawn.length; j++) {
+                        if (selected_features_drawn[j].data.name ===
+                            evt.the_huc) {
+                            map.getLayersByName(
+                                "COA Map"
+                            )[0].removeFeatures(selected_features_drawn[j]);
+                        }
+                    }
+                    // else add feature
+                } else {
+                    selected_hucs[evt.the_huc] = 'on';
+                    var format = new OpenLayers.Format.GeoJSON({
+                        'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                        'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                    });
+                    coa_map.addFeatures(format.read(evt.the_geom));
+                }
+                // }
+                coa_map.redraw();
+
             }
-            // }
-            highlightLayer.redraw();
+
         }
     }
 
@@ -742,7 +774,7 @@ Ext.onReady(function() {
             click.activate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
-        }  else if (mode.indexOf("coa") !== -1) {
+        } else if (mode.indexOf("coa") !== -1) {
             click.activate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
@@ -3727,7 +3759,7 @@ Ext.onReady(function() {
     var coa_script = function() {
         click.activate();
         $("input[name='reg_com']").click(function(e) {
-        formPanel2.getComponent('rg1').setValue('coa');
+            formPanel2.getComponent('rg1').setValue('coa');
 
 
             // var mystyle = {
