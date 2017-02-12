@@ -643,6 +643,23 @@ Ext.onReady(function() {
             highlightLayer.redraw();
         } else if (mode.indexOf("coa") !== -1) {
             console.log("coa");
+            lonlat = map.getLonLatFromViewPortPx(e.xy);
+                     $.ajax({
+                type: "GET",
+                url: SERVER_URI + "wps/pttojson",
+                data: {
+                    pt_lon: lonlat.lon,
+                    pt_lat: lonlat.lat,
+                    qry_lyr: 'huc_12'
+                },
+                dataType: "json"
+            }).done(function(data, textStatus, jqXHR) {
+                if (jqXHR.status === 200) {
+                    console.log(data);
+                    showInfo2(data);
+                }
+            });
+
         } else {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
 
