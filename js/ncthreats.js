@@ -3142,6 +3142,7 @@ Ext.onReady(function() {
     var coa_tab2 = new Ext.Panel({
         title: 'COA',
         height: 2000,
+        layout:'fit',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
         items: [coa_tab],
@@ -3154,7 +3155,7 @@ Ext.onReady(function() {
         width: 300,
         activeTab: 0,
         // accordion
-        items: [coa_tab, maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
+        items: [coa_tab2, maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
         deferredRender: false
     });
 
