@@ -3139,6 +3139,16 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
+        var coa_tab2 = new Ext.Panel({
+        title: 'COA',
+        height: 2000,
+        //html: "some content",
+        //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
+        items: [coa_tab],
+        cls: 'help',
+        autoScroll: true
+    });
+
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
