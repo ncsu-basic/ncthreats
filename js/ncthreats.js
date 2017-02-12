@@ -723,6 +723,18 @@ Ext.onReady(function() {
                 console.log(batch);
                 console.log(batch_resource);
                 console.log(evt.the_huc);
+                var huc12list = Object.keys(batch);
+                console.log(huc12list);
+                var newkey = huc12list.indexOf(evt.the_huc);
+                console.log(newkey);
+                if (newkey != -1){
+                    huc12list.splice(newkey, 1);
+                } else {
+                    huc12list.push(evt.the_huc);
+                }
+                console.log(huc12list);
+
+
 
 
             }
