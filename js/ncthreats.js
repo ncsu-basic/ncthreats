@@ -724,7 +724,6 @@ Ext.onReady(function() {
                 var huc12list = Object.keys(batch);
                 console.log(huc12list);
                 var newkey = huc12list.indexOf(evt.the_huc);
-                console.log(newkey);
                 if (newkey != -1){
                     huc12list.splice(newkey, 1);
                 } else {
