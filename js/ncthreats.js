@@ -471,6 +471,13 @@ Ext.onReady(function() {
             strokeWidth: 1,
             strokeOpacity: 0.7,
             fillOpacity: 0.7
+        },
+        11: {
+            strokeColor: "#CCCCCC",
+            fillColor: "#225110",
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
+            fillOpacity: 0.7
         }
     };
 
@@ -610,6 +617,7 @@ Ext.onReady(function() {
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
         console.log(mode);
+
         if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
@@ -633,8 +641,28 @@ Ext.onReady(function() {
                     new OpenLayers.Geometry.Polygon([linearRing]));
             highlightLayer.addFeatures([polygonFeature]);
             highlightLayer.redraw();
+        } else if (mode.indexOf("coa") !== -1) {
+            console.log("coa");
+            lonlat = map.getLonLatFromViewPortPx(e.xy);
+            $.ajax({
+                type: "GET",
+                url: SERVER_URI + "wps/pttojson",
+                data: {
+                    pt_lon: lonlat.lon,
+                    pt_lat: lonlat.lat,
+                    qry_lyr: 'huc_12'
+                },
+                dataType: "json"
+            }).done(function(data, textStatus, jqXHR) {
+                if (jqXHR.status === 200) {
+                    console.log(data);
+                    showInfo2(data, "coa");
+                }
+            });
+
         } else {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
+
 
             $.ajax({
                 type: "GET",
@@ -648,7 +676,7 @@ Ext.onReady(function() {
             }).done(function(data, textStatus, jqXHR) {
                 if (jqXHR.status === 200) {
                     console.log(data);
-                    showInfo2(data);
+                    showInfo2(data, "aoi");
                 }
             });
 
@@ -659,34 +687,61 @@ Ext.onReady(function() {
     var selected_hucs = {};
 
     //function to outline selected predefined areas of interest
-    function showInfo2(evt) {
+    function showInfo2(evt, lyr) {
         if (evt.the_geom) {
             console.log(evt);
             // for (var i = 0; i < evt.features.length; i++) {
             //if selected feature is on then remove it
-            if (selected_hucs[evt.the_huc] === 'on') {
-                selected_hucs[evt.the_huc] = 'off';
-                var selected_features_drawn =
-                    map.getLayersByName("AOI Selection")[0].features;
-                for (var j = 0; j < selected_features_drawn.length; j++) {
-                    if (selected_features_drawn[j].data.name ===
-                        evt.the_huc) {
-                        map.getLayersByName(
-                            "AOI Selection"
-                        )[0].removeFeatures(selected_features_drawn[j]);
+            if (lyr == 'aoi') {
+                console.log(lyr);
+                console.log(selected_hucs);
+                if (selected_hucs[evt.the_huc] === 'on') {
+                    selected_hucs[evt.the_huc] = 'off';
+                    var selected_features_drawn =
+                        map.getLayersByName("AOI Selection")[0].features;
+                    for (var j = 0; j < selected_features_drawn.length; j++) {
+                        if (selected_features_drawn[j].data.name ===
+                            evt.the_huc) {
+                            map.getLayersByName(
+                                "AOI Selection"
+                            )[0].removeFeatures(selected_features_drawn[j]);
+                        }
                     }
+                    // else add feature
+                } else {
+                    selected_hucs[evt.the_huc] = 'on';
+                    var format = new OpenLayers.Format.GeoJSON({
+                        'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                        'externalProjection': new OpenLayers.Projection("EPSG:4326")
+                    });
+                    highlightLayer.addFeatures(format.read(evt.the_geom));
                 }
-                // else add feature
+                // }
+                highlightLayer.redraw();
             } else {
-                selected_hucs[evt.the_huc] = 'on';
-                var format = new OpenLayers.Format.GeoJSON({
-                    'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-                    'externalProjection': new OpenLayers.Projection("EPSG:4326")
-                });
-                highlightLayer.addFeatures(format.read(evt.the_geom));
+                console.log(batch);
+                console.log(evt.the_huc);
+                var huc12list = Object.keys(batch);
+                console.log(huc12list);
+                var newkey = huc12list.indexOf(evt.the_huc);
+                if (newkey != -1){
+                    huc12list.splice(newkey, 1);
+                } else {
+                    huc12list.push(evt.the_huc);
+                }
+                console.log(huc12list);
+                var top_five_update = [];
+                for (var i = 0; i < huc12list.length; i++){
+                    top_five_update.push([huc12list[i], 0]);
+
+                }
+                save_coa(top_five_update);
+
+
+
+
             }
-            // }
-            highlightLayer.redraw();
+
         }
     }
 
@@ -711,12 +766,11 @@ Ext.onReady(function() {
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         } else if (mode.indexOf("ptbuffer") !== -1) {
-
-
-            // click.deactivate();
-            // query_ctl.activate();
             click.activate();
-            // query_ctl.deactivate();
+            highlightLayer.destroyFeatures();
+            selected_hucs = {};
+        } else if (mode.indexOf("coa") !== -1) {
+            click.activate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         }
@@ -735,6 +789,7 @@ Ext.onReady(function() {
         for (var i = 0; i < vis_lyrs.length; i++) {
             vis_lyrs[i].setVisibility(false);
         }
+        click.deactivate();
     };
 
     function getResource(url) {
@@ -1210,6 +1265,11 @@ Ext.onReady(function() {
                     name: 'aoi_type',
                     inputValue: 'predefined',
                     checked: true
+                }, {
+                    boxLabel: 'update COA subwatersheds<br>Click on map to select/deselect',
+                    name: 'aoi_type',
+                    inputValue: 'coa',
+                    checked: false
                 }, {
                     boxLabel: 'custom polygon<br>Click on map to create ' +
                         'polygon, then Submit:',
@@ -2246,6 +2306,12 @@ Ext.onReady(function() {
     };
     var batch;
 
+    /*
+    function takes list of form huc12, thrt
+    creates batch resource and displays
+
+    */
+
     var save_coa = function(top_five) {
         console.log(top_five);
         // resource = jqXHR.getResponseHeader('Location');
@@ -2282,7 +2348,7 @@ Ext.onReady(function() {
             return handler;
         };
 
-        for (var cnt = 0; cnt < 5; cnt++) {
+        for (var cnt = 0; cnt < top_five.length; cnt++) {
             huc12 = top_five[cnt][0];
             post_data = {
                 gml: '',
@@ -3574,6 +3640,7 @@ Ext.onReady(function() {
                 symbolsLookup_coa["8"].fillOpacity = opac / 10.0;
                 symbolsLookup_coa["9"].fillOpacity = opac / 10.0;
                 symbolsLookup_coa["10"].fillOpacity = opac / 10.0;
+                symbolsLookup_coa["11"].fillOpacity = opac / 10.0;
 
                 map.getLayersByName("Individual Threats")[0].redraw();
                 map.getLayersByName("Composite Threats")[0].redraw();
@@ -3691,7 +3758,10 @@ Ext.onReady(function() {
     };
     var top_five;
     var coa_script = function() {
+        click.activate();
         $("input[name='reg_com']").click(function(e) {
+            formPanel2.getComponent('rg1').setValue('coa');
+
 
             // var mystyle = {
             //     strokeColor: "black",
@@ -3739,7 +3809,7 @@ Ext.onReady(function() {
                             map.getLayersByName("COA Map")[0].
                             getFeaturesByAttribute("huc12", key)[0].
                             attributes.threat = thrt;
-                            // map.getLayersByName("Composite Threats")[0].
+                            // map.getLayersByName("COA Map")[0].
                             // getFeaturesByAttribute("huc12", key)[0].style = null;
                         } catch (err) {
                             // console.log(key);
