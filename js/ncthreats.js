@@ -3138,7 +3138,7 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
-        var coasmsg_top = new Ext.Container({
+    var coasmsg_top = new Ext.Container({
         width: 296,
         autoEl: 'div',
         cls: 'mycontent',
@@ -3148,13 +3148,16 @@ Ext.onReady(function() {
     });
 
     // this not used, except for ts
+    // http://docs.sencha.com/extjs/4.2.1/extjs-build/examples/layout-browser/layout-browser.html
     var coa_tab2 = new Ext.Panel({
         title: 'COA',
+
+
         height: 2000,
-        layout:'fit',
+        layout: 'fit',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
-        items: [coa_tab],
+        items: [coasmsg_top, coa_tab],
         cls: 'help',
         autoScroll: true
     });
