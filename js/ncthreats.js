@@ -3138,6 +3138,15 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
+        var coasmsg_top = new Ext.Container({
+        width: 296,
+        autoEl: 'div',
+        cls: 'mycontent',
+        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer name to view on map.</p><p>Click folder name for more data information.</p>",
+        // cls: 'help',
+        autoScroll: true
+    });
+
     // this not used, except for ts
     var coa_tab2 = new Ext.Panel({
         title: 'COA',
