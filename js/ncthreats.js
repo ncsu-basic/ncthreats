@@ -3710,6 +3710,8 @@ Ext.onReady(function() {
     var coa_script = function() {
         click.activate();
         $("input[name='reg_com']").click(function(e) {
+        formPanel2.getComponent('rg1').setValue('coa');
+
 
             // var mystyle = {
             //     strokeColor: "black",
