@@ -617,6 +617,7 @@ Ext.onReady(function() {
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
         console.log(mode);
+
         if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             var pt = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
@@ -640,8 +641,11 @@ Ext.onReady(function() {
                     new OpenLayers.Geometry.Polygon([linearRing]));
             highlightLayer.addFeatures([polygonFeature]);
             highlightLayer.redraw();
+        } else if (mode.indexOf("coa") !== -1) {
+            console.log("coa");
         } else {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
+
 
             $.ajax({
                 type: "GET",
@@ -718,12 +722,11 @@ Ext.onReady(function() {
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         } else if (mode.indexOf("ptbuffer") !== -1) {
-
-
-            // click.deactivate();
-            // query_ctl.activate();
             click.activate();
-            // query_ctl.deactivate();
+            highlightLayer.destroyFeatures();
+            selected_hucs = {};
+        }  else if (mode.indexOf("coa") !== -1) {
+            click.activate();
             highlightLayer.destroyFeatures();
             selected_hucs = {};
         }
@@ -1218,6 +1221,11 @@ Ext.onReady(function() {
                     name: 'aoi_type',
                     inputValue: 'predefined',
                     checked: true
+                }, {
+                    boxLabel: 'update COA subwatersheds<br>Click on map to select/deselect',
+                    name: 'aoi_type',
+                    inputValue: 'coa',
+                    checked: false
                 }, {
                     boxLabel: 'custom polygon<br>Click on map to create ' +
                         'polygon, then Submit:',
@@ -3700,6 +3708,7 @@ Ext.onReady(function() {
     };
     var top_five;
     var coa_script = function() {
+        click.activate();
         $("input[name='reg_com']").click(function(e) {
 
             // var mystyle = {
