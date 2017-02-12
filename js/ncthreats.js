@@ -720,30 +720,10 @@ Ext.onReady(function() {
                 highlightLayer.redraw();
             } else {
                 console.log(lyr);
-                console.log(selected_hucs);
-                if (selected_hucs[evt.the_huc] === 'on') {
-                    selected_hucs[evt.the_huc] = 'off';
-                    var selected_features_drawn =
-                        map.getLayersByName("COA Map")[0].features;
-                    for (var j = 0; j < selected_features_drawn.length; j++) {
-                        if (selected_features_drawn[j].data.name ===
-                            evt.the_huc) {
-                            map.getLayersByName(
-                                "COA Map"
-                            )[0].removeFeatures(selected_features_drawn[j]);
-                        }
-                    }
-                    // else add feature
-                } else {
-                    selected_hucs[evt.the_huc] = 'on';
-                    var format = new OpenLayers.Format.GeoJSON({
-                        'internalProjection': new OpenLayers.Projection("EPSG:900913"),
-                        'externalProjection': new OpenLayers.Projection("EPSG:4326")
-                    });
-                    coa_map.addFeatures(format.read(evt.the_geom));
-                }
-                // }
-                coa_map.redraw();
+                console.log(batch);
+                console.log(batch_resource);
+                console.log(evt.the_huc);
+
 
             }
 
