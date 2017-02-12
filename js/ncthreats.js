@@ -719,9 +719,7 @@ Ext.onReady(function() {
                 // }
                 highlightLayer.redraw();
             } else {
-                console.log(lyr);
                 console.log(batch);
-                console.log(batch_resource);
                 console.log(evt.the_huc);
                 var huc12list = Object.keys(batch);
                 console.log(huc12list);
@@ -733,6 +731,12 @@ Ext.onReady(function() {
                     huc12list.push(evt.the_huc);
                 }
                 console.log(huc12list);
+                var top_five_update = [];
+                for (var i = 0; i < huc12list.length; i++){
+                    top_five_update.push([huc12list[i], 0]);
+
+                }
+                save_coa(top_five_update);
 
 
 
@@ -2345,7 +2349,7 @@ Ext.onReady(function() {
             return handler;
         };
 
-        for (var cnt = 0; cnt < 5; cnt++) {
+        for (var cnt = 0; cnt < top_five.length; cnt++) {
             huc12 = top_five[cnt][0];
             post_data = {
                 gml: '',
