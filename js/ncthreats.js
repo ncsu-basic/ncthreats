@@ -2311,6 +2311,12 @@ Ext.onReady(function() {
     };
     var batch;
 
+    /*
+    function takes list of form huc12, thrt
+    creates batch resource and displays
+
+    */
+
     var save_coa = function(top_five) {
         console.log(top_five);
         // resource = jqXHR.getResponseHeader('Location');
