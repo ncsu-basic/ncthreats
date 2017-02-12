@@ -687,6 +687,7 @@ Ext.onReady(function() {
     var selected_hucs = {};
 
     //function to outline selected predefined areas of interest
+    // if coa mode then use to create a batch aoi
     function showInfo2(evt, lyr) {
         if (evt.the_geom) {
             console.log(evt);
