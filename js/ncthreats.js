@@ -725,19 +725,18 @@ Ext.onReady(function() {
                 var huc12list = Object.keys(batch);
                 console.log(huc12list);
                 var newkey = huc12list.indexOf(evt.the_huc);
-                if (newkey != -1){
+                if (newkey != -1) {
                     huc12list.splice(newkey, 1);
                 } else {
                     huc12list.push(evt.the_huc);
                 }
                 console.log(huc12list);
                 var top_five_update = [];
-                for (var i = 0; i < huc12list.length; i++){
+                for (var i = 0; i < huc12list.length; i++) {
                     top_five_update.push([huc12list[i], 0]);
 
                 }
                 save_coa(top_five_update);
-
 
 
 
@@ -3139,7 +3138,8 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
-        var coa_tab2 = new Ext.Panel({
+    // this not used, except for ts
+    var coa_tab2 = new Ext.Panel({
         title: 'COA',
         height: 2000,
         //html: "some content",
