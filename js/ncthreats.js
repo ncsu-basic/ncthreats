@@ -3139,13 +3139,15 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
-    var coasmsg_top = new Ext.Container({
+    var coasmsg_top = new Ext.Panel({
         width: 296,
         height: 150,
-        autoEl: 'div',
+        // autoEl: 'div',
+        //  autoEl: 'div',
+        // cls: 'mycontent',
         region: 'north',
-        cls: 'mycontent',
-        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer name to view on map.</p><p>Click folder name for more data information.</p>",
+        // cls: 'mycontent',
+        html: "<h2>Identify COAs</h2><p>Select a community below to rank the unprotectedness of associated SGCN  species predicted habitat by subwatershed.</p>",
         // cls: 'help',
         autoScroll: true
     });
