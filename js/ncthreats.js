@@ -3139,11 +3139,12 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
-    var coasmsg_top = new  Ext.form.FormPanel({
+    var coasmsg_top = new Ext.form.FormPanel({
         width: 296,
         height: 150,
+        border: false,
         // autoEl: 'div',
-         autoEl: 'div',
+        autoEl: 'div',
         cls: 'mycontent',
         region: 'north',
         // cls: 'mycontent',
