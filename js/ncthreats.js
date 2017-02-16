@@ -2612,8 +2612,29 @@ Ext.onReady(function() {
         allowDepress: true
     });
 
+    // create the combo instance
+    var combo = new Ext.form.ComboBox({
+        typeAhead: true,
+        triggerAction: 'all',
+        lazyRender: true,
+        mode: 'local',
+        store: new Ext.data.ArrayStore({
+            id: 0,
+            fields: [
+                'myId',
+                'displayText'
+            ],
+            data: [
+                [1, 'item1'],
+                [2, 'item2']
+            ]
+        }),
+        valueField: 'myId',
+        displayField: 'displayText'
+    });
+
     // actions.next = action;
-    // toolbarItems.push(action);
+    toolbarItems.push(combo);
 
 
 
