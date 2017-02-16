@@ -1367,6 +1367,10 @@ Ext.onReady(function() {
 
                             } else {
                                 console.log("no map");
+                                Ext.Msg.show({
+                                    msg: "A threat model has not been submitted. Return to analyze tab to select and run a threat model.",
+                                    width: 200
+                                });
                             }
                         },
                     }, {
@@ -1396,6 +1400,10 @@ Ext.onReady(function() {
 
                             } else {
                                 console.log("no map");
+                                Ext.Msg.show({
+                                    msg: "A threat model has not been submitted. Return to analyze tab to select and run a threat model.",
+                                    width: 200
+                                });
                             }
                         }
                     },
@@ -1942,7 +1950,11 @@ Ext.onReady(function() {
             }
 
         } else {
-            alert("no factors included");
+            // alert("no factors included");
+            Ext.Msg.show({
+                msg: "A threat model has not been submitted. Select  a threat model.",
+                width: 200
+            });
         }
         // var threat_calcs_ssheet = function() {
 
@@ -2151,7 +2163,7 @@ Ext.onReady(function() {
         }]
 
     });
-        var modelpanelbot = new Ext.Panel({
+    var modelpanelbot = new Ext.Panel({
         title: "",
         width: 280,
         height: 0,
