@@ -1234,7 +1234,7 @@ Ext.onReady(function() {
     var formPanel2 = new Ext.form.FormPanel({
         title: "AOI creation",
         width: 296,
-        height: 560,
+        height: 600,
         bodyStyle: "padding:20px; ",
         labelAlign: "top",
         defaults: {
@@ -2576,8 +2576,8 @@ Ext.onReady(function() {
         allowDepress: true
     });
 
-    actions.next = action;
-    toolbarItems.push(action);
+    // actions.next = action;
+    // toolbarItems.push(action);
 
 
 
@@ -3139,24 +3139,28 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
-    var coasmsg_top = new Ext.Container({
+    var coasmsg_top = new  Ext.form.FormPanel({
         width: 296,
         height: 150,
         // autoEl: 'div',
-        //  autoEl: 'div',
+         autoEl: 'div',
         cls: 'mycontent',
         region: 'north',
         // cls: 'mycontent',
         html: "<h2>Identify COAs</h2><p>Select a community below to rank the unprotectedness of associated SGCN  species predicted habitat by subwatershed.</p>",
         // cls: 'help',
-        autoScroll: true
+        autoScroll: true,
+        buttons: [{
+            text: "Create",
+            handler: coa_model
+        }]
     });
 
     // this not used, except for ts
     // http://docs.sencha.com/extjs/4.2.1/extjs-build/examples/layout-browser/layout-browser.html
     var coa_tab2 = new Ext.Panel({
         title: 'COA',
-       layout: 'border',
+        layout: 'border',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
         items: [coa_tab, coasmsg_top],
