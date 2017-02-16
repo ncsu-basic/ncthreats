@@ -3121,8 +3121,9 @@ Ext.onReady(function() {
     });
 
     var coa_tab = new Ext.Panel({
-        title: 'COA',
+        // title: 'COA',
         layout: 'accordion',
+        region: 'center',
         defaults: {
             // applied to each contained panel
             //bodyStyle : 'padding:15px'
@@ -3140,7 +3141,9 @@ Ext.onReady(function() {
 
     var coasmsg_top = new Ext.Container({
         width: 296,
+        height: 150,
         autoEl: 'div',
+        region: 'north',
         cls: 'mycontent',
         html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer name to view on map.</p><p>Click folder name for more data information.</p>",
         // cls: 'help',
@@ -3151,13 +3154,10 @@ Ext.onReady(function() {
     // http://docs.sencha.com/extjs/4.2.1/extjs-build/examples/layout-browser/layout-browser.html
     var coa_tab2 = new Ext.Panel({
         title: 'COA',
-
-
-        height: 2000,
-        layout: 'fit',
+       layout: 'border',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
-        items: [coasmsg_top, coa_tab],
+        items: [coa_tab, coasmsg_top],
         cls: 'help',
         autoScroll: true
     });
