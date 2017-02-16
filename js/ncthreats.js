@@ -687,6 +687,7 @@ Ext.onReady(function() {
     var selected_hucs = {};
 
     //function to outline selected predefined areas of interest
+    // if coa mode then use to create a batch aoi
     function showInfo2(evt, lyr) {
         if (evt.the_geom) {
             console.log(evt);
@@ -724,19 +725,18 @@ Ext.onReady(function() {
                 var huc12list = Object.keys(batch);
                 console.log(huc12list);
                 var newkey = huc12list.indexOf(evt.the_huc);
-                if (newkey != -1){
+                if (newkey != -1) {
                     huc12list.splice(newkey, 1);
                 } else {
                     huc12list.push(evt.the_huc);
                 }
                 console.log(huc12list);
                 var top_five_update = [];
-                for (var i = 0; i < huc12list.length; i++){
+                for (var i = 0; i < huc12list.length; i++) {
                     top_five_update.push([huc12list[i], 0]);
 
                 }
                 save_coa(top_five_update);
-
 
 
 
@@ -3138,12 +3138,36 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
+    var coasmsg_top = new Ext.Container({
+        width: 296,
+        autoEl: 'div',
+        cls: 'mycontent',
+        html: "<h2>Explore Individual Threats to Wildlife Habitat</h2><p>Click threat data layer name to view on map.</p><p>Click folder name for more data information.</p>",
+        // cls: 'help',
+        autoScroll: true
+    });
+
+    // this not used, except for ts
+    // http://docs.sencha.com/extjs/4.2.1/extjs-build/examples/layout-browser/layout-browser.html
+    var coa_tab2 = new Ext.Panel({
+        title: 'COA',
+
+
+        height: 2000,
+        layout: 'fit',
+        //html: "some content",
+        //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
+        items: [coasmsg_top, coa_tab],
+        cls: 'help',
+        autoScroll: true
+    });
+
     var left = new Ext.TabPanel({
         region: 'west',
         width: 300,
         activeTab: 0,
         // accordion
-        items: [coa_tab, maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
+        items: [coa_tab2, maps_tab, process_tab, aoi_tab, print_tab, layers_tab],
         deferredRender: false
     });
 
