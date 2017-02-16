@@ -2612,12 +2612,19 @@ Ext.onReady(function() {
         allowDepress: true
     });
 
+    var select_qry_layer = function(evt){
+        console.log("testing");
+        console.log(evt.value);
+        // console.log(combo);
+    }
+
     // create the combo instance
     var combo = new Ext.form.ComboBox({
         typeAhead: true,
         triggerAction: 'all',
         lazyRender: true,
         mode: 'local',
+        value: 1,
         store: new Ext.data.ArrayStore({
             id: 0,
             fields: [
@@ -2625,16 +2632,31 @@ Ext.onReady(function() {
                 'displayText'
             ],
             data: [
-                [1, 'item1'],
-                [2, 'item2']
+                [1, 'query off'],
+                [2, 'query layer 1']
             ]
         }),
         valueField: 'myId',
-        displayField: 'displayText'
+        displayField: 'displayText',
+        listeners: {
+                'select': select_qry_layer
+            }
     });
 
     // actions.next = action;
     toolbarItems.push(combo);
+
+    action = new Ext.Action({
+        handler: function() {
+            // save_coa(top_five);
+            action.addCls()
+        },
+        tooltip: "create aois for coa",
+        iconCls: "qry_tool",
+        allowDepress: true
+    });
+    // actions.next = action;
+    // toolbarItems.push(action);
 
 
 
