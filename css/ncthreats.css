@@ -68,7 +68,9 @@ div.olControlMousePosition {
 }
 .mycontent {
 	font-family: tahoma, arial, helvetica, sans-serif;
-	margin: 10px;
+	/*margin: 10px;*/
+	padding: 10px;
+	background-color: #ffffff;
 }
 .mycontent p, .mycontent a {
 	font-size: 12px;

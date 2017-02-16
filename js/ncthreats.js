@@ -3139,12 +3139,12 @@ Ext.onReady(function() {
         items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
     });
 
-    var coasmsg_top = new Ext.Panel({
+    var coasmsg_top = new Ext.Container({
         width: 296,
         height: 150,
         // autoEl: 'div',
         //  autoEl: 'div',
-        // cls: 'mycontent',
+        cls: 'mycontent',
         region: 'north',
         // cls: 'mycontent',
         html: "<h2>Identify COAs</h2><p>Select a community below to rank the unprotectedness of associated SGCN  species predicted habitat by subwatershed.</p>",
@@ -3160,7 +3160,7 @@ Ext.onReady(function() {
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
         items: [coa_tab, coasmsg_top],
-        cls: 'help',
+        // cls: 'help',
         autoScroll: true
     });
 
