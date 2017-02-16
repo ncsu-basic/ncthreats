@@ -4,8 +4,8 @@ Ext.onReady(function() {
     "use strict";
 
 
-    var HOST_NAME = "http://tecumseh.zo.ncsu.edu/coa/";
-    var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
+    var HOST_NAME = "http://localhost/coa/";
+    var SERVER_URI = "http://localhost/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
