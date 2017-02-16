@@ -2132,6 +2132,30 @@ Ext.onReady(function() {
         title: "",
         width: 280,
         height: 0,
+        border: false,
+        // bodyStyle: "padding:20px; margin-top: 5px;",
+        // labelAlign: "top",
+        defaults: {
+            anchor: "100%"
+        },
+
+        buttons: [{
+            text: "Reset",
+            handler: threat_calcs_reset
+        }, {
+            text: "Report",
+            handler: threat_calcs_report
+        }, {
+            text: "Run",
+            handler: threat_calcs_map
+        }]
+
+    });
+        var modelpanelbot = new Ext.Panel({
+        title: "",
+        width: 280,
+        height: 0,
+        border: false,
         // bodyStyle: "padding:20px; margin-top: 5px;",
         // labelAlign: "top",
         defaults: {
@@ -3079,7 +3103,7 @@ Ext.onReady(function() {
         title: 'Analyze',
         //html: "some content",
         //        items: [modelpaneltop, habitat_panel, modelpanelmid, modelpanelbot],
-        items: [modelmsg_panel, modelpaneltop, modelpage, modelpanelmid],
+        items: [modelmsg_panel, modelpaneltop, modelpanelmid, modelpage, modelpanelbot],
         cls: 'help',
         autoScroll: true
     });
