@@ -617,6 +617,7 @@ Ext.onReady(function() {
     function add_point(e) {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
         console.log(mode);
+        console.log(button_toolbar1.pressed);
 
         if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
@@ -2661,8 +2662,13 @@ Ext.onReady(function() {
         enableToggle: true,
         iconCls: "qry_tool",
         handler: function() {
-           var test = this.pressed;
-           console.log(test);
+            var test = this.pressed;
+            console.log(test);
+            if (this.pressed) {
+                click.activate();
+            } else {
+                click.deactivate();
+            }
 
         }
 
