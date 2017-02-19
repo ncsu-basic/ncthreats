@@ -620,25 +620,39 @@ Ext.onReady(function() {
         console.log(button_toolbar1.pressed);
         console.log(combo.value);
 
-        if (button_toolbar1.pressed){
+
+
+        if (button_toolbar1.pressed) {
             console.log("query");
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             console.log(keycode);
-             $.ajax({
-                type: "GET",
-                url: SERVER_URI + "wps/qry_tool",
-                data: {
-                    pt_lon: lonlat.lon,
-                    pt_lat: lonlat.lat,
-                    qry: combo.value,
-                    community: keycode
-                },
-                dataType: "json"
-            }).done(function(data, textStatus, jqXHR) {
-                if (jqXHR.status === 200) {
-                    console.log(data);
-                }
-            });
+            var form_vals = {
+                pt_lon: lonlat.lon,
+                pt_lat: lonlat.lat,
+                qry: combo.value,
+                community: keycode
+            }
+            var qry_str = $.param(form_vals);
+            // var url = SERVER_URI + 'wps/report?' + qry_str;
+            var url = SERVER_URI + "wps/qry_tool?" + qry_str;
+            // if (true) {
+            console.log(url);
+            window.open(url);
+            // $.ajax({
+            //     type: "GET",
+            //     url: SERVER_URI + "wps/qry_tool",
+            //     data: {
+            //         pt_lon: lonlat.lon,
+            //         pt_lat: lonlat.lat,
+            //         qry: combo.value,
+            //         community: keycode
+            //     },
+            //     dataType: "json"
+            // }).done(function(data, textStatus, jqXHR) {
+            //     if (jqXHR.status === 200) {
+            //         console.log(data);
+            //     }
+            // });
             return;
         }
 
