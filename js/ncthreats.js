@@ -2624,7 +2624,7 @@ Ext.onReady(function() {
         triggerAction: 'all',
         lazyRender: true,
         mode: 'local',
-        value: 1,
+        // value: 1,
         store: new Ext.data.ArrayStore({
             id: 0,
             fields: [
@@ -2632,8 +2632,8 @@ Ext.onReady(function() {
                 'displayText'
             ],
             data: [
-                [1, 'query off'],
-                [2, 'query layer 1']
+                [1, 'query layer 1'],
+                [2, 'query layer 2']
             ]
         }),
         valueField: 'myId',
@@ -2655,8 +2655,16 @@ Ext.onReady(function() {
         iconCls: "qry_tool",
         allowDepress: true
     });
-    // actions.next = action;
-    // toolbarItems.push(action);
+
+    var button_toolbar1 = new Ext.Button({
+        // text: "query",
+        enableToggle: true,
+        iconCls: "qry_tool"
+
+
+    });
+    // // actions.next = action;
+    toolbarItems.push(button_toolbar1);
 
 
 
