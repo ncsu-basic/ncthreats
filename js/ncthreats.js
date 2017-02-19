@@ -2612,7 +2612,7 @@ Ext.onReady(function() {
         allowDepress: true
     });
 
-    var select_qry_layer = function(evt){
+    var select_qry_layer = function(evt) {
         console.log("testing");
         console.log(evt.value);
         // console.log(combo);
@@ -2639,8 +2639,8 @@ Ext.onReady(function() {
         valueField: 'myId',
         displayField: 'displayText',
         listeners: {
-                'select': select_qry_layer
-            }
+            'select': select_qry_layer
+        }
     });
 
     // actions.next = action;
@@ -2659,7 +2659,12 @@ Ext.onReady(function() {
     var button_toolbar1 = new Ext.Button({
         // text: "query",
         enableToggle: true,
-        iconCls: "qry_tool"
+        iconCls: "qry_tool",
+        handler: function() {
+           var test = this.pressed;
+           console.log(test);
+
+        }
 
 
     });
