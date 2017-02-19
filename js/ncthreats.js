@@ -618,6 +618,12 @@ Ext.onReady(function() {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
         console.log(mode);
         console.log(button_toolbar1.pressed);
+        console.log(combo.value);
+
+        if (button_toolbar1.pressed){
+            console.log("query");
+            return;
+        }
 
         if (mode.indexOf("custom") !== -1) {
             lonlat = map.getLonLatFromViewPortPx(e.xy);
@@ -748,8 +754,9 @@ Ext.onReady(function() {
 
     var click = new OpenLayers.Control.Click();
     map.addControl(click);
+    // click.deactivate();
 
-    // query_ctl.activate();
+
 
     var new_selection = function() {
         var mode = formPanel2.getComponent('rg1').getValue().inputValue;
@@ -2633,8 +2640,8 @@ Ext.onReady(function() {
                 'displayText'
             ],
             data: [
-                [1, 'query layer 1'],
-                [2, 'query layer 2']
+                [1, 'COA data'],
+                [2, 'threat info']
             ]
         }),
         valueField: 'myId',
@@ -2667,7 +2674,7 @@ Ext.onReady(function() {
             if (this.pressed) {
                 click.activate();
             } else {
-                click.deactivate();
+                // click.deactivate();
             }
 
         }
