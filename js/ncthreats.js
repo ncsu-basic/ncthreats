@@ -3391,6 +3391,7 @@ Ext.onReady(function() {
 
         var shpTonchuc12 = function(shp, prj, shx, dbf) {
             // console.log(btn_id);
+            formPanel2.getComponent('rg1').setValue('custom');
             var data;
             if (dbf === undefined) {
                 data = {
@@ -3426,13 +3427,16 @@ Ext.onReady(function() {
                             console.log(e);
                             console.log(shpfeatures.length);
                             if (e == 'yes') {
+                                // formPanel2.getComponent('rg1').setValue('custom');
+
                                 highlightLayer.destroyFeatures();
                                 results.removeAllFeatures();
                                 map.zoomToExtent(map_extent);
                                 highlightLayer.addFeatures(shpfeatures);
                                 highlightLayer.setVisibility(true);
                                 batch_aoi = true;
-                                document.getElementById('custom_radio_sel').checked = 'checked';
+                                // document.getElementById('custom_radio_sel').checked = 'checked';
+
                                 Ext.getCmp('aoi_upload_id').collapse();
                                 Ext.getCmp('aoi_create_id').expand();
                             }
@@ -3442,13 +3446,17 @@ Ext.onReady(function() {
                         console.log("submit simple");
                         Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', function(e) {
                             if (e == 'yes') {
+                                // formPanel2.getComponent('rg1').setValue('custom');
+
                                 highlightLayer.destroyFeatures();
                                 results.removeAllFeatures();
                                 map.zoomToExtent(map_extent);
                                 highlightLayer.addFeatures(shpfeatures);
                                 highlightLayer.setVisibility(true);
                                 batch_aoi = false;
-                                document.getElementById('custom_radio_sel').checked = 'checked';
+
+                                // document.getElementById('custom_radio_sel').checked = 'checked';
+
                                 Ext.getCmp('aoi_upload_id').collapse();
                                 Ext.getCmp('aoi_create_id').expand();
                             }
