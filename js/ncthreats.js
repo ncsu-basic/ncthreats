@@ -621,7 +621,6 @@ Ext.onReady(function() {
         console.log(combo.value);
 
 
-
         if (button_toolbar1.pressed) {
             console.log("query");
             lonlat = map.getLonLatFromViewPortPx(e.xy);
@@ -637,23 +636,9 @@ Ext.onReady(function() {
             var url = SERVER_URI + "wps/qry_tool?" + qry_str;
             // if (true) {strWindowFeatures
             console.log(url);
-            var strWindowFeatures = "menubar=no,location=yes,width=500,height=500";
+            var strWindowFeatures = "menubar=no,location=yes,width=700,height=500";
             window.open(url, "win1", strWindowFeatures);
-            // $.ajax({
-            //     type: "GET",
-            //     url: SERVER_URI + "wps/qry_tool",
-            //     data: {
-            //         pt_lon: lonlat.lon,
-            //         pt_lat: lonlat.lat,
-            //         qry: combo.value,
-            //         community: keycode
-            //     },
-            //     dataType: "json"
-            // }).done(function(data, textStatus, jqXHR) {
-            //     if (jqXHR.status === 200) {
-            //         console.log(data);
-            //     }
-            // });
+
             return;
         }
 
@@ -1780,8 +1765,10 @@ Ext.onReady(function() {
         window.open(url);
     };
 
+    // function to submit model report
     threat_calcs_report = function(report_form) {
         console.log(report_form);
+
         if (report_form !== 'ssheet1' && report_form !== 'ssheet2') {
             report_form = 'report'
         }
@@ -1967,6 +1954,8 @@ Ext.onReady(function() {
             }
         }
         if (submit_form) {
+            var aoi_mode = formPanel2.getComponent('rg1').getValue().inputValue;
+            form_vals['aoi_mode'] = aoi_mode;
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = resource + '/' + report_form + '?' + qry_str;
