@@ -635,9 +635,10 @@ Ext.onReady(function() {
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = SERVER_URI + "wps/qry_tool?" + qry_str;
-            // if (true) {
+            // if (true) {strWindowFeatures
             console.log(url);
-            window.open(url);
+            var strWindowFeatures = "menubar=no,location=yes,width=500,height=500";
+            window.open(url, "win1", strWindowFeatures);
             // $.ajax({
             //     type: "GET",
             //     url: SERVER_URI + "wps/qry_tool",

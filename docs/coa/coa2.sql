@@ -476,15 +476,15 @@ drop table coa_SppHucProtData;
 create table coa_SppHucProtData(
     HUC12 char(12),
     strUC char(6),
-    ProtAc numeric(10,2),
-    UnprotAc numeric(10,2),
-    PredHabAc numeric(10,2),
-    PercUnprot numeric(10,4),
-    UnprRatio numeric(10,4),
-    strProtAc char(10),
-    strUnprotAc char(10),
-    strPredHabAc char(10),
-    strPercUnprot char(10)
+    ProtAc char(10),
+    UnprotAc char(10),
+    PredHabAc char(10),
+    PercUnprot char(10),
+    UnprRatio char(10),
+    strProtAc varchar(10),
+    strUnprotAc varchar(10),
+    strPredHabAc varchar(10),
+    strPercUnprot varchar(10)
 );
 
 drop table coa_SppHabMatrixSGCN;
