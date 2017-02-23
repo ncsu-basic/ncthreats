@@ -1954,8 +1954,27 @@ Ext.onReady(function() {
             }
         }
         if (submit_form) {
+            var reg_com = '';
+            var region = "";
             var aoi_mode = formPanel2.getComponent('rg1').getValue().inputValue;
+
+            reg_com = $("input[name=reg_com]:checked").val();
+            console.log(reg_com);
+            console.log(Number.isNaN(coastalpage.lastSize.height));
+            if (coastalpage.lastSize.height !== undefined) {
+                region = "Coastal_Plain";
+            } else if (sandhillsspage.lastSize.height !== undefined) {
+                region = "Sandhills";
+            } else if (piedmontpage.lastSize.height !== undefined) {
+                region = "Piedmont";
+            } else if (mountainspage.lastSize.height !== undefined) {
+                region = "Mountains";
+            }
+
             form_vals['aoi_mode'] = aoi_mode;
+            form_vals['reg_com'] = reg_com;
+            form_vals['region'] = region;
+
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = resource + '/' + report_form + '?' + qry_str;
