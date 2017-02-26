@@ -622,15 +622,28 @@ Ext.onReady(function() {
 
 
         if (button_toolbar1.pressed) {
+            if (combo.value === '2') {
+                var form_vals = get_model_selections();
+                if (form_vals === false){
+                    return;
+                }
+            } else {
+                var form_vals = {};
+            }
+            console.log(form_vals);
             console.log("query");
             lonlat = map.getLonLatFromViewPortPx(e.xy);
             console.log(keycode);
-            var form_vals = {
-                pt_lon: lonlat.lon,
-                pt_lat: lonlat.lat,
-                qry: combo.value,
-                community: keycode
-            }
+            form_vals.pt_lon = lonlat.lon;
+            form_vals.pt_lat = lonlat.lat;
+            form_vals.qry = combo.value;
+            form_vals.community = keycode;
+            // var form_vals = {
+            //     pt_lon: lonlat.lon,
+            //     pt_lat: lonlat.lat,
+            //     qry: combo.value,
+            //     community: keycode
+            // }
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
             var url = SERVER_URI + "wps/qry_tool?" + qry_str;
