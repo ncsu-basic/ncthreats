@@ -1765,21 +1765,9 @@ Ext.onReady(function() {
         window.open(url);
     };
 
-    // function to submit model report
-    threat_calcs_report = function(report_form) {
-        console.log(report_form);
-
-        if (report_form !== 'ssheet1' && report_form !== 'ssheet2') {
-            report_form = 'report'
-        }
-
-        console.log(report_form);
-        // var form_vals_hab = habitat_panel.getForm().getValues();
-        // var form_vals_year = modelpaneltop.getForm().getValues();
-        // var form_vals_misc = modelpanelmid.getForm().getValues();
-
+    var get_model_selections = function() {
+        console.log("running get_model_selections");
         var form_vals_paneltop = modelpaneltop.getForm().getValues();
-        console.log(form_vals_paneltop);
 
         var form_vals_new = {};
         form_vals_new.year = form_vals_paneltop.year;
@@ -1953,7 +1941,36 @@ Ext.onReady(function() {
                 submit_form = true;
             }
         }
-        if (submit_form) {
+
+        if (submit_form === true) {
+            console.log(form_vals);
+            return form_vals;
+        } else {
+            console.log("testing");
+            return false;
+        }
+    }
+
+    // function to submit model report
+    threat_calcs_report = function(report_form) {
+        console.log(report_form);
+
+        if (report_form !== 'ssheet1' && report_form !== 'ssheet2') {
+            report_form = 'report'
+        }
+
+        console.log(report_form);
+        // var form_vals_hab = habitat_panel.getForm().getValues();
+        // var form_vals_year = modelpaneltop.getForm().getValues();
+        // var form_vals_misc = modelpanelmid.getForm().getValues();
+
+        var form_vals_paneltop = modelpaneltop.getForm().getValues();
+        console.log(form_vals_paneltop);
+
+        var form_vals = get_model_selections();
+
+
+        if (form_vals !== false) {
             var reg_com = '';
             var region = "";
             var aoi_mode = formPanel2.getComponent('rg1').getValue().inputValue;
