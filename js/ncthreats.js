@@ -2723,6 +2723,7 @@ Ext.onReady(function() {
     });
     // // actions.next = action;
     toolbarItems.push(button_toolbar1);
+    toolbarItems.push("-");
 
 
 
