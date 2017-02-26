@@ -1948,7 +1948,7 @@ Ext.onReady(function() {
         // do not submit form if not factors included
         var submit_form = false;
         for (var x in includes_list) {
-            console.log(includes_list[x]);
+            // console.log(includes_list[x]);
             if (includes_list[x] !== 'notinclude') {
                 submit_form = true;
             }
