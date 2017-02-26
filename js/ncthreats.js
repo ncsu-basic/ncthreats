@@ -619,16 +619,14 @@ Ext.onReady(function() {
         console.log(mode);
         console.log(button_toolbar1.pressed);
         console.log(combo.value);
-
+        var form_vals = {};
 
         if (button_toolbar1.pressed) {
-            if (combo.value === '2') {
-                var form_vals = get_model_selections();
-                if (form_vals === false){
+            if (combo.value === 2) {
+                form_vals = get_model_selections();
+                if (form_vals === false) {
                     return;
                 }
-            } else {
-                var form_vals = {};
             }
             console.log(form_vals);
             console.log("query");
