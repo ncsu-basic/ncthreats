@@ -647,7 +647,7 @@ Ext.onReady(function() {
             var url = SERVER_URI + "wps/qry_tool?" + qry_str;
             // if (true) {strWindowFeatures
             console.log(url);
-            var strWindowFeatures = "menubar=no,location=yes,width=700,height=500,scrollbars=yes";
+            var strWindowFeatures = "menubar=no,location=yes,width=700,height=500,scrollbars=yes,resizable=yes";
             window.open(url, "win1", strWindowFeatures);
 
             return;
