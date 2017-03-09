@@ -2909,7 +2909,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, ncbounds]
+        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncbounds ]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
