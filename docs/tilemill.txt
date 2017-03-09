@@ -1,0 +1,33 @@
+run on metacomet
+EPSG:3857?
+
+ogr2ogr -f GeoJSON se_manage.json -t_srs EPSG:3857 \
+  "PG:host=localhost dbname=segqp user=postgres password=rdx678" \
+  -sql "select * from se_manage"
+
+ogr2ogr -f "ESRI Shapefile" se_manage /home/jim/se_manage.json
+
+convert again - tilemill only reading shapefile
+
+
+
+open tilemill
+
+new project
+filename -> se_manage
+
+click layers bottom left -> add layer
+
+select shapefile
+select 900913
+
+https://tilemill-project.github.io/tilemill/docs/guides/selectors/
+
+#se_manage[man_desc="STATE WMA/GAMELANDS"] {
+  line-color:#ff0000;
+  line-width:1;
+  polygon-opacity:0;
+
+}
+
+
