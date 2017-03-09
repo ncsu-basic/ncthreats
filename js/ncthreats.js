@@ -209,7 +209,15 @@ Ext.onReady(function() {
             displayInLayerSwitcher: true,
             isBaseLayer: false
         });
-
+    var se_manage = new OpenLayers.Layer.XYZ(
+        "Managed Areas", ["https://api.mapbox.com/v4/basic99.bcjtagmc/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            visibility: true,
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
 
     ///////////////////////////////////////////////////////////
     ////////////analysis layers
@@ -573,7 +581,7 @@ Ext.onReady(function() {
     // ]);
 
     map.addLayers([individual, composite, coa_map, results, nonelayer, highlightLayer,
-        nchuc10, nchuc8, nchuc6, counties, ncbcr, ncbounds, ecoregions,
+        nchuc10, nchuc8, nchuc6, se_manage, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base
     ]);
 
