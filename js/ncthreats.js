@@ -2243,7 +2243,7 @@ Ext.onReady(function() {
             text: "Report",
             handler: threat_calcs_report
         }, {
-            text: "Run",
+            text: "Submit",
             handler: threat_calcs_map
         }]
 
@@ -2266,7 +2266,7 @@ Ext.onReady(function() {
             text: "Report",
             handler: threat_calcs_report
         }, {
-            text: "Run",
+            text: "Submit",
             handler: threat_calcs_map
         }]
 
