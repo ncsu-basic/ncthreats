@@ -3320,6 +3320,14 @@ Ext.onReady(function() {
         width: 280
     });
 
+        var basinspage = new Ext.Panel({
+        title: 'Basins',
+        cls: 'pages',
+        autoScroll: true,
+        id: "basinspage",
+        width: 280
+    });
+
     var coa_tab = new Ext.Panel({
         // title: 'COA',
         layout: 'accordion',
@@ -3336,7 +3344,7 @@ Ext.onReady(function() {
             activeOnTop: false
         },
         // area_tab2, area_tab,
-        items: [coastalpage, sandhillsspage, piedmontpage, mountainspage]
+        items: [coastalpage, sandhillsspage, piedmontpage, mountainspage, basinspage]
     });
 
     var coasmsg_top = new Ext.form.FormPanel({
@@ -4158,6 +4166,12 @@ Ext.onReady(function() {
     mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/piedmont.php"
+    });
+    mgr.on("update", coa_script);
+       el = Ext.getCmp("basinspage");
+    mgr = el.getUpdater();
+    mgr.update({
+        url: HOST_NAME + "pages/basins.php"
     });
     mgr.on("update", coa_script);
 
