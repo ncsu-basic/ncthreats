@@ -2717,7 +2717,8 @@ Ext.onReady(function() {
             ],
             data: [
                 [1, 'COA data'],
-                [2, 'threat info']
+                [2, 'threat info'],
+                [3, 'managed area']
             ]
         }),
         valueField: 'myId',
