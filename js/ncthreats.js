@@ -1264,6 +1264,7 @@ Ext.onReady(function() {
             console.log(resource);
             Ext.getCmp("resource_btn").setHandler(aoi_to_file);
             onExecuted(data.geojson);
+            console.log(data.extent);
             var extent = new OpenLayers.Bounds(
                 data.extent).transform(proj_4326, proj_900913);
             map.zoomToExtent(extent);
@@ -2492,6 +2493,22 @@ Ext.onReady(function() {
         console.log(batch);
         show_batch(batch);
         modelpaneltop.getComponent("cmb2").setValue("50");
+        var data_extent;
+        if (coastalpage.lastSize.height !== undefined) {
+            data_extent = [-80.18, 33.68, -75.2, 36.67];
+        } else if (sandhillsspage.lastSize.height !== undefined) {
+            data_extent = [-80.21, 34.72, -78.71, 35.6];
+        } else if (piedmontpage.lastSize.height !== undefined) {
+            data_extent = [-82.44, 34.74, -77.53, 36.67];
+        } else if (mountainspage.lastSize.height !== undefined) {
+            data_extent = [-84.47, 34.88, -80.67, 36.67];
+        }
+        console.log(data_extent);
+
+        var extent = new OpenLayers.Bounds(
+            data_extent).transform(proj_4326, proj_900913);
+        map.zoomToExtent(extent);
+        console.log(region);
 
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
@@ -2910,7 +2927,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncbounds ]
+        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncbounds]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
