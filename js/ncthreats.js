@@ -655,8 +655,9 @@ Ext.onReady(function() {
             var url = SERVER_URI + "wps/qry_tool?" + qry_str;
             // if (true) {strWindowFeatures
             console.log(url);
-            var strWindowFeatures = "menubar=no,location=yes,width=700,height=500,scrollbars=yes,resizable=yes";
-            window.open(url, "win1", strWindowFeatures);
+            var strWindowFeatures = "menubar=no,location=no,width=700,height=500,scrollbars=yes,resizable=yes";
+            var myWindow = window.open(url, "win1", strWindowFeatures);
+            myWindow.focus();
 
             return;
         }
@@ -2508,7 +2509,7 @@ Ext.onReady(function() {
         var extent = new OpenLayers.Bounds(
             data_extent).transform(proj_4326, proj_900913);
         map.zoomToExtent(extent);
-        // console.log(region);
+
 
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
