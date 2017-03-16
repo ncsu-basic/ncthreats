@@ -214,7 +214,7 @@ Ext.onReady(function() {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
-            visibility: true,
+            visibility: false,
             displayInLayerSwitcher: true,
             isBaseLayer: false
         });
@@ -3361,7 +3361,7 @@ Ext.onReady(function() {
         // cls: 'help',
         autoScroll: true,
         buttons: [{
-            text: "Create",
+            text: "Submit COAs for threat analysis",
             handler: coa_model
         }]
     });
