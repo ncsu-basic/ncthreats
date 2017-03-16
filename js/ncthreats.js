@@ -2509,7 +2509,6 @@ Ext.onReady(function() {
         var extent = new OpenLayers.Bounds(
             data_extent).transform(proj_4326, proj_900913);
         map.zoomToExtent(extent);
-        console.log(region);
 
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
