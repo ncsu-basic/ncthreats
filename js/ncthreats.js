@@ -2510,6 +2510,7 @@ Ext.onReady(function() {
             data_extent).transform(proj_4326, proj_900913);
         map.zoomToExtent(extent);
 
+
         document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
 
