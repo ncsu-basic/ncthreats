@@ -656,7 +656,8 @@ Ext.onReady(function() {
             // if (true) {strWindowFeatures
             console.log(url);
             var strWindowFeatures = "menubar=no,location=yes,width=700,height=500,scrollbars=yes,resizable=yes";
-            window.open(url, "win1", strWindowFeatures);
+            var myWindow = window.open(url, "win1", strWindowFeatures);
+            myWindow.focus();
 
             return;
         }
