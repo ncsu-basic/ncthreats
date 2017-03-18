@@ -2468,9 +2468,8 @@ Ext.onReady(function() {
                 onExecuted(data.geojson);
                 resource = jqXHR.getResponseHeader('Location');
                 aoi_to_file = getResource(resource);
-                // console.log(resource);
                 batch[aoi_name] = resource;
-                // console.log(batch);
+                console.log(batch);
                 // if (cnt == 4) {
                 //     show_batch(batch);
                 // }
@@ -2578,6 +2577,8 @@ Ext.onReady(function() {
             data_extent = [-82.44, 34.74, -77.53, 36.67];
         } else if (mountainspage.lastSize.height !== undefined) {
             data_extent = [-84.47, 34.88, -80.67, 36.67];
+        }else if (basinspage.lastSize.height !== undefined) {
+            data_extent = [-84.47, 33.7, -75.2, 36.67];
         }
         console.log(data_extent);
 
