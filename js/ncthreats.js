@@ -230,11 +230,11 @@ Ext.onReady(function() {
         });
 
     var ncwrc_basins = new OpenLayers.Layer.XYZ(
-        "NCWRC Priorities", ["https://api.mapbox.com/v4/basic99.am2t2u4i/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "NCWRC Basins", ["https://api.mapbox.com/v4/basic99.am2t2u4i/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
-            visibility: true,
+            visibility: false,
             displayInLayerSwitcher: true,
             isBaseLayer: false
         });
@@ -2948,7 +2948,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncwrc_priorities, ncbounds]
+        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncwrc_priorities, ncwrc_basins, ncbounds]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
