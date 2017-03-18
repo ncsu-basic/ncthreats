@@ -600,9 +600,9 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-    map.addLayers([highlightLayer,individual, composite, coa_map, results, nonelayer,
+    map.addLayers([highlightLayer,individual, composite, coa_map, nonelayer,
         nchuc10, nchuc8, nchuc6, se_manage, ncwrc_priorities, ncwrc_basins, counties, ncbcr, ncbounds, ecoregions,
-        osm, satellite, bounds_base
+        osm, satellite, bounds_base, results
     ]);
 
     //////////////////////////////////////////////////////////////////////////
