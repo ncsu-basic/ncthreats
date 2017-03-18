@@ -25,7 +25,7 @@ foreach ($result as $key => $value) {
 
         echo "<tr>";
         echo "<td class='coatables1'>{$value['riverbasin']}</td>";
-        echo "<td class='coatables'><input name='basin' value='{$value['label']}' type='radio' /></td>";
+        echo "<td class='coatables'><input name='ncwrc_basins' value='{$value['riverbasin']}' type='radio' /></td>";
         // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
 

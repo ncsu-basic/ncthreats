@@ -4027,6 +4027,10 @@ Ext.onReady(function() {
     var top_five;
     var coa_script = function() {
         click.activate();
+        $("input[name='ncwrc_basins']").click(function(e) {
+            console.log(e.currentTarget.value);
+        });
+
         $("input[name='reg_com']").click(function(e) {
             formPanel2.getComponent('rg1').setValue('coa');
 
