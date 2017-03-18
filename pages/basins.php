@@ -7,7 +7,7 @@ $dbuser = "postgres";
 
 $dbh = new PDO("pgsql:dbname=$dbname;host=$host", $dbuser);
 
-$query = "select distinct riverbasin from ncwrc_priorities where riverbasin != ''";
+$query = "select distinct riverbasin from ncwrc_priorities where riverbasin != '' order by riverbasin";
 
 $stmt = $dbh->prepare($query);
 $stmt->execute();
