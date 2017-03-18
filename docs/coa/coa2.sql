@@ -598,6 +598,13 @@ SW_4_3_8 char(3),
 SW_4_3_9 char(3)
 );
 
+drop table NCWRC_priorities;
+create table NCWRC_priorities(
+    HUC12RNG char(12),
+    RiverBasin varchar(40),
+    PriorityTy  varchar(40)
+);
+
 
 copy coa_UnprRatioAllSpp from '/var/www/html/coa/docs/coa/tblUnprRatioAllSpp.csv' with csv header;
 copy coa_UnprRatioSGCNSpp from '/var/www/html/coa/docs/coa/tblUnprRatioSGCNSpp.csv' with csv header;
@@ -606,4 +613,5 @@ copy coa_ecohuc from '/var/www/html/coa/docs/coa/tblEcoHuc.txt' with csv header;
 copy coa_keythreats from '/var/www/html/coa/docs/coa/tblKeyThreats.csv' with csv header;
 copy coa_SppHucProtData from '/var/www/html/coa/docs/coa/tblSppHucProtData.csv' with csv header;
 copy coa_SppHabMatrixSGCN from '/var/www/html/coa/docs/coa/tblSppHabMatrixSGCN.csv' with csv header;
+copy NCWRC_priorities from '/var/www/html/coa/docs/coa/2015WAP_Priority_HUC12.csv' with csv header;
 

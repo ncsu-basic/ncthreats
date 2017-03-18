@@ -219,6 +219,26 @@ Ext.onReady(function() {
             isBaseLayer: false
         });
 
+    var ncwrc_priorities = new OpenLayers.Layer.XYZ(
+        "NCWRC Priorities", ["https://api.mapbox.com/v4/basic99.6bmnbwet/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            visibility: false,
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
+
+    var ncwrc_basins = new OpenLayers.Layer.XYZ(
+        "NCWRC Basins", ["https://api.mapbox.com/v4/basic99.am2t2u4i/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            visibility: false,
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
+
     ///////////////////////////////////////////////////////////
     ////////////analysis layers
 
@@ -580,9 +600,9 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-    map.addLayers([individual, composite, coa_map, results, nonelayer, highlightLayer,
-        nchuc10, nchuc8, nchuc6, se_manage, counties, ncbcr, ncbounds, ecoregions,
-        osm, satellite, bounds_base
+    map.addLayers([highlightLayer,individual, composite, coa_map, nonelayer,
+        nchuc10, nchuc8, nchuc6, se_manage, ncwrc_priorities, ncwrc_basins, counties, ncbcr, ncbounds, ecoregions,
+        osm, satellite, bounds_base, results
     ]);
 
     //////////////////////////////////////////////////////////////////////////
@@ -2434,6 +2454,60 @@ Ext.onReady(function() {
 
     */
 
+    var save_wrc_priorities = function(huc12s) {
+        console.log(huc12s);
+        batch = {};
+        var huc12;
+        var post_data;
+        results.removeAllFeatures();
+
+        // closure to catch correct huc12 name
+        var done_fn = function(aoi_name, cnt) {
+            var handler = function(data, textStatus, jqXHR) {
+                batch_aoi = true;
+                onExecuted(data.geojson);
+                resource = jqXHR.getResponseHeader('Location');
+                aoi_to_file = getResource(resource);
+                // console.log(resource);
+                batch[aoi_name] = resource;
+                // console.log(batch);
+                // if (cnt == 4) {
+                //     show_batch(batch);
+                // }
+
+                // console.log(++aois_done);
+                // if (++aois_done === highlightLayer.features.length) {
+                //     $('body').toggleClass('waiting');
+                //     show_batch(batch);
+                // } else {
+                //     batch_util_fn(highlightLayer.features[aois_done]);
+                // }
+            };
+            return handler;
+        };
+
+        for (var cnt = 0; cnt < huc12s.length; cnt++) {
+            huc12 = huc12s[cnt];
+            console.log(huc12.length);
+            post_data = {
+                gml: '',
+                aoi_list: huc12,
+                predef_type: 'HUC',
+                sel_type: 'predefined',
+                ptradius: 3
+            };
+            // console.log(post_data);
+
+            $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps",
+                data: post_data,
+                dataType: "json"
+            }).done(done_fn(huc12, cnt));
+        }
+
+    }
+
     var save_coa = function(top_five) {
         console.log(top_five);
         // resource = jqXHR.getResponseHeader('Location');
@@ -2472,6 +2546,7 @@ Ext.onReady(function() {
 
         for (var cnt = 0; cnt < top_five.length; cnt++) {
             huc12 = top_five[cnt][0];
+            console.log(huc12);
             post_data = {
                 gml: '',
                 aoi_list: huc12,
@@ -2928,7 +3003,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncbounds]
+        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncwrc_priorities, ncwrc_basins, ncbounds]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
@@ -3321,7 +3396,7 @@ Ext.onReady(function() {
         width: 280
     });
 
-        var basinspage = new Ext.Panel({
+    var basinspage = new Ext.Panel({
         title: 'Basins',
         cls: 'pages',
         autoScroll: true,
@@ -4007,6 +4082,32 @@ Ext.onReady(function() {
     var top_five;
     var coa_script = function() {
         click.activate();
+        $("input[name='ncwrc_basins']").click(function(e) {
+            console.log(e.currentTarget.value);
+            var basin = e.currentTarget.value;
+            $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps/ncwrc_basins_map",
+                data: {
+                    basin: basin
+                },
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    save_wrc_priorities(data.huc12s);
+                    composite.setVisibility(false);
+                    individual.setVisibility(false);
+                    coa_map.setVisibility(false);
+                    ncwrc_basins.setVisibility(true);
+                    ncwrc_priorities.setVisibility(true);
+
+                    $('#lgnddiv').css('display', 'none');
+                    $('#lgdimg').css('display', 'block');
+                    $('#lgdimg').attr("src", "images/RivBasinPriorityLegend.png");
+                }
+            });
+        });
+
         $("input[name='reg_com']").click(function(e) {
             formPanel2.getComponent('rg1').setValue('coa');
 
@@ -4168,8 +4269,8 @@ Ext.onReady(function() {
     mgr.update({
         url: HOST_NAME + "pages/piedmont.php"
     });
-    mgr.on("update", coa_script);
-       el = Ext.getCmp("basinspage");
+    // mgr.on("update", coa_script);
+    el = Ext.getCmp("basinspage");
     mgr = el.getUpdater();
     mgr.update({
         url: HOST_NAME + "pages/basins.php"

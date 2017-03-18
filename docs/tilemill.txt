@@ -39,6 +39,7 @@ https://tilemill-project.github.io/tilemill/docs/manual/exporting/
 
 nodejs /usr/share/tilemill/index.js export se_manage  ~/Documents/MapBox/export/se_manage.mbtiles --minzoom=5 --maxzoom=12  --bbox="-90.3516,30.3729,-73.4766,39.2323"
 
+https://www.mapbox.com/studio/tilesets/
 mapbox -> upload tileset
 
 
