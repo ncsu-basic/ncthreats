@@ -4083,6 +4083,7 @@ Ext.onReady(function() {
     var coa_script = function() {
         click.activate();
         $("input[name='ncwrc_basins']").click(function(e) {
+            ncwrc_basins.setVisibility(true);
             console.log(e.currentTarget.value);
             var basin = e.currentTarget.value;
             $.ajax({
