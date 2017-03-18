@@ -2492,6 +2492,7 @@ Ext.onReady(function() {
 
         for (var cnt = 0; cnt < top_five.length; cnt++) {
             huc12 = top_five[cnt][0];
+            console.log(huc12);
             post_data = {
                 gml: '',
                 aoi_list: huc12,
@@ -4205,7 +4206,7 @@ Ext.onReady(function() {
     mgr.update({
         url: HOST_NAME + "pages/piedmont.php"
     });
-    mgr.on("update", coa_script);
+    // mgr.on("update", coa_script);
     el = Ext.getCmp("basinspage");
     mgr = el.getUpdater();
     mgr.update({
