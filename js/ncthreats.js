@@ -2454,6 +2454,60 @@ Ext.onReady(function() {
 
     */
 
+    var save_wrc_priorities = function(huc12s) {
+        console.log(huc12s);
+        batch = {};
+        var huc12;
+        var post_data;
+        results.removeAllFeatures();
+
+        // closure to catch correct huc12 name
+        var done_fn = function(aoi_name, cnt) {
+            var handler = function(data, textStatus, jqXHR) {
+                batch_aoi = true;
+                onExecuted(data.geojson);
+                resource = jqXHR.getResponseHeader('Location');
+                aoi_to_file = getResource(resource);
+                // console.log(resource);
+                batch[aoi_name] = resource;
+                // console.log(batch);
+                // if (cnt == 4) {
+                //     show_batch(batch);
+                // }
+
+                // console.log(++aois_done);
+                // if (++aois_done === highlightLayer.features.length) {
+                //     $('body').toggleClass('waiting');
+                //     show_batch(batch);
+                // } else {
+                //     batch_util_fn(highlightLayer.features[aois_done]);
+                // }
+            };
+            return handler;
+        };
+
+        for (var cnt = 0; cnt < huc12s.length; cnt++) {
+            huc12 = huc12s[cnt];
+            console.log(huc12.length);
+            post_data = {
+                gml: '',
+                aoi_list: huc12,
+                predef_type: 'HUC',
+                sel_type: 'predefined',
+                ptradius: 3
+            };
+            // console.log(post_data);
+
+            $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps",
+                data: post_data,
+                dataType: "json"
+            }).done(done_fn(huc12, cnt));
+        }
+
+    }
+
     var save_coa = function(top_five) {
         console.log(top_five);
         // resource = jqXHR.getResponseHeader('Location');
@@ -4031,7 +4085,7 @@ Ext.onReady(function() {
         $("input[name='ncwrc_basins']").click(function(e) {
             console.log(e.currentTarget.value);
             var basin = e.currentTarget.value;
-             $.ajax({
+            $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps/ncwrc_basins_map",
                 data: {
@@ -4040,7 +4094,7 @@ Ext.onReady(function() {
                 dataType: "json",
                 success: function(data) {
                     console.log(data);
-                    save_coa(data.huc12s);
+                    save_wrc_priorities(data.huc12s);
                 }
             });
         });
