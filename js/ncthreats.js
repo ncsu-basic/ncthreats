@@ -4029,6 +4029,19 @@ Ext.onReady(function() {
         click.activate();
         $("input[name='ncwrc_basins']").click(function(e) {
             console.log(e.currentTarget.value);
+            var basin = e.currentTarget.value;
+             $.ajax({
+                type: "POST",
+                url: SERVER_URI + "wps/ncwrc_basins_map",
+                data: {
+                    basin: basin
+                },
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+                    save_coa(data.huc12s);
+                }
+            });
         });
 
         $("input[name='reg_com']").click(function(e) {
