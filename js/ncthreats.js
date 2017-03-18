@@ -600,7 +600,7 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-    map.addLayers([individual, composite, coa_map, results, nonelayer, highlightLayer,
+    map.addLayers([highlightLayer,individual, composite, coa_map, results, nonelayer,
         nchuc10, nchuc8, nchuc6, se_manage, ncwrc_priorities, ncwrc_basins, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base
     ]);
@@ -4083,7 +4083,6 @@ Ext.onReady(function() {
     var coa_script = function() {
         click.activate();
         $("input[name='ncwrc_basins']").click(function(e) {
-            ncwrc_basins.setVisibility(true);
             console.log(e.currentTarget.value);
             var basin = e.currentTarget.value;
             $.ajax({
@@ -4096,6 +4095,15 @@ Ext.onReady(function() {
                 success: function(data) {
                     console.log(data);
                     save_wrc_priorities(data.huc12s);
+                    composite.setVisibility(false);
+                    individual.setVisibility(false);
+                    coa_map.setVisibility(false);
+                    ncwrc_basins.setVisibility(true);
+                    ncwrc_priorities.setVisibility(true);
+
+                    $('#lgnddiv').css('display', 'none');
+                    $('#lgdimg').css('display', 'block');
+                    $('#lgdimg').attr("src", "images/RivBasinPriorityLegend.png");
                 }
             });
         });
