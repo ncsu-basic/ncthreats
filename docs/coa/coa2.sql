@@ -472,6 +472,31 @@ create table coa_keythreats(
     Met integer
 );
 
+drop table coa_keythreats_basins;
+create table coa_keythreats_basins(
+    KeyCode varchar,
+    HabFrst integer,
+    HabFtWt integer,
+    HabHbWt integer,
+    HabOpen integer,
+    HabShrb integer,
+    Urban integer,
+    Fsupp integer,
+    DCLrds integer,
+    SLRup integer,
+    SLRlc integer,
+    Triassic integer,
+    WPC integer,
+    Manu integer,
+    Fert integer,
+    TDNT integer,
+    TDST integer,
+    FHlth integer,
+    NID integer,
+    Bio integer,
+    Met integer
+);
+
 drop table coa_SppHucProtData;
 create table coa_SppHucProtData(
     HUC12 char(12),
@@ -611,6 +636,7 @@ copy coa_UnprRatioSGCNSpp from '/var/www/html/coa/docs/coa/tblUnprRatioSGCNSpp.c
 copy coa_KeyList from '/var/www/html/coa/docs/coa/tblKeyList.csv' with csv header;
 copy coa_ecohuc from '/var/www/html/coa/docs/coa/tblEcoHuc.txt' with csv header;
 copy coa_keythreats from '/var/www/html/coa/docs/coa/tblKeyThreats.csv' with csv header;
+copy coa_keythreats_basins from '/var/www/html/coa/docs/coa/tblKeyThreatsBasins.csv' with csv header;
 copy coa_SppHucProtData from '/var/www/html/coa/docs/coa/tblSppHucProtData.csv' with csv header;
 copy coa_SppHabMatrixSGCN from '/var/www/html/coa/docs/coa/tblSppHabMatrixSGCN.csv' with csv header;
 copy NCWRC_priorities from '/var/www/html/coa/docs/coa/2015WAP_Priority_HUC12.csv' with csv header;

@@ -2469,18 +2469,8 @@ Ext.onReady(function() {
                 resource = jqXHR.getResponseHeader('Location');
                 aoi_to_file = getResource(resource);
                 batch[aoi_name] = resource;
-                console.log(batch);
-                // if (cnt == 4) {
-                //     show_batch(batch);
-                // }
+                // console.log(batch);
 
-                // console.log(++aois_done);
-                // if (++aois_done === highlightLayer.features.length) {
-                //     $('body').toggleClass('waiting');
-                //     show_batch(batch);
-                // } else {
-                //     batch_util_fn(highlightLayer.features[aois_done]);
-                // }
             };
             return handler;
         };
