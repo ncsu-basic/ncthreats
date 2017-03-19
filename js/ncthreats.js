@@ -2559,6 +2559,7 @@ Ext.onReady(function() {
         show_batch(batch);
         modelpaneltop.getComponent("cmb2").setValue("50");
         var data_extent;
+        var tbl = 'coa';
         if (coastalpage.lastSize.height !== undefined) {
             data_extent = [-80.18, 33.68, -75.2, 36.67];
         } else if (sandhillsspage.lastSize.height !== undefined) {
@@ -2569,6 +2570,7 @@ Ext.onReady(function() {
             data_extent = [-84.47, 34.88, -80.67, 36.67];
         }else if (basinspage.lastSize.height !== undefined) {
             data_extent = [-84.47, 33.7, -75.2, 36.67];
+            tbl = 'basins';
         }
         console.log(data_extent);
 
@@ -2581,7 +2583,8 @@ Ext.onReady(function() {
         left.setActiveTab(2);
 
         var post_data = {
-            keycode: keycode
+            keycode: keycode,
+            tbl: tbl
         }
         $.ajax({
             type: "POST",
@@ -4076,6 +4079,7 @@ Ext.onReady(function() {
         $("input[name='ncwrc_basins']").click(function(e) {
             console.log(e.currentTarget.value);
             var basin = e.currentTarget.value;
+            keycode = basin;
             $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps/ncwrc_basins_map",
