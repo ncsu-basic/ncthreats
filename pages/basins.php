@@ -14,16 +14,16 @@ $stmt->execute();
 $result = $stmt->fetchAll();
 
 
-
-echo "<h4 class='coatables'>Include Priority subwatersheds</h4>";
 echo "<table>";
-echo "<tr><td class='coatables1'><input type='checkbox' id='tier1_chk'></td><td class='coatables1'>Tier 1</td></tr>";
+    echo "<tr><td colspan='2' class='coatables'>Include / Exclude Priority Subwatershed Type: </td></tr>";
+
+echo "<tr><td class='coatables1'><input type='checkbox' checked=checked id='tier1_chk'></td><td class='coatables1'>Tier 1</td></tr>";
 echo "<tr><td class='coatables1'><input type='checkbox'  id='tier2_chk'></td><td class='coatables1'>Tier 2</td></tr>";
-echo "<tr><td class='coatables1'><input type='checkbox' id='rivbuff_chk'></td><td class='coatables1'>1km River Buffer</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'  id='rivbuff_chk'></td><td class='coatables1'>1km River Buffer</td></tr>";
 echo "</table>";
-
+echo "<hr>";
 echo "<table>";
-    echo "<tr><th><h4 class='coatables'>NCWRC River Basins</h4></th><th></th></tr>";
+echo "<tr><th><h4 class='coatables'>Select River Basin:</h4></th><th></th></tr>";
 foreach ($result as $key => $value) {
     // print $key;
 
