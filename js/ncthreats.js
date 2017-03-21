@@ -4080,11 +4080,18 @@ Ext.onReady(function() {
             console.log(e.currentTarget.value);
             var basin = e.currentTarget.value;
             keycode = basin;
+            var tier1 = document.getElementById('tier1_chk').checked;
+            var tier2 = document.getElementById('tier2_chk').checked;
+            var rivbuff = document.getElementById('rivbuff_chk').checked;
+            console.log(tier1);
             $.ajax({
                 type: "POST",
                 url: SERVER_URI + "wps/ncwrc_basins_map",
                 data: {
-                    basin: basin
+                    basin: basin,
+                    tier1: tier1,
+                    tier2: tier2,
+                    rivbuff: rivbuff
                 },
                 dataType: "json",
                 success: function(data) {

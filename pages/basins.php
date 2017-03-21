@@ -17,9 +17,9 @@ $result = $stmt->fetchAll();
 
 echo "<h4 class='coatables'>Include Priority subwatersheds</h4>";
 echo "<table>";
-echo "<tr><td class='coatables1'><input type='checkbox'></td><td class='coatables1'>Tier 1</td></tr>";
-echo "<tr><td class='coatables1'><input type='checkbox'></td><td class='coatables1'>Tier 2</td></tr>";
-echo "<tr><td class='coatables1'><input type='checkbox'></td><td class='coatables1'>1km River Buffer</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox' id='tier1_chk'></td><td class='coatables1'>Tier 1</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'  id='tier2_chk'></td><td class='coatables1'>Tier 2</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox' id='rivbuff_chk'></td><td class='coatables1'>1km River Buffer</td></tr>";
 echo "</table>";
 
 echo "<table>";
