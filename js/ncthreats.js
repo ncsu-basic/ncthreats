@@ -1746,6 +1746,7 @@ Ext.onReady(function() {
             composite.setVisibility(true);
             coa_map.setVisibility(false);
             individual.setVisibility(false);
+            ncwrc_priorities.setVisibility(false);
             map.getLayersByName("Composite Threats")[0].redraw();
 
             var composite_colors = ["ffffff", "ffffbe", "ffdb59", "e69b00", "cc3d00", "730000"];
