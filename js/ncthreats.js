@@ -2015,6 +2015,7 @@ Ext.onReady(function() {
             var reg_com = '';
             var region = "";
             var aoi_mode = formPanel2.getComponent('rg1').getValue().inputValue;
+            console.log(aoi_mode);
 
             reg_com = $("input[name=reg_com]:checked").val();
             console.log(reg_com);
@@ -4077,6 +4078,8 @@ Ext.onReady(function() {
     var coa_script = function() {
         click.activate();
         $("input[name='ncwrc_basins']").click(function(e) {
+            formPanel2.getComponent('rg1').setValue('predefined');
+
             console.log(e.currentTarget.value);
             var basin = e.currentTarget.value;
             keycode = basin;
