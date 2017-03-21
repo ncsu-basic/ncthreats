@@ -3444,7 +3444,7 @@ Ext.onReady(function() {
 
     var coasmsg_top = new Ext.form.FormPanel({
         width: 296,
-        height: 150,
+        height: 180,
         border: false,
         // autoEl: 'div',
         autoEl: 'div',
