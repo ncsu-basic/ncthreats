@@ -14,7 +14,7 @@ $stmt->execute();
 $result = $stmt->fetchAll();
 
 echo "<table>";
-echo "<tr><th class='coatables'>NCWRC Basins</th><th></th></tr>";
+echo "<tr><th class='coatables'>NCWRC River Basins</th><th></th></tr>";
 
 // echo "</table>";
 // echo "<h4>Terrestrial</h4>";

@@ -3391,7 +3391,7 @@ Ext.onReady(function() {
     });
 
     var basinspage = new Ext.Panel({
-        title: 'Basins',
+        title: 'River Basin Priorities',
         cls: 'pages',
         autoScroll: true,
         id: "basinspage",
