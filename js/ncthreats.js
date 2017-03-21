@@ -3451,7 +3451,7 @@ Ext.onReady(function() {
         cls: 'mycontent',
         region: 'north',
         // cls: 'mycontent',
-        html: "<h2>Identify COAs</h2><p>Select a community below to rank the unprotectedness of associated SGCN  species predicted habitat by subwatershed.</p>",
+        html: "<h2>Identify COAs</h2><p>Select a community below to rank the unprotectedness of associated SGCN  species predicted habitat by subwatershed or select a river basin to identify priority subwatersheds based on aquatic resources.</p>",
         // cls: 'help',
         autoScroll: true,
         buttons: [{
