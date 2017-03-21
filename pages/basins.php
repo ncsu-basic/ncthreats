@@ -13,13 +13,17 @@ $stmt = $dbh->prepare($query);
 $stmt->execute();
 $result = $stmt->fetchAll();
 
+
+
+echo "<h3>Include Priority subwatersheds</h3>";
+echo "<table>";
+echo "<tr><td class='coatables1'><input type='checkbox'></td><td>Tier 1</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'></td><td>Tier 2</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'></td><td>1km River Buffer</td></tr>";
+echo "</table>";
+
 echo "<table>";
 echo "<tr><th class='coatables'>NCWRC River Basins</th><th></th></tr>";
-
-// echo "</table>";
-// echo "<h4>Terrestrial</h4>";
-// echo "<table>";
-
 foreach ($result as $key => $value) {
     // print $key;
 
