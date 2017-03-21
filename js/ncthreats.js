@@ -2803,9 +2803,9 @@ Ext.onReady(function() {
                 'displayText'
             ],
             data: [
-                [1, 'COA data'],
-                [2, 'threat info'],
-                [3, 'managed area']
+                [1, 'COA SCGN Info'],
+                [2, 'Threats Info'],
+                [3, 'Managed Area Info']
             ]
         }),
         valueField: 'myId',
