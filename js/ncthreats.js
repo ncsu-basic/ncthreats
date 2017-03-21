@@ -600,7 +600,7 @@ Ext.onReady(function() {
     //     osm, hillshade, counties_base
     // ]);
 
-    map.addLayers([highlightLayer,individual, composite, coa_map, nonelayer,
+    map.addLayers([highlightLayer, individual, composite, coa_map, nonelayer,
         nchuc10, nchuc8, nchuc6, se_manage, ncwrc_priorities, ncwrc_basins, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base, results
     ]);
@@ -2569,7 +2569,7 @@ Ext.onReady(function() {
             data_extent = [-82.44, 34.74, -77.53, 36.67];
         } else if (mountainspage.lastSize.height !== undefined) {
             data_extent = [-84.47, 34.88, -80.67, 36.67];
-        }else if (basinspage.lastSize.height !== undefined) {
+        } else if (basinspage.lastSize.height !== undefined) {
             data_extent = [-84.47, 33.7, -75.2, 36.67];
             tbl = 'basins';
         }
@@ -3501,6 +3501,7 @@ Ext.onReady(function() {
     var panelid4 = Ext.get(piedmontpage.getEl().dom.children[0]).id;
     var panelid5 = Ext.get(sandhillsspage.getEl().dom.children[0]).id;
     var panelid6 = Ext.get(coastalpage.getEl().dom.children[0]).id;
+    var panelid7 = Ext.get(basinspage.getEl().dom.children[0]).id;
     // var panelid3 = Ext.get(process_tab.getEl().dom.children[0]).id;
     Ext.get(panelid3).applyStyles("background-image: url(images/brown-hd.gif)");
     Ext.get(panelid3).applyStyles("color: white");
@@ -3512,6 +3513,8 @@ Ext.onReady(function() {
     Ext.get(panelid5).applyStyles("color: white");
     Ext.get(panelid6).applyStyles("background-image: url(images/dark-red-hd.gif)");
     Ext.get(panelid6).applyStyles("color: white");
+    Ext.get(panelid7).applyStyles("background-image: url(images/light-blue-white-hd.gif)");
+    Ext.get(panelid7).applyStyles("color: black");
     // Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
     // Ext.get(panelid3).applyStyles("color: white");
 
