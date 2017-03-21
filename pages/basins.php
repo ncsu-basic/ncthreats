@@ -15,24 +15,24 @@ $result = $stmt->fetchAll();
 
 
 
-echo "<h3>Include Priority subwatersheds</h3>";
+echo "<h4 class='coatables'>Include Priority subwatersheds</h4>";
 echo "<table>";
-echo "<tr><td class='coatables1'><input type='checkbox'></td><td>Tier 1</td></tr>";
-echo "<tr><td class='coatables1'><input type='checkbox'></td><td>Tier 2</td></tr>";
-echo "<tr><td class='coatables1'><input type='checkbox'></td><td>1km River Buffer</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'></td><td class='coatables1'>Tier 1</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'></td><td class='coatables1'>Tier 2</td></tr>";
+echo "<tr><td class='coatables1'><input type='checkbox'></td><td class='coatables1'>1km River Buffer</td></tr>";
 echo "</table>";
 
 echo "<table>";
-echo "<tr><th class='coatables'>NCWRC River Basins</th><th></th></tr>";
+    echo "<tr><th><h4 class='coatables'>NCWRC River Basins</h4></th><th></th></tr>";
 foreach ($result as $key => $value) {
     // print $key;
 
-        echo "<tr>";
-        echo "<td class='coatables1'>{$value['riverbasin']}</td>";
-        echo "<td class='coatables'><input name='ncwrc_basins' value='{$value['riverbasin']}' type='radio' /></td>";
-        // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
-        // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
+    echo "<tr>";
+    echo "<td class='coatables1'>{$value['riverbasin']}</td>";
+    echo "<td class='coatables'><input name='ncwrc_basins' value='{$value['riverbasin']}' type='radio' /></td>";
+    // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
+    // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
 
-        echo "</tr>";
+    echo "</tr>";
 }
 echo "</table>";
