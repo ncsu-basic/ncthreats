@@ -220,7 +220,7 @@ Ext.onReady(function() {
         });
 
     var ncwrc_priorities = new OpenLayers.Layer.XYZ(
-        "NCWRC Priorities", ["https://api.mapbox.com/v4/basic99.6bmnbwet/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "NCWRC Priorities", ["https://api.mapbox.com/v4/basic99.0htb36ff/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
@@ -2028,11 +2028,32 @@ Ext.onReady(function() {
                 region = "Piedmont";
             } else if (mountainspage.lastSize.height !== undefined) {
                 region = "Mountains";
+            } else if (basinspage.lastSize.height !== undefined) {
+                // region = "Mountains";
+                var tier1 = document.getElementById('tier1_chk').checked;
+                var tier2 = document.getElementById('tier2_chk').checked;
+                var rivbuff = document.getElementById('rivbuff_chk').checked;
+                var basin = $("input[name=ncwrc_basins]:checked").val();
+                console.log(tier1);
+                var basins_meta = "River Basin: " + basin;
+                if (tier1 === true){
+                    basins_meta += " Tier 1";
+                }
+                if (tier2 === true){
+                    basins_meta += " Tier 2";
+                }
+                if (rivbuff === true){
+                    basins_meta += " 1km River Buffer";
+                }
+
+
+
             }
 
             form_vals['aoi_mode'] = aoi_mode;
             form_vals['reg_com'] = reg_com;
             form_vals['region'] = region;
+            form_vals['basins_meta'] = basins_meta;
 
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
@@ -3513,7 +3534,7 @@ Ext.onReady(function() {
     Ext.get(panelid5).applyStyles("color: white");
     Ext.get(panelid6).applyStyles("background-image: url(images/dark-red-hd.gif)");
     Ext.get(panelid6).applyStyles("color: white");
-    Ext.get(panelid7).applyStyles("background-image: url(images/light-blue-white-hd.gif)");
+    Ext.get(panelid7).applyStyles("background-image: url(images/light-blue-grey-hd.gif)");
     Ext.get(panelid7).applyStyles("color: black");
     // Ext.get(panelid3).applyStyles("background-image: url(/images/dark-blue-hd.gif)");
     // Ext.get(panelid3).applyStyles("color: white");
