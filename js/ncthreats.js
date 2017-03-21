@@ -2035,15 +2035,16 @@ Ext.onReady(function() {
                 var rivbuff = document.getElementById('rivbuff_chk').checked;
                 var basin = $("input[name=ncwrc_basins]:checked").val();
                 console.log(tier1);
-                var basins_meta = "River Basin: " + basin;
+                var basins_meta1 = "River Basin: " + basin ;
+                var basins_meta2 = "Priorities: ";
                 if (tier1 === true){
-                    basins_meta += " Tier 1";
+                    basins_meta2 += " Tier 1";
                 }
                 if (tier2 === true){
-                    basins_meta += " Tier 2";
+                    basins_meta2 += " Tier 2";
                 }
                 if (rivbuff === true){
-                    basins_meta += " 1km River Buffer";
+                    basins_meta2 += " 1km River Buffer";
                 }
 
 
@@ -2053,7 +2054,8 @@ Ext.onReady(function() {
             form_vals['aoi_mode'] = aoi_mode;
             form_vals['reg_com'] = reg_com;
             form_vals['region'] = region;
-            form_vals['basins_meta'] = basins_meta;
+            form_vals['basins_meta1'] = basins_meta1;
+            form_vals['basins_meta2'] = basins_meta2;
 
             var qry_str = $.param(form_vals);
             // var url = SERVER_URI + 'wps/report?' + qry_str;
