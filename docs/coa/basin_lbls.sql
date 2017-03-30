@@ -18,3 +18,5 @@ INSERT INTO ncwrc_basin_lbl (label, the_geom) VALUES ('Tar - Pamlico', st_GeomFr
 INSERT INTO ncwrc_basin_lbl (label, the_geom) VALUES ('Watauga', st_GeomFromText('POINT(-81.87 36.25)', 4326));
 INSERT INTO ncwrc_basin_lbl (label, the_geom) VALUES ('White Oak', st_GeomFromText('POINT(-77.19 34.7)', 4326));
 INSERT INTO ncwrc_basin_lbl (label, the_geom) VALUES ('Yadkin - PeeDee', st_GeomFromText('POINT(-80.5 35.5)', 4326));
+
+-- ogr2ogr -f "ESRI Shapefile" basin_lbl "PG:host=localhost dbname=ncthreats user=postgres password=rdx678" ncwrc_basin_lbl
