@@ -2036,15 +2036,15 @@ Ext.onReady(function() {
                 var rivbuff = document.getElementById('rivbuff_chk').checked;
                 var basin = $("input[name=ncwrc_basins]:checked").val();
                 console.log(tier1);
-                var basins_meta1 = "River Basin: " + basin ;
+                var basins_meta1 = "River Basin: " + basin;
                 var basins_meta2 = "Priorities: ";
-                if (tier1 === true){
+                if (tier1 === true) {
                     basins_meta2 += " Tier 1";
                 }
-                if (tier2 === true){
+                if (tier2 === true) {
                     basins_meta2 += " Tier 2";
                 }
-                if (rivbuff === true){
+                if (rivbuff === true) {
                     basins_meta2 += " 1km River Buffer";
                 }
 
@@ -2586,23 +2586,23 @@ Ext.onReady(function() {
         var data_extent;
         var tbl = 'coa';
         var basin_extents = [];
-        basin_extents['Broad'] = [-82.7, 35.1, -81, 35.8]
-        basin_extents['Cape Fear'] = []
-        basin_extents['Catawba'] = []
-        basin_extents['Chowan'] = []
-        basin_extents['French Broad'] = []
-        basin_extents['Hiwassee'] = []
-        basin_extents['Little Tennessee'] = []
-        basin_extents['Lumber'] = []
-        basin_extents['Neuse'] = []
-        basin_extents['New'] = []
-        basin_extents['Pasquotank'] = []
-        basin_extents['Roanoke'] = []
-        basin_extents['Savannah'] = []
-        basin_extents['Tar - Pamlico'] = []
-        basin_extents['Watauga'] = []
-        basin_extents['White Oak'] = []
-        basin_extents['Yadkin - PeeDee'] = []
+        basin_extents['Broad'] = [-82.7, 35.1, -81, 35.8];
+        basin_extents['Cape Fear'] = [-80.2, 33.7, -77.15, 36.46];
+        basin_extents['Catawba'] = [-82.48, 34.66, -80.36, 36.38]
+        basin_extents['Chowan'] = [-77.9, 35.85, -76.25, 36.7];
+        basin_extents['French Broad'] = [-83.4, 34.9, -81.7, 36.3];
+        basin_extents['Hiwassee'] = [-84.66, 34.88, -83.38, 35.58];
+        basin_extents['Little Tennessee'] = [-85.35, 34.86, -82.64, 35.9];
+        basin_extents['Lumber'] = [-79.98, 33.69, -77.88, 35.46];
+        basin_extents['Neuse'] = [-79.4, 34.7, -75.77, 36.57];
+        basin_extents['New'] = [-82.16, 35.98, -80.69, 36.7];
+        basin_extents['Pasquotank'] = [-76.88, 35.05, -75.25, 36.7];
+        basin_extents['Roanoke'] = [-80.76, 35.54, -76.4, 36.7];
+        basin_extents['Savannah'] = [-83.6, 34.88, -82.4, 35.38];
+        basin_extents['Tar - Pamlico'] = [-79.1, 34.9, -75.4, 36.65];
+        basin_extents['Watauga'] = [-82.26, 35.9, -81.3, 36.54];
+        basin_extents['White Oak'] = [-77.8, 34.4, -75.9, 35.2];
+        basin_extents['Yadkin - PeeDee'] = [-81.89, 34.56, -79.35, 36.77];
         if (coastalpage.lastSize.height !== undefined) {
             data_extent = [-80.18, 33.68, -75.2, 36.67];
         } else if (sandhillsspage.lastSize.height !== undefined) {
@@ -2613,13 +2613,12 @@ Ext.onReady(function() {
             data_extent = [-84.47, 34.88, -80.67, 36.67];
         } else if (basinspage.lastSize.height !== undefined) {
             data_extent = [-84.47, 33.7, -75.2, 36.67];
-            data_extent = basin_extents['Broad'];
+            data_extent = basin_extents[keycode];
             tbl = 'basins';
         }
         console.log(data_extent);
 
-        var extent = new OpenLayers.Bounds(
-            data_extent).transform(proj_4326, proj_900913);
+        var extent = new OpenLayers.Bounds(data_extent).transform(proj_4326, proj_900913);
         map.zoomToExtent(extent);
 
 
