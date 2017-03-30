@@ -2585,6 +2585,24 @@ Ext.onReady(function() {
         modelpaneltop.getComponent("cmb2").setValue("50");
         var data_extent;
         var tbl = 'coa';
+        var basin_extents = [];
+        basin_extents['Broad'] = [-82.7, 35.1, -81, 35.8]
+        basin_extents['Cape Fear'] = []
+        basin_extents['Catawba'] = []
+        basin_extents['Chowan'] = []
+        basin_extents['French Broad'] = []
+        basin_extents['Hiwassee'] = []
+        basin_extents['Little Tennessee'] = []
+        basin_extents['Lumber'] = []
+        basin_extents['Neuse'] = []
+        basin_extents['New'] = []
+        basin_extents['Pasquotank'] = []
+        basin_extents['Roanoke'] = []
+        basin_extents['Savannah'] = []
+        basin_extents['Tar - Pamlico'] = []
+        basin_extents['Watauga'] = []
+        basin_extents['White Oak'] = []
+        basin_extents['Yadkin - PeeDee'] = []
         if (coastalpage.lastSize.height !== undefined) {
             data_extent = [-80.18, 33.68, -75.2, 36.67];
         } else if (sandhillsspage.lastSize.height !== undefined) {
@@ -2595,6 +2613,7 @@ Ext.onReady(function() {
             data_extent = [-84.47, 34.88, -80.67, 36.67];
         } else if (basinspage.lastSize.height !== undefined) {
             data_extent = [-84.47, 33.7, -75.2, 36.67];
+            data_extent = basin_extents['Broad'];
             tbl = 'basins';
         }
         console.log(data_extent);
@@ -2611,6 +2630,7 @@ Ext.onReady(function() {
             keycode: keycode,
             tbl: tbl
         }
+        console.log(post_data);
         $.ajax({
             type: "POST",
             url: SERVER_URI + "wps/coa_model",
