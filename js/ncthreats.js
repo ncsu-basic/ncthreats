@@ -2877,6 +2877,7 @@ Ext.onReady(function() {
 
     var button_toolbar1 = new Ext.Button({
         // text: "query",
+        tooltip: "enable query tool",
         enableToggle: true,
         iconCls: "qry_tool",
         handler: function() {
