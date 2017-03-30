@@ -2622,7 +2622,7 @@ Ext.onReady(function() {
         map.zoomToExtent(extent);
 
 
-        document.getElementById('frst_chk').checked = true;
+        // document.getElementById('frst_chk').checked = true;
         left.setActiveTab(2);
 
         var post_data = {
@@ -2830,6 +2830,9 @@ Ext.onReady(function() {
     var select_qry_layer = function(evt) {
         console.log("testing");
         console.log(evt.value);
+        if (!button_toolbar1.pressed) {
+            button_toolbar1.toggle();
+        }
         // console.log(combo);
     }
 
