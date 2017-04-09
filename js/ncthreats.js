@@ -230,7 +230,7 @@ Ext.onReady(function() {
         });
 
     var ncwrc_basins = new OpenLayers.Layer.XYZ(
-        "NCWRC Basins", ["https://api.mapbox.com/v4/basic99.am2t2u4i/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+        "NCWRC Basins", ["https://api.mapbox.com/v4/basic99.8i7qc6bw/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
             sphericalMercator: true,
             wrapDateLine: true,
             // numZoomLevels: 10,
