@@ -2772,6 +2772,28 @@ Ext.onReady(function() {
     toolbarItems.push(action);
     toolbarItems.push("-");
 
+        var button_toolbar1 = new Ext.Button({
+        // text: "query",
+        tooltip: "enable zoom box",
+        enableToggle: true,
+        iconCls: "zoom_box",
+        handler: function() {
+            var test = this.pressed;
+            console.log(test);
+            if (this.pressed) {
+                click.activate();
+            } else {
+                // click.deactivate();
+            }
+
+        }
+
+
+    });
+    // // actions.next = action;
+    toolbarItems.push(button_toolbar1);
+    toolbarItems.push("-");
+
 
     action = new GeoExt.Action({
         control: ctrl.previous,

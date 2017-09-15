@@ -28,6 +28,11 @@
 	width: 24px !important;
 	height: 24px !important;
 }
+.zoom_box {
+	background-image: url('../images/drag-rectangle-on.png');
+	width: 24px !important;
+	height: 24px !important;
+}
 div.olControlMousePosition {
 
 	/* right: 100px !important;
