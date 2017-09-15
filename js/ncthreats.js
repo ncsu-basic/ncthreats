@@ -2768,7 +2768,7 @@ Ext.onReady(function() {
     });
 
 
-    actions.next = action;
+    // actions.next = action;
     toolbarItems.push(action);
     toolbarItems.push("-");
 
@@ -2780,7 +2780,7 @@ Ext.onReady(function() {
         iconCls: "prev_action",
         allowDepress: true
     });
-    actions.previous = action;
+    // actions.previous = action;
     toolbarItems.push(action);
 
     action = new GeoExt.Action({
@@ -2790,7 +2790,7 @@ Ext.onReady(function() {
         iconCls: "next_action",
         allowDepress: true
     });
-    actions.next = action;
+    // actions.next = action;
     toolbarItems.push(action);
 
     toolbarItems.push("-");
@@ -2813,7 +2813,7 @@ Ext.onReady(function() {
         allowDepress: true
     });
 
-    actions.next = action;
+    // actions.next = action;
     toolbarItems.push(action);
 
     action = new Ext.Action({
