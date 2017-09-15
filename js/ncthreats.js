@@ -2741,6 +2741,13 @@ Ext.onReady(function() {
         });
     }
 
+    var zoom_box = function(pressed){
+        // http://dev.openlayers.org/docs/files/OpenLayers/Control-js.html
+        // http://dev.openlayers.org/examples/navtoolbar-alwaysZoom.html
+        console.log("zoom box " + pressed);
+        map.addControl(new OpenLayers.Control.ZoomBox({alwaysZoom:true}));
+    }
+
 
 
     /////////////////////////////////////////
@@ -2770,9 +2777,9 @@ Ext.onReady(function() {
 
     // actions.next = action;
     toolbarItems.push(action);
-    toolbarItems.push("-");
+    // toolbarItems.push("-");
 
-        var button_toolbar1 = new Ext.Button({
+    var button_toolbar1 = new Ext.Button({
         // text: "query",
         tooltip: "enable zoom box",
         enableToggle: true,
@@ -2780,11 +2787,11 @@ Ext.onReady(function() {
         handler: function() {
             var test = this.pressed;
             console.log(test);
-            if (this.pressed) {
-                click.activate();
-            } else {
-                // click.deactivate();
-            }
+            // if (this.pressed) {
+                zoom_box(this.pressed);
+            // } else {
+            //     // click.deactivate();
+            // }
 
         }
 
