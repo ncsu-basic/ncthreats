@@ -3716,16 +3716,17 @@ Ext.onReady(function() {
             $("#dbf_input").val("");
 
             for (var i = 0, f; f = files[i]; i++) {
-                if (f.name.indexOf(".shp") != -1) {
+
+                if (f.name.search(/shp$/i) != -1) {
                     $("#shp_input").val(f.name);
                 }
-                if (f.name.indexOf(".shx") != -1) {
+                if (f.name.search(/shx$/i) != -1) {
                     $("#shx_input").val(f.name);
                 }
-                if (f.name.indexOf(".prj") != -1) {
+                if (f.name.search(/prj$/i) != -1) {
                     $("#prj_input").val(f.name);
                 }
-                if (f.name.indexOf(".dbf") != -1) {
+                if (f.name.search(/dbf$/i) != -1) {
                     $("#dbf_input").val(f.name);
                 }
             }
