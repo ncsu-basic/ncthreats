@@ -3641,8 +3641,8 @@ Ext.onReady(function() {
                     console.log(shpfeatures.length);
                     if (shpfeatures.length > 1 && dbf === undefined) {
                         Ext.Msg.alert("user uploaded multipolygon");
-                    } else if (shpfeatures.length == 1 && dbf !== undefined) {
-                        Ext.Msg.alert("user uploaded simple polygon for batch");
+                    // } else if (shpfeatures.length == 1 && dbf !== undefined) {
+                    //     Ext.Msg.alert("user uploaded simple polygon for batch");
                     } else if (shpfeatures.length > 1 && dbf !== undefined) {
                         console.log("submit batch");
                         Ext.MessageBox.confirm('Confirm', 'This will create a batch AOI, continue?', function(e) {
@@ -3664,7 +3664,8 @@ Ext.onReady(function() {
                             }
                         });
 
-                    } else if (shpfeatures.length === 1 && dbf == undefined) {
+                    } else if (shpfeatures.length === 1 ) {
+                        // && dbf == undefined
                         console.log("submit simple");
                         Ext.MessageBox.confirm('Confirm', 'This will create a single AOI, continue?', function(e) {
                             if (e == 'yes') {
