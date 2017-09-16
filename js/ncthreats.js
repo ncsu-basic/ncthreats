@@ -3851,7 +3851,7 @@ Ext.onReady(function() {
                     fileReader[i] = new FileReader();
                     fileReader[i].readAsDataURL(files[i]);
                     console.log(files[i].name);
-                    parse_filename = /\.(shp|shx|prj|dbf)/;
+                    parse_filename = /\.(shp|shx|prj|dbf)$/i;
                     result = parse_filename.exec(files[i].name);
                     if (result) {
                         switch (result[1]) {
