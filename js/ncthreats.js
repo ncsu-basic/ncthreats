@@ -2741,11 +2741,20 @@ Ext.onReady(function() {
         });
     }
 
+    var zoombox = new OpenLayers.Control.ZoomBox({alwaysZoom:true});
+    map.addControl(zoombox);
+
     var zoom_box = function(pressed){
         // http://dev.openlayers.org/docs/files/OpenLayers/Control-js.html
         // http://dev.openlayers.org/examples/navtoolbar-alwaysZoom.html
         console.log("zoom box " + pressed);
-        map.addControl(new OpenLayers.Control.ZoomBox({alwaysZoom:true}));
+        if (pressed === true){
+            zoombox.activate();
+        } else {
+            zoombox.deactivate();
+        }
+
+
     }
 
 
