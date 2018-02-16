@@ -5,8 +5,12 @@ The (cloned) source code is copied into the Docker image.
 
 Build:
 
-  docker build -t ncthreats .
+```
+docker build -t ncthreats .
+```
 
 Run:
 
-  docker run -it -p8888:80 --rm ncthreats
+```
+docker run -it -p 8888:80 --rm ncthreats
+```
