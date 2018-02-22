@@ -6,6 +6,7 @@ Ext.onReady(function() {
     // change hostname and server uri for server or localhost
 
 
+    // this needs to have correct port/ip for the specific server (like 8888)
     var HOST_NAME = "http://localhost/coa/";
     var SERVER_URI = "http://localhost/";
 
