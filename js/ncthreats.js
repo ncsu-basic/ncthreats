@@ -2837,6 +2837,7 @@ Ext.onReady(function() {
     action = new Ext.Action({
         handler: function() {
             console.log("Progress");
+            window.location.reload();
         },
         tooltip: "reset",
         iconCls: "reset_action",
