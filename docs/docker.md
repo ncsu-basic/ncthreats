@@ -37,17 +37,31 @@ http://localhost:8888/coa/
 To connect to a database in Docker:
 
 ```
-docker run -it --net ncthreats_default --link ncthreats_db_1:postgres -p 8888:80 --rm ncthreats
+docker run -it --net ncthreats_default -p 8888:80 --rm ncthreats
 ```
 
 To fill the database in Docker:
 
 ```
-docker run -it --rm --net ncthreats_default --link ncthreats_db_1:postgres \
+docker run -it --rm --net ncthreats_default \
     -v .../dump_ncthreats_12_10_17.sql:/dump_ncthreats_12_10_17.sql \
     postgres psql -h db -U postgres -d postgres
 ```
 
+```
+\i /dump_ncthreats_12_10_17.sql
+
+or
+
+-f /dump_ncthreats_12_10_17.sql
+```
+
 To run the database part of software:
 
+```
 docker-compose -f docker-compose.yml up
+```
+
+For tests:
+
+psql is in the postgresql-client
