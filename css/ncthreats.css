@@ -13,6 +13,11 @@
 	width: 24px !important;
 	height: 24px !important;
 }
+.reset_action {
+	background-image: url('../images/reset.png');	/*background: no-repeat;*/
+	width: 24px !important;
+	height: 24px !important;
+}
 .legend_win {
 	background-image: url('../images/legend_btn.png');
 	width: 24px !important;

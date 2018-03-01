@@ -2834,6 +2834,17 @@ Ext.onReady(function() {
     // actions.next = action;
     toolbarItems.push(action);
 
+    action = new Ext.Action({
+        handler: function() {
+            console.log("Progress");
+        },
+        tooltip: "reset",
+        iconCls: "reset_action",
+        allowDepress: true
+    });
+    // actions.previous = action;
+    toolbarItems.push(action);
+
     toolbarItems.push("-");
 
 
@@ -2937,8 +2948,6 @@ Ext.onReady(function() {
     // // actions.next = action;
     toolbarItems.push(button_toolbar1);
     toolbarItems.push("-");
-
-
 
     /////////////////////////////////////////////////
     // legend config
