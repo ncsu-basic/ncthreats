@@ -1,11 +1,13 @@
 <?php
 
+include 'connect.php';
+
 // echo "<p>mountains in php</p>";
 $dbname = "ncthreats";
 $host = "localhost";
 $dbuser = "postgres";
 
-$dbh = new PDO("pgsql:dbname=$dbname;host=$host", $dbuser);
+$dbh = new PDO($connect_string);
 
 $query = "select distinct riverbasin from ncwrc_priorities where riverbasin != '' order by riverbasin";
 
