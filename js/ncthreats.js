@@ -587,6 +587,7 @@ Ext.onReady(function() {
     }).done(function(data) {
         // console.log(data);
     });
+    $('body').toggleClass('waiting');
 
     $.ajax({
         type: "GET",
@@ -603,6 +604,7 @@ Ext.onReady(function() {
         composite.setVisibility(false);
         coa_map.addFeatures(geojson_format.read(data));
         coa_map.setVisibility(false);
+        $('body').toggleClass('waiting');
     });
 
 
