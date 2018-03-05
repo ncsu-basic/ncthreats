@@ -605,6 +605,7 @@ Ext.onReady(function() {
         coa_map.addFeatures(geojson_format.read(data));
         coa_map.setVisibility(false);
         $('body').toggleClass('waiting');
+        console.log("remove waiting cursor");
     });
 
 
