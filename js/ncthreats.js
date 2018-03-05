@@ -242,6 +242,16 @@ Ext.onReady(function() {
             isBaseLayer: false
         });
 
+    var ncwrc_game_lands = new OpenLayers.Layer.XYZ(
+        "NCWRC Game Lands", ["https://api.mapbox.com/v4/wenzeslaus.anqhd39m/${z}/${x}/${y}.png?access_token=pk.eyJ1IjoiYmFzaWM5OSIsImEiOiJjaWthM3g1anQwaTgwdnVrcHNoZHNyNndnIn0.cm4To1qxOS6-29lzWqhp5Q"], {
+            sphericalMercator: true,
+            wrapDateLine: true,
+            // numZoomLevels: 10,
+            visibility: false,
+            displayInLayerSwitcher: true,
+            isBaseLayer: false
+        });
+
     ///////////////////////////////////////////////////////////
     ////////////analysis layers
 
@@ -604,7 +614,7 @@ Ext.onReady(function() {
     // ]);
 
     map.addLayers([highlightLayer, individual, composite, coa_map, nonelayer,
-        nchuc10, nchuc8, nchuc6, se_manage, ncwrc_priorities, ncwrc_basins, counties, ncbcr, ncbounds, ecoregions,
+        nchuc10, nchuc8, nchuc6, se_manage, ncwrc_priorities, ncwrc_basins, ncwrc_game_lands, counties, ncbcr, ncbounds, ecoregions,
         osm, satellite, bounds_base, results
     ]);
 
@@ -3096,7 +3106,7 @@ Ext.onReady(function() {
 
     var store = new GeoExt.data.LayerStore({
         // map: map,
-        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncwrc_priorities, ncwrc_basins, ncbounds]
+        layers: [counties, nchuc6, nchuc8, nchuc10, ncbcr, ecoregions, se_manage, ncwrc_priorities, ncwrc_basins, ncwrc_game_lands, ncbounds]
     });
 
     var layerList12 = new GeoExt.tree.LayerContainer({
