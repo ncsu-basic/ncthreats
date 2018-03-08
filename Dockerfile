@@ -13,6 +13,13 @@ RUN echo "<?php phpinfo();?>" > /var/www/html/info.php
 
 ADD . /var/www/html/coa
 
+RUN cp /var/www/html/coa/000-default.conf /etc/apache2/sites-available
+
+RUN a2enmod ssl
+RUN a2enmod proxy_balancer
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+
 EXPOSE 80
 
 CMD apachectl -D FOREGROUND

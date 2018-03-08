@@ -65,3 +65,18 @@ docker-compose -f docker-compose.yml up
 For tests:
 
 psql is in the postgresql-client
+
+Logs are in:
+
+```
+/var/log/apache2/
+```
+
+To modify the proxy settings in `000-default.conf` need to be modified
+based on the IP obtained using:
+
+```
+docker ps
+docker network ls
+docker network inspect ncthreats_default
+```
