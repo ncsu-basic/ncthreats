@@ -7,8 +7,8 @@ Ext.onReady(function() {
 
 
     // this needs to have correct port/ip for the specific server (like 8888)
-    var HOST_NAME = "http://localhost/coa/";
-    var SERVER_URI = "http://localhost/";
+    var HOST_NAME = "http://localhost:8888/coa/";
+    var SERVER_URI = "http://localhost:8888/";
 
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
