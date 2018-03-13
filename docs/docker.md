@@ -30,9 +30,10 @@ Test:
 
 http://localhost:8888/index.html
 http://localhost:8888/info.php
-http://localhost:8888/info.php
 http://localhost:8888/coa/pages/mountains.php
 http://localhost:8888/coa/
+
+http://localhost:8888/wps/huc12_state
 
 To connect to a database in Docker:
 
@@ -59,7 +60,11 @@ or
 To run the database part of software:
 
 ```
-docker-compose -f docker-compose.yml up
+docker-compose up
+```
+
+```
+docker-compose up --build
 ```
 
 For tests:

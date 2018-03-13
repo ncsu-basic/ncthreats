@@ -16,3 +16,8 @@ services:
     image: adminer
     ports:
       - 8081:8080
+
+  wps-server:
+    image: wps-server
+    ports:
+      - 5000:5000
