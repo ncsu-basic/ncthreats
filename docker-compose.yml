@@ -21,3 +21,8 @@ services:
     image: wps-server
     ports:
       - 5000:5000
+
+  coa:
+    build: .
+    ports:
+      - 8888:80
