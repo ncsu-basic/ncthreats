@@ -20,6 +20,26 @@ Setup tab:
 * Boundaries from Mapbox
 * Background from Mapbox
 
+## COA tab
+
+Radio buttons generated in PHP.
+
+sgcn = species of greatest conservation need
+
+Now only nsppwrc_sgcn column is used.
+
+## Preview maps
+
+User: Analyze tab > Details > Preview
+
+Code: model.preview_map()
+
+## Creating AOI
+
+AOI (Area of Interest)
+
+
+
 ## AOI table
 
 Records for each user-selected AOI.
