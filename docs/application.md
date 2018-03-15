@@ -15,8 +15,8 @@ All the MapBox layers are in Setup tab.
 Setup tab:
 * Data Layers are from Data tab and ???
 * AOI Layers are from AOI tab
- + huc12s is selected HUC12s
- + Selection is a circle or polygon created by the user
+  * huc12s is selected HUC12s
+  * Selection is a circle or polygon created by the user
 * Boundaries from Mapbox
 * Background from Mapbox
 
