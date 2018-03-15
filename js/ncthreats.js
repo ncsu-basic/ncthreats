@@ -10,6 +10,8 @@ Ext.onReady(function() {
     var HOST_NAME = "http://tecumseh.zo.ncsu.edu/coa/";
     var SERVER_URI = "http://tecumseh.zo.ncsu.edu/";
 
+    // 0 mean we don't have AOI
+    // updated to actual AOI after user creates one
     var resource = SERVER_URI + "wps/0";
     var batch_aoi = false;
     var batch_resource = {};
@@ -858,6 +860,7 @@ Ext.onReady(function() {
 
     };
 
+    // Reset button in AOI tab, to the default/no AOI
     var remove_action = function() {
         resource = SERVER_URI + "wps/0";
         batch_aoi = false;
@@ -899,9 +902,11 @@ Ext.onReady(function() {
     ///////////////////////////////////////////////////
 
     // if sinlge aoi
+    // when user uses the permalink, gets AOI number from the URL
     if (window.location.hash.slice(1).length !== 0) {
         var hash = window.location.hash;
         if (hash.indexOf("_") == -1) {
+            // get the AOI number from after the hash
             resource = SERVER_URI + 'wps/' + hash.slice(1);
             $.ajax({
                 type: "GET",
@@ -1290,6 +1295,8 @@ Ext.onReady(function() {
         };
         console.log(post_data);
 
+        // we are getting new GeoJSON from the server
+        // i.e. we are not using the loaded GeoJSON
         $.ajax({
             type: "POST",
             url: SERVER_URI + "wps",
