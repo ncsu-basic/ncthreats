@@ -34,13 +34,20 @@ User: Analyze tab > Details > Preview
 
 Code: model.preview_map()
 
-## Creating AOI
+## AOI tab
+
+### Creating AOI
 
 AOI (Area of Interest)
 
+### Shapefile upload
 
+Uploaded in AOI tab > Shapefile upload, then it creates custom polygon.
+If the Shapefile has more than one polygon and has a DBF which has
+column named `name`, them it uses batch functions, so that the report
+has more than one entry and uses that name.
 
-## AOI table
+### AOI table
 
 Records for each user-selected AOI.
 
@@ -61,3 +68,16 @@ Table "aoi_results"
  huc12s_5k   | text           | doughnut shape buffer without AOI
  huc12s_12k  | text           | doughnut shape buffer without AOI
 ```
+
+## Analyze tab
+
+### Map
+
+After Submit button, /wps/map is called with GET parameters which
+specify the threats. Server returns JSON with number of threats for each
+HUC12 which is the last item in the list of each HUC12 and is set as an
+attribute of GeoJSON. The colors are managed in `symbolsLookup_model`
+variable.
+
+On the server side, the number threats is counted all the way in
+`siteutils.make_composite_threat_count()`.

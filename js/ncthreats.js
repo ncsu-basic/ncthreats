@@ -1759,6 +1759,7 @@ Ext.onReady(function() {
                     console.log("not valid lever", thrt);
                 }
                 try {
+                    // update number of threats attribute
                     map.getLayersByName("Composite Threats")[0].
                     getFeaturesByAttribute("huc12", key)[0].
                     attributes.threat = thrt;
@@ -1766,6 +1767,8 @@ Ext.onReady(function() {
                     console.log(key);
                 }
             }
+            // show the HUC12 GeoJSON colored by number of threats
+            // (style already set)
             composite.setVisibility(true);
             coa_map.setVisibility(false);
             individual.setVisibility(false);
