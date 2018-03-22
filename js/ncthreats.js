@@ -1530,7 +1530,7 @@ Ext.onReady(function() {
                     }, {
                         xtype: 'button',
                         width: 80,
-                        text: 'Save',
+                        text: 'AOI Info',
                         id: "resource_btn",
                         handler: aoi_to_file
                     }
