@@ -4203,11 +4203,9 @@ Ext.onReady(function() {
     var top_five;
     var coa_script = function() {
         click.activate();
-        $("input[name='ncwrc_basins']").click(function(e) {
-            formPanel2.getComponent('rg1').setValue('predefined');
 
-            console.log(e.currentTarget.value);
-            var basin = e.currentTarget.value;
+        // update coas for each basin based on basin (value) and check box
+        var update_basins = function(basin) {
             keycode = basin;
             var tier1 = document.getElementById('tier1_chk').checked;
             var tier2 = document.getElementById('tier2_chk').checked;
@@ -4237,6 +4235,23 @@ Ext.onReady(function() {
                     $('#lgdimg').attr("src", "images/RivBasinPriorityLegend.png");
                 }
             });
+        };
+
+        // update coa after river basin radio button is selected
+        $("input[name='ncwrc_basins']").click(function(e) {
+            formPanel2.getComponent('rg1').setValue('predefined');
+
+            console.log(e.currentTarget.value);
+            var basin = e.currentTarget.value;
+
+            update_basins(basin);
+        });
+
+        // update coa after include/exclude priority subwatershed check box
+        $("#tier1_chk,#tier2_chk,#rivbuff_chk").click(function(e) {
+            var basin = $("input[name='ncwrc_basins']:checked").prop('value');
+            console.log(basin);
+            update_basins(basin);
         });
 
         $("input[name='reg_com']").click(function(e) {
