@@ -4351,6 +4351,8 @@ Ext.onReady(function() {
 
 
                     // }
+                    ncwrc_basins.setVisibility(false);
+                    ncwrc_priorities.setVisibility(false);
                     composite.setVisibility(false);
                     individual.setVisibility(false);
                     coa_map.setVisibility(true);
