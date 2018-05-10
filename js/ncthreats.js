@@ -2814,10 +2814,26 @@ Ext.onReady(function() {
     toolbarItems.push(action);
     // toolbarItems.push("-");
 
+    // button to deactivate zooming by rectangle and active
+    // panning and selecting or clicking by pointer
+    var button_standard_pointer = new Ext.Button({
+        // text: "query",
+        tooltip: "enable standard pointer, disable zoom box",
+        enableToggle: true,
+        toggleGroup: 'zooms_and_pointers',
+        iconCls: "standard_pointer",
+        handler: function() {
+            zoom_box(false);
+        }
+    });
+    toolbarItems.push(button_standard_pointer);
+
+    // button to activate zooming by rectangle
     var button_toolbar1 = new Ext.Button({
         // text: "query",
         tooltip: "enable zoom box",
         enableToggle: true,
+        toggleGroup: 'zooms_and_pointers',
         iconCls: "zoom_box",
         handler: function() {
             var test = this.pressed;

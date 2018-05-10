@@ -38,6 +38,11 @@
 	width: 24px !important;
 	height: 24px !important;
 }
+.standard_pointer {
+	background-image: url('../images/pointer.png');
+	width: 24px !important;
+	height: 24px !important;
+}
 div.olControlMousePosition {
 
 	/* right: 100px !important;
