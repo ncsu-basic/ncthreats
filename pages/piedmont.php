@@ -31,7 +31,12 @@ foreach ($result as $key => $value) {
     if ($value['region'] == 'Piedmont' && $value['type'] == 'Terrestrial') {
         echo "<tr>";
         echo "<td class='coatables1'>{$value['communityname']}</td>";
-        echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
+        if ($value['nsppwrc_sgcn'] > 0) {
+            echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
+        }
+        else {
+            echo "<td class='coatables'>-</td>";
+        }
         // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_sgcn']}</td>";
@@ -51,7 +56,12 @@ foreach ($result as $key => $value) {
     if ($value['region'] == 'Piedmont' && $value['type'] == 'Wetland') {
         echo "<tr>";
         echo "<td class='coatables1'>{$value['communityname']}</td>";
-        echo "<td class='coatables'><input name='reg_com'  value='{$value['keycode']}' type='radio' /></td>";
+        if ($value['nsppwrc_sgcn'] > 0) {
+            echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
+        }
+        else {
+            echo "<td class='coatables'>-</td>";
+        }
         // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_sgcn']}</td>";
@@ -70,7 +80,12 @@ foreach ($result as $key => $value) {
         // print "<br>";
         echo "<tr>";
         echo "<td class='coatables1'>{$value['communityname']}</td>";
-        echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
+        if ($value['nsppwrc_sgcn'] > 0) {
+            echo "<td class='coatables'><input name='reg_com' value='{$value['keycode']}' type='radio' /></td>";
+        }
+        else {
+            echo "<td class='coatables'>-</td>";
+        }
         // echo "<td class='coatables'>{$value['nsppwrc_all']}</td>";
         // echo "<td class='coatables'><input name='reg_com' type='radio' /></td>";
         echo "<td class='coatables'>{$value['nsppwrc_sgcn']}</td>";
